@@ -37,6 +37,13 @@ git show origin/feature/real-data:web/public/pairings.json
 ```
 Never delete this branch or open a PR to merge it into `main`.
 
+## Updating pairings data
+
+To update the ingredient/pairing dataset without triggering a full pipeline run:
+1. Commit the new `pairings.json` to `feature/real-data` (use git push or the agent workaround for large files)
+2. Push a trivial change to `main` (e.g. update CLAUDE.md) to trigger the deploy workflow
+3. The deploy workflow reads `pairings.json` from `feature/real-data` at build time
+
 ## Generating real recipe data
 
 Use the `generate-pairings` GitHub Actions workflow (Actions tab → "Generate pairings data" → Run workflow). Provide the URL of the RecipeNLG zip from the GitHub release. The workflow commits the result to `feature/real-data`.
