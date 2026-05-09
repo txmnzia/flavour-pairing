@@ -3,10 +3,13 @@ name: Generate Pairings Data
 on:
   workflow_dispatch:
     inputs:
+      csv_url:
+        description: "URL to full_dataset.csv (from a GitHub release asset). See README for how to obtain it."
+        required: true
       limit:
         description: "Max recipes to process (leave blank for full 2.2M dataset)"
         required: false
-        default: "500000"
+        default: ""
       branch:
         description: "Branch to commit pairings.json to"
         required: false
@@ -31,11 +34,11 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Cache HuggingFace datasets
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/huggingface
-          key: huggingface-recipenlg-${{ github.event.inputs.limit || 'full' }}
+      - name: Download dataset CSV
+        run: |
+          echo "Downloading full_dataset.csv…"
+          curl -L -o /tmp/full_dataset.csv "${{ github.event.inputs.csv_url }}"
+          ls -lh /tmp/full_dataset.csv
 
       - name: Install pipeline dependencies
         run: pip install -r pipeline/requirements.txt
@@ -44,20 +47,19 @@ jobs:
         env:
           LIMIT: ${{ github.event.inputs.limit }}
         run: |
-          if [ -z "$LIMIT" ]; then
-            echo "Running full dataset (no limit)…"
-            python pipeline/process.py \
-              --source huggingface \
-              --output /tmp/pairings.db \
-              --json-output web/public/pairings.json
-          else
+          LIMIT_ARG=""
+          if [ -n "$LIMIT" ]; then
+            LIMIT_ARG="--limit $LIMIT"
             echo "Running with limit: $LIMIT recipes…"
-            python pipeline/process.py \
-              --source huggingface \
-              --limit "$LIMIT" \
-              --output /tmp/pairings.db \
-              --json-output web/public/pairings.json
+          else
+            echo "Running full dataset (no limit)…"
           fi
+          python pipeline/process.py \
+            --source csv \
+            --input /tmp/full_dataset.csv \
+            $LIMIT_ARG \
+            --output /tmp/pairings.db \
+            --json-output web/public/pairings.json
 
       - name: Show output stats
         run: |
