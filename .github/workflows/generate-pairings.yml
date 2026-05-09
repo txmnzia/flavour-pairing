@@ -1,0 +1,86 @@
+name: Generate Pairings Data
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Max recipes to process (leave blank for full 2.2M dataset)"
+        required: false
+        default: "500000"
+      branch:
+        description: "Branch to commit pairings.json to"
+        required: false
+        default: "feature/real-data"
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    # This job can take 30–90 minutes for the full dataset
+    timeout-minutes: 120
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Cache HuggingFace datasets
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: huggingface-recipenlg-${{ github.event.inputs.limit || 'full' }}
+
+      - name: Install pipeline dependencies
+        run: pip install -r pipeline/requirements.txt
+
+      - name: Run pipeline
+        env:
+          LIMIT: ${{ github.event.inputs.limit }}
+        run: |
+          if [ -z "$LIMIT" ]; then
+            echo "Running full dataset (no limit)…"
+            python pipeline/process.py \
+              --source huggingface \
+              --output /tmp/pairings.db \
+              --json-output web/public/pairings.json
+          else
+            echo "Running with limit: $LIMIT recipes…"
+            python pipeline/process.py \
+              --source huggingface \
+              --limit "$LIMIT" \
+              --output /tmp/pairings.db \
+              --json-output web/public/pairings.json
+          fi
+
+      - name: Show output stats
+        run: |
+          ls -lh web/public/pairings.json
+          python - <<'EOF'
+          import json
+          with open("web/public/pairings.json") as f:
+              d = json.load(f)
+          print(f"Ingredients : {len(d['i']):,}")
+          print(f"Cuisines    : {len(d['c']):,}")
+          print(f"Pairing grp : {len(d['p']):,}")
+          EOF
+
+      - name: Commit and push pairings.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f web/public/pairings.json
+          LIMIT="${{ github.event.inputs.limit }}"
+          if [ -z "$LIMIT" ]; then
+            MSG="data: generate pairings from full RecipeNLG dataset"
+          else
+            MSG="data: generate pairings from RecipeNLG (${LIMIT} recipes)"
+          fi
+          git commit -m "$MSG"
+          git push origin ${{ github.event.inputs.branch }}
