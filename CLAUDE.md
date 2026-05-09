@@ -14,6 +14,21 @@
 - `web/public/pairings.json` and `web/public/pairings.db` are generated build artifacts — do not commit them.
 - `web/package-lock.json` should be kept up to date and committed.
 
+## Generating real recipe data
+
+Run this once locally after `pip install -r pipeline/requirements.txt`:
+
+```bash
+python pipeline/process.py \
+  --source huggingface \
+  --limit 500000 \
+  --output /tmp/pairings.db \
+  --json-output web/public/pairings.json
+```
+
+Then commit `web/public/pairings.json` — the deploy workflow detects it and skips the demo generator.
+To use a local RecipeNLG CSV instead: `--source csv --input data/full_dataset.csv`.
+
 ## Architecture notes
 
 - **No backend.** Everything is static, deployed to GitHub Pages.
