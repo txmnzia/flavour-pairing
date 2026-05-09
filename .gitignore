@@ -9,9 +9,11 @@ dist/
 
 # Data (large files not committed — run pipeline locally)
 pipeline/data/
-# pairings.json and pairings.db are generated at build time — do not commit.
-web/public/pairings.json
+# pairings.db is always a generated artifact — never commit.
 web/public/pairings.db
+# pairings.json: commit it when generated from real data (process.py).
+# Do NOT commit it when it's the demo version (generate_demo.py).
+# If unsure, check file size: real data is several MB, demo is ~300 KB.
 
 # Node
 node_modules/

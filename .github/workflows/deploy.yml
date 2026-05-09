@@ -26,8 +26,14 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Generate pairing data
-        run: python pipeline/generate_demo.py --output /tmp/pairings.db --json-output web/public/pairings.json
+      - name: Generate demo data (skipped if real pairings.json is committed)
+        run: |
+          if [ -f web/public/pairings.json ]; then
+            echo "Real pairings.json found — skipping demo generation."
+          else
+            echo "No pairings.json found — generating demo data."
+            python pipeline/generate_demo.py --output /tmp/pairings.db --json-output web/public/pairings.json
+          fi
 
       - uses: actions/setup-node@v4
         with:
