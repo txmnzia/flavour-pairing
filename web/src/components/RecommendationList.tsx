@@ -4,6 +4,7 @@ interface Props {
   recommendations: Pairing[];
   selectedCount: number;
   onAdd: (name: string) => void;
+  translate: (name: string) => string;
 }
 
 function ScoreBar({ value }: { value: number }) {
@@ -28,24 +29,21 @@ function ScoreBar({ value }: { value: number }) {
 }
 
 function CoverageTag({ coverage, total }: { coverage: number; total: number }) {
-  if (total <= 1) return null;
+  if (total <= 1 || coverage === total) return null;
   return (
-    <span className={`
-      text-xs px-1.5 py-0.5 rounded-full shrink-0
-      ${coverage === total ? "bg-emerald-500/20 text-emerald-300" : "bg-white/10 text-white/40"}
-    `}>
+    <span className="text-xs px-1.5 py-0.5 rounded-full shrink-0 bg-white/10 text-white/40">
       {coverage}/{total}
     </span>
   );
 }
 
-export default function RecommendationList({ recommendations, selectedCount, onAdd }: Props) {
+export default function RecommendationList({ recommendations, selectedCount, onAdd, translate }: Props) {
   if (recommendations.length === 0) {
     return (
       <p className="text-center text-white/30 text-sm py-12">
         {selectedCount === 0
-          ? "Add an ingredient above to see pairings"
-          : "No pairings found — try a different cuisine or ingredient"}
+          ? translate("Add an ingredient above to see pairings")
+          : translate("No pairings found — try a different cuisine or ingredient")}
       </p>
     );
   }
@@ -63,20 +61,16 @@ export default function RecommendationList({ recommendations, selectedCount, onA
               transition-all duration-150 text-left group
             "
           >
-            {/* Ingredient name */}
             <span className="flex-1 text-sm text-white capitalize truncate group-hover:text-white">
-              {pairing.ingredient.name}
+              {translate(pairing.ingredient.name)}
             </span>
 
-            {/* Coverage badge */}
             <CoverageTag coverage={pairing.coverage} total={selectedCount} />
 
-            {/* Score bar */}
             <div className="w-24 shrink-0">
               <ScoreBar value={pairing.npmi} />
             </div>
 
-            {/* Add icon */}
             <svg
               className="w-4 h-4 text-white/20 group-hover:text-brand-400 transition-colors shrink-0"
               fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
