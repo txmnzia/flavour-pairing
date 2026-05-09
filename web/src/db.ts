@@ -7,12 +7,12 @@ export async function loadDatabase(onProgress: (msg: string) => void): Promise<v
   onProgress("Loading SQL engine…");
 
   const SQL = await initSqlJs({
-    locateFile: (file: string) => `/${file}`,
+    locateFile: (file: string) => import.meta.env.BASE_URL + file,
   });
 
   onProgress("Fetching pairing data…");
 
-  const response = await fetch("/pairings.db");
+  const response = await fetch(import.meta.env.BASE_URL + "pairings.db");
   if (!response.ok) throw new Error(`Failed to fetch pairings.db: ${response.status}`);
 
   const buffer = await response.arrayBuffer();
