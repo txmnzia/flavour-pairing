@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+dist/
+.eggs/
+
+# Data (large files not committed — run pipeline locally)
+pipeline/data/
+# The full pairings.db (generated from RecipeNLG) is not committed.
+# The demo version at web/public/pairings.db IS committed — do not add it here.
+
+# Node
+node_modules/
+web/dist/
+
+# Misc
+.DS_Store
+*.log
+.env
