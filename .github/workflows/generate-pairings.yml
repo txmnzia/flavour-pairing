@@ -34,11 +34,16 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Download dataset CSV
+      - name: Download and extract dataset
         run: |
-          echo "Downloading full_dataset.csv…"
-          curl -L -o /tmp/full_dataset.csv "${{ github.event.inputs.csv_url }}"
-          ls -lh /tmp/full_dataset.csv
+          echo "Downloading dataset…"
+          curl -L -o /tmp/dataset.zip "${{ github.event.inputs.csv_url }}"
+          echo "Extracting…"
+          unzip -o /tmp/dataset.zip -d /tmp/dataset/
+          find /tmp/dataset/ -name "*.csv" | head -5
+          CSV_PATH=$(find /tmp/dataset/ -name "*.csv" | head -1)
+          echo "CSV_PATH=$CSV_PATH" >> $GITHUB_ENV
+          ls -lh "$CSV_PATH"
 
       - name: Install pipeline dependencies
         run: pip install -r pipeline/requirements.txt
@@ -56,7 +61,7 @@ jobs:
           fi
           python pipeline/process.py \
             --source csv \
-            --input /tmp/full_dataset.csv \
+            --input "$CSV_PATH" \
             $LIMIT_ARG \
             --output /tmp/pairings.db \
             --json-output web/public/pairings.json
