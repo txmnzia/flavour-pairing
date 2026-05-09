@@ -5,7 +5,8 @@
 - When the user lists feature ideas, create a GitHub issue for each one (repo: `txmnzia/flavour-pairing`) with a clear description, options, and recommended approach.
 - Features are prioritised periodically. **Only implement the highest-priority open issue.** Never work ahead.
 - Each feature gets its own branch: `feature/<short-name>`. Never implement on `main` directly.
-- When a feature is complete, push the branch and ask the user if they want to merge.
+- When a feature is complete and working, merge it to `main` immediately without asking — don't wait for permission.
+- Exception: destructive changes (schema changes, removing features) — confirm before merging.
 - Branches allow easy rollback — keep them clean and focused on one issue.
 
 ## Git hygiene
