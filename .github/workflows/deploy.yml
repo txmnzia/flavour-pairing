@@ -21,13 +21,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Generate pairing data
-        run: python pipeline/generate_demo.py --output /tmp/pairings.db --json-output web/public/pairings.json
+      - name: Use real pairings.json if available, otherwise generate demo
+        run: |
+          if git show origin/feature/real-data:web/public/pairings.json > web/public/pairings.json 2>/dev/null; then
+            echo "Real pairings.json loaded from feature/real-data."
+          elif [ -f web/public/pairings.json ]; then
+            echo "Real pairings.json found in checkout — skipping demo generation."
+          else
+            echo "No pairings.json found — generating demo data."
+            python pipeline/generate_demo.py --output /tmp/pairings.db --json-output web/public/pairings.json
+          fi
 
       - uses: actions/setup-node@v4
         with:
