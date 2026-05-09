@@ -9,8 +9,9 @@ dist/
 
 # Data (large files not committed — run pipeline locally)
 pipeline/data/
-# The full pairings.db (generated from RecipeNLG) is not committed.
-# The demo version at web/public/pairings.db IS committed — do not add it here.
+# pairings.json and pairings.db are generated at build time — do not commit.
+web/public/pairings.json
+web/public/pairings.db
 
 # Node
 node_modules/
