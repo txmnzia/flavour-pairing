@@ -2,6 +2,7 @@ import type { Ingredient, Cuisine, Pairing } from "./types";
 
 interface RawData {
   v: number;
+  meta?: { source: string; recipes: number };
   i: string[];                            // ingredients[idx] = name
   c: string[];                            // cuisines[idx] = name, c[0] = "all"
   p: Record<string, [number, number][]>;  // "cuisineIdx,ingredientIdx" → [[pairedIdx, npmi*100], …]
@@ -20,6 +21,10 @@ export async function loadDatabase(onProgress: (msg: string) => void): Promise<v
 function requireRaw(): RawData {
   if (!raw) throw new Error("Data not loaded");
   return raw;
+}
+
+export function getDataMeta(): { source: string; recipes: number } {
+  return requireRaw().meta ?? { source: "demo", recipes: 0 };
 }
 
 export function getAllIngredients(): Ingredient[] {
