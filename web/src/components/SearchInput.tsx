@@ -5,12 +5,14 @@ interface Props {
   ingredients: Ingredient[];
   selectedIds: Set<number>;
   onSelect: (ingredient: Ingredient) => void;
+  translate: (name: string) => string;
+  placeholder?: string;
   disabled?: boolean;
 }
 
 const MAX_SUGGESTIONS = 8;
 
-export default function SearchInput({ ingredients, selectedIds, onSelect, disabled }: Props) {
+export default function SearchInput({ ingredients, selectedIds, onSelect, translate, placeholder, disabled }: Props) {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const [activeIdx, setActiveIdx] = useState(-1);
@@ -21,15 +23,17 @@ export default function SearchInput({ ingredients, selectedIds, onSelect, disabl
   const suggestions = query.length < 1
     ? []
     : ingredients
-        .filter(
-          (i) =>
-            !selectedIds.has(i.id) &&
-            i.name.toLowerCase().includes(query.toLowerCase())
-        )
+        .filter((i) => {
+          if (selectedIds.has(i.id)) return false;
+          const display = translate(i.name).toLowerCase();
+          return display.includes(query.toLowerCase());
+        })
         .sort((a, b) => {
-          // Exact prefix first, then frequency
-          const aPrefix = a.name.toLowerCase().startsWith(query.toLowerCase());
-          const bPrefix = b.name.toLowerCase().startsWith(query.toLowerCase());
+          const aName = translate(a.name).toLowerCase();
+          const bName = translate(b.name).toLowerCase();
+          const q = query.toLowerCase();
+          const aPrefix = aName.startsWith(q);
+          const bPrefix = bName.startsWith(q);
           if (aPrefix !== bPrefix) return aPrefix ? -1 : 1;
           return b.freq - a.freq;
         })
@@ -38,6 +42,11 @@ export default function SearchInput({ ingredients, selectedIds, onSelect, disabl
   useEffect(() => {
     setActiveIdx(-1);
   }, [query]);
+
+  // Reset query when language changes (translated query is no longer valid)
+  useEffect(() => {
+    setQuery("");
+  }, [translate]);
 
   function handleKeyDown(e: React.KeyboardEvent) {
     if (!open || suggestions.length === 0) return;
@@ -63,7 +72,6 @@ export default function SearchInput({ ingredients, selectedIds, onSelect, disabl
     inputRef.current?.focus();
   }
 
-  // Scroll active item into view
   useEffect(() => {
     if (activeIdx >= 0 && listRef.current) {
       const item = listRef.current.children[activeIdx] as HTMLElement;
@@ -95,7 +103,7 @@ export default function SearchInput({ ingredients, selectedIds, onSelect, disabl
           onFocus={() => setOpen(true)}
           onBlur={() => setTimeout(() => setOpen(false), 150)}
           onKeyDown={handleKeyDown}
-          placeholder={disabled ? "Loading…" : "Add an ingredient…"}
+          placeholder={disabled ? "Chargement…" : (placeholder ?? "Add an ingredient…")}
           className="
             w-full pl-10 pr-4 py-3 rounded-xl
             bg-white/10 border border-white/20 text-white placeholder-white/40
@@ -129,7 +137,7 @@ export default function SearchInput({ ingredients, selectedIds, onSelect, disabl
                 ${idx < suggestions.length - 1 ? "border-b border-white/10" : ""}
               `}
             >
-              {ing.name}
+              {translate(ing.name)}
             </li>
           ))}
         </ul>
