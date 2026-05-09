@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { loadDatabase, getAllIngredients, getAllCuisines, getRecommendations } from "./db";
+import { loadDatabase, getAllIngredients, getAllCuisines, getRecommendations, getDataMeta } from "./db";
 import type { Ingredient, Cuisine, Pairing, DbStatus } from "./types";
 import CuisineFilter from "./components/CuisineFilter";
 import IngredientChip from "./components/IngredientChip";
@@ -15,6 +15,7 @@ export default function App() {
   const [selectedIngredients, setSelectedIngredients] = useState<Ingredient[]>([]);
   const [selectedCuisine, setSelectedCuisine] = useState<Cuisine | null>(null);
   const [recommendations, setRecommendations] = useState<Pairing[]>([]);
+  const [dataMeta, setDataMeta] = useState<{ source: string; recipes: number } | null>(null);
 
   // Boot: load DB
   useEffect(() => {
@@ -23,6 +24,7 @@ export default function App() {
       .then(() => {
         setIngredients(getAllIngredients());
         setCuisines(getAllCuisines());
+        setDataMeta(getDataMeta());
         setStatus({ state: "ready" });
       })
       .catch((err) => {
@@ -160,9 +162,19 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="text-center text-xs text-white/20 py-4 px-4">
-        Scores based on recipe co-occurrence (NPMI)
-        {selectedCuisine && ` · ${selectedCuisine.name} cuisine`}
+      <footer className="text-center text-xs text-white/20 py-4 px-4 space-y-0.5">
+        {dataMeta ? (
+          <>
+            <div>
+              {dataMeta.source === "demo" && "Demo data · not based on real recipes"}
+              {dataMeta.source === "recipenlg" && `Based on ${(dataMeta.recipes / 1_000_000).toFixed(1)}M recipes · RecipeNLG dataset`}
+              {dataMeta.source === "recipenlg+marmiton" && `Based on ${(dataMeta.recipes / 1_000_000).toFixed(1)}M recipes · RecipeNLG + Marmiton`}
+            </div>
+            <div>Ranked by co-occurrence (NPMI)</div>
+          </>
+        ) : (
+          <div>Ranked by co-occurrence (NPMI)</div>
+        )}
       </footer>
     </div>
   );
