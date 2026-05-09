@@ -257,7 +257,9 @@ def export_json(con: sqlite3.Connection, json_path: str) -> None:
         key = f"{sql_cuis_to_idx[c_id]},{sql_ing_to_idx[a_id]}"
         pairings.setdefault(key, []).append([sql_ing_to_idx[b_id], round(score * 100)])
 
-    data = {"v": 1, "i": ingredients, "c": cuisines, "p": pairings}
+    recipe_count = con.execute("SELECT recipe_count FROM cuisines WHERE name = 'all'").fetchone()
+    meta = {"source": "recipenlg", "recipes": recipe_count[0] if recipe_count else 0}
+    data = {"v": 1, "meta": meta, "i": ingredients, "c": cuisines, "p": pairings}
 
     out = Path(json_path)
     out.parent.mkdir(parents=True, exist_ok=True)
