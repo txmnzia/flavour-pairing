@@ -28,12 +28,9 @@ function ScoreBar({ value }: { value: number }) {
 }
 
 function CoverageTag({ coverage, total }: { coverage: number; total: number }) {
-  if (total <= 1) return null;
+  if (total <= 1 || coverage === total) return null;
   return (
-    <span className={`
-      text-xs px-1.5 py-0.5 rounded-full shrink-0
-      ${coverage === total ? "bg-emerald-500/20 text-emerald-300" : "bg-white/10 text-white/40"}
-    `}>
+    <span className="text-xs px-1.5 py-0.5 rounded-full shrink-0 bg-white/10 text-white/40">
       {coverage}/{total}
     </span>
   );
