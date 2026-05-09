@@ -5,7 +5,7 @@ import CuisineFilter from "./components/CuisineFilter";
 import IngredientChip from "./components/IngredientChip";
 import SearchInput from "./components/SearchInput";
 import RecommendationList from "./components/RecommendationList";
-import fr from "./translations/fr.json";
+import { translateFr } from "./utils/translateFr";
 
 const TOP_N = 30;
 
@@ -20,7 +20,7 @@ export default function App() {
   const [lang, setLang] = useState<"en" | "fr">("en");
 
   const translate = useCallback(
-    (name: string) => lang === "fr" ? (fr[name as keyof typeof fr] ?? name) : name,
+    (name: string) => lang === "fr" ? translateFr(name) : name,
     [lang]
   );
 
