@@ -1,3 +1,4 @@
 pandas>=2.0
 numpy>=1.24
 tqdm>=4.65
+datasets>=2.19,<3.0  # HuggingFace — pinned <3.0 because recipe_nlg uses a loading script
