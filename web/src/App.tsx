@@ -5,6 +5,7 @@ import CuisineFilter from "./components/CuisineFilter";
 import IngredientChip from "./components/IngredientChip";
 import SearchInput from "./components/SearchInput";
 import RecommendationList from "./components/RecommendationList";
+import fr from "./translations/fr.json";
 
 const TOP_N = 30;
 
@@ -16,6 +17,12 @@ export default function App() {
   const [selectedCuisine, setSelectedCuisine] = useState<Cuisine | null>(null);
   const [recommendations, setRecommendations] = useState<Pairing[]>([]);
   const [dataMeta, setDataMeta] = useState<{ source: string; recipes: number } | null>(null);
+  const [lang, setLang] = useState<"en" | "fr">("en");
+
+  const translate = useCallback(
+    (name: string) => lang === "fr" ? (fr[name as keyof typeof fr] ?? name) : name,
+    [lang]
+  );
 
   // Boot: load DB
   useEffect(() => {
@@ -78,13 +85,22 @@ export default function App() {
             </p>
           </div>
         </div>
-        {isReady && (
-          <CuisineFilter
-            cuisines={cuisines}
-            selected={selectedCuisine}
-            onChange={setSelectedCuisine}
-          />
-        )}
+        <div className="flex items-center gap-2">
+          {isReady && (
+            <CuisineFilter
+              cuisines={cuisines}
+              selected={selectedCuisine}
+              onChange={setSelectedCuisine}
+            />
+          )}
+          <button
+            onClick={() => setLang((l) => (l === "en" ? "fr" : "en"))}
+            className="text-lg px-2 py-1 rounded-lg bg-white/10 hover:bg-white/20 transition-colors leading-none"
+            title={lang === "en" ? "Switch to French" : "Passer en anglais"}
+          >
+            {lang === "en" ? "🇫🇷" : "🇬🇧"}
+          </button>
+        </div>
       </header>
 
       <main className="flex-1 max-w-lg mx-auto w-full px-4 py-6 flex flex-col gap-6">
@@ -111,6 +127,8 @@ export default function App() {
             ingredients={ingredients}
             selectedIds={selectedIds}
             onSelect={(ing) => addIngredient(ing.name)}
+            translate={translate}
+            placeholder={lang === "fr" ? "Ajouter un ingrédient…" : "Add an ingredient…"}
             disabled={!isReady}
           />
         </section>
@@ -119,19 +137,21 @@ export default function App() {
         {selectedIngredients.length > 0 && (
           <section>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs text-white/40 uppercase tracking-wider">Selected</span>
+              <span className="text-xs text-white/40 uppercase tracking-wider">
+                {lang === "fr" ? "Sélectionnés" : "Selected"}
+              </span>
               <button
                 onClick={() => setSelectedIngredients([])}
                 className="text-xs text-white/30 hover:text-white/60 transition-colors"
               >
-                Clear all
+                {lang === "fr" ? "Tout effacer" : "Clear all"}
               </button>
             </div>
             <div className="flex flex-wrap gap-2">
               {selectedIngredients.map((ing) => (
                 <IngredientChip
                   key={ing.id}
-                  name={ing.name}
+                  name={translate(ing.name)}
                   onRemove={() => removeIngredient(ing.id)}
                 />
               ))}
@@ -145,10 +165,10 @@ export default function App() {
             {selectedIngredients.length > 0 && (
               <div className="flex items-center justify-between mb-3">
                 <span className="text-xs text-white/40 uppercase tracking-wider">
-                  Pairs well with
+                  {lang === "fr" ? "Se marie bien avec" : "Pairs well with"}
                 </span>
                 <span className="text-xs text-white/30">
-                  tap to add
+                  {lang === "fr" ? "appuyer pour ajouter" : "tap to add"}
                 </span>
               </div>
             )}
@@ -156,6 +176,7 @@ export default function App() {
               recommendations={recommendations}
               selectedCount={selectedIngredients.length}
               onAdd={addIngredient}
+              translate={translate}
             />
           </section>
         )}
