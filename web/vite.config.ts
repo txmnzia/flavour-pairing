@@ -10,7 +10,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["pairings.db", "icons/*.png"],
+      includeAssets: ["pairings.json", "icons/*.png"],
       manifest: {
         name: "Flavour Pairing",
         short_name: "Flavour",
@@ -25,30 +25,18 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ["**/*.{js,css,html,wasm}"],
+        globPatterns: ["**/*.{js,css,html}"],
         runtimeCaching: [
           {
-            urlPattern: /pairings\.db$/,
+            urlPattern: /pairings\.json$/,
             handler: "CacheFirst",
             options: {
-              cacheName: "pairings-db",
+              cacheName: "pairings-data",
               expiration: { maxEntries: 1, maxAgeSeconds: 60 * 60 * 24 * 30 },
             },
-          },
-          {
-            urlPattern: /sql-wasm\.wasm$/,
-            handler: "CacheFirst",
-            options: { cacheName: "sql-wasm" },
           },
         ],
       },
     }),
   ],
-  optimizeDeps: {
-    exclude: ["sql.js"],
-  },
-  // sql.js needs the WASM file served correctly
-  server: {
-    headers: { "Cross-Origin-Opener-Policy": "same-origin", "Cross-Origin-Embedder-Policy": "require-corp" },
-  },
 });
