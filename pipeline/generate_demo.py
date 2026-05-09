@@ -256,7 +256,6 @@ def generate(output_path: str) -> None:
     }
 
     def insert_pairs(pairs_with_scores, cid):
-        # Group by ingredient_a, keep top N by score
         from itertools import groupby
         rows = sorted(pairs_with_scores, key=lambda r: (r[0], -r[2]))
         kept = []
@@ -302,8 +301,45 @@ def generate(output_path: str) -> None:
     print(f"  File size   : {size_kb:.0f} KB")
 
 
+def export_json(db_path: Path, json_path: str) -> None:
+    """Export the SQLite DB to the compact JSON format consumed by the web app."""
+    con = sqlite3.connect(db_path)
+
+    ing_rows = con.execute("SELECT id, name FROM ingredients ORDER BY id").fetchall()
+    ingredients = [name for _, name in ing_rows]
+    sql_ing_to_idx = {sql_id: idx for idx, (sql_id, _) in enumerate(ing_rows)}
+
+    # Cuisines: "all" must be at index 0
+    cuis_rows = con.execute("SELECT id, name FROM cuisines ORDER BY id").fetchall()
+    cuis_rows.sort(key=lambda r: (r[1] != "all", r[1]))
+    cuisines = [name for _, name in cuis_rows]
+    sql_cuis_to_idx = {sql_id: idx for idx, (sql_id, _) in enumerate(cuis_rows)}
+
+    pairings: dict[str, list] = {}
+    for a_id, b_id, c_id, npmi in con.execute(
+        "SELECT ingredient_a, ingredient_b, cuisine_id, npmi FROM pairings"
+        " ORDER BY cuisine_id, ingredient_a, npmi DESC"
+    ).fetchall():
+        key = f"{sql_cuis_to_idx[c_id]},{sql_ing_to_idx[a_id]}"
+        pairings.setdefault(key, []).append([sql_ing_to_idx[b_id], round(npmi * 100)])
+
+    data = {"v": 1, "i": ingredients, "c": cuisines, "p": pairings}
+
+    out = Path(json_path)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    import json as _json
+    with open(out, "w") as f:
+        _json.dump(data, f, separators=(",", ":"))
+
+    size_kb = out.stat().st_size / 1024
+    print(f"  JSON → {json_path} ({size_kb:.0f} KB, {len(pairings)} pairing groups)")
+    con.close()
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", default="../web/public/pairings.db")
+    parser.add_argument("--json-output", default="../web/public/pairings.json")
     args = parser.parse_args()
     generate(args.output)
+    export_json(Path(args.output), args.json_output)
