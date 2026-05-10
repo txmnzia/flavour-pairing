@@ -122,13 +122,21 @@ export default function App() {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <button
-            onClick={() => setLang((l) => (l === "en" ? "fr" : "en"))}
-            className="text-lg px-2 py-1 rounded-lg bg-white/10 hover:bg-white/20 transition-colors leading-none"
-            title={lang === "en" ? "Switch to French" : "Passer en anglais"}
-          >
-            {lang === "en" ? "🇫🇷" : "🇬🇧"}
-          </button>
+          <div className="inline-flex rounded-lg border border-white/20 overflow-hidden text-xs font-semibold">
+            {(["en", "fr"] as const).map((l) => (
+              <button
+                key={l}
+                onClick={() => setLang(l)}
+                className={`px-3 py-1.5 uppercase tracking-wide transition-colors ${
+                  lang === l
+                    ? "bg-white/20 text-white"
+                    : "text-white/40 hover:text-white/60"
+                }`}
+              >
+                {l}
+              </button>
+            ))}
+          </div>
         </div>
       </header>
 
