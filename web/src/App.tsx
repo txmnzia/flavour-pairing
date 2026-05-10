@@ -2,7 +2,6 @@ import { useState, useEffect, useMemo, useCallback } from "react";
 import { loadDatabase, getAllIngredients, getAllCuisines, getRecommendations, getDataMeta } from "./db";
 import type { Ingredient, Cuisine, Pairing, DbStatus } from "./types";
 import CuisineFilter from "./components/CuisineFilter";
-import IngredientChip from "./components/IngredientChip";
 import SearchInput from "./components/SearchInput";
 import RecommendationList from "./components/RecommendationList";
 import { translateFr } from "./utils/translateFr";
@@ -164,31 +163,6 @@ export default function App() {
           />
         </section>
 
-        {selectedIngredients.length > 0 && (
-          <section>
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs text-white/40 uppercase tracking-wider">
-                {lang === "fr" ? "Sélectionnés" : "Selected"}
-              </span>
-              <button
-                onClick={() => setSelectedIngredients([])}
-                className="text-xs text-white/30 hover:text-white/60 transition-colors"
-              >
-                {lang === "fr" ? "Tout effacer" : "Clear all"}
-              </button>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {selectedIngredients.map((ing) => (
-                <IngredientChip
-                  key={ing.id}
-                  name={translate(ing.name)}
-                  onRemove={() => removeIngredient(ing.id)}
-                />
-              ))}
-            </div>
-          </section>
-        )}
-
         {isReady && (
           <section className="flex-1">
             {isBrowsing ? (
@@ -216,17 +190,23 @@ export default function App() {
               <>
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs text-white/40 uppercase tracking-wider">
-                    {lang === "fr" ? "Se marie bien avec" : "Pairs well with"}
+                    {lang === "fr" ? "Sélectionnés" : "Selected"}
                   </span>
-                  <span className="text-xs text-white/30">
-                    {lang === "fr" ? "appuyer pour ajouter" : "tap to add"}
-                  </span>
+                  <button
+                    onClick={() => setSelectedIngredients([])}
+                    className="text-xs text-white/30 hover:text-white/60 transition-colors"
+                  >
+                    {lang === "fr" ? "Tout effacer" : "Clear all"}
+                  </button>
                 </div>
                 <RecommendationList
                   recommendations={recommendations}
                   selectedCount={selectedIngredients.length}
                   onAdd={addIngredient}
                   translate={translate}
+                  selectedIngredients={selectedIngredients}
+                  maxFreqSelected={maxFreq}
+                  onRemove={removeIngredient}
                 />
               </>
             )}

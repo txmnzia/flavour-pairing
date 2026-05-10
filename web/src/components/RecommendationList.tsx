@@ -5,9 +5,12 @@ interface Props {
   selectedCount: number;
   onAdd: (name: string) => void;
   translate: (name: string) => string;
-  /** Browse mode: show raw ingredients instead of pairings */
   browseIngredients?: Ingredient[];
   maxFreq?: number;
+  /** Selected ingredients to show as removable cards */
+  selectedIngredients?: Ingredient[];
+  maxFreqSelected?: number;
+  onRemove?: (id: number) => void;
 }
 
 function IngredientIcon() {
@@ -54,36 +57,48 @@ function CoverageBadge({ coverage, total }: { coverage: number; total: number })
 
 function Card({
   name, score, scoreColor, coverage, totalSelected, onClick, translate,
+  selected = false,
 }: {
   name: string; score: number; scoreColor?: string;
   coverage?: number; totalSelected?: number;
   onClick: () => void; translate: (n: string) => string;
+  selected?: boolean;
 }) {
   return (
     <button
       onClick={onClick}
-      className="
+      className={`
         flex flex-col rounded-xl overflow-hidden text-left
-        bg-white/5 border border-white/10
-        hover:bg-white/10 hover:border-white/20
-        active:bg-white/15
         transition-all duration-150 group
-      "
+        ${selected
+          ? "bg-brand-600/20 border border-brand-500/50 hover:bg-brand-600/30 hover:border-brand-400/70"
+          : "bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 active:bg-white/15"
+        }
+      `}
     >
       <div className="relative w-full aspect-square bg-white/5 flex items-center justify-center">
         <IngredientIcon />
         {coverage !== undefined && totalSelected !== undefined && (
           <CoverageBadge coverage={coverage} total={totalSelected} />
         )}
-        <div className="
+        <div className={`
           absolute bottom-1.5 right-1.5
           w-5 h-5 rounded-full flex items-center justify-center
-          bg-white/10 group-hover:bg-brand-500
           transition-colors
-        ">
-          <svg className="w-3 h-3 text-white/50 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-          </svg>
+          ${selected
+            ? "bg-brand-500/60 group-hover:bg-red-500"
+            : "bg-white/10 group-hover:bg-brand-500"
+          }
+        `}>
+          {selected ? (
+            <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          ) : (
+            <svg className="w-3 h-3 text-white/50 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+          )}
         </div>
       </div>
       <div className="px-2.5 pt-2 pb-2.5 flex flex-col gap-1.5">
@@ -99,6 +114,7 @@ function Card({
 export default function RecommendationList({
   recommendations, selectedCount, onAdd, translate,
   browseIngredients, maxFreq = 1,
+  selectedIngredients, maxFreqSelected = 1, onRemove,
 }: Props) {
   if (browseIngredients && browseIngredients.length > 0) {
     return (
@@ -125,29 +141,56 @@ export default function RecommendationList({
     );
   }
 
+  const selectedGrid = selectedIngredients && selectedIngredients.length > 0 && onRemove ? (
+    <div className="mb-5">
+      <div className="grid grid-cols-3 gap-2.5">
+        {selectedIngredients.map((ing) => (
+          <Card
+            key={ing.id}
+            name={ing.name}
+            score={ing.freq / maxFreqSelected}
+            scoreColor="bg-brand-400"
+            selected
+            onClick={() => onRemove(ing.id)}
+            translate={translate}
+          />
+        ))}
+      </div>
+      <div className="mt-5 mb-3 flex items-center gap-3">
+        <div className="flex-1 h-px bg-white/10" />
+        <span className="text-xs text-white/30 uppercase tracking-wider shrink-0">pairs well with</span>
+        <div className="flex-1 h-px bg-white/10" />
+      </div>
+    </div>
+  ) : null;
+
   if (recommendations.length === 0) {
     return (
-      <p className="text-center text-white/30 text-sm py-12">
-        {selectedCount === 0
-          ? translate("Add an ingredient above to see pairings")
-          : translate("No pairings found — try a different cuisine or ingredient")}
-      </p>
+      <>
+        {selectedGrid}
+        <p className="text-center text-white/30 text-sm py-12">
+          {translate("No pairings found — try a different cuisine or ingredient")}
+        </p>
+      </>
     );
   }
 
   return (
-    <div className="grid grid-cols-3 gap-2.5">
-      {recommendations.map((pairing) => (
-        <Card
-          key={pairing.ingredient.id}
-          name={pairing.ingredient.name}
-          score={pairing.npmi}
-          coverage={pairing.coverage}
-          totalSelected={selectedCount}
-          onClick={() => onAdd(pairing.ingredient.name)}
-          translate={translate}
-        />
-      ))}
-    </div>
+    <>
+      {selectedGrid}
+      <div className="grid grid-cols-3 gap-2.5">
+        {recommendations.map((pairing) => (
+          <Card
+            key={pairing.ingredient.id}
+            name={pairing.ingredient.name}
+            score={pairing.npmi}
+            coverage={pairing.coverage}
+            totalSelected={selectedCount}
+            onClick={() => onAdd(pairing.ingredient.name)}
+            translate={translate}
+          />
+        ))}
+      </div>
+    </>
   );
 }
