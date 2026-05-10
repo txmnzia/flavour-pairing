@@ -79,7 +79,7 @@ export function getAllIngredients(): Ingredient[] {
   const freq = new Array(raw.i.length).fill(0);
   for (const key of Object.keys(raw.p)) {
     const ingIdx = parseInt(key);
-    freq[ingIdx] += raw.p[key].length;
+    freq[ingIdx] += raw.p[key].reduce((sum, [, s]) => sum + s, 0);
   }
   return raw.i.map((name, id) => ({ id, name, freq: freq[id] }));
 }
