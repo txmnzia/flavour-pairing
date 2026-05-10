@@ -8,6 +8,7 @@ import RecommendationList from "./components/RecommendationList";
 import { translateFr } from "./utils/translateFr";
 
 const TOP_N = 30;
+const BROWSE_N = 30;
 
 export default function App() {
   const [status, setStatus] = useState<DbStatus>({ state: "idle" });
@@ -18,13 +19,13 @@ export default function App() {
   const [recommendations, setRecommendations] = useState<Pairing[]>([]);
   const [dataMeta, setDataMeta] = useState<{ source: string; recipes: number } | null>(null);
   const [lang, setLang] = useState<"en" | "fr">("en");
+  const [query, setQuery] = useState("");
 
   const translate = useCallback(
     (name: string) => lang === "fr" ? translateFr(name) : name,
     [lang]
   );
 
-  // Boot: load DB
   useEffect(() => {
     setStatus({ state: "loading", progress: "Starting…" });
     loadDatabase((progress) => setStatus({ state: "loading", progress }))
@@ -40,7 +41,6 @@ export default function App() {
       });
   }, []);
 
-  // Recompute recommendations whenever selections change
   useEffect(() => {
     if (status.state !== "ready" || selectedIngredients.length === 0) {
       setRecommendations([]);
@@ -57,11 +57,37 @@ export default function App() {
     [selectedIngredients]
   );
 
+  const maxFreq = useMemo(
+    () => ingredients.reduce((m, i) => Math.max(m, i.freq), 1),
+    [ingredients]
+  );
+
+  const browseIngredients = useMemo(() => {
+    if (selectedIngredients.length > 0) return [];
+    const q = query.toLowerCase().trim();
+    return ingredients
+      .filter((i) => {
+        if (selectedIds.has(i.id)) return false;
+        if (!q) return true;
+        return translate(i.name).toLowerCase().includes(q);
+      })
+      .sort((a, b) => {
+        if (query) {
+          const aStart = translate(a.name).toLowerCase().startsWith(query.toLowerCase());
+          const bStart = translate(b.name).toLowerCase().startsWith(query.toLowerCase());
+          if (aStart !== bStart) return aStart ? -1 : 1;
+        }
+        return b.freq - a.freq;
+      })
+      .slice(0, BROWSE_N);
+  }, [ingredients, selectedIngredients, selectedIds, query, translate]);
+
   const addIngredient = useCallback(
     (name: string) => {
       const ing = ingredients.find((i) => i.name === name);
       if (!ing || selectedIds.has(ing.id)) return;
       setSelectedIngredients((prev) => [...prev, ing]);
+      setQuery("");
     },
     [ingredients, selectedIds]
   );
@@ -71,10 +97,10 @@ export default function App() {
   }, []);
 
   const isReady = status.state === "ready";
+  const isBrowsing = selectedIngredients.length === 0;
 
   return (
     <div className="min-h-screen bg-brand-900 text-white flex flex-col">
-      {/* Header */}
       <header className="border-b border-white/10 px-4 py-4 flex items-center justify-between gap-4 flex-wrap">
         <div className="flex items-center gap-3">
           <span className="text-2xl" aria-hidden>🍳</span>
@@ -104,7 +130,6 @@ export default function App() {
       </header>
 
       <main className="flex-1 max-w-lg mx-auto w-full px-4 py-6 flex flex-col gap-6">
-        {/* Status banner */}
         {status.state === "loading" && (
           <div className="flex items-center gap-3 text-sm text-white/60">
             <svg className="w-4 h-4 animate-spin shrink-0" fill="none" viewBox="0 0 24 24">
@@ -121,19 +146,24 @@ export default function App() {
           </div>
         )}
 
-        {/* Search */}
         <section>
           <SearchInput
+            query={query}
+            onQueryChange={setQuery}
             ingredients={ingredients}
             selectedIds={selectedIds}
             onSelect={(ing) => addIngredient(ing.name)}
             translate={translate}
-            placeholder={lang === "fr" ? "Ajouter un ingrédient…" : "Add an ingredient…"}
+            placeholder={
+              isBrowsing
+                ? (lang === "fr" ? "Rechercher un ingrédient…" : "Search an ingredient…")
+                : (lang === "fr" ? "Ajouter un ingrédient…" : "Add an ingredient…")
+            }
             disabled={!isReady}
+            showDropdown={!isBrowsing}
           />
         </section>
 
-        {/* Selected chips */}
         {selectedIngredients.length > 0 && (
           <section>
             <div className="flex items-center justify-between mb-2">
@@ -159,30 +189,51 @@ export default function App() {
           </section>
         )}
 
-        {/* Recommendations */}
         {isReady && (
           <section className="flex-1">
-            {selectedIngredients.length > 0 && (
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-xs text-white/40 uppercase tracking-wider">
-                  {lang === "fr" ? "Se marie bien avec" : "Pairs well with"}
-                </span>
-                <span className="text-xs text-white/30">
-                  {lang === "fr" ? "appuyer pour ajouter" : "tap to add"}
-                </span>
-              </div>
+            {isBrowsing ? (
+              <>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs text-white/40 uppercase tracking-wider">
+                    {query
+                      ? (lang === "fr" ? "Résultats" : "Results")
+                      : (lang === "fr" ? "Ingrédients populaires" : "Popular ingredients")}
+                  </span>
+                  <span className="text-xs text-white/30">
+                    {lang === "fr" ? "appuyer pour sélectionner" : "tap to select"}
+                  </span>
+                </div>
+                <RecommendationList
+                  browseIngredients={browseIngredients}
+                  maxFreq={maxFreq}
+                  recommendations={[]}
+                  selectedCount={0}
+                  onAdd={addIngredient}
+                  translate={translate}
+                />
+              </>
+            ) : (
+              <>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs text-white/40 uppercase tracking-wider">
+                    {lang === "fr" ? "Se marie bien avec" : "Pairs well with"}
+                  </span>
+                  <span className="text-xs text-white/30">
+                    {lang === "fr" ? "appuyer pour ajouter" : "tap to add"}
+                  </span>
+                </div>
+                <RecommendationList
+                  recommendations={recommendations}
+                  selectedCount={selectedIngredients.length}
+                  onAdd={addIngredient}
+                  translate={translate}
+                />
+              </>
             )}
-            <RecommendationList
-              recommendations={recommendations}
-              selectedCount={selectedIngredients.length}
-              onAdd={addIngredient}
-              translate={translate}
-            />
           </section>
         )}
       </main>
 
-      {/* Footer */}
       <footer className="text-center text-xs text-white/20 py-4 px-4 space-y-0.5">
         {dataMeta ? (
           <>

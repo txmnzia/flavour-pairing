@@ -1,10 +1,13 @@
-import type { Pairing } from "../types";
+import type { Ingredient, Pairing } from "../types";
 
 interface Props {
   recommendations: Pairing[];
   selectedCount: number;
   onAdd: (name: string) => void;
   translate: (name: string) => string;
+  /** Browse mode: show raw ingredients instead of pairings */
+  browseIngredients?: Ingredient[];
+  maxFreq?: number;
 }
 
 function IngredientIcon() {
@@ -18,17 +21,18 @@ function IngredientIcon() {
   );
 }
 
-function ScoreBar({ value }: { value: number }) {
+function ScoreBar({ value, color }: { value: number; color?: string }) {
   const pct = Math.round(value * 100);
-  const color =
+  const barColor = color ?? (
     value >= 0.6 ? "bg-emerald-400" :
-    value >= 0.35 ? "bg-amber-400" : "bg-white/30";
+    value >= 0.35 ? "bg-amber-400" : "bg-white/30"
+  );
 
   return (
     <div className="flex items-center gap-1.5">
       <div className="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
         <div
-          className={`h-full rounded-full transition-all duration-300 ${color}`}
+          className={`h-full rounded-full transition-all duration-300 ${barColor}`}
           style={{ width: `${Math.min(pct, 100)}%` }}
         />
       </div>
@@ -48,7 +52,79 @@ function CoverageBadge({ coverage, total }: { coverage: number; total: number })
   );
 }
 
-export default function RecommendationList({ recommendations, selectedCount, onAdd, translate }: Props) {
+function Card({
+  name, score, scoreColor, coverage, totalSelected, onClick, translate,
+}: {
+  name: string; score: number; scoreColor?: string;
+  coverage?: number; totalSelected?: number;
+  onClick: () => void; translate: (n: string) => string;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className="
+        flex flex-col rounded-xl overflow-hidden text-left
+        bg-white/5 border border-white/10
+        hover:bg-white/10 hover:border-white/20
+        active:bg-white/15
+        transition-all duration-150 group
+      "
+    >
+      <div className="relative w-full aspect-square bg-white/5 flex items-center justify-center">
+        <IngredientIcon />
+        {coverage !== undefined && totalSelected !== undefined && (
+          <CoverageBadge coverage={coverage} total={totalSelected} />
+        )}
+        <div className="
+          absolute bottom-1.5 right-1.5
+          w-5 h-5 rounded-full flex items-center justify-center
+          bg-white/10 group-hover:bg-brand-500
+          transition-colors
+        ">
+          <svg className="w-3 h-3 text-white/50 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+          </svg>
+        </div>
+      </div>
+      <div className="px-2.5 pt-2 pb-2.5 flex flex-col gap-1.5">
+        <span className="text-xs text-white font-medium capitalize leading-tight line-clamp-2">
+          {translate(name)}
+        </span>
+        <ScoreBar value={score} color={scoreColor} />
+      </div>
+    </button>
+  );
+}
+
+export default function RecommendationList({
+  recommendations, selectedCount, onAdd, translate,
+  browseIngredients, maxFreq = 1,
+}: Props) {
+  if (browseIngredients && browseIngredients.length > 0) {
+    return (
+      <div className="grid grid-cols-3 gap-2.5">
+        {browseIngredients.map((ing) => (
+          <Card
+            key={ing.id}
+            name={ing.name}
+            score={ing.freq / maxFreq}
+            scoreColor="bg-brand-400"
+            onClick={() => onAdd(ing.name)}
+            translate={translate}
+          />
+        ))}
+      </div>
+    );
+  }
+
+  if (browseIngredients && browseIngredients.length === 0 && recommendations.length === 0 && selectedCount === 0) {
+    return (
+      <p className="text-center text-white/30 text-sm py-12">
+        {translate("No ingredients found")}
+      </p>
+    );
+  }
+
   if (recommendations.length === 0) {
     return (
       <p className="text-center text-white/30 text-sm py-12">
@@ -62,39 +138,15 @@ export default function RecommendationList({ recommendations, selectedCount, onA
   return (
     <div className="grid grid-cols-3 gap-2.5">
       {recommendations.map((pairing) => (
-        <button
+        <Card
           key={pairing.ingredient.id}
+          name={pairing.ingredient.name}
+          score={pairing.npmi}
+          coverage={pairing.coverage}
+          totalSelected={selectedCount}
           onClick={() => onAdd(pairing.ingredient.name)}
-          className="
-            flex flex-col rounded-xl overflow-hidden text-left
-            bg-white/5 border border-white/10
-            hover:bg-white/10 hover:border-white/20
-            active:bg-white/15
-            transition-all duration-150 group
-          "
-        >
-          <div className="relative w-full aspect-square bg-white/5 flex items-center justify-center">
-            <IngredientIcon />
-            <CoverageBadge coverage={pairing.coverage} total={selectedCount} />
-            <div className="
-              absolute bottom-1.5 right-1.5
-              w-5 h-5 rounded-full flex items-center justify-center
-              bg-white/10 group-hover:bg-brand-500
-              transition-colors
-            ">
-              <svg className="w-3 h-3 text-white/50 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-              </svg>
-            </div>
-          </div>
-
-          <div className="px-2.5 pt-2 pb-2.5 flex flex-col gap-1.5">
-            <span className="text-xs text-white font-medium capitalize leading-tight line-clamp-2">
-              {translate(pairing.ingredient.name)}
-            </span>
-            <ScoreBar value={pairing.npmi} />
-          </div>
-        </button>
+          translate={translate}
+        />
       ))}
     </div>
   );
