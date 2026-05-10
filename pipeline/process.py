@@ -105,7 +105,31 @@ def compute_npmi(count_ab: int, count_a: int, count_b: int, n_recipes: int) -> f
     return round(float(npmi), 4)
 
 
-def process(input_path: str, output_path: str) -> None:
+def export_recipes_json(
+    json_path: str,
+    recipe_samples: list[tuple[str, list[str]]],
+    valid_ingredients: set[str],
+) -> None:
+    """Write a standalone recipes.json with titles + filtered ingredient names."""
+    recipe_data = []
+    for title, ing_names in recipe_samples:
+        valid = [n for n in ing_names if n in valid_ingredients]
+        if len(valid) >= 2:
+            recipe_data.append([title, valid])
+
+    out = Path(json_path)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    with open(out, "w") as f:
+        json.dump({"v": 1, "r": recipe_data}, f, separators=(",", ":"))
+
+    size_kb = out.stat().st_size / 1024
+    print(f"  Recipes JSON → {json_path} ({len(recipe_data)} recipes, {size_kb:.0f} KB)")
+
+
+MAX_RECIPE_SAMPLE = 10_000  # cap stored recipes to keep recipes.json manageable
+
+
+def process(input_path: str, output_path: str, recipes_output: str | None = None) -> None:
     print(f"Loading {input_path}...")
     df = pd.read_csv(input_path, usecols=["title", "NER"])
     df = df.dropna(subset=["NER"])
@@ -114,12 +138,14 @@ def process(input_path: str, output_path: str) -> None:
     # Parse ingredients and detect cuisine
     print("Parsing ingredients and detecting cuisines...")
     records = []
+    raw_recipes: list[tuple[str, list[str]]] = []  # (title, ingredient_names)
     for _, row in tqdm(df.iterrows(), total=len(df)):
         ingredients = parse_ner(row["NER"])
         if len(ingredients) < 2:
             continue
         cuisine = detect_cuisine(str(row.get("title", "")), ingredients)
         records.append((ingredients, cuisine))
+        raw_recipes.append((str(row.get("title", "")).strip(), ingredients))
 
     n_recipes = len(records)
     print(f"  {n_recipes:,} valid recipes")
@@ -142,6 +168,16 @@ def process(input_path: str, output_path: str) -> None:
     # Filter to common ingredients
     valid_ingredients = {i for i, c in global_single.items() if c >= MIN_INGREDIENT_FREQ}
     print(f"  {len(valid_ingredients):,} ingredients meet frequency threshold")
+
+    # Sample recipes for recipes.json: prefer those with most valid ingredients
+    if recipes_output:
+        scored = [
+            (title, ings, sum(1 for i in ings if i in valid_ingredients))
+            for title, ings in raw_recipes
+            if title
+        ]
+        scored.sort(key=lambda x: -x[2])
+        recipe_samples = [(t, i) for t, i, _ in scored[:MAX_RECIPE_SAMPLE]]
 
     # Group by cuisine
     cuisine_records: dict[str, list] = defaultdict(list)
@@ -249,10 +285,14 @@ def process(input_path: str, output_path: str) -> None:
     size_mb = db_path.stat().st_size / 1_048_576
     print(f"\nDone → {output_path} ({size_mb:.1f} MB)")
 
+    if recipes_output:
+        export_recipes_json(recipes_output, recipe_samples, valid_ingredients)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", default="data/full_dataset.csv")
     parser.add_argument("--output", default="../web/public/pairings.db")
+    parser.add_argument("--recipes-output", default=None)
     args = parser.parse_args()
-    process(args.input, args.output)
+    process(args.input, args.output, recipes_output=args.recipes_output)
