@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import type { Ingredient, Pairing } from "../types";
 
 const PAGE_SIZE = 9;
@@ -114,34 +114,22 @@ function Card({
   );
 }
 
-function PairingCarousel({
+function PairingGrid({
   recommendations, selectedCount, onAdd, translate,
 }: Pick<Props, "recommendations" | "selectedCount" | "onAdd" | "translate">) {
-  const [page, setPage] = useState(0);
-  const touchStartX = useRef<number | null>(null);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   useEffect(() => {
-    setPage(0);
+    setVisibleCount(PAGE_SIZE);
   }, [recommendations]);
 
-  const totalPages = Math.ceil(recommendations.length / PAGE_SIZE);
-  const pageItems = recommendations.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
-
-  const prev = () => setPage((p) => (p - 1 + totalPages) % totalPages);
-  const next = () => setPage((p) => (p + 1) % totalPages);
+  const visible = recommendations.slice(0, visibleCount);
+  const hasMore = visibleCount < recommendations.length;
 
   return (
-    <div
-      onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
-      onTouchEnd={(e) => {
-        if (touchStartX.current === null || totalPages <= 1) return;
-        const delta = touchStartX.current - e.changedTouches[0].clientX;
-        if (Math.abs(delta) > 40) delta > 0 ? next() : prev();
-        touchStartX.current = null;
-      }}
-    >
+    <div>
       <div className="grid grid-cols-3 gap-2.5">
-        {pageItems.map((pairing) => (
+        {visible.map((pairing) => (
           <Card
             key={pairing.ingredient.id}
             name={pairing.ingredient.name}
@@ -154,28 +142,17 @@ function PairingCarousel({
         ))}
       </div>
 
-      {totalPages > 1 && (
-        <div className="flex items-center justify-between mt-4">
-          <button
-            onClick={prev}
-            className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
-            aria-label="Previous page"
-          >
-            <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-
-          <button
-            onClick={next}
-            className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
-            aria-label="Next page"
-          >
-            <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
+      {hasMore && (
+        <button
+          onClick={() => setVisibleCount((n) => n + PAGE_SIZE)}
+          className="mt-4 w-full flex flex-col items-center gap-1 text-xs text-white/30 hover:text-white/60 transition-colors py-1"
+          aria-label="Show more"
+        >
+          <span>more</span>
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
       )}
     </div>
   );
@@ -248,7 +225,7 @@ export default function RecommendationList({
   return (
     <>
       {selectedGrid}
-      <PairingCarousel
+      <PairingGrid
         recommendations={recommendations}
         selectedCount={selectedCount}
         onAdd={onAdd}
