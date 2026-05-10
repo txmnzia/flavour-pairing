@@ -193,6 +193,121 @@ def global_pair_score(a: str, b: str) -> float | None:
     return score if score > 0.05 else None
 
 
+# ---------------------------------------------------------------------------
+# Recipe catalogue — titles + ingredient names (must match INGREDIENTS list)
+# ---------------------------------------------------------------------------
+
+RECIPES = [
+    # Italian
+    ("Spaghetti Carbonara", ["pasta", "bacon", "eggs", "parmesan", "black pepper", "olive oil"]),
+    ("Spaghetti Bolognese", ["pasta", "beef", "tomato", "onion", "garlic", "red wine", "olive oil", "parmesan"]),
+    ("Chicken Parmigiana", ["chicken", "tomato", "mozzarella", "parmesan", "breadcrumbs", "olive oil", "garlic", "basil"]),
+    ("Margherita Pizza", ["tomato", "mozzarella", "basil", "olive oil"]),
+    ("Mushroom Risotto", ["rice", "mushroom", "shallot", "white wine", "parmesan", "butter", "chicken stock"]),
+    ("Pesto Pasta", ["pasta", "basil", "pine nuts", "parmesan", "garlic", "olive oil"]),
+    ("Arrabbiata Pasta", ["pasta", "tomato", "garlic", "cayenne", "olive oil", "parsley"]),
+    ("Bruschetta", ["bread", "tomato", "garlic", "basil", "olive oil"]),
+    ("Osso Buco", ["beef", "onion", "carrot", "celery", "white wine", "tomato", "lemon", "garlic", "butter"]),
+    ("Eggplant Parmigiana", ["eggplant", "tomato", "mozzarella", "parmesan", "basil", "olive oil", "garlic"]),
+    ("Gnocchi al Pesto", ["potato", "flour", "eggs", "basil", "pine nuts", "parmesan", "garlic", "olive oil"]),
+    ("Pasta Cacio e Pepe", ["pasta", "parmesan", "black pepper", "butter"]),
+    ("Chicken Cacciatore", ["chicken", "tomato", "olive oil", "garlic", "onion", "bell pepper", "mushroom", "olives", "rosemary"]),
+    ("Fettuccine Alfredo", ["pasta", "butter", "parmesan", "cream", "black pepper"]),
+    ("Shrimp Scampi", ["shrimp", "garlic", "white wine", "butter", "lemon", "parsley", "pasta"]),
+    ("Caprese Salad", ["tomato", "mozzarella", "basil", "olive oil", "balsamic vinegar"]),
+    ("Panzanella", ["tomato", "bread", "basil", "red wine", "olive oil", "capers", "olives"]),
+    ("Asparagus Risotto", ["rice", "asparagus", "shallot", "white wine", "parmesan", "butter", "chicken stock"]),
+    # French
+    ("Boeuf Bourguignon", ["beef", "red wine", "onion", "carrot", "garlic", "mushroom", "bacon", "thyme", "bay leaf"]),
+    ("Coq au Vin", ["chicken", "red wine", "bacon", "mushroom", "onion", "garlic", "thyme", "butter"]),
+    ("French Onion Soup", ["onion", "butter", "white wine", "beef stock", "thyme", "bread", "gruyere"]),
+    ("Ratatouille", ["tomato", "eggplant", "zucchini", "bell pepper", "onion", "garlic", "thyme", "olive oil", "basil"]),
+    ("Quiche Lorraine", ["bacon", "eggs", "cream", "gruyere", "flour", "butter", "thyme"]),
+    ("Salmon en Papillote", ["salmon", "lemon", "thyme", "butter", "shallot"]),
+    ("Duck Confit", ["duck", "garlic", "thyme", "shallot", "black pepper"]),
+    ("Nicoise Salad", ["tuna", "tomato", "eggs", "olives", "anchovies", "lemon", "olive oil"]),
+    ("Vichyssoise", ["leek", "potato", "cream", "chicken stock", "onion", "butter"]),
+    ("Bouillabaisse", ["salmon", "shrimp", "tomato", "onion", "garlic", "saffron", "white wine", "olive oil", "thyme"]),
+    ("Beef Tartare", ["beef", "shallot", "capers", "dijon mustard", "parsley", "eggs"]),
+    ("Croque Monsieur", ["bread", "butter", "gruyere", "dijon mustard"]),
+    ("Duck Breast with Red Wine", ["duck", "shallot", "thyme", "garlic", "red wine", "black pepper", "butter"]),
+    ("Potato Gratin", ["potato", "cream", "gruyere", "garlic", "thyme", "butter"]),
+    ("Poached Salmon", ["salmon", "shallot", "white wine", "lemon", "thyme", "butter"]),
+    ("French Lentils", ["lentils", "carrot", "onion", "celery", "garlic", "thyme", "dijon mustard"]),
+    # Indian
+    ("Chicken Tikka Masala", ["chicken", "tomato", "cream", "garlic", "ginger", "cumin", "coriander", "turmeric", "paprika", "cayenne"]),
+    ("Butter Chicken", ["chicken", "tomato", "cream", "butter", "garlic", "ginger", "cumin", "coriander", "turmeric", "cardamom"]),
+    ("Palak Paneer", ["spinach", "tomato", "onion", "garlic", "ginger", "cumin", "coriander", "turmeric", "cream"]),
+    ("Dal Makhani", ["lentils", "tomato", "onion", "garlic", "ginger", "cumin", "coriander", "cream", "butter"]),
+    ("Chana Masala", ["chickpeas", "tomato", "onion", "garlic", "ginger", "cumin", "coriander", "turmeric", "cayenne"]),
+    ("Lamb Rogan Josh", ["lamb", "tomato", "onion", "garlic", "ginger", "cumin", "coriander", "cardamom", "cinnamon", "cayenne"]),
+    ("Aloo Gobi", ["potato", "cauliflower", "onion", "garlic", "ginger", "cumin", "coriander", "turmeric"]),
+    ("Biryani", ["rice", "chicken", "onion", "garlic", "ginger", "cardamom", "cinnamon", "saffron", "cumin", "coriander"]),
+    ("Tandoori Chicken", ["chicken", "garlic", "ginger", "cumin", "coriander", "turmeric", "cayenne", "paprika"]),
+    ("Saag Aloo", ["spinach", "potato", "onion", "garlic", "ginger", "cumin", "turmeric"]),
+    ("Lamb Tagine", ["lamb", "onion", "garlic", "ginger", "cumin", "coriander", "cinnamon", "saffron", "tomato"]),
+    ("Moroccan Chicken", ["chicken", "onion", "garlic", "ginger", "cumin", "coriander", "cinnamon", "saffron", "tomato", "olive oil"]),
+    ("Cauliflower Curry", ["cauliflower", "onion", "garlic", "ginger", "tomato", "cumin", "coriander", "turmeric", "coconut oil"]),
+    # Asian
+    ("Pad Thai", ["rice", "shrimp", "eggs", "scallion", "lime", "fish sauce", "garlic", "soy sauce"]),
+    ("Chicken Fried Rice", ["rice", "chicken", "eggs", "soy sauce", "sesame oil", "scallion", "garlic", "ginger"]),
+    ("Teriyaki Chicken", ["chicken", "soy sauce", "garlic", "ginger", "sesame seeds", "scallion"]),
+    ("Korean Bulgogi", ["beef", "soy sauce", "sesame oil", "garlic", "ginger", "scallion", "sesame seeds", "sugar"]),
+    ("Thai Green Curry", ["chicken", "coconut oil", "garlic", "ginger", "fish sauce", "lime", "basil"]),
+    ("Beef and Broccoli", ["beef", "broccoli", "soy sauce", "sesame oil", "garlic", "ginger", "scallion", "sesame seeds"]),
+    ("Egg Fried Rice", ["rice", "eggs", "soy sauce", "sesame oil", "scallion", "garlic", "ginger"]),
+    ("Szechuan Tofu", ["tofu", "soy sauce", "sesame oil", "garlic", "ginger", "scallion", "cayenne"]),
+    ("Salmon Teriyaki", ["salmon", "soy sauce", "garlic", "ginger", "sesame seeds", "scallion"]),
+    ("Pork Belly with Soy", ["pork", "soy sauce", "garlic", "ginger", "honey", "sesame seeds", "scallion"]),
+    # Mediterranean/Greek
+    ("Greek Salad", ["tomato", "cucumber", "feta", "olives", "red wine", "olive oil", "oregano"]),
+    ("Lamb Souvlaki", ["lamb", "lemon", "garlic", "oregano", "olive oil", "thyme"]),
+    ("Spanakopita", ["spinach", "feta", "eggs", "onion", "olive oil"]),
+    ("Moussaka", ["eggplant", "beef", "tomato", "onion", "garlic", "cinnamon", "parmesan", "milk", "butter", "flour"]),
+    ("Shakshuka", ["tomato", "bell pepper", "onion", "garlic", "cumin", "paprika", "cayenne", "eggs", "olive oil"]),
+    ("Falafel", ["chickpeas", "onion", "garlic", "cumin", "coriander", "parsley", "cayenne"]),
+    ("Tabbouleh", ["parsley", "tomato", "lemon", "olive oil", "mint"]),
+    ("Chickpea Stew", ["chickpeas", "tomato", "onion", "garlic", "cumin", "paprika", "olive oil", "spinach"]),
+    ("Gazpacho", ["tomato", "cucumber", "bell pepper", "onion", "garlic", "olive oil", "white wine vinegar"]),
+    # Mexican
+    ("Chicken Tacos", ["chicken", "cumin", "coriander", "cayenne", "garlic", "lime", "cilantro", "onion"]),
+    ("Beef Tacos", ["beef", "cumin", "coriander", "cayenne", "garlic", "lime", "cilantro", "onion"]),
+    ("Guacamole", ["avocado", "lime", "cilantro", "onion", "garlic"]),
+    ("Chicken Enchiladas", ["chicken", "tomato", "onion", "garlic", "cumin", "cayenne", "cheddar", "cilantro"]),
+    ("Pork Carnitas", ["pork", "cumin", "coriander", "garlic", "lime", "onion", "oregano"]),
+    ("Chili con Carne", ["beef", "black beans", "tomato", "onion", "garlic", "cumin", "cayenne", "paprika"]),
+    ("Black Bean Soup", ["black beans", "onion", "garlic", "cumin", "cayenne", "tomato", "lime", "cilantro"]),
+    ("Corn Salsa", ["corn", "tomato", "lime", "cilantro", "onion", "garlic"]),
+    # American / British
+    ("Beef Burger", ["beef", "onion", "cheddar", "garlic", "black pepper"]),
+    ("Mac and Cheese", ["pasta", "cheddar", "milk", "butter", "flour", "black pepper"]),
+    ("BBQ Pulled Pork", ["pork", "paprika", "cumin", "garlic", "onion", "cayenne", "honey", "apple cider vinegar"]),
+    ("Chicken Wings", ["chicken", "cayenne", "paprika", "garlic", "butter", "hot sauce"]),
+    ("Caesar Salad", ["parmesan", "anchovies", "lemon", "garlic", "olive oil", "black pepper", "eggs"]),
+    ("Corn Chowder", ["corn", "potato", "onion", "celery", "cream", "butter", "thyme"]),
+    ("Shepherd's Pie", ["lamb", "carrot", "onion", "potato", "peas", "thyme", "rosemary", "beef stock", "butter"]),
+    ("Beef Stew", ["beef", "carrot", "potato", "onion", "celery", "thyme", "bay leaf", "beef stock", "red wine"]),
+    ("Fish and Chips", ["cod", "flour", "beer", "vegetable oil"]),
+    ("Chicken Pot Pie", ["chicken", "carrot", "potato", "peas", "onion", "celery", "cream", "butter", "flour", "thyme"]),
+    # Global
+    ("Roast Chicken", ["chicken", "garlic", "thyme", "rosemary", "lemon", "butter", "onion"]),
+    ("Lamb Chops", ["lamb", "rosemary", "garlic", "lemon", "olive oil", "thyme"]),
+    ("Salmon with Lemon Butter", ["salmon", "lemon", "butter", "garlic", "thyme", "parsley"]),
+    ("Grilled Shrimp", ["shrimp", "garlic", "lemon", "olive oil", "parsley", "cayenne"]),
+    ("Stuffed Bell Peppers", ["bell pepper", "beef", "rice", "tomato", "onion", "garlic", "parmesan", "oregano"]),
+    ("Lentil Soup", ["lentils", "carrot", "onion", "celery", "garlic", "cumin", "coriander", "olive oil", "tomato"]),
+    ("Roasted Vegetables", ["carrot", "zucchini", "eggplant", "bell pepper", "onion", "garlic", "olive oil", "thyme"]),
+    ("Tuna Nicoise", ["tuna", "tomato", "eggs", "olives", "lemon", "olive oil", "anchovies"]),
+    ("Potato Soup", ["potato", "onion", "garlic", "cream", "butter", "chive", "chicken stock"]),
+    ("Spinach and Feta Omelette", ["eggs", "spinach", "feta", "garlic", "olive oil"]),
+    ("Chicken Soup", ["chicken", "carrot", "onion", "celery", "thyme", "bay leaf", "chicken stock", "parsley"]),
+    ("Minestrone", ["tomato", "carrot", "onion", "celery", "garlic", "olive oil", "thyme", "lentils"]),
+    ("Pasta Primavera", ["pasta", "zucchini", "tomato", "bell pepper", "garlic", "olive oil", "parmesan", "basil"]),
+    ("Braised Short Ribs", ["beef", "red wine", "onion", "carrot", "celery", "garlic", "thyme", "rosemary", "tomato"]),
+    ("Pot Roast", ["beef", "carrot", "potato", "onion", "celery", "garlic", "thyme", "rosemary", "beef stock"]),
+    ("Avocado Salad", ["avocado", "tomato", "lime", "cilantro", "onion"]),
+]
+
 TOP_N = 50
 MIN_GLOBAL_SCORE = 0.08
 MIN_CUISINE_SCORE = 0.12
@@ -336,10 +451,34 @@ def export_json(db_path: Path, json_path: str) -> None:
     con.close()
 
 
+def export_recipes_json(json_path: str, recipes: list, db_path: Path) -> None:
+    """Export recipe catalogue to a standalone JSON file (separate from pairings)."""
+    import json as _json
+    con = sqlite3.connect(db_path)
+    valid_names = {name for (name,) in con.execute("SELECT name FROM ingredients").fetchall()}
+    con.close()
+
+    recipe_data = []
+    for title, ing_list in recipes:
+        valid_ings = [n for n in ing_list if n in valid_names]
+        if len(valid_ings) >= 2:
+            recipe_data.append([title, valid_ings])
+
+    out = Path(json_path)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    with open(out, "w") as f:
+        _json.dump({"v": 1, "r": recipe_data}, f, separators=(",", ":"))
+
+    size_kb = out.stat().st_size / 1024
+    print(f"  Recipes JSON → {json_path} ({len(recipe_data)} recipes, {size_kb:.0f} KB)")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", default="../web/public/pairings.db")
     parser.add_argument("--json-output", default="../web/public/pairings.json")
+    parser.add_argument("--recipes-output", default="../web/public/recipes.json")
     args = parser.parse_args()
     generate(args.output)
     export_json(Path(args.output), args.json_output)
+    export_recipes_json(args.recipes_output, RECIPES, Path(args.output))
