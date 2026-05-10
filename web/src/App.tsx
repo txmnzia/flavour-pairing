@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { loadDatabase, getAllIngredients, getAllCuisines, getRecommendations, getDataMeta, getRecipesForIngredients } from "./db";
-import type { Ingredient, Cuisine, Pairing, DbStatus } from "./types";
-import CuisineFilter from "./components/CuisineFilter";
+import { loadDatabase, getAllIngredients, getRecommendations, getDataMeta, getRecipesForIngredients } from "./db";
+import type { Ingredient, Pairing, DbStatus } from "./types";
 import SearchInput from "./components/SearchInput";
 import RecommendationList from "./components/RecommendationList";
 import { translateFr } from "./utils/translateFr";
@@ -12,9 +11,7 @@ const BROWSE_N = 30;
 export default function App() {
   const [status, setStatus] = useState<DbStatus>({ state: "idle" });
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
-  const [cuisines, setCuisines] = useState<Cuisine[]>([]);
   const [selectedIngredients, setSelectedIngredients] = useState<Ingredient[]>([]);
-  const [selectedCuisine, setSelectedCuisine] = useState<Cuisine | null>(null);
   const [recommendations, setRecommendations] = useState<Pairing[]>([]);
   const [matchingRecipes, setMatchingRecipes] = useState<string[]>([]);
   const [dataMeta, setDataMeta] = useState<{ source: string; recipes: number } | null>(null);
@@ -31,7 +28,6 @@ export default function App() {
     loadDatabase((progress) => setStatus({ state: "loading", progress }))
       .then(() => {
         setIngredients(getAllIngredients());
-        setCuisines(getAllCuisines());
         setDataMeta(getDataMeta());
         setStatus({ state: "ready" });
       })
@@ -47,12 +43,10 @@ export default function App() {
       setMatchingRecipes([]);
       return;
     }
-    const allCuisine = cuisines.find((c) => c.name === "all");
-    const cuisineId = selectedCuisine?.id ?? allCuisine?.id ?? 1;
     const ids = selectedIngredients.map((i) => i.id);
-    setRecommendations(getRecommendations(ids, ingredients, cuisineId, TOP_N));
+    setRecommendations(getRecommendations(ids, ingredients, TOP_N));
     setMatchingRecipes(getRecipesForIngredients(ids));
-  }, [selectedIngredients, selectedCuisine, status, ingredients, cuisines]);
+  }, [selectedIngredients, status, ingredients]);
 
   const selectedIds = useMemo(
     () => new Set(selectedIngredients.map((i) => i.id)),
@@ -107,6 +101,9 @@ export default function App() {
     if (!dataMeta || dataMeta.source === "demo") {
       return `${ingCount} ingredients · Demo data`;
     }
+    if (dataMeta.source === "flavorgraph") {
+      return `${ingCount} ingredients · FlavorGraph (Apache 2.0)`;
+    }
     const recCount = dataMeta.recipes.toLocaleString();
     const src = dataMeta.source === "recipenlg" ? "RecipeNLG" : "RecipeNLG + Marmiton";
     return `Based on ${ingCount} ingredients from ${recCount} recipes · ${src}`;
@@ -125,13 +122,6 @@ export default function App() {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          {isReady && (
-            <CuisineFilter
-              cuisines={cuisines}
-              selected={selectedCuisine}
-              onChange={setSelectedCuisine}
-            />
-          )}
           <button
             onClick={() => setLang((l) => (l === "en" ? "fr" : "en"))}
             className="text-lg px-2 py-1 rounded-lg bg-white/10 hover:bg-white/20 transition-colors leading-none"
@@ -254,7 +244,7 @@ export default function App() {
 
       <footer className="text-center text-xs text-white/20 py-4 px-4 space-y-0.5">
         {footerLine && <div>{footerLine}</div>}
-        <div>Ranked by co-occurrence (NPMI)</div>
+        <div>Ranked by FlavorGraph pairing score</div>
       </footer>
     </div>
   );

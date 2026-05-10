@@ -1,11 +1,10 @@
-import type { Ingredient, Cuisine, Pairing } from "./types";
+import type { Ingredient, Pairing } from "./types";
 
 interface RawPairings {
   v: number;
-  meta?: { source: string; recipes: number };
+  meta?: { source: string; ingredients?: number; recipes?: number };
   i: string[];                            // ingredients[idx] = name
-  c: string[];                            // cuisines[idx] = name, c[0] = "all"
-  p: Record<string, [number, number][]>;  // "cuisineIdx,ingredientIdx" → [[pairedIdx, npmi*100], …]
+  p: Record<string, [number, number][]>;  // "ingredientIdx" → [[pairedIdx, score*100], …]
 }
 
 interface RawRecipes {
@@ -71,36 +70,28 @@ function requireRaw(): RawPairings {
 }
 
 export function getDataMeta(): { source: string; recipes: number } {
-  return requireRaw().meta ?? { source: "demo", recipes: 0 };
+  const meta = requireRaw().meta;
+  return { source: meta?.source ?? "demo", recipes: meta?.recipes ?? 0 };
 }
 
 export function getAllIngredients(): Ingredient[] {
   const raw = requireRaw();
-  // Count total pairing relationships per ingredient across all cuisines as popularity proxy
   const freq = new Array(raw.i.length).fill(0);
   for (const key of Object.keys(raw.p)) {
-    const ingIdx = parseInt(key.split(",")[1]);
+    const ingIdx = parseInt(key);
     freq[ingIdx] += raw.p[key].length;
   }
   return raw.i.map((name, id) => ({ id, name, freq: freq[id] }));
 }
 
-export function getAllCuisines(): Cuisine[] {
-  return requireRaw().c.map((name, id) => ({ id, name, recipeCount: 0 }));
-}
-
-function getPairingsForIngredient(
-  ingredientIdx: number,
-  cuisineIdx: number
-): Map<number, number> {
-  const entries = requireRaw().p[`${cuisineIdx},${ingredientIdx}`] ?? [];
-  return new Map(entries.map(([pairedIdx, npmiInt]) => [pairedIdx, npmiInt / 100]));
+function getPairingsForIngredient(ingredientIdx: number): Map<number, number> {
+  const entries = requireRaw().p[String(ingredientIdx)] ?? [];
+  return new Map(entries.map(([pairedIdx, scoreInt]) => [pairedIdx, scoreInt / 100]));
 }
 
 export function getRecommendations(
   selectedIds: number[],
   allIngredients: Ingredient[],
-  cuisineId: number,
   topN = 30
 ): Pairing[] {
   if (selectedIds.length === 0) return [];
@@ -113,14 +104,14 @@ export function getRecommendations(
   const scores = new Map<number, { sum: number; coverage: number }>();
 
   for (const sid of selectedIds) {
-    for (const [bid, npmi] of getPairingsForIngredient(sid, cuisineId)) {
+    for (const [bid, score] of getPairingsForIngredient(sid)) {
       if (selectedSet.has(bid)) continue;
       const existing = scores.get(bid);
       if (existing) {
-        existing.sum += npmi;
+        existing.sum += score;
         existing.coverage += 1;
       } else {
-        scores.set(bid, { sum: npmi, coverage: 1 });
+        scores.set(bid, { sum: score, coverage: 1 });
       }
     }
   }
@@ -130,19 +121,18 @@ export function getRecommendations(
     if (coverage < minCoverage) continue;
     const ingredient = ingredientById.get(bid);
     if (!ingredient) continue;
-    results.push({ ingredient, npmi: sum / n, cooccurrence: 0, coverage });
+    results.push({ ingredient, score: sum / n, coverage });
   }
 
-  results.sort((a, b) => b.npmi - a.npmi);
+  results.sort((a, b) => b.score - a.score);
   return results.slice(0, topN);
 }
 
 export function getRecipesForIngredients(ids: number[], limit = 8): string[] {
   if (!recipeTitles || !recipeIndex || ids.length === 0) return [];
 
-  // Intersect recipe sets for each selected ingredient
   const firstList = recipeIndex.get(ids[0]);
-  if (!firstList) return [];  
+  if (!firstList) return [];
   let candidates = new Set(firstList);
 
   for (let i = 1; i < ids.length; i++) {
