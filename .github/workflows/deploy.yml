@@ -28,31 +28,9 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Use real pairings.json if available, otherwise generate demo
+      - name: Generate pairings from FlavorGraph
         run: |
-          if git show origin/feature/real-data:web/public/pairings.json > /tmp/pairings_real.json 2>/dev/null && [ -s /tmp/pairings_real.json ]; then
-            cp /tmp/pairings_real.json web/public/pairings.json
-            echo "Real pairings.json loaded from feature/real-data."
-          elif [ -s web/public/pairings.json ]; then
-            echo "Real pairings.json found in checkout — skipping demo generation."
-          else
-            echo "No pairings.json found — generating demo data."
-            python pipeline/generate_demo.py \
-              --output /tmp/pairings.db \
-              --json-output web/public/pairings.json \
-              --recipes-output web/public/recipes.json
-          fi
-
-      - name: Use real recipes.json if available, otherwise use demo (if just generated)
-        run: |
-          if git show origin/feature/real-data:web/public/recipes.json > /tmp/recipes_real.json 2>/dev/null && [ -s /tmp/recipes_real.json ]; then
-            cp /tmp/recipes_real.json web/public/recipes.json
-            echo "Real recipes.json loaded from feature/real-data."
-          elif [ -s web/public/recipes.json ]; then
-            echo "recipes.json already present (demo or committed)."
-          else
-            echo "No recipes.json — recipe suggestions will be unavailable."
-          fi
+          python pipeline/flavorgraph_import.py --output web/public/pairings.json
 
       - uses: actions/setup-node@v4
         with:
