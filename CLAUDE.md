@@ -37,6 +37,16 @@ git show origin/feature/real-data:web/public/pairings.json
 ```
 Never delete this branch or open a PR to merge it into `main`.
 
+## Curating ingredients by hand
+
+`pipeline/ingredients.txt` is the canonical allowlist of all ingredients in the dataset.
+To remove unwanted ingredients:
+1. Edit `pipeline/ingredients.txt` on GitHub — delete or `#`-comment any line you don't want.
+2. Ask Claude: **"Rebuild pairings from ingredients.txt"**
+3. Claude will run `pipeline/apply_ingredients.py` locally, push the result to `feature/real-data`, and trigger a redeploy.
+
+The script automatically removes pairing entries that reference deleted ingredients.
+
 ## Updating pairings data
 
 To update the ingredient/pairing dataset without triggering a full pipeline run:
