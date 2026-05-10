@@ -104,7 +104,7 @@ function Card({
           )}
         </div>
       </div>
-      <div className="px-2.5 pt-2 pb-2.5 flex flex-col gap-1.5">
+      <div className="px-2.5 pt-2 pb-2.5 flex flex-col justify-between flex-1 gap-1.5">
         <span className="text-xs text-white font-medium capitalize leading-tight line-clamp-2">
           {translate(name)}
         </span>
