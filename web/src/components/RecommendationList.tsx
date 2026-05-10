@@ -133,7 +133,7 @@ function PairingGrid({
           <Card
             key={pairing.ingredient.id}
             name={pairing.ingredient.name}
-            score={pairing.npmi}
+            score={pairing.score}
             coverage={pairing.coverage}
             totalSelected={selectedCount}
             onClick={() => onAdd(pairing.ingredient.name)}
@@ -216,7 +216,7 @@ export default function RecommendationList({
       <>
         {selectedGrid}
         <p className="text-center text-white/30 text-sm py-12">
-          {translate("No pairings found — try a different cuisine or ingredient")}
+          {translate("No pairings found — try a different ingredient")}
         </p>
       </>
     );
