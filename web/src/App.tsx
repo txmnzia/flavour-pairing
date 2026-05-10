@@ -101,6 +101,17 @@ export default function App() {
   const isReady = status.state === "ready";
   const isBrowsing = selectedIngredients.length === 0;
 
+  const footerLine = useMemo(() => {
+    if (!isReady) return null;
+    const ingCount = ingredients.length.toLocaleString();
+    if (!dataMeta || dataMeta.source === "demo") {
+      return `${ingCount} ingredients · Demo data`;
+    }
+    const recCount = dataMeta.recipes.toLocaleString();
+    const src = dataMeta.source === "recipenlg" ? "RecipeNLG" : "RecipeNLG + Marmiton";
+    return `Based on ${ingCount} ingredients from ${recCount} recipes · ${src}`;
+  }, [isReady, ingredients, dataMeta]);
+
   return (
     <div className="min-h-screen bg-brand-900 text-white flex flex-col">
       <header className="border-b border-white/10 px-4 py-4 flex items-center justify-between gap-4 flex-wrap">
@@ -242,18 +253,8 @@ export default function App() {
       </main>
 
       <footer className="text-center text-xs text-white/20 py-4 px-4 space-y-0.5">
-        {dataMeta ? (
-          <>
-            <div>
-              {dataMeta.source === "demo" && "Demo data · not based on real recipes"}
-              {dataMeta.source === "recipenlg" && `Based on ${(dataMeta.recipes / 1_000_000).toFixed(1)}M recipes · RecipeNLG dataset`}
-              {dataMeta.source === "recipenlg+marmiton" && `Based on ${(dataMeta.recipes / 1_000_000).toFixed(1)}M recipes · RecipeNLG + Marmiton`}
-            </div>
-            <div>Ranked by co-occurrence (NPMI)</div>
-          </>
-        ) : (
-          <div>Ranked by co-occurrence (NPMI)</div>
-        )}
+        {footerLine && <div>{footerLine}</div>}
+        <div>Ranked by co-occurrence (NPMI)</div>
       </footer>
     </div>
   );
