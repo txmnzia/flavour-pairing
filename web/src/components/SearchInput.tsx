@@ -2,35 +2,35 @@ import { useState, useRef, useEffect, useId, useMemo } from "react";
 import type { Ingredient } from "../types";
 
 interface Props {
+  query: string;
+  onQueryChange: (q: string) => void;
   ingredients: Ingredient[];
   selectedIds: Set<number>;
   onSelect: (ingredient: Ingredient) => void;
   translate: (name: string) => string;
   placeholder?: string;
   disabled?: boolean;
+  /** When false (browse mode), suppress the dropdown — the card grid below handles it */
+  showDropdown?: boolean;
 }
 
 const MAX_SUGGESTIONS = 8;
 
-export default function SearchInput({ ingredients, selectedIds, onSelect, translate, placeholder, disabled }: Props) {
-  const [query, setQuery] = useState("");
+export default function SearchInput({
+  query, onQueryChange,
+  ingredients, selectedIds, onSelect, translate,
+  placeholder, disabled,
+  showDropdown = true,
+}: Props) {
   const [open, setOpen] = useState(false);
   const [activeIdx, setActiveIdx] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
   const listId = useId();
 
-  const isFirstPick = selectedIds.size === 0;
-
   const suggestions = useMemo(() => {
+    if (!showDropdown || query.length === 0) return [];
     const q = query.toLowerCase();
-    if (isFirstPick && q.length === 0) {
-      return ingredients
-        .filter((i) => !selectedIds.has(i.id))
-        .sort((a, b) => b.freq - a.freq)
-        .slice(0, MAX_SUGGESTIONS);
-    }
-    if (q.length === 0) return [];
     return ingredients
       .filter((i) => {
         if (selectedIds.has(i.id)) return false;
@@ -39,21 +39,20 @@ export default function SearchInput({ ingredients, selectedIds, onSelect, transl
       .sort((a, b) => {
         const aName = translate(a.name).toLowerCase();
         const bName = translate(b.name).toLowerCase();
-        const aPrefix = aName.startsWith(q);
-        const bPrefix = bName.startsWith(q);
+        const aPrefix = aName.startsWith(query.toLowerCase());
+        const bPrefix = bName.startsWith(query.toLowerCase());
         if (aPrefix !== bPrefix) return aPrefix ? -1 : 1;
         return b.freq - a.freq;
       })
       .slice(0, MAX_SUGGESTIONS);
-  }, [ingredients, selectedIds, query, translate, isFirstPick]);
+  }, [ingredients, selectedIds, query, translate, showDropdown]);
 
-  const showDropdown = open && suggestions.length > 0;
+  const dropdownVisible = showDropdown && open && suggestions.length > 0;
 
   useEffect(() => { setActiveIdx(-1); }, [query]);
-  useEffect(() => { setQuery(""); }, [translate]);
 
   function handleKeyDown(e: React.KeyboardEvent) {
-    if (!showDropdown) return;
+    if (!dropdownVisible) return;
     if (e.key === "ArrowDown") {
       e.preventDefault();
       setActiveIdx((i) => Math.min(i + 1, suggestions.length - 1));
@@ -70,9 +69,8 @@ export default function SearchInput({ ingredients, selectedIds, onSelect, transl
 
   function commit(ingredient: Ingredient) {
     onSelect(ingredient);
-    setQuery("");
-    setActiveIdx(-1);
     setOpen(false);
+    setActiveIdx(-1);
     inputRef.current?.focus();
   }
 
@@ -93,23 +91,34 @@ export default function SearchInput({ ingredients, selectedIds, onSelect, transl
           <path strokeLinecap="round" strokeLinejoin="round"
             d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
         </svg>
+        {query && (
+          <button
+            onMouseDown={(e) => { e.preventDefault(); onQueryChange(""); inputRef.current?.focus(); }}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition-colors"
+            aria-label="Clear search"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        )}
         <input
           ref={inputRef}
           type="text"
           role="combobox"
-          aria-expanded={showDropdown}
+          aria-expanded={dropdownVisible}
           aria-controls={listId}
           aria-autocomplete="list"
           aria-activedescendant={activeIdx >= 0 ? `${listId}-${activeIdx}` : undefined}
           value={query}
           disabled={disabled}
-          onChange={(e) => { setQuery(e.target.value); setOpen(true); }}
+          onChange={(e) => { onQueryChange(e.target.value); setOpen(true); }}
           onFocus={() => setOpen(true)}
           onBlur={() => setTimeout(() => setOpen(false), 150)}
           onKeyDown={handleKeyDown}
-          placeholder={disabled ? "Chargement…" : (placeholder ?? "Add an ingredient…")}
+          placeholder={disabled ? "Chargement…" : (placeholder ?? "Search an ingredient…")}
           className="
-            w-full pl-10 pr-4 py-3 rounded-xl
+            w-full pl-10 pr-9 py-3 rounded-xl
             bg-white/10 border border-white/20 text-white placeholder-white/40
             focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent
             text-base transition-colors disabled:opacity-50 disabled:cursor-not-allowed
@@ -117,7 +126,7 @@ export default function SearchInput({ ingredients, selectedIds, onSelect, transl
         />
       </div>
 
-      {showDropdown && (
+      {dropdownVisible && (
         <ul
           id={listId}
           ref={listRef}
@@ -127,11 +136,6 @@ export default function SearchInput({ ingredients, selectedIds, onSelect, transl
             bg-brand-900 border border-white/20 rounded-xl shadow-2xl
           "
         >
-          {isFirstPick && query.length === 0 && (
-            <li className="px-4 pt-2 pb-1 text-xs text-white/30 uppercase tracking-wider select-none">
-              Popular ingredients
-            </li>
-          )}
           {suggestions.map((ing, idx) => (
             <li
               key={ing.id}
