@@ -5751,9 +5751,8 @@ zinfandel
 zucchini
 zwieback
 # auto-added canonical forms
-chickpea
-collard
-dinner roll
-green onion
-lima bean
-turnip
+# auto-added canonical forms
+scallion
+scallion greens
+# auto-added canonical forms
+chickpeas
