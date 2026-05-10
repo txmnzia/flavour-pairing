@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import type { Ingredient, Pairing } from "../types";
 
 const PAGE_SIZE = 9;
@@ -118,6 +118,7 @@ function PairingCarousel({
   recommendations, selectedCount, onAdd, translate,
 }: Pick<Props, "recommendations" | "selectedCount" | "onAdd" | "translate">) {
   const [page, setPage] = useState(0);
+  const touchStartX = useRef<number | null>(null);
 
   useEffect(() => {
     setPage(0);
@@ -126,8 +127,19 @@ function PairingCarousel({
   const totalPages = Math.ceil(recommendations.length / PAGE_SIZE);
   const pageItems = recommendations.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
 
+  const prev = () => setPage((p) => (p - 1 + totalPages) % totalPages);
+  const next = () => setPage((p) => (p + 1) % totalPages);
+
   return (
-    <div>
+    <div
+      onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
+      onTouchEnd={(e) => {
+        if (touchStartX.current === null || totalPages <= 1) return;
+        const delta = touchStartX.current - e.changedTouches[0].clientX;
+        if (Math.abs(delta) > 40) delta > 0 ? next() : prev();
+        touchStartX.current = null;
+      }}
+    >
       <div className="grid grid-cols-3 gap-2.5">
         {pageItems.map((pairing) => (
           <Card
@@ -145,7 +157,7 @@ function PairingCarousel({
       {totalPages > 1 && (
         <div className="flex items-center justify-between mt-4">
           <button
-            onClick={() => setPage((p) => (p - 1 + totalPages) % totalPages)}
+            onClick={prev}
             className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
             aria-label="Previous page"
           >
@@ -155,7 +167,7 @@ function PairingCarousel({
           </button>
 
           <button
-            onClick={() => setPage((p) => (p + 1) % totalPages)}
+            onClick={next}
             className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
             aria-label="Next page"
           >
