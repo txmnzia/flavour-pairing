@@ -1,0 +1,6 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# This file defines which ingredients appear in the app.
+# To remove an ingredient: delete its line (or comment it out with #).
+# Lines starting with # and blank lines are ignored.
+# After editing, ask Claude: "Rebuild pairings from ingredients.txt"
+# ─────────────────────────────────────────────────────────────────────────────
