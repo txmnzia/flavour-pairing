@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import type { Ingredient, Pairing } from "../types";
+import { getIngredientEmoji, getIngredientColor } from "../utils/ingredientEmoji";
 
 const PAGE_SIZE = 9;
 
@@ -16,16 +17,6 @@ interface Props {
   onRemove?: (id: number) => void;
 }
 
-function IngredientIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.2} className="w-10 h-10 text-white/20">
-      <path strokeLinecap="round" strokeLinejoin="round"
-        d="M12 2C10.5 4.5 9 7.5 9 10a3 3 0 006 0c0-2.5-1.5-5.5-3-8z" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 13v7" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9.5 16.5q2.5 1 5 0" />
-    </svg>
-  );
-}
 
 function ScoreBar({ value, color }: { value: number; color?: string }) {
   const pct = Math.round(value * 100);
@@ -79,8 +70,13 @@ function Card({
         }
       `}
     >
-      <div className="relative w-full aspect-square bg-white/5 flex items-center justify-center">
-        <IngredientIcon />
+      <div
+        className="relative w-full aspect-square flex items-center justify-center"
+        style={{ background: getIngredientColor(name) }}
+      >
+        <span className="text-3xl select-none" role="img" aria-label={name}>
+          {getIngredientEmoji(name)}
+        </span>
         {coverage !== undefined && totalSelected !== undefined && (
           <CoverageBadge coverage={coverage} total={totalSelected} />
         )}
