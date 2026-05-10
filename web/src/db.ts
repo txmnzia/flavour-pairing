@@ -28,7 +28,14 @@ export function getDataMeta(): { source: string; recipes: number } {
 }
 
 export function getAllIngredients(): Ingredient[] {
-  return requireRaw().i.map((name, id) => ({ id, name, freq: 0 }));
+  const raw = requireRaw();
+  // Count total pairing relationships per ingredient across all cuisines as popularity proxy
+  const freq = new Array(raw.i.length).fill(0);
+  for (const key of Object.keys(raw.p)) {
+    const ingIdx = parseInt(key.split(",")[1]);
+    freq[ingIdx] += raw.p[key].length;
+  }
+  return raw.i.map((name, id) => ({ id, name, freq: freq[id] }));
 }
 
 export function getAllCuisines(): Cuisine[] {
