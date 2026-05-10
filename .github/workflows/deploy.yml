@@ -30,9 +30,10 @@ jobs:
 
       - name: Use real pairings.json if available, otherwise generate demo
         run: |
-          if git show origin/feature/real-data:web/public/pairings.json > web/public/pairings.json 2>/dev/null; then
+          if git show origin/feature/real-data:web/public/pairings.json > /tmp/pairings_real.json 2>/dev/null && [ -s /tmp/pairings_real.json ]; then
+            cp /tmp/pairings_real.json web/public/pairings.json
             echo "Real pairings.json loaded from feature/real-data."
-          elif [ -f web/public/pairings.json ]; then
+          elif [ -s web/public/pairings.json ]; then
             echo "Real pairings.json found in checkout — skipping demo generation."
           else
             echo "No pairings.json found — generating demo data."
@@ -44,9 +45,10 @@ jobs:
 
       - name: Use real recipes.json if available, otherwise use demo (if just generated)
         run: |
-          if git show origin/feature/real-data:web/public/recipes.json > web/public/recipes.json 2>/dev/null; then
+          if git show origin/feature/real-data:web/public/recipes.json > /tmp/recipes_real.json 2>/dev/null && [ -s /tmp/recipes_real.json ]; then
+            cp /tmp/recipes_real.json web/public/recipes.json
             echo "Real recipes.json loaded from feature/real-data."
-          elif [ -f web/public/recipes.json ]; then
+          elif [ -s web/public/recipes.json ]; then
             echo "recipes.json already present (demo or committed)."
           else
             echo "No recipes.json — recipe suggestions will be unavailable."
