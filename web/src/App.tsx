@@ -6,7 +6,7 @@ import SearchInput from "./components/SearchInput";
 import RecommendationList from "./components/RecommendationList";
 import { translateFr } from "./utils/translateFr";
 
-const TOP_N = 9;
+const TOP_N = 36;
 const BROWSE_N = 30;
 
 export default function App() {

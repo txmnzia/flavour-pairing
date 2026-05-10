@@ -1,4 +1,7 @@
+import { useState, useEffect } from "react";
 import type { Ingredient, Pairing } from "../types";
+
+const PAGE_SIZE = 9;
 
 interface Props {
   recommendations: Pairing[];
@@ -111,6 +114,78 @@ function Card({
   );
 }
 
+function PairingCarousel({
+  recommendations, selectedCount, onAdd, translate,
+}: Pick<Props, "recommendations" | "selectedCount" | "onAdd" | "translate">) {
+  const [page, setPage] = useState(0);
+
+  useEffect(() => {
+    setPage(0);
+  }, [recommendations]);
+
+  const totalPages = Math.ceil(recommendations.length / PAGE_SIZE);
+  const pageItems = recommendations.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
+
+  return (
+    <div>
+      <div className="grid grid-cols-3 gap-2.5">
+        {pageItems.map((pairing) => (
+          <Card
+            key={pairing.ingredient.id}
+            name={pairing.ingredient.name}
+            score={pairing.npmi}
+            coverage={pairing.coverage}
+            totalSelected={selectedCount}
+            onClick={() => onAdd(pairing.ingredient.name)}
+            translate={translate}
+          />
+        ))}
+      </div>
+
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center gap-3 mt-4">
+          <button
+            onClick={() => setPage((p) => Math.max(0, p - 1))}
+            disabled={page === 0}
+            className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 disabled:opacity-20 disabled:cursor-not-allowed flex items-center justify-center transition-colors"
+            aria-label="Previous page"
+          >
+            <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          <div className="flex items-center gap-1.5">
+            {Array.from({ length: totalPages }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setPage(i)}
+                className={`rounded-full transition-all duration-200 ${
+                  i === page
+                    ? "w-4 h-1.5 bg-white/70"
+                    : "w-1.5 h-1.5 bg-white/25 hover:bg-white/40"
+                }`}
+                aria-label={`Page ${i + 1}`}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
+            disabled={page === totalPages - 1}
+            className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 disabled:opacity-20 disabled:cursor-not-allowed flex items-center justify-center transition-colors"
+            aria-label="Next page"
+          >
+            <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function RecommendationList({
   recommendations, selectedCount, onAdd, translate,
   browseIngredients, maxFreq = 1,
@@ -178,19 +253,12 @@ export default function RecommendationList({
   return (
     <>
       {selectedGrid}
-      <div className="grid grid-cols-3 gap-2.5">
-        {recommendations.map((pairing) => (
-          <Card
-            key={pairing.ingredient.id}
-            name={pairing.ingredient.name}
-            score={pairing.npmi}
-            coverage={pairing.coverage}
-            totalSelected={selectedCount}
-            onClick={() => onAdd(pairing.ingredient.name)}
-            translate={translate}
-          />
-        ))}
-      </div>
+      <PairingCarousel
+        recommendations={recommendations}
+        selectedCount={selectedCount}
+        onAdd={onAdd}
+        translate={translate}
+      />
     </>
   );
 }
