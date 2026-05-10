@@ -1,12 +1,12 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { loadDatabase, getAllIngredients, getAllCuisines, getRecommendations, getDataMeta } from "./db";
+import { loadDatabase, getAllIngredients, getAllCuisines, getRecommendations, getDataMeta, getRecipesForIngredients } from "./db";
 import type { Ingredient, Cuisine, Pairing, DbStatus } from "./types";
 import CuisineFilter from "./components/CuisineFilter";
 import SearchInput from "./components/SearchInput";
 import RecommendationList from "./components/RecommendationList";
 import { translateFr } from "./utils/translateFr";
 
-const TOP_N = 30;
+const TOP_N = 9;
 const BROWSE_N = 30;
 
 export default function App() {
@@ -16,6 +16,7 @@ export default function App() {
   const [selectedIngredients, setSelectedIngredients] = useState<Ingredient[]>([]);
   const [selectedCuisine, setSelectedCuisine] = useState<Cuisine | null>(null);
   const [recommendations, setRecommendations] = useState<Pairing[]>([]);
+  const [matchingRecipes, setMatchingRecipes] = useState<string[]>([]);
   const [dataMeta, setDataMeta] = useState<{ source: string; recipes: number } | null>(null);
   const [lang, setLang] = useState<"en" | "fr">("en");
   const [query, setQuery] = useState("");
@@ -43,12 +44,14 @@ export default function App() {
   useEffect(() => {
     if (status.state !== "ready" || selectedIngredients.length === 0) {
       setRecommendations([]);
+      setMatchingRecipes([]);
       return;
     }
     const allCuisine = cuisines.find((c) => c.name === "all");
     const cuisineId = selectedCuisine?.id ?? allCuisine?.id ?? 1;
     const ids = selectedIngredients.map((i) => i.id);
     setRecommendations(getRecommendations(ids, ingredients, cuisineId, TOP_N));
+    setMatchingRecipes(getRecipesForIngredients(ids));
   }, [selectedIngredients, selectedCuisine, status, ingredients, cuisines]);
 
   const selectedIds = useMemo(
@@ -163,6 +166,7 @@ export default function App() {
           />
         </section>
 
+
         {isReady && (
           <section className="flex-1">
             {isBrowsing ? (
@@ -208,6 +212,29 @@ export default function App() {
                   maxFreqSelected={maxFreq}
                   onRemove={removeIngredient}
                 />
+
+                {matchingRecipes.length > 0 && (
+                  <div className="mt-6">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="flex-1 h-px bg-white/10" />
+                      <span className="text-xs text-white/30 uppercase tracking-wider shrink-0">
+                        {lang === "fr" ? "Recettes" : "Recipes"}
+                      </span>
+                      <div className="flex-1 h-px bg-white/10" />
+                    </div>
+                    <ul className="space-y-2">
+                      {matchingRecipes.map((title) => (
+                        <li key={title} className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl px-4 py-3">
+                          <svg className="w-4 h-4 text-white/30 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                            <path strokeLinecap="round" strokeLinejoin="round"
+                              d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                          </svg>
+                          <span className="text-sm text-white/70 capitalize">{title}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </>
             )}
           </section>

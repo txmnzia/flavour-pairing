@@ -36,7 +36,20 @@ jobs:
             echo "Real pairings.json found in checkout — skipping demo generation."
           else
             echo "No pairings.json found — generating demo data."
-            python pipeline/generate_demo.py --output /tmp/pairings.db --json-output web/public/pairings.json
+            python pipeline/generate_demo.py \
+              --output /tmp/pairings.db \
+              --json-output web/public/pairings.json \
+              --recipes-output web/public/recipes.json
+          fi
+
+      - name: Use real recipes.json if available, otherwise use demo (if just generated)
+        run: |
+          if git show origin/feature/real-data:web/public/recipes.json > web/public/recipes.json 2>/dev/null; then
+            echo "Real recipes.json loaded from feature/real-data."
+          elif [ -f web/public/recipes.json ]; then
+            echo "recipes.json already present (demo or committed)."
+          else
+            echo "No recipes.json — recipe suggestions will be unavailable."
           fi
 
       - uses: actions/setup-node@v4
