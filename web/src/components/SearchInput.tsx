@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useId } from "react";
+import { useState, useRef, useEffect, useId, useMemo } from "react";
 import type { Ingredient } from "../types";
 
 interface Props {
@@ -20,36 +20,40 @@ export default function SearchInput({ ingredients, selectedIds, onSelect, transl
   const listRef = useRef<HTMLUListElement>(null);
   const listId = useId();
 
-  const suggestions = query.length < 1
-    ? []
-    : ingredients
-        .filter((i) => {
-          if (selectedIds.has(i.id)) return false;
-          const display = translate(i.name).toLowerCase();
-          return display.includes(query.toLowerCase());
-        })
-        .sort((a, b) => {
-          const aName = translate(a.name).toLowerCase();
-          const bName = translate(b.name).toLowerCase();
-          const q = query.toLowerCase();
-          const aPrefix = aName.startsWith(q);
-          const bPrefix = bName.startsWith(q);
-          if (aPrefix !== bPrefix) return aPrefix ? -1 : 1;
-          return b.freq - a.freq;
-        })
+  const isFirstPick = selectedIds.size === 0;
+
+  const suggestions = useMemo(() => {
+    const q = query.toLowerCase();
+    if (isFirstPick && q.length === 0) {
+      return ingredients
+        .filter((i) => !selectedIds.has(i.id))
+        .sort((a, b) => b.freq - a.freq)
         .slice(0, MAX_SUGGESTIONS);
+    }
+    if (q.length === 0) return [];
+    return ingredients
+      .filter((i) => {
+        if (selectedIds.has(i.id)) return false;
+        return translate(i.name).toLowerCase().includes(q);
+      })
+      .sort((a, b) => {
+        const aName = translate(a.name).toLowerCase();
+        const bName = translate(b.name).toLowerCase();
+        const aPrefix = aName.startsWith(q);
+        const bPrefix = bName.startsWith(q);
+        if (aPrefix !== bPrefix) return aPrefix ? -1 : 1;
+        return b.freq - a.freq;
+      })
+      .slice(0, MAX_SUGGESTIONS);
+  }, [ingredients, selectedIds, query, translate, isFirstPick]);
 
-  useEffect(() => {
-    setActiveIdx(-1);
-  }, [query]);
+  const showDropdown = open && suggestions.length > 0;
 
-  // Reset query when language changes (translated query is no longer valid)
-  useEffect(() => {
-    setQuery("");
-  }, [translate]);
+  useEffect(() => { setActiveIdx(-1); }, [query]);
+  useEffect(() => { setQuery(""); }, [translate]);
 
   function handleKeyDown(e: React.KeyboardEvent) {
-    if (!open || suggestions.length === 0) return;
+    if (!showDropdown) return;
     if (e.key === "ArrowDown") {
       e.preventDefault();
       setActiveIdx((i) => Math.min(i + 1, suggestions.length - 1));
@@ -67,8 +71,8 @@ export default function SearchInput({ ingredients, selectedIds, onSelect, transl
   function commit(ingredient: Ingredient) {
     onSelect(ingredient);
     setQuery("");
-    setOpen(false);
     setActiveIdx(-1);
+    setOpen(false);
     inputRef.current?.focus();
   }
 
@@ -93,7 +97,7 @@ export default function SearchInput({ ingredients, selectedIds, onSelect, transl
           ref={inputRef}
           type="text"
           role="combobox"
-          aria-expanded={open && suggestions.length > 0}
+          aria-expanded={showDropdown}
           aria-controls={listId}
           aria-autocomplete="list"
           aria-activedescendant={activeIdx >= 0 ? `${listId}-${activeIdx}` : undefined}
@@ -113,7 +117,7 @@ export default function SearchInput({ ingredients, selectedIds, onSelect, transl
         />
       </div>
 
-      {open && suggestions.length > 0 && (
+      {showDropdown && (
         <ul
           id={listId}
           ref={listRef}
@@ -123,6 +127,11 @@ export default function SearchInput({ ingredients, selectedIds, onSelect, transl
             bg-brand-900 border border-white/20 rounded-xl shadow-2xl
           "
         >
+          {isFirstPick && query.length === 0 && (
+            <li className="px-4 pt-2 pb-1 text-xs text-white/30 uppercase tracking-wider select-none">
+              Popular ingredients
+            </li>
+          )}
           {suggestions.map((ing, idx) => (
             <li
               key={ing.id}
