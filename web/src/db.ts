@@ -134,3 +134,17 @@ export function getRecommendations(
   results.sort((a, b) => b.npmi - a.npmi);
   return results.slice(0, topN);
 }
+
+export function getDataMeta(): { source: string; recipes: number } | null {
+  try {
+    const result = requireDb().exec("SELECT key, value FROM meta");
+    if (!result[0]) return null;
+    const map = Object.fromEntries(result[0].values.map(([k, v]) => [k, v]));
+    return {
+      source: (map.source as string) ?? "unknown",
+      recipes: Number(map.recipes ?? 0),
+    };
+  } catch {
+    return null;
+  }
+}
