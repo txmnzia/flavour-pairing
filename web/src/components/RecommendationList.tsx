@@ -143,11 +143,10 @@ function PairingCarousel({
       </div>
 
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-3 mt-4">
+        <div className="flex items-center justify-between mt-4">
           <button
-            onClick={() => setPage((p) => Math.max(0, p - 1))}
-            disabled={page === 0}
-            className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 disabled:opacity-20 disabled:cursor-not-allowed flex items-center justify-center transition-colors"
+            onClick={() => setPage((p) => (p - 1 + totalPages) % totalPages)}
+            className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
             aria-label="Previous page"
           >
             <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -155,25 +154,9 @@ function PairingCarousel({
             </svg>
           </button>
 
-          <div className="flex items-center gap-1.5">
-            {Array.from({ length: totalPages }).map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setPage(i)}
-                className={`rounded-full transition-all duration-200 ${
-                  i === page
-                    ? "w-4 h-1.5 bg-white/70"
-                    : "w-1.5 h-1.5 bg-white/25 hover:bg-white/40"
-                }`}
-                aria-label={`Page ${i + 1}`}
-              />
-            ))}
-          </div>
-
           <button
-            onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
-            disabled={page === totalPages - 1}
-            className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 disabled:opacity-20 disabled:cursor-not-allowed flex items-center justify-center transition-colors"
+            onClick={() => setPage((p) => (p + 1) % totalPages)}
+            className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
             aria-label="Next page"
           >
             <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
