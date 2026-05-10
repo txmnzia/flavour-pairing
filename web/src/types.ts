@@ -4,17 +4,9 @@ export interface Ingredient {
   freq: number;
 }
 
-export interface Cuisine {
-  id: number;
-  name: string;
-  recipeCount: number;
-}
-
 export interface Pairing {
   ingredient: Ingredient;
-  npmi: number;
-  cooccurrence: number;
-  /** How many of the selected ingredients this candidate pairs with */
+  score: number;
   coverage: number;
 }
 
