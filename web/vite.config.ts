@@ -26,13 +26,15 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html}"],
+        globIgnores: ["curate.html"],
         runtimeCaching: [
           {
             urlPattern: /pairings\.json$/,
-            handler: "CacheFirst",
+            handler: "NetworkFirst",
             options: {
               cacheName: "pairings-data",
-              expiration: { maxEntries: 1, maxAgeSeconds: 60 * 60 * 24 * 30 },
+              expiration: { maxEntries: 1, maxAgeSeconds: 60 * 60 * 24 * 7 },
+              networkTimeoutSeconds: 5,
             },
           },
         ],
