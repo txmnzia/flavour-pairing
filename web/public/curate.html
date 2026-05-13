@@ -379,6 +379,7 @@ function saveDecisionsToLS() {
 
 function buildQueue() {
   queue = ingredients.filter(i =>
+    i.pairings > 0            &&
     !validatedSet.has(i.name) &&
     !deletedSet.has(i.name)   &&
     !mergedMap.has(i.name)
