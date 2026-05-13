@@ -81,9 +81,10 @@ body {
 #card.validated { border-top: 4px solid #22c55e; }
 #cname {
   font-size: clamp(1.5rem, 6vw, 2rem); font-weight: 700;
-  text-align: center; margin-bottom: 10px; line-height: 1.2;
+  text-align: center; margin-bottom: 4px; line-height: 1.2;
   word-break: break-word;
 }
+#cfr { text-align: center; font-size: 0.95rem; color: #64748b; font-style: italic; margin-bottom: 10px; min-height: 1.2em; }
 #cpairings { text-align: center; font-size: 0.8rem; color: #94a3b8; }
 #cstatus   { text-align: center; font-size: 0.7rem; color: #22c55e; font-weight: 600; margin-top: 4px; min-height: 16px; }
 
@@ -196,6 +197,7 @@ body {
     <span class="hlbl" id="lbl-keep">KEEP</span>
     <span class="hlbl" id="lbl-mrg">MERGE</span>
     <div id="cname"></div>
+    <div id="cfr"></div>
     <div id="cpairings"></div>
     <div id="cstatus"></div>
   </div>
@@ -247,6 +249,80 @@ let busy  = false;
 let stats = { kept: 0, deleted: 0, merged: 0 };
 
 let mhits = [], msel = -1;
+let frDict = {};
+
+// ── French translation (mirrors translateFr.ts) ────────────────────────────
+const PREFIX_FR = {
+  fresh:'frais', freshly:'fraîchement moulu', ground:'moulu', dried:'séché',
+  frozen:'surgelé', minced:'émincé', chopped:'haché', sliced:'en tranches',
+  shredded:'râpé', grated:'râpé', whole:'entier', cooked:'cuit', raw:'cru',
+  canned:'en conserve', cold:'froid', warm:'chaud', hot:'chaud',
+  unsalted:'non salé', salted:'salé', lean:'maigre', smoked:'fumé',
+  pickled:'mariné', roasted:'rôti', toasted:'grillé', candied:'confit',
+  grilled:'grillé', blanched:'blanchi', marinated:'mariné', organic:'bio',
+  wild:'sauvage', baby:'jeune', large:'grand', small:'petit', sweet:'doux',
+  sour:'aigre', spicy:'épicé', mild:'doux', extra:'extra', reduced:'réduit',
+  instant:'instantané', powdered:'en poudre', crushed:'écrasé', peeled:'pelé',
+  pitted:'dénoyauté', halved:'coupé en deux', softened:'ramolli',
+  melted:'fondu',
+};
+const COLOR_FR = {
+  red:'rouge', green:'vert', black:'noir', white:'blanc', yellow:'jaune',
+  golden:'doré', purple:'violet', orange:'orange', brown:'brun', pink:'rose',
+  dark:'foncé', light:'léger',
+};
+const SUFFIXES = [
+  [' oil',     b => /^[aeiouy]/i.test(b) ? `huile d'${b}` : `huile de ${b}`],
+  [' juice',   b => /^[aeiouy]/i.test(b) ? `jus d'${b}` : `jus de ${b}`],
+  [' seeds',   b => /^[aeiouy]/i.test(b) ? `graines d'${b}` : `graines de ${b}`],
+  [' seed',    b => /^[aeiouy]/i.test(b) ? `graines d'${b}` : `graines de ${b}`],
+  [' leaves',  b => /^[aeiouy]/i.test(b) ? `feuilles d'${b}` : `feuilles de ${b}`],
+  [' leaf',    b => /^[aeiouy]/i.test(b) ? `feuille d'${b}` : `feuille de ${b}`],
+  [' powder',  b => `${b} en poudre`],
+  [' extract', b => /^[aeiouy]/i.test(b) ? `extrait d'${b}` : `extrait de ${b}`],
+  [' flour',   b => /^[aeiouy]/i.test(b) ? `farine d'${b}` : `farine de ${b}`],
+  [' vinegar', b => /^[aeiouy]/i.test(b) ? `vinaigre d'${b}` : `vinaigre de ${b}`],
+  [' milk',    b => /^[aeiouy]/i.test(b) ? `lait d'${b}` : `lait de ${b}`],
+  [' syrup',   b => /^[aeiouy]/i.test(b) ? `sirop d'${b}` : `sirop de ${b}`],
+  [' paste',   b => /^[aeiouy]/i.test(b) ? `pâte d'${b}` : `pâte de ${b}`],
+  [' butter',  b => /^[aeiouy]/i.test(b) ? `beurre d'${b}` : `beurre de ${b}`],
+  [' cream',   b => /^[aeiouy]/i.test(b) ? `crème d'${b}` : `crème de ${b}`],
+  [' broth',   b => /^[aeiouy]/i.test(b) ? `bouillon d'${b}` : `bouillon de ${b}`],
+  [' stock',   b => /^[aeiouy]/i.test(b) ? `bouillon d'${b}` : `bouillon de ${b}`],
+  [' sauce',   b => `sauce ${b}`],
+  [' starch',  b => /^[aeiouy]/i.test(b) ? `fécule d'${b}` : `fécule de ${b}`],
+  [' flakes',  b => /^[aeiouy]/i.test(b) ? `flocons d'${b}` : `flocons de ${b}`],
+  [' chips',   b => `chips de ${b}`],
+  [' spread',  b => `tartinade de ${b}`],
+];
+
+function translateFr(name) {
+  const lk = n => frDict[n] ?? frDict[n.toLowerCase()] ?? null;
+  const exact = lk(name);
+  if (exact) return exact;
+  const lower = name.toLowerCase().trim();
+  for (const [pre, frMod] of Object.entries(PREFIX_FR)) {
+    if (lower.startsWith(pre + ' ')) {
+      const rest = name.slice(pre.length + 1);
+      const base = lk(rest);
+      if (base) return `${base} ${frMod}`;
+    }
+  }
+  for (const [col, frCol] of Object.entries(COLOR_FR)) {
+    if (lower.startsWith(col + ' ')) {
+      const rest = name.slice(col.length + 1);
+      const base = lk(rest);
+      if (base) return `${base} ${frCol}`;
+    }
+  }
+  for (const [suf, fmt] of SUFFIXES) {
+    if (lower.endsWith(suf)) {
+      const baseEn = name.slice(0, name.length - suf.length);
+      return fmt(lk(baseEn) ?? baseEn);
+    }
+  }
+  return null;  // no translation found
+}
 
 // ── Init ────────────────────────────────────────────────────────────────────
 async function init() {
@@ -257,6 +333,9 @@ async function init() {
     document.getElementById('gh-token').value = token;
     await loadFromGH(true);   // silent = true
   }
+
+  // Load French translations (best-effort, non-blocking)
+  fetch('./translations/fr.json').then(r => r.ok ? r.json() : {}).then(d => { frDict = d; }).catch(() => {});
 
   try {
     const r = await fetch('./pairings.json');
@@ -361,6 +440,7 @@ function showCard() {
   card.className        = validatedSet.has(item.name) ? 'validated' : '';
 
   document.getElementById('cname').textContent     = item.name;
+  document.getElementById('cfr').textContent       = translateFr(item.name) || '';
   document.getElementById('cpairings').textContent = item.pairings + ' pairings';
   document.getElementById('cstatus').textContent   = '';
 

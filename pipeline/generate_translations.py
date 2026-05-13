@@ -14,6 +14,7 @@ Claude Haiku in batches of 100, and merges results into the existing fr.json
 import argparse
 import csv
 import json
+import os
 import time
 import urllib.request
 
@@ -97,6 +98,12 @@ def main(output: str) -> None:
     merged = {**existing, **new_translations}
 
     with open(output, "w", encoding="utf-8") as f:
+        json.dump(merged, f, ensure_ascii=False, indent=2)
+
+    # Keep the static copy in sync for curate.html
+    public_copy = os.path.join(os.path.dirname(__file__), "..", "web", "public", "translations", "fr.json")
+    os.makedirs(os.path.dirname(public_copy), exist_ok=True)
+    with open(public_copy, "w", encoding="utf-8") as f:
         json.dump(merged, f, ensure_ascii=False, indent=2)
 
     print(
