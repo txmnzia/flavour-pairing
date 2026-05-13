@@ -1,5 +1,8 @@
 {
-  "validated": [],
+  "validated": [
+    "red pepper paste",
+    "yellow rice"
+  ],
   "deleted": [
     "12 inch pizza crust",
     "2% buttermilk",
@@ -13,7 +16,8 @@
     "100% bran": "bran bud",
     "18% table cream": "creme fraiche",
     "2% cheddar cheese": "cheddar cheese",
-    "2% fat cottage cheese": "cottage cheese"
+    "2% fat cottage cheese": "cottage cheese",
+    "sweet soy sauce": "soy sauce"
   },
-  "lastSaved": "2026-05-13T20:39:13.937Z"
+  "lastSaved": "2026-05-13T20:49:01.052Z"
 }
