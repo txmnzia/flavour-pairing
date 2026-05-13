@@ -32,6 +32,10 @@ jobs:
         run: |
           python pipeline/flavorgraph_import.py --output web/public/pairings.json
 
+      - name: Apply curation decisions (if curation.json exists)
+        run: |
+          python pipeline/apply_curation_json.py
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
