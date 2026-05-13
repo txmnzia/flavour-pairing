@@ -1,7 +1,9 @@
 {
   "validated": [],
   "deleted": [
-    "12 inch pizza crust"
+    "12 inch pizza crust",
+    "2% buttermilk",
+    "2% evaporated milk"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -9,7 +11,8 @@
     "10 inch flour tortilla": "corn tortilla",
     "10% cream": "creme fraiche",
     "100% bran": "bran bud",
-    "18% table cream": "creme fraiche"
+    "18% table cream": "creme fraiche",
+    "2% cheddar cheese": "cheddar cheese"
   },
-  "lastSaved": "2026-05-13T20:29:33.316Z"
+  "lastSaved": "2026-05-13T20:30:24.511Z"
 }
