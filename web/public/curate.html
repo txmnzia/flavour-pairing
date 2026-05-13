@@ -158,6 +158,20 @@ body {
   font-size: 0.78rem; color: #475569; cursor: pointer;
 }
 #mcancel:hover { color: #94a3b8; }
+
+/* ── Merge suggestions ── */
+#suggestions {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5px; padding: 0 12px 6px; flex-shrink: 0;
+}
+.sugg-card {
+  background: #1e293b; border: 1px solid #334155; border-radius: 10px;
+  padding: 7px 8px; cursor: pointer; text-align: center;
+  transition: background 0.1s; -webkit-tap-highlight-color: transparent;
+}
+.sugg-card:hover, .sugg-card:active { background: #334155; }
+.sugg-name { font-size: 0.72rem; color: #e2e8f0; font-weight: 600; line-height: 1.2; }
+.sugg-fr   { font-size: 0.62rem; color: #64748b; font-style: italic; margin-top: 1px; }
 </style>
 </head>
 <body>
@@ -209,6 +223,8 @@ body {
   <p id="done-stats"></p>
   <button id="restart" onclick="restart()">Start over</button>
 </div>
+
+<div id="suggestions" style="display:none"></div>
 
 <div id="actions" style="display:none">
   <button class="abtn" id="btn-del" title="Delete ←"  onclick="go('left')">✕</button>
@@ -400,20 +416,22 @@ function showCard() {
   busy = false;
   setLabels(0, 0, 0);
 
-  const stage   = document.getElementById('stage');
-  const card    = document.getElementById('card');
-  const loading = document.getElementById('loading');
-  const done    = document.getElementById('done');
-  const actions = document.getElementById('actions');
-  const kbhint  = document.getElementById('kbhint');
+  const stage       = document.getElementById('stage');
+  const card        = document.getElementById('card');
+  const loading     = document.getElementById('loading');
+  const done        = document.getElementById('done');
+  const actions     = document.getElementById('actions');
+  const kbhint      = document.getElementById('kbhint');
+  const suggestions = document.getElementById('suggestions');
 
   if (idx >= queue.length) {
-    stage.style.display   = 'flex';
-    card.style.display    = 'none';
-    loading.style.display = 'none';
-    done.style.display    = 'flex';
-    actions.style.display = 'none';
-    kbhint.style.display  = 'none';
+    stage.style.display       = 'flex';
+    card.style.display        = 'none';
+    loading.style.display     = 'none';
+    done.style.display        = 'flex';
+    actions.style.display     = 'none';
+    kbhint.style.display      = 'none';
+    suggestions.style.display = 'none';
 
     const total = ingredients.length;
     const v = validatedSet.size, d = deletedSet.size, m = mergedMap.size;
@@ -446,6 +464,7 @@ function showCard() {
   document.getElementById('cfr').textContent       = translateFr(item.name) || '';
   document.getElementById('cpairings').textContent = item.pairings + ' pairings';
   document.getElementById('cstatus').textContent   = '';
+  showSuggestions(item.name);
 
   const total = queue.length + stats.kept + stats.deleted + stats.merged;
   const done2 = stats.kept + stats.deleted + stats.merged;
@@ -586,6 +605,51 @@ function pickM(hitIdx) {
     queue.splice(idx, 1);
     showCard();
   });
+}
+
+// ── Merge suggestions ─────────────────────────────────────────────────────────
+function getSuggestions(name) {
+  const words = name.toLowerCase().split(' ').filter(w => w.length > 2);
+  if (!words.length) return [];
+  const wset = new Set(words);
+  return ingredients
+    .filter(i => i.name !== name && !deletedSet.has(i.name) && i.pairings > 0)
+    .map(i => {
+      const iw = i.name.toLowerCase().split(' ').filter(w => w.length > 2);
+      const shared = iw.filter(w => wset.has(w)).length;
+      return { ...i, score: shared / Math.max(words.length, iw.length || 1) };
+    })
+    .filter(i => i.score > 0)
+    .sort((a, b) => b.score - a.score || a.name.localeCompare(b.name))
+    .slice(0, 8);
+}
+
+function showSuggestions(name) {
+  const el = document.getElementById('suggestions');
+  const hits = getSuggestions(name);
+  if (!hits.length) { el.style.display = 'none'; return; }
+  el.innerHTML = hits.map(h => {
+    const fr = translateFr(h.name);
+    return '<div class="sugg-card" onclick="doMergeInto(' + JSON.stringify(h.name) + ')">' +
+      '<div class="sugg-name">' + esc(h.name) + '</div>' +
+      (fr ? '<div class="sugg-fr">' + esc(fr) + '</div>' : '') +
+      '</div>';
+  }).join('');
+  el.style.display = 'grid';
+}
+
+function doMergeInto(canonicalName) {
+  if (busy || idx >= queue.length) return;
+  const from = queue[idx].name;
+  busy = true;
+  if (!mergedMap.has(from)) {
+    decisions.merged[from] = canonicalName;
+    mergedMap.set(from, canonicalName);
+    saveDecisionsToLS();
+    scheduleAutoSave();
+  }
+  setLabels(0, 0, 1);
+  flyOut('up', () => { stats.merged++; queue.splice(idx, 1); showCard(); });
 }
 
 // ── Hint labels ───────────────────────────────────────────────────────────────
