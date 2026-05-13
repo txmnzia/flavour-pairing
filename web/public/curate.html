@@ -477,6 +477,14 @@ function flyOut(dir, cb) {
   setTimeout(cb, 340);
 }
 
+// ── Auto-save ─────────────────────────────────────────────────────────────────
+let autoSaveTimer = null;
+function scheduleAutoSave() {
+  if (!localStorage.getItem(LS_TOKEN)) return;
+  clearTimeout(autoSaveTimer);
+  autoSaveTimer = setTimeout(() => saveToGH(true), 20000);  // 20 s after last action
+}
+
 // ── Actions ──────────────────────────────────────────────────────────────────
 function doDelete() {
   const name = queue[idx].name;
@@ -484,6 +492,7 @@ function doDelete() {
     decisions.deleted.push(name);
     deletedSet.add(name);
     saveDecisionsToLS();
+    scheduleAutoSave();
   }
   stats.deleted++;
   queue.splice(idx, 1);
@@ -496,6 +505,7 @@ function doKeep() {
     decisions.validated.push(name);
     validatedSet.add(name);
     saveDecisionsToLS();
+    scheduleAutoSave();
   }
   stats.kept++;
   idx++;
@@ -559,6 +569,7 @@ function pickM(hitIdx) {
     decisions.merged[from] = into.name;
     mergedMap.set(from, into.name);
     saveDecisionsToLS();
+    scheduleAutoSave();
   }
 
   setLabels(0, 0, 1);
