@@ -527,16 +527,24 @@ function closeM() {
   busy = false;
 }
 
+function rankMatch(name, q) {
+  if (name === q) return 0;                                      // exact
+  if (name.startsWith(q)) return 1;                             // prefix
+  if (name.split(' ').some(w => w.startsWith(q))) return 2;     // word start
+  return 3;                                                      // substring
+}
+
 function filterM() {
   const q      = document.getElementById('msearch').value.toLowerCase().trim();
   const fromId = queue[idx].name;
   msel = -1;
   if (!q) { document.getElementById('mresults').innerHTML = ''; mhits = []; return; }
-  mhits = ingredients.filter(i =>
-    i.name !== fromId &&
-    !deletedSet.has(i.name) &&
-    i.name.toLowerCase().includes(q)
-  ).slice(0, 12);
+  mhits = ingredients
+    .filter(i => i.name !== fromId && !deletedSet.has(i.name) && i.name.toLowerCase().includes(q))
+    .sort((a, b) => {
+      const an = a.name.toLowerCase(), bn = b.name.toLowerCase();
+      return rankMatch(an, q) - rankMatch(bn, q) || an.localeCompare(bn);
+    });
   document.getElementById('mresults').innerHTML = mhits.map((m, i) =>
     '<div class="mitem" data-i="' + i + '" onclick="pickM(' + i + ')">' + esc(m.name) + '</div>'
   ).join('');
