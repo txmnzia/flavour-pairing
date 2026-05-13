@@ -630,7 +630,7 @@ function showSuggestions(name) {
   if (!hits.length) { el.style.display = 'none'; return; }
   el.innerHTML = hits.map(h => {
     const fr = translateFr(h.name);
-    return '<div class="sugg-card" onclick="doMergeInto(' + JSON.stringify(h.name) + ')">' +
+    return '<div class="sugg-card" onclick="doMergeInto(' + esc(JSON.stringify(h.name)) + ')">' +
       '<div class="sugg-name">' + esc(h.name) + '</div>' +
       (fr ? '<div class="sugg-fr">' + esc(fr) + '</div>' : '') +
       '</div>';
