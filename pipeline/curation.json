@@ -6,7 +6,12 @@
     "vegemite",
     "smoked sausage",
     "lamb",
-    "green chilies"
+    "green chilies",
+    "white peppercorn",
+    "yoghurt",
+    "soybean oil",
+    "licorice",
+    "cayenne pepper"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -19,7 +24,9 @@
     "creole seasoning",
     "copha",
     "reduced sodium fat free beef broth",
-    "israeli couscous"
+    "israeli couscous",
+    "herb seasoned stuffing mix",
+    "sugar free instant vanilla pudding mix"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -39,7 +46,11 @@
     "roasted pepper": "pepper",
     "sour apple": "apple",
     "sage leaf": "sage",
-    "bulk sausage": "sausage"
+    "bulk sausage": "sausage",
+    "fresh pumpkin puree": "pumpkin",
+    "ginger preserve": "ginger",
+    "rolled barley": "barley",
+    "strawberry slice": "strawberry"
   },
-  "lastSaved": "2026-05-13T20:58:23.428Z"
+  "lastSaved": "2026-05-13T20:59:24.325Z"
 }
