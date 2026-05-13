@@ -10,8 +10,8 @@ import json
 import os
 import sys
 
-CURATION  = os.path.join(os.path.dirname(__file__), 'curation.json')
-PAIRINGS  = os.path.join(os.path.dirname(__file__), '..', 'web', 'public', 'pairings.json')
+CURATION = os.path.join(os.path.dirname(__file__), 'curation.json')
+PAIRINGS = os.path.join(os.path.dirname(__file__), '..', 'web', 'public', 'pairings.json')
 
 
 def apply(curation_path, pairings_path):
@@ -29,47 +29,51 @@ def apply(curation_path, pairings_path):
 
     deleted      = set(curation.get('deleted', []))
     merged_names = curation.get('merged', {})   # from_name → to_name
+    removed      = deleted | set(merged_names.keys())
 
-    # Names to remove from the ingredient list
-    removed = deleted | set(merged_names.keys())
+    # Detect pairings format:
+    #   v2 (FlavorGraph): keys are plain "idx" strings — no cuisine dimension
+    #   v1 (demo/RecipeNLG): keys are "cuisineIdx,idx"
+    v2 = data.get('v', 1) >= 2
+
+    def parse_key(k):
+        if ',' in k:
+            a, b = k.split(',', 1)
+            return int(a), int(b)
+        return 0, int(k)          # v2: treat as cuisine 0
+
+    def make_key(ci, ii):
+        return str(ii) if v2 else f"{ci},{ii}"
 
     # Build mapping: old index → new index
-    # Deleted → None (drop)
-    # Merged source → same new index as its target
-    # Kept → sequential new index
-    raw_map = {}   # old_idx → new_idx  (ints only after resolution)
-
-    # First pass: assign new indices for kept ingredients
+    # Kept ingredients get sequential new indices; merge sources map to their target.
     new_i = []
+    kept_map = {}   # old_idx → new_idx  (for kept ingredients only)
     for old_idx, name in enumerate(old_i):
         if name not in removed:
-            raw_map[old_idx] = len(new_i)
+            kept_map[old_idx] = len(new_i)
             new_i.append(name)
 
-    # Second pass: resolve merge sources to their target's new index
+    old_to_new = dict(kept_map)
     for old_idx, name in enumerate(old_i):
         if name in merged_names:
             target = merged_names[name]
             target_old = name_to_old.get(target)
-            if target_old is not None and target_old in raw_map:
-                raw_map[old_idx] = raw_map[target_old]
-            # else target was also deleted/merged — drop source too
-
-    old_to_new = raw_map  # missing key = drop this ingredient
+            if target_old is not None and target_old in kept_map:
+                old_to_new[old_idx] = kept_map[target_old]
+            # else target was also removed — source is simply dropped
 
     # Rebuild pairings
     new_p = {}
     for key, pairs in data['p'].items():
-        ci_str, ii_str = key.split(',')
-        ci, ii = int(ci_str), int(ii_str)
+        ci, ii = parse_key(key)
 
         new_ii = old_to_new.get(ii)
         if new_ii is None:
-            continue  # ingredient dropped
+            continue
 
-        new_key = f"{ci},{new_ii}"
+        new_key = make_key(ci, new_ii)
 
-        # Remap paired indices, deduplicate, remove self-pairings
         merged_pairs = {}
         for paired_idx, score in pairs:
             new_paired = old_to_new.get(paired_idx)
@@ -86,7 +90,6 @@ def apply(curation_path, pairings_path):
                 [[k, v] for k, v in merged_pairs.items()], key=lambda x: -x[1]
             )
         else:
-            # Merge with existing entry (happens when a source merges into a target)
             existing = {p[0]: p[1] for p in new_p[new_key]}
             for paired, score in merged_pairs.items():
                 if paired not in existing or score > existing[paired]:
