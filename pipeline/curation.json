@@ -264,7 +264,9 @@
     "grapefruit",
     "chili sauce",
     "mandarin orange",
-    "eel"
+    "eel",
+    "endive",
+    "tilapia fillet"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -397,7 +399,8 @@
     "paper towel",
     "sugar free instant chocolate pudding mix",
     "thin pizza crust",
-    "sorghum flour"
+    "sorghum flour",
+    "smarties candy"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -659,7 +662,10 @@
     "lasagna noodle": "pasta",
     "pickled beet": "beet",
     "orange pepper": "bell pepper",
-    "unsalted nut": "nut"
+    "unsalted nut": "nut",
+    "cheese whiz": "cheese",
+    "chestnut puree": "chestnut",
+    "turkey breast": "turkey"
   },
-  "lastSaved": "2026-05-14T21:43:05.076Z"
+  "lastSaved": "2026-05-14T21:44:02.210Z"
 }
