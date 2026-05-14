@@ -9,8 +9,8 @@ dist/
 
 # Data (large files not committed — run pipeline locally)
 pipeline/data/
-# pairings.json and pairings.db are generated at build time — do not commit.
-web/public/pairings.json
+# pairings.db is a generated build artifact — do not commit.
+# pairings.json is the owned canonical database — it IS committed.
 web/public/pairings.db
 
 # Node
