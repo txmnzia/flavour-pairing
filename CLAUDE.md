@@ -12,7 +12,8 @@
 ## Git hygiene
 
 - Commit and push after every working change.
-- `web/public/pairings.json` and `web/public/pairings.db` are generated build artifacts — do not commit them.
+- `web/public/pairings.json` is the **owned canonical database** — commit it. It was normalized once from FlavorGraph and is maintained directly.
+- `web/public/pairings.db` is a generated build artifact — do not commit it.
 - `web/package-lock.json` should be kept up to date and committed.
 
 ## Curating ingredients by hand
@@ -57,5 +58,6 @@ Failure to keep these in sync silently drops recipe↔ingredient linkages (the c
 - **No backend.** Everything is static, deployed to GitHub Pages.
 - Two data files served as static assets: `web/public/pairings.json` (co-occurrence engine) and `web/public/recipes.json` (recipe catalog — optional, app degrades gracefully if missing).
 - Ingredient names are stored as **strings** in `recipes.json` (not indices), so the file is self-contained and robust to index reordering in `pairings.json`. The client resolves names → IDs at load time.
-- The GitHub Actions workflow regenerates both files at build time — do not commit them.
+- `pairings.json` is committed as an owned database (no longer regenerated at build time). The deploy workflow just builds the React app and uploads it.
+- `recipes.json` is optional and generated separately.
 - Scoring uses NPMI. Multi-ingredient: average NPMI across selected, minimum coverage = `max(1, round(n * 0.5))`.
