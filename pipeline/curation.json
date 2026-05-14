@@ -301,7 +301,14 @@
     "apple schnapps",
     "tangerine",
     "red chile",
-    "duck fat"
+    "duck fat",
+    "sago",
+    "pastry cream",
+    "cod",
+    "sour cherry",
+    "sambhar powder",
+    "edam cheese",
+    "meringue"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -459,7 +466,11 @@
     "batter",
     "thick & chunky salsa",
     "frying oil",
-    "quinoa flour"
+    "quinoa flour",
+    "sure jell",
+    "splenda sugar substitute",
+    "bugles original flavor snack",
+    "orange gelatin"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -773,7 +784,23 @@
     "chicken bouillon": "chicken broth",
     "rigatoni pasta": "pasta",
     "rack of lamb": "lamb",
-    "pilsner beer": "beer"
+    "pilsner beer": "beer",
+    "velveeta reduced fat cheese product": "cheese",
+    "heavy cream": "creme fraiche",
+    "dark sweet cherry": "black cherry",
+    "sushi rice": "rice",
+    "pear halves in natural juice": "pear",
+    "long grain brown rice": "brown rice",
+    "acini di pepe pasta": "pasta",
+    "hard cheese": "cheese",
+    "dried red chili": "red chile",
+    "culantro": "cilantro",
+    "peanut brittle": "peanut",
+    "bacon fat": "fat",
+    "orange roughy": "orange",
+    "center cut pork chop": "pork",
+    "mushroom soy sauce": "soy sauce",
+    "oaxaca cheese": "cheese"
   },
-  "lastSaved": "2026-05-14T21:52:52.356Z"
+  "lastSaved": "2026-05-14T21:55:54.621Z"
 }
