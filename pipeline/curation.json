@@ -44,7 +44,15 @@
     "white chocolate liqueur",
     "cucumber juice",
     "charcoal",
-    "skate"
+    "skate",
+    "fava bean",
+    "nigella seed",
+    "chili oil",
+    "star fruit",
+    "violet",
+    "pudding",
+    "chili garlic sauce",
+    "colby cheese"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -127,7 +135,10 @@
     "philadelphia neufchatel cheese": "cottage cheese",
     "beef bouillon": "beef broth",
     "baby lima bean": "lima bean",
-    "pear half": "pear"
+    "pear half": "pear",
+    "au gratin potato": "potato",
+    "wheat cracker": "cracker",
+    "tomatillo salsa": "salsa"
   },
-  "lastSaved": "2026-05-14T20:43:26.839Z"
+  "lastSaved": "2026-05-14T20:45:08.872Z"
 }
