@@ -402,7 +402,8 @@
     "brine",
     "cinnamon oil",
     "vodka",
-    "lavash bread"
+    "lavash bread",
+    "egg yolk"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1022,7 +1023,10 @@
     "pork neck bone": "pork bone",
     "chipped beef": "beef",
     "diced tomatoes with mild green chilies": "tomato",
-    "diet ginger ale": "ginger ale"
+    "diet ginger ale": "ginger ale",
+    "link sausage": "sausage",
+    "corn tortilla strip": "tortilla",
+    "white chocolate curl": "white chocolate"
   },
-  "lastSaved": "2026-05-14T22:11:47.199Z"
+  "lastSaved": "2026-05-14T22:12:24.217Z"
 }
