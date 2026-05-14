@@ -403,7 +403,9 @@
     "cinnamon oil",
     "vodka",
     "lavash bread",
-    "egg yolk"
+    "egg yolk",
+    "kohlrabi",
+    "lima bean"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -620,7 +622,8 @@
     "malt drink powder",
     "italian vegetable",
     "butter flavoring",
-    "pizza dough"
+    "pizza dough",
+    "meat seasoning"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -1028,5 +1031,5 @@
     "corn tortilla strip": "tortilla",
     "white chocolate curl": "white chocolate"
   },
-  "lastSaved": "2026-05-14T22:12:24.217Z"
+  "lastSaved": "2026-05-14T22:12:57.863Z"
 }
