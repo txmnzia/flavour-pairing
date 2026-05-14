@@ -52,7 +52,13 @@
     "violet",
     "pudding",
     "chili garlic sauce",
-    "colby cheese"
+    "colby cheese",
+    "butternut squash",
+    "chocolate spread",
+    "teriyaki sauce",
+    "cactus piece",
+    "ground meat",
+    "cardamom"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -87,7 +93,9 @@
     "green",
     "pillsbury refrigerated classic pizza crust",
     "gram flour",
-    "malted milk ball"
+    "malted milk ball",
+    "snickers miniature candy bar",
+    "colored sprinkle"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -138,7 +146,14 @@
     "pear half": "pear",
     "au gratin potato": "potato",
     "wheat cracker": "cracker",
-    "tomatillo salsa": "salsa"
+    "tomatillo salsa": "salsa",
+    "oriental flavor instant ramen noodle": "ramen noodle",
+    "frozen cut broccoli in cheese sauce": "broccoli",
+    "ham slice": "ham",
+    "balsamic vinaigrette": "balsamic vinegar",
+    "mixed mushroom": "mushroom",
+    "pork cutlet": "pork",
+    "ziti pasta": "pasta"
   },
-  "lastSaved": "2026-05-14T20:45:08.872Z"
+  "lastSaved": "2026-05-14T20:47:32.155Z"
 }
