@@ -221,7 +221,8 @@
     "amaretto",
     "orange zest",
     "vanilla liqueur",
-    "cherry"
+    "cherry",
+    "sugar"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -532,7 +533,10 @@
     "chicken neck": "chicken",
     "chicken breast tender": "chicken",
     "dill sprig": "dill",
-    "nestle sweetened condensed milk": "condensed milk"
+    "nestle sweetened condensed milk": "condensed milk",
+    "citrus fruit": "lemon",
+    "pistachio ice cream": "ice cream",
+    "long grain and wild rice blend": "wild rice"
   },
-  "lastSaved": "2026-05-14T21:30:16.195Z"
+  "lastSaved": "2026-05-14T21:30:51.535Z"
 }
