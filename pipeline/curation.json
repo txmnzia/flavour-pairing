@@ -251,7 +251,20 @@
     "fruit juice",
     "fat",
     "papaya",
-    "dry onion"
+    "dry onion",
+    "black pepper",
+    "meatball",
+    "red wine",
+    "gumbo file",
+    "brandy",
+    "millet",
+    "rice",
+    "orgeat syrup",
+    "caviar",
+    "grapefruit",
+    "chili sauce",
+    "mandarin orange",
+    "eel"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -376,7 +389,15 @@
     "whey",
     "stuffing cube",
     "mars bar",
-    "vanilla cupcake"
+    "vanilla cupcake",
+    "splenda granular",
+    "fruit jelly",
+    "plastic cup",
+    "malt extract",
+    "paper towel",
+    "sugar free instant chocolate pudding mix",
+    "thin pizza crust",
+    "sorghum flour"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -625,7 +646,20 @@
     "pippin apple": "apple",
     "raspberry flavored syrup": "raspberry",
     "lavender flower": "lavender",
-    "egg noodle": "noodle"
+    "egg noodle": "noodle",
+    "lemon pie filling": "lemon",
+    "orange slice": "orange",
+    "candied pineapple": "pineapple",
+    "soy cream cheese": "cream cheese",
+    "instant pistachio pudding mix": "pistachio",
+    "pork loin roast": "pork",
+    "lump crabmeat": "crab",
+    "chat masala": "masala",
+    "pork hock": "pork",
+    "lasagna noodle": "pasta",
+    "pickled beet": "beet",
+    "orange pepper": "bell pepper",
+    "unsalted nut": "nut"
   },
-  "lastSaved": "2026-05-14T21:40:11.894Z"
+  "lastSaved": "2026-05-14T21:43:05.076Z"
 }
