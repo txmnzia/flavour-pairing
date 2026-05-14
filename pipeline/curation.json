@@ -31,7 +31,10 @@
     "candied walnut",
     "green tomato",
     "brown bread",
-    "ginger beer"
+    "ginger beer",
+    "serrano pepper",
+    "walnut oil",
+    "mung bean"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -91,7 +94,9 @@
     "red licorice": "licorice",
     "cocoa powder": "cocoa",
     "tomato and basil pasta sauce": "tomato sauce",
-    "shredded wheat cereal": "wheat"
+    "shredded wheat cereal": "wheat",
+    "lobster meat": "lobster",
+    "broiler chicken": "chicken"
   },
-  "lastSaved": "2026-05-14T20:37:40.745Z"
+  "lastSaved": "2026-05-14T20:38:21.987Z"
 }
