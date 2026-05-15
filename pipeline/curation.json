@@ -854,7 +854,8 @@
     "quail egg",
     "swiss cheese",
     "nut",
-    "guacamole"
+    "guacamole",
+    "sansho pepper"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -2402,7 +2403,9 @@
     "peasant bread": "bread",
     "anchovy paste": "anchovy",
     "apple liqueur": "apple",
-    "turkish bread": "bread"
+    "turkish bread": "bread",
+    "ground chipotle chile pepper": "chipotle chile",
+    "yellow moong dal": "mung bean"
   },
-  "lastSaved": "2026-05-15T11:50:29.361Z"
+  "lastSaved": "2026-05-15T11:51:14.232Z"
 }
