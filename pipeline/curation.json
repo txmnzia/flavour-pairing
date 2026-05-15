@@ -540,7 +540,15 @@
     "alligator meat",
     "watermelon",
     "purslane",
-    "spam"
+    "spam",
+    "pumpkin pie spice",
+    "hazelnut",
+    "fromage blanc",
+    "yamaimo",
+    "psyllium",
+    "plum wine",
+    "duck stock",
+    "allspice"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -886,7 +894,12 @@
     "peach ice cream",
     "self rising flour",
     "mushroom gravy mix",
-    "crispy rice cereal"
+    "crispy rice cereal",
+    "kamut flour",
+    "cream of mushroom soup",
+    "pastry shell",
+    "italian sauce",
+    "tri tip roast"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -1430,7 +1443,11 @@
     "o'brien frozen potato": "potato",
     "pink lemonade": "lemonade",
     "strawberry puree": "strawberry",
-    "red kidney bean": "red bean"
+    "red kidney bean": "red bean",
+    "sevruga caviar": "caviar",
+    "kashmiri chili powder": "chili powder",
+    "lemon basil": "basil",
+    "green pepper": "bell pepper"
   },
-  "lastSaved": "2026-05-15T07:36:19.915Z"
+  "lastSaved": "2026-05-15T07:38:57.577Z"
 }
