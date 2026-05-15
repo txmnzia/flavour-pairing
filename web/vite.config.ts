@@ -26,8 +26,8 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html}"],
-        globIgnores: ["curate.html"],
-        navigateFallbackDenylist: [/\/curate\.html$/],
+        globIgnores: ["curate.html", "merge.html"],
+        navigateFallbackDenylist: [/\/curate\.html$/, /\/merge\.html$/],
         runtimeCaching: [
           {
             urlPattern: /pairings\.json$/,
