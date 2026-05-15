@@ -709,7 +709,10 @@
     "veal kidney",
     "sumac",
     "black truffle",
-    "dragee"
+    "dragee",
+    "comte cheese",
+    "baileys irish cream",
+    "green cabbage"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1183,7 +1186,8 @@
     "candy corn",
     "butter cooky",
     "miracle whip",
-    "turkey hot dog"
+    "turkey hot dog",
+    "chocolate sandwich style cooky"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -1927,7 +1931,10 @@
     "ritz cracker": "cracker",
     "thick bread": "bread",
     "pineapple jam": "pineapple",
-    "turkey slice": "turkey"
+    "turkey slice": "turkey",
+    "half and half": "creme fraiche",
+    "chocolate milk": "milk chocolate",
+    "dill pickle relish": "dill pickle"
   },
-  "lastSaved": "2026-05-15T08:39:01.667Z"
+  "lastSaved": "2026-05-15T08:43:26.456Z"
 }
