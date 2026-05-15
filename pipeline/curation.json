@@ -998,7 +998,8 @@
     "asiago cheese",
     "black cumin",
     "beer",
-    "olive oil"
+    "olive oil",
+    "shortening"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1718,7 +1719,11 @@
     "skewer",
     "orange twist",
     "dry enchilada mix",
-    "sugar free strawberry gelatin"
+    "sugar free strawberry gelatin",
+    "strawberry vodka",
+    "mccormick's montreal brand steak seasoning",
+    "sloppy joe sandwich sauce",
+    "yellow cake mix"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -2864,7 +2869,10 @@
     "blue crab": "crab",
     "hominy grit": "hominy",
     "grilled chicken breast": "chicken",
-    "duck breast half": "duck"
+    "duck breast half": "duck",
+    "sicilian olive": "olive",
+    "clementine juice": "clementine",
+    "wheat thins cracker": "cracker"
   },
-  "lastSaved": "2026-05-15T14:50:16.821Z"
+  "lastSaved": "2026-05-15T14:50:56.590Z"
 }
