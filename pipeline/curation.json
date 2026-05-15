@@ -830,7 +830,8 @@
     "rice milk",
     "aleppo pepper",
     "pork liver",
-    "potato"
+    "potato",
+    "white bean"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -2323,7 +2324,9 @@
     "soba noodle": "noodle",
     "pork shoulder": "pork",
     "almond paste": "marzipan",
-    "dill weed": "dill"
+    "dill weed": "dill",
+    "mostaccioli pasta": "pasta",
+    "squash puree": "squash"
   },
-  "lastSaved": "2026-05-15T11:40:14.458Z"
+  "lastSaved": "2026-05-15T11:40:47.763Z"
 }
