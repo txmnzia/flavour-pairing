@@ -15,6 +15,7 @@ interface Props {
   selectedIngredients?: Ingredient[];
   maxFreqSelected?: number;
   onRemove?: (id: number) => void;
+  looScores?: Map<number, number>;
 }
 
 
@@ -51,12 +52,12 @@ function CoverageBadge({ coverage, total }: { coverage: number; total: number })
 
 function Card({
   name, score, scoreColor, coverage, totalSelected, onClick, translate,
-  selected = false,
+  selected = false, outlier = false,
 }: {
   name: string; score: number; scoreColor?: string;
   coverage?: number; totalSelected?: number;
   onClick: () => void; translate: (n: string) => string;
-  selected?: boolean;
+  selected?: boolean; outlier?: boolean;
 }) {
   return (
     <button
@@ -64,7 +65,9 @@ function Card({
       className={`
         flex flex-col rounded-xl overflow-hidden text-left
         transition-all duration-150 group
-        ${selected
+        ${selected && outlier
+          ? "bg-red-600/20 border border-red-500/50 hover:bg-red-600/30 hover:border-red-400/70"
+          : selected
           ? "bg-brand-600/20 border border-brand-500/50 hover:bg-brand-600/30 hover:border-brand-400/70"
           : "bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 active:bg-white/15"
         }
@@ -84,7 +87,9 @@ function Card({
           absolute bottom-1.5 right-1.5
           w-5 h-5 rounded-full flex items-center justify-center
           transition-colors
-          ${selected
+          ${selected && outlier
+            ? "bg-red-500/60 group-hover:bg-red-500"
+            : selected
             ? "bg-brand-500/60 group-hover:bg-red-500"
             : "bg-white/10 group-hover:bg-brand-500"
           }
@@ -154,10 +159,22 @@ function PairingGrid({
   );
 }
 
+function computeOutlierIds(looScores: Map<number, number>): Set<number> {
+  if (looScores.size < 2) return new Set();
+  const vals = [...looScores.values()];
+  const mean = vals.reduce((a, b) => a + b, 0) / vals.length;
+  const std = Math.sqrt(vals.reduce((acc, v) => acc + (v - mean) ** 2, 0) / vals.length);
+  const outliers = new Set<number>();
+  for (const [id, score] of looScores) {
+    if (score < 0 && score < mean - std) outliers.add(id);
+  }
+  return outliers;
+}
+
 export default function RecommendationList({
   recommendations, selectedCount, onAdd, translate,
   browseIngredients, maxFreq = 1,
-  selectedIngredients, maxFreqSelected = 1, onRemove,
+  selectedIngredients, maxFreqSelected = 1, onRemove, looScores,
 }: Props) {
   if (browseIngredients && browseIngredients.length > 0) {
     return (
@@ -184,20 +201,26 @@ export default function RecommendationList({
     );
   }
 
+  const outlierIds = looScores ? computeOutlierIds(looScores) : new Set<number>();
+
   const selectedGrid = selectedIngredients && selectedIngredients.length > 0 && onRemove ? (
     <div className="mb-5">
       <div className="grid grid-cols-3 gap-2.5">
-        {selectedIngredients.map((ing) => (
-          <Card
-            key={ing.id}
-            name={ing.name}
-            score={ing.freq / maxFreqSelected}
-            scoreColor="bg-brand-400"
-            selected
-            onClick={() => onRemove(ing.id)}
-            translate={translate}
-          />
-        ))}
+        {selectedIngredients.map((ing) => {
+          const isOutlier = outlierIds.has(ing.id);
+          return (
+            <Card
+              key={ing.id}
+              name={ing.name}
+              score={ing.freq / maxFreqSelected}
+              scoreColor={isOutlier ? "bg-red-400" : "bg-brand-400"}
+              selected
+              outlier={isOutlier}
+              onClick={() => onRemove(ing.id)}
+              translate={translate}
+            />
+          );
+        })}
       </div>
       <div className="mt-5 mb-3 flex items-center gap-3">
         <div className="flex-1 h-px bg-white/10" />
