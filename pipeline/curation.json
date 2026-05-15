@@ -844,7 +844,17 @@
     "fennel",
     "goat's milk",
     "monterey jack cheese",
-    "trout"
+    "trout",
+    "dried kasha",
+    "corn",
+    "alfredo sauce",
+    "savoy cabbage",
+    "rice bran oil",
+    "sticky rice",
+    "quail egg",
+    "swiss cheese",
+    "nut",
+    "guacamole"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1435,7 +1445,13 @@
     "ranch salad dressing",
     "seafood seasoning",
     "salad potato",
-    "thousand island dressing"
+    "thousand island dressing",
+    "peas and carrot",
+    "pancake mix",
+    "orange slice candy",
+    "flavor enhancer",
+    "cake",
+    "cake flour"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -2374,7 +2390,19 @@
     "chocolate bark": "chocolate",
     "ginger paste": "ginger",
     "ginger liqueur": "ginger",
-    "maraschino cherry juice": "maraschino cherry"
+    "maraschino cherry juice": "maraschino cherry",
+    "roasted chicken breast": "chicken",
+    "coriander sprig": "coriander",
+    "chicken thigh": "chicken",
+    "small curd cottage cheese": "cottage cheese",
+    "tahini sauce": "tahini",
+    "pig's foot": "pork",
+    "sweet red cherry pepper": "cherry pepper",
+    "strawberry juice": "strawberry",
+    "peasant bread": "bread",
+    "anchovy paste": "anchovy",
+    "apple liqueur": "apple",
+    "turkish bread": "bread"
   },
-  "lastSaved": "2026-05-15T11:48:07.686Z"
+  "lastSaved": "2026-05-15T11:50:29.361Z"
 }
