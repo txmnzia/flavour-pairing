@@ -1064,7 +1064,9 @@
     "portabella mushroom",
     "port wine",
     "panela cheese",
-    "peri peri"
+    "peri peri",
+    "green peppercorn",
+    "armagnac"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1829,7 +1831,15 @@
     "aluminum foil",
     "salad macaroni",
     "baking powder",
-    "tater tot"
+    "tater tot",
+    "tender quick",
+    "ice",
+    "cooking spray",
+    "jelly powder",
+    "dr. pepper cola",
+    "meatloaf seasoning mix",
+    "starch",
+    "alcaparrado"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -3059,7 +3069,19 @@
     "clam broth": "clam",
     "custard powder": "custard",
     "chicken gravy": "chicken",
-    "grain bread": "bread"
+    "grain bread": "bread",
+    "hot dog bun": "bun",
+    "banana chip": "banana",
+    "muesli": "granola cereal",
+    "char siu pork": "pork",
+    "guava paste": "guava",
+    "applesauce": "apple",
+    "pink grapefruit juice": "grapefruit",
+    "italian stewed tomato": "tomato",
+    "white grape": "grape",
+    "swiss brown mushroom": "mushroom",
+    "coconut milk powder": "coconut milk",
+    "poblano pepper": "chili pepper"
   },
-  "lastSaved": "2026-05-15T15:13:42.277Z"
+  "lastSaved": "2026-05-15T15:15:51.414Z"
 }
