@@ -59,17 +59,27 @@ function Card({
   onClick: () => void; translate: (n: string) => string;
   selected?: boolean; outlier?: boolean;
 }) {
+  const [hovered, setHovered] = useState(false);
+
   return (
     <button
       onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       className={`
         flex flex-col rounded-xl overflow-hidden text-left
-        transition-all duration-150 group
+        transition-all duration-150
         ${selected && outlier
-          ? "bg-red-600/20 border border-red-500/50 hover:bg-red-600/30 hover:border-red-400/70"
+          ? hovered
+            ? "bg-red-600/30 border border-red-400/70"
+            : "bg-red-600/20 border border-red-500/50"
           : selected
-          ? "bg-brand-600/20 border border-brand-500/50 hover:bg-brand-600/30 hover:border-brand-400/70"
-          : "bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 active:bg-white/15"
+          ? hovered
+            ? "bg-brand-600/30 border border-brand-400/70"
+            : "bg-brand-600/20 border border-brand-500/50"
+          : hovered
+          ? "bg-white/10 border border-white/20"
+          : "bg-white/5 border border-white/10 active:bg-white/15"
         }
       `}
     >
@@ -88,10 +98,10 @@ function Card({
           w-5 h-5 rounded-full flex items-center justify-center
           transition-colors
           ${selected && outlier
-            ? "bg-red-500/60 group-hover:bg-red-500"
+            ? hovered ? "bg-red-500" : "bg-red-500/60"
             : selected
-            ? "bg-brand-500/60 group-hover:bg-red-500"
-            : "bg-white/10 group-hover:bg-brand-500"
+            ? hovered ? "bg-red-500" : "bg-brand-500/60"
+            : hovered ? "bg-brand-500" : "bg-white/10"
           }
         `}>
           {selected ? (
@@ -99,7 +109,7 @@ function Card({
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           ) : (
-            <svg className="w-3 h-3 text-white/50 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <svg className={`w-3 h-3 transition-colors ${hovered ? "text-white" : "text-white/50"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
             </svg>
           )}
