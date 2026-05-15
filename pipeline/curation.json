@@ -958,7 +958,10 @@
     "chutney",
     "camembert cheese",
     "rose",
-    "gourd"
+    "gourd",
+    "pattypan squash",
+    "epazote",
+    "broth"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1650,7 +1653,9 @@
     "beau monde seasoning",
     "pectin",
     "chicken seasoning",
-    "pepper ring"
+    "pepper ring",
+    "baking mix",
+    "xylitol sugar substitute"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -2742,7 +2747,14 @@
     "clam juice": "clam",
     "sweet corn": "corn",
     "plum sauce": "plum",
-    "golden grahams cereal": "cereal"
+    "golden grahams cereal": "cereal",
+    "barley nugget cereal": "cereal",
+    "whole wheat pasta": "pasta",
+    "fish head": "fish",
+    "cremini mushroom": "mushroom",
+    "instant cappuccino mix": "coffee",
+    "mung dal": "mung bean",
+    "chocolate liqueur": "chocolate"
   },
-  "lastSaved": "2026-05-15T14:35:27.341Z"
+  "lastSaved": "2026-05-15T14:36:59.058Z"
 }
