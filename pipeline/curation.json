@@ -781,7 +781,10 @@
     "urad dal",
     "liqueur",
     "baguette",
-    "sea scallop"
+    "sea scallop",
+    "currant",
+    "verjuice",
+    "peppermint"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1316,7 +1319,8 @@
     "rubbing alcohol",
     "coffee creamer",
     "pudding mix",
-    "caribbean jerk seasoning"
+    "caribbean jerk seasoning",
+    "honey nut cheerio"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -2158,7 +2162,11 @@
     "chili pepper flake": "chili pepper",
     "fire roasted tomato": "tomato",
     "plum tomatoes in puree": "tomato",
-    "strawberry all fruit spread": "strawberry"
+    "strawberry all fruit spread": "strawberry",
+    "unsweetened chocolate square": "chocolate",
+    "evaporated milk": "milk",
+    "orange marmalade": "orange",
+    "riesling wine": "white wine"
   },
-  "lastSaved": "2026-05-15T11:21:50.166Z"
+  "lastSaved": "2026-05-15T11:23:29.487Z"
 }
