@@ -877,7 +877,9 @@
     "tatsoi",
     "buckwheat groat",
     "refried bean",
-    "chickpea flour"
+    "chickpea flour",
+    "black rice",
+    "tarragon"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1504,7 +1506,8 @@
     "ranch style bean",
     "crisp rice cereal",
     "cream of chicken and mushroom soup",
-    "pasta sauce"
+    "pasta sauce",
+    "mixed fresh herb"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -2497,7 +2500,10 @@
     "meat dripping": "meat",
     "creme de cassis": "currant",
     "tobiko": "fish roe",
-    "lemon rind": "lemon"
+    "lemon rind": "lemon",
+    "peppadew pepper": "pickled pepper",
+    "rye bread": "black bread",
+    "hot chocolate powder": "cocoa"
   },
-  "lastSaved": "2026-05-15T13:56:56.959Z"
+  "lastSaved": "2026-05-15T13:57:57.366Z"
 }
