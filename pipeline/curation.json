@@ -777,7 +777,10 @@
     "collard green",
     "red potato",
     "five spice powder",
-    "tortellini"
+    "tortellini",
+    "urad dal",
+    "liqueur",
+    "baguette"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1310,7 +1313,8 @@
     "spelt flour",
     "graham cracker crust",
     "rubbing alcohol",
-    "coffee creamer"
+    "coffee creamer",
+    "pudding mix"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -2146,7 +2150,11 @@
     "pumpkin pie mix": "pumpkin pie",
     "truffle oil": "black truffle",
     "sirloin": "beef sirloin",
-    "pork sirloin roast": "pork"
+    "pork sirloin roast": "pork",
+    "hatch chile": "chile",
+    "cuban bread": "bread",
+    "chili pepper flake": "chili pepper",
+    "fire roasted tomato": "tomato"
   },
-  "lastSaved": "2026-05-15T10:21:16.747Z"
+  "lastSaved": "2026-05-15T10:21:50.601Z"
 }
