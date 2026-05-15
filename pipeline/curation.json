@@ -921,7 +921,15 @@
     "sour milk",
     "mulberry",
     "chili paste",
-    "granola cereal"
+    "granola cereal",
+    "frangelico",
+    "coffee",
+    "rosemary",
+    "gouda cheese",
+    "shimeji mushroom",
+    "mahi mahi",
+    "tuna",
+    "manchego cheese"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1586,7 +1594,12 @@
     "barley flour",
     "corn muffin",
     "oreo cooky",
-    "dry rub seasoning"
+    "dry rub seasoning",
+    "potato starch",
+    "hostess twinkie",
+    "red sugar crystal",
+    "instant dry milk powder",
+    "manicotti"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -2637,7 +2650,16 @@
     "whole wheat cereal": "wheat",
     "pillsbury refrigerated biscuit": "biscuit",
     "citron": "lemon",
-    "espresso": "coffee"
+    "espresso": "coffee",
+    "strawberry liqueur": "strawberry",
+    "jalapeno pepper": "jalapeno",
+    "plum jam": "plum",
+    "garlic sausage": "sausage",
+    "sesame breadstick": "breadstick",
+    "wheat hamburger bun": "bun",
+    "cookie cutter": "cookie",
+    "marinated mushroom": "mushroom",
+    "green glazed cherry": "cherry"
   },
-  "lastSaved": "2026-05-15T14:22:52.486Z"
+  "lastSaved": "2026-05-15T14:25:08.918Z"
 }
