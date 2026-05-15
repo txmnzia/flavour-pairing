@@ -999,7 +999,10 @@
     "black cumin",
     "beer",
     "olive oil",
-    "shortening"
+    "shortening",
+    "muffin",
+    "pimento cheese",
+    "mochi rice"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1723,7 +1726,10 @@
     "strawberry vodka",
     "mccormick's montreal brand steak seasoning",
     "sloppy joe sandwich sauce",
-    "yellow cake mix"
+    "yellow cake mix",
+    "mixed herb",
+    "frozen broccoli carrots cauliflower mix",
+    "rice chex"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -2873,7 +2879,9 @@
     "sicilian olive": "olive",
     "clementine juice": "clementine",
     "wheat thins cracker": "cracker",
-    "pesto sauce": "basil pesto"
+    "pesto sauce": "basil pesto",
+    "cilantro root": "coriander",
+    "passion fruit puree": "passion fruit"
   },
-  "lastSaved": "2026-05-15T14:51:29.636Z"
+  "lastSaved": "2026-05-15T14:57:02.035Z"
 }
