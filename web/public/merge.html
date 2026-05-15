@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ingredient Merge</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0; background: #0d0d1a; color: #e2e8f0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  height: 100dvh; display: flex; flex-direction: column; overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Header ── */
+#hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 16px; flex-shrink: 0; gap: 8px;
+}
+#hdr-left { min-width: 0; }
+#progress { font-size: 0.85rem; color: #94a3b8; font-weight: 500; white-space: nowrap; }
+#session  { font-size: 0.73rem; color: #475569; }
+#hdr-right { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
+.ico-btn {
+  background: #1e293b; border: none; color: #94a3b8; border-radius: 8px;
+  padding: 6px 10px; cursor: pointer; font-size: 0.82rem; white-space: nowrap;
+}
+.ico-btn:hover { background: #334155; color: #e2e8f0; }
+#sync-dot {
+  width: 7px; height: 7px; border-radius: 50%; background: #334155;
+  flex-shrink: 0; transition: background 0.3s;
+}
+#sync-dot.saved  { background: #22c55e; }
+#sync-dot.saving { background: #f59e0b; }
+#sync-dot.err    { background: #ef4444; }
+
+/* ── Settings ── */
+#settings {
+  background: #1e293b; border-bottom: 1px solid #334155;
+  padding: 14px 16px; flex-shrink: 0;
+  display: none; flex-direction: column; gap: 10px;
+}
+#settings.open { display: flex; }
+.setting-row { display: flex; flex-direction: column; gap: 4px; }
+.setting-row label {
+  font-size: 0.72rem; color: #64748b; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
+.setting-row input {
+  padding: 8px 10px; background: #0f172a; color: #e2e8f0;
+  border: 1px solid #334155; border-radius: 6px; font-size: 0.85rem; outline: none;
+}
+.setting-row input:focus { border-color: #6366f1; }
+.setting-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.sact { padding: 6px 12px; border: none; border-radius: 6px; cursor: pointer; font-size: 0.78rem; font-weight: 600; }
+.sact-primary   { background: #6366f1; color: white; }
+.sact-secondary { background: #334155; color: #cbd5e1; }
+#token-msg { font-size: 0.75rem; color: #64748b; min-height: 14px; }
+
+/* ── Progress bar ── */
+#pbar { height: 2px; background: #1e293b; flex-shrink: 0; }
+#pfill { height: 100%; background: #6366f1; transition: width 0.4s; width: 0%; }
+
+/* ── Stage ── */
+#stage {
+  flex: 1; overflow-y: auto; padding: 14px 16px 8px;
+  display: flex; flex-direction: column;
+}
+#loading { color: #475569; text-align: center; padding: 48px 0; font-size: 0.9rem; }
+
+/* ── Group header ── */
+#group-view { display: none; flex-direction: column; flex: 1; }
+#group-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 8px;
+}
+#group-term  { font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+#group-count { font-size: 0.72rem; color: #475569; margin-top: 2px; }
+.nav-btns { display: flex; gap: 4px; }
+.nav-btn {
+  background: #1e293b; border: 1px solid #334155; color: #64748b;
+  border-radius: 6px; padding: 4px 11px; cursor: pointer; font-size: 0.85rem; line-height: 1.4;
+}
+.nav-btn:hover:not(:disabled) { background: #334155; color: #e2e8f0; }
+.nav-btn:disabled { opacity: 0.25; cursor: default; }
+
+#hint {
+  font-size: 0.72rem; color: #475569; margin-bottom: 10px; line-height: 1.5;
+}
+
+/* ── Ingredient list ── */
+#ingredient-list { display: flex; flex-direction: column; gap: 5px; }
+
+.ing-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 13px; border-radius: 11px; cursor: pointer;
+  border: 1px solid #1a2235; background: #0f172a;
+  transition: background 0.1s, border-color 0.1s;
+  user-select: none;
+}
+.ing-item:hover   { background: #151f30; border-color: #2d3f55; }
+.ing-item:active  { background: #1e293b; }
+.ing-item.canonical {
+  background: rgba(99,102,241,0.12); border-color: rgba(99,102,241,0.5);
+}
+.ing-item.canonical:hover { background: rgba(99,102,241,0.18); }
+.ing-item.duplicate {
+  background: rgba(34,197,94,0.09); border-color: rgba(34,197,94,0.38);
+}
+.ing-item.duplicate:hover { background: rgba(34,197,94,0.14); }
+
+.ing-icon { font-size: 1rem; width: 18px; text-align: center; flex-shrink: 0; line-height: 1; }
+.ing-item:not(.canonical):not(.duplicate) .ing-icon { color: #2d3f55; font-style: normal; }
+
+.ing-body { flex: 1; min-width: 0; }
+.ing-name {
+  font-size: 0.88rem; font-weight: 500; color: #cbd5e1;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ing-item.canonical .ing-name { color: #c7d2fe; }
+.ing-item.duplicate .ing-name { color: #bbf7d0; }
+.ing-meta { font-size: 0.7rem; color: #475569; margin-top: 2px; }
+
+.ing-badge {
+  font-size: 0.65rem; font-weight: 700; padding: 2px 7px; border-radius: 4px;
+  flex-shrink: 0; letter-spacing: 0.04em; text-transform: uppercase;
+}
+.badge-canonical { background: rgba(99,102,241,0.28); color: #a5b4fc; }
+.badge-duplicate { background: rgba(34,197,94,0.18); color: #86efac; }
+
+/* ── Done screen ── */
+#done-screen {
+  display: none; flex: 1; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center; padding: 24px;
+}
+#done-screen h2 { font-size: 1.8rem; margin: 12px 0 8px; }
+#done-screen p  { color: #64748b; line-height: 1.9; margin-bottom: 28px; }
+#done-screen b  { color: #e2e8f0; }
+#restart-btn {
+  padding: 10px 28px; border: none; border-radius: 8px;
+  background: #6366f1; color: white; font-size: 0.9rem; font-weight: 600; cursor: pointer;
+}
+#restart-btn:hover { background: #4f46e5; }
+
+/* ── Actions ── */
+#actions {
+  display: none; justify-content: center; align-items: stretch;
+  gap: 10px; padding: 10px 16px 14px; flex-shrink: 0;
+  border-top: 1px solid #1a2235;
+}
+#btn-skip {
+  flex: 1; max-width: 110px; padding: 11px 8px;
+  border: 1px solid #2d3f55; border-radius: 10px;
+  background: transparent; color: #64748b; cursor: pointer;
+  font-size: 0.85rem; font-weight: 600;
+}
+#btn-skip:hover { background: #1e293b; color: #94a3b8; }
+#btn-merge {
+  flex: 1; padding: 11px 8px; border: none; border-radius: 10px;
+  background: #6366f1; color: white; cursor: pointer;
+  font-size: 0.85rem; font-weight: 700;
+  opacity: 0.35; pointer-events: none;
+  transition: opacity 0.15s;
+}
+#btn-merge.ready { opacity: 1; pointer-events: auto; }
+#btn-merge.ready:hover  { background: #4f46e5; }
+#btn-merge.ready:active { background: #4338ca; }
+</style>
+</head>
+<body>
+
+<div id="hdr">
+  <div id="hdr-left">
+    <div id="progress">Loading…</div>
+    <div id="session"></div>
+  </div>
+  <div id="hdr-right">
+    <div id="sync-dot" title="Sync status"></div>
+    <button class="ico-btn" onclick="saveToGH()">Save ↑</button>
+    <button class="ico-btn" onclick="toggleSettings()">⚙</button>
+  </div>
+</div>
+
+<div id="settings">
+  <div class="setting-row">
+    <label>GitHub Token (repo → contents write)</label>
+    <input id="gh-token" type="password" placeholder="ghp_…" oninput="onTokenInput()">
+    <div id="token-msg">Enter a token to sync decisions across devices.</div>
+  </div>
+  <div class="setting-actions">
+    <button class="sact sact-primary"   onclick="testAndSaveToken()">Connect</button>
+    <button class="sact sact-secondary" onclick="loadFromGH()">Load from GitHub</button>
+    <button class="sact sact-secondary" onclick="exportJSON()">Export JSON</button>
+  </div>
+</div>
+
+<div id="pbar"><div id="pfill"></div></div>
+
+<div id="stage">
+  <div id="loading">Loading ingredients…</div>
+
+  <div id="group-view">
+    <div id="group-header">
+      <div>
+        <div id="group-term"></div>
+        <div id="group-count"></div>
+      </div>
+      <div class="nav-btns">
+        <button class="nav-btn" id="btn-prev" onclick="prevGroup()" title="Previous group">←</button>
+        <button class="nav-btn" id="btn-next" onclick="skipGroup()" title="Next group">→</button>
+      </div>
+    </div>
+    <div id="hint">Tap the <strong style="color:#a5b4fc">canonical</strong> name first (👑), then tap duplicates to merge into it.</div>
+    <div id="ingredient-list"></div>
+  </div>
+
+  <div id="done-screen">
+    <div style="font-size:3rem">✓</div>
+    <h2>All groups reviewed!</h2>
+    <p id="done-stats"></p>
+    <button id="restart-btn" onclick="restart()">Start over</button>
+  </div>
+</div>
+
+<div id="actions">
+  <button id="btn-skip" onclick="skipGroup()">Skip →</button>
+  <button id="btn-merge" onclick="doMerge()">Merge selected</button>
+</div>
+
+<script>
+const REPO     = 'txmnzia/flavour-pairing';
+const CFILE    = 'pipeline/curation.json';
+const CBRANCH  = 'main';
+const LS_TOKEN = 'curate_gh_token';
+const LS_DEC   = 'curate_decisions';   // shared with curate.html
+
+// ── State ────────────────────────────────────────────────────────────────────
+let ingredients  = [];  // [{name, pairings}]
+let groups       = [];  // [{term, members:[{name,pairings}]}]
+let groupIdx     = 0;
+let decisions    = { validated: [], deleted: [], merged: {} };
+let validatedSet = new Set();
+let deletedSet   = new Set();
+let mergedMap    = new Map();
+let selected     = [];  // ordered local indices in current group; [0]=canonical
+let sessionMerges = 0;
+
+// ── Similarity ───────────────────────────────────────────────────────────────
+const SKIP = new Set([
+  // cooking / prep
+  'baked','boiled','braised','broiled','cooked','cured','dehydrated','dried',
+  'fermented','fried','frozen','glazed','grilled','ground','marinated','mashed',
+  'minced','pickled','poached','pureed','raw','roasted','salted','sauteed',
+  'seared','shredded','sliced','smoked','steamed','stewed','toasted','unsalted',
+  'whipped','candied','charred','blanched','diced','grated','peeled','chopped',
+  'crushed','julienned','pitted','shaved','soaked','softened','halved','canned',
+  'boneless','skinless',
+  // size / quantity
+  'baby','extra','giant','half','large','little','mini','petite','small','medium',
+  'thin','thick','jumbo','whole','regular','sized','bite',
+  // colour
+  'black','blue','brown','golden','green','orange','pink','purple','red','yellow',
+  'white','dark','light','pale','bright','deep','rich',
+  // maturity / quality
+  'aged','fresh','new','old','ripe','young','mature','organic','wild','natural',
+  'artisan','authentic','classic','farm','fine','premium','quality','select',
+  // generic
+  'style','type','blend','mix',
+  // function words
+  'a','an','and','for','from','in','of','or','the','to','with','into','over',
+]);
+
+function singularize(w) {
+  if (w.length < 3) return w;
+  if (/ies$/.test(w) && w.length > 4) return w.slice(0,-3)+'y';      // berries→berry
+  if (/([^aeiou])ves$/.test(w) && w.length > 4) return w.slice(0,-3)+'fe'; // knives→knife
+  if (/([aeiou])ves$/.test(w) && w.length > 4) return w.slice(0,-1); // cloves→clove
+  if (/oes$/.test(w) && w.length > 4) return w.slice(0,-2);          // tomatoes→tomato
+  if (/([^s])s$/.test(w) && w.length > 3) return w.slice(0,-1);      // mushrooms→mushroom
+  return w;
+}
+
+function keyTerms(name) {
+  const result = new Set();
+  for (const raw of name.toLowerCase().split(/[\s\-\/]+/)) {
+    const w = raw.replace(/[^a-z]/g,'');
+    if (w.length < 3 || SKIP.has(w)) continue;
+    const s = singularize(w);
+    if (s.length >= 3 && !SKIP.has(s)) result.add(s);
+  }
+  return result;
+}
+
+// ── Group building ────────────────────────────────────────────────────────────
+function buildGroups() {
+  const active = ingredients.filter(i =>
+    !mergedMap.has(i.name) && !deletedSet.has(i.name)
+  );
+
+  // inverted index: term → [active_idx]
+  const idx = new Map();
+  active.forEach((ing, i) => {
+    for (const t of keyTerms(ing.name)) {
+      if (!idx.has(t)) idx.set(t, []);
+      idx.get(t).push(i);
+    }
+  });
+
+  // sort terms: largest groups first
+  const sorted = [...idx.entries()]
+    .filter(([,ids]) => ids.length >= 2)
+    .sort((a,b) => b[1].length - a[1].length);
+
+  const done = new Set();
+  const result = [];
+
+  for (const [term, ids] of sorted) {
+    const fresh = ids.filter(i => !done.has(i));
+    if (fresh.length < 2) continue;
+    // sort by pairing count desc (most established first)
+    fresh.sort((a,b) => active[b].pairings - active[a].pairings);
+    const members = fresh.slice(0,8).map(i => active[i]);
+    fresh.slice(0,8).forEach(i => done.add(i));
+    result.push({ term, members });
+  }
+  return result;
+}
+
+// ── Init ─────────────────────────────────────────────────────────────────────
+async function init() {
+  loadFromLS();
+  const token = localStorage.getItem(LS_TOKEN);
+  if (token) {
+    document.getElementById('gh-token').value = token;
+    await loadFromGH(true);
+  }
+
+  try {
+    const r = await fetch('./pairings.json');
+    if (!r.ok) throw new Error(r.status);
+    const data = await r.json();
+    const counts = {};
+    data.i.forEach((_,ii) => {
+      counts[ii] = (data.p[String(ii)] || data.p['0,'+ii] || []).length;
+    });
+    ingredients = data.i
+      .map((name,i) => ({ name, pairings: counts[i]||0 }))
+      .sort((a,b) => a.name.localeCompare(b.name));
+  } catch(e) {
+    document.getElementById('loading').textContent = 'Could not load pairings.json: '+e.message;
+    return;
+  }
+
+  groups = buildGroups();
+  groupIdx = 0;
+  selected = [];
+  renderGroup();
+}
+
+// ── LS ────────────────────────────────────────────────────────────────────────
+function loadFromLS() {
+  try { const s=localStorage.getItem(LS_DEC); if(s) decisions=JSON.parse(s); } catch(_){}
+  syncSets();
+}
+function syncSets() {
+  validatedSet = new Set(decisions.validated||[]);
+  deletedSet   = new Set(decisions.deleted||[]);
+  mergedMap    = new Map(Object.entries(decisions.merged||{}));
+}
+function saveToLS() { localStorage.setItem(LS_DEC, JSON.stringify(decisions)); }
+
+// ── Group helpers ─────────────────────────────────────────────────────────────
+function activeMembers(g) {
+  return g.members.filter(m => !mergedMap.has(m.name) && !deletedSet.has(m.name));
+}
+
+function nextValidIdx(from) {
+  for (let i=from; i<groups.length; i++)
+    if (activeMembers(groups[i]).length >= 2) return i;
+  return -1;
+}
+function prevValidIdx(from) {
+  for (let i=from; i>=0; i--)
+    if (activeMembers(groups[i]).length >= 2) return i;
+  return -1;
+}
+
+// ── Render ────────────────────────────────────────────────────────────────────
+function renderGroup() {
+  const next = nextValidIdx(groupIdx);
+
+  if (next === -1) { showDone(); return; }
+  groupIdx = next;
+
+  const g = groups[groupIdx];
+  const members = activeMembers(g);
+
+  // reset selection when group changes
+  selected = [];
+
+  document.getElementById('loading').style.display      = 'none';
+  document.getElementById('done-screen').style.display  = 'none';
+  document.getElementById('group-view').style.display   = 'flex';
+  document.getElementById('actions').style.display      = 'flex';
+
+  // count remaining valid groups for progress
+  let rem = 0;
+  for (let i=groupIdx; i<groups.length; i++)
+    if (activeMembers(groups[i]).length>=2) rem++;
+
+  document.getElementById('progress').textContent =
+    'Group '+(groupIdx+1)+' of '+groups.length;
+  document.getElementById('session').textContent =
+    sessionMerges ? sessionMerges+' merged this session' : '';
+  document.getElementById('group-term').textContent  = 'Grouped by: "'+g.term+'"';
+  document.getElementById('group-count').textContent =
+    members.length+' ingredient'+(members.length===1?'':'s')+' · '+rem+' groups remaining';
+  document.getElementById('pfill').style.width =
+    Math.round(groupIdx/groups.length*100)+'%';
+  document.getElementById('btn-prev').disabled = prevValidIdx(groupIdx-1)===-1;
+  document.getElementById('btn-next').disabled = nextValidIdx(groupIdx+1)===-1;
+
+  renderList(members);
+  updateBtn();
+}
+
+function renderList(members) {
+  document.getElementById('ingredient-list').innerHTML = members.map((m,li) => {
+    const pos  = selected.indexOf(li);
+    const isC  = pos===0;
+    const isD  = pos>0;
+    const cls  = isC ? 'canonical' : isD ? 'duplicate' : '';
+    const icon = isC ? '👑' : isD ? '✓' : '○';
+    const badge= isC
+      ? '<span class="ing-badge badge-canonical">canonical</span>'
+      : isD
+      ? '<span class="ing-badge badge-duplicate">merge</span>'
+      : '';
+    return `<div class="ing-item ${cls}" onclick="toggle(${li})">
+      <div class="ing-icon">${icon}</div>
+      <div class="ing-body">
+        <div class="ing-name">${esc(m.name)}</div>
+        <div class="ing-meta">${m.pairings} pairings</div>
+      </div>
+      ${badge}
+    </div>`;
+  }).join('');
+}
+
+function toggle(li) {
+  const pos = selected.indexOf(li);
+  if (pos===-1) selected.push(li);
+  else selected.splice(pos,1);
+  const g = groups[groupIdx];
+  renderList(activeMembers(g));
+  updateBtn();
+}
+
+function updateBtn() {
+  const btn = document.getElementById('btn-merge');
+  const n = selected.length;
+  if (n >= 2) {
+    btn.textContent = 'Merge '+n+' selected';
+    btn.classList.add('ready');
+  } else {
+    btn.textContent = n===1 ? 'Select a duplicate…' : 'Merge selected';
+    btn.classList.remove('ready');
+  }
+}
+
+function showDone() {
+  document.getElementById('loading').style.display     = 'none';
+  document.getElementById('group-view').style.display  = 'none';
+  document.getElementById('done-screen').style.display = 'flex';
+  document.getElementById('actions').style.display     = 'none';
+  document.getElementById('pfill').style.width         = '100%';
+  document.getElementById('progress').textContent      = 'All reviewed!';
+  document.getElementById('done-stats').innerHTML =
+    '<b>'+sessionMerges+'</b> merged this session<br>'+
+    '<b>'+mergedMap.size+'</b> total merge decisions saved';
+  saveToGH(true);
+}
+
+// ── Navigation ────────────────────────────────────────────────────────────────
+function skipGroup() {
+  groupIdx++;
+  selected = [];
+  renderGroup();
+}
+
+function prevGroup() {
+  const p = prevValidIdx(groupIdx-1);
+  if (p===-1) return;
+  groupIdx = p;
+  selected = [];
+  renderGroup();
+}
+
+function restart() {
+  groups    = buildGroups();
+  groupIdx  = 0;
+  selected  = [];
+  sessionMerges = 0;
+  renderGroup();
+}
+
+// ── Merge ─────────────────────────────────────────────────────────────────────
+function doMerge() {
+  if (selected.length < 2) return;
+  const members   = activeMembers(groups[groupIdx]);
+  const canonical = members[selected[0]].name;
+
+  for (let i=1; i<selected.length; i++) {
+    const dup = members[selected[i]].name;
+    if (!mergedMap.has(dup)) {
+      decisions.merged[dup] = canonical;
+      mergedMap.set(dup, canonical);
+      sessionMerges++;
+    }
+  }
+  saveToLS();
+  scheduleAutoSave();
+
+  groupIdx++;
+  selected = [];
+  renderGroup();
+}
+
+// ── Auto-save ─────────────────────────────────────────────────────────────────
+let saveTimer = null;
+function scheduleAutoSave() {
+  if (!localStorage.getItem(LS_TOKEN)) return;
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(()=>saveToGH(true), 20000);
+}
+
+// ── GitHub sync ───────────────────────────────────────────────────────────────
+function setSyncDot(s) {
+  const d = document.getElementById('sync-dot');
+  d.className = s;
+  d.title = {saved:'Saved to GitHub',saving:'Saving…',err:'Save failed','':'Not connected'}[s]||'';
+}
+
+async function ghFetch(path, opts={}) {
+  const token = localStorage.getItem(LS_TOKEN);
+  if (!token) throw new Error('No token');
+  return fetch('https://api.github.com'+path, {
+    ...opts,
+    headers: {
+      'Authorization':'Bearer '+token,
+      'Accept':'application/vnd.github+json',
+      'X-GitHub-Api-Version':'2022-11-28',
+      ...(opts.headers||{})
+    }
+  });
+}
+
+async function loadFromGH(silent=false) {
+  try {
+    const r = await ghFetch('/repos/'+REPO+'/contents/'+CFILE+'?ref='+CBRANCH);
+    if (!r.ok) { if(!silent) setMsg('token-msg','File not found — save to create it.'); return; }
+    const meta = await r.json();
+    const remote = JSON.parse(atob(meta.content.replace(/\n/g,'')));
+    const v = new Set([...(decisions.validated||[]),...(remote.validated||[])]);
+    const d = new Set([...(decisions.deleted||[]),...(remote.deleted||[])]);
+    decisions = {
+      validated:[...v], deleted:[...d],
+      merged:{...(remote.merged||{}),...(decisions.merged||{})}
+    };
+    syncSets();
+    saveToLS();
+    setSyncDot('saved');
+    if (!silent) setMsg('token-msg','Loaded from GitHub ✓');
+  } catch(e) {
+    if (!silent) setMsg('token-msg','Load failed: '+e.message);
+    setSyncDot('err');
+  }
+}
+
+async function saveToGH(silent=false) {
+  const token = localStorage.getItem(LS_TOKEN);
+  if (!token) { if(!silent) setMsg('token-msg','Enter a token first.'); return; }
+  setSyncDot('saving');
+  try {
+    let sha = null;
+    const check = await ghFetch('/repos/'+REPO+'/contents/'+CFILE+'?ref='+CBRANCH);
+    if (check.ok) sha = (await check.json()).sha;
+
+    const payload = {...decisions, lastSaved: new Date().toISOString()};
+    const body = {
+      message: 'Update curation decisions',
+      content: btoa(unescape(encodeURIComponent(JSON.stringify(payload,null,2)))),
+      branch: CBRANCH,
+    };
+    if (sha) body.sha = sha;
+
+    const r = await ghFetch('/repos/'+REPO+'/contents/'+CFILE, {
+      method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)
+    });
+    if (!r.ok) throw new Error((await r.json()).message||r.status);
+    setSyncDot('saved');
+    if (!silent) setMsg('token-msg','Saved to GitHub ✓');
+  } catch(e) {
+    setSyncDot('err');
+    if (!silent) setMsg('token-msg','Save failed: '+e.message);
+  }
+}
+
+// ── Settings ──────────────────────────────────────────────────────────────────
+function toggleSettings() { document.getElementById('settings').classList.toggle('open'); }
+function onTokenInput() { setSyncDot(''); }
+
+async function testAndSaveToken() {
+  const token = document.getElementById('gh-token').value.trim();
+  if (!token) { setMsg('token-msg','Enter a token first.'); return; }
+  setMsg('token-msg','Testing…');
+  try {
+    const r = await fetch('https://api.github.com/repos/'+REPO, {
+      headers:{'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json'}
+    });
+    if (!r.ok) throw new Error('HTTP '+r.status);
+    localStorage.setItem(LS_TOKEN, token);
+    setMsg('token-msg','Connected ✓  —  loading progress from GitHub…');
+    await loadFromGH(false);
+  } catch(e) { setMsg('token-msg','Connection failed: '+e.message); }
+}
+
+function exportJSON() {
+  const blob = new Blob([JSON.stringify(decisions,null,2)],{type:'application/json'});
+  Object.assign(document.createElement('a'),{
+    href:URL.createObjectURL(blob), download:'curation.json'
+  }).click();
+}
+
+function setMsg(id,txt) { document.getElementById(id).textContent = txt; }
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+init();
+</script>
+</body>
+</html>

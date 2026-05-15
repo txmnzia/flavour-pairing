@@ -128,6 +128,18 @@ export function getRecommendations(
   return results.slice(0, topN);
 }
 
+export function computeLooScores(selectedIds: number[]): Map<number, number> {
+  if (selectedIds.length < 2) return new Map();
+  const result = new Map<number, number>();
+  for (const x of selectedIds) {
+    const xPairs = getPairingsForIngredient(x);
+    const others = selectedIds.filter((id) => id !== x);
+    const sum = others.reduce((acc, y) => acc + (xPairs.get(y) ?? 0), 0);
+    result.set(x, sum / others.length);
+  }
+  return result;
+}
+
 export function getRecipesForIngredients(ids: number[], limit = 8): string[] {
   if (!recipeTitles || !recipeIndex || ids.length === 0) return [];
 
