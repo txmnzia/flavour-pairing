@@ -134,7 +134,11 @@ export function computeLooScores(selectedIds: number[]): Map<number, number> {
   for (const x of selectedIds) {
     const xPairs = getPairingsForIngredient(x);
     const others = selectedIds.filter((id) => id !== x);
-    const sum = others.reduce((acc, y) => acc + (xPairs.get(y) ?? 0), 0);
+    const sum = others.reduce((acc, y) => {
+      const fromX = xPairs.get(y) ?? 0;
+      const fromY = getPairingsForIngredient(y).get(x) ?? 0;
+      return acc + Math.max(fromX, fromY);
+    }, 0);
     result.set(x, sum / others.length);
   }
   return result;
