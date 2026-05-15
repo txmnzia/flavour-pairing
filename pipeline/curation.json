@@ -682,7 +682,12 @@
     "pear",
     "tomato juice",
     "phyllo pastry",
-    "bamboo shoot"
+    "bamboo shoot",
+    "capicola",
+    "ham hock",
+    "shrimp",
+    "sambal oelek",
+    "ranch dressing"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1134,7 +1139,12 @@
     "sour mix",
     "puff pastry shell",
     "butterscotch sundae sauce",
-    "diced tomatoes with green pepper and onion"
+    "diced tomatoes with green pepper and onion",
+    "diced tomatoes with garlic and olive oil",
+    "lipton onion soup mix",
+    "texas toast thick bread",
+    "erythritol",
+    "fresh edible flower"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -1826,7 +1836,14 @@
     "kidney bean": "red bean",
     "polska kielbasa": "kielbasa",
     "pineapple sherbet": "pineapple",
-    "stew meat": "beef"
+    "stew meat": "beef",
+    "green creme de menthe": "creme de menthe",
+    "new mexico chile powder": "chili powder",
+    "cranberry raspberry juice": "cranberry",
+    "vegan cheese": "cheese",
+    "raspberry juice": "raspberry",
+    "pork fatback": "pork fat",
+    "beef eye round": "beef"
   },
-  "lastSaved": "2026-05-15T08:21:51.201Z"
+  "lastSaved": "2026-05-15T08:26:23.769Z"
 }
