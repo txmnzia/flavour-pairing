@@ -671,7 +671,15 @@
     "golden beet",
     "breadstick",
     "basil pesto",
-    "spearmint"
+    "spearmint",
+    "date",
+    "quatre epices",
+    "bagel",
+    "peanut",
+    "raisin",
+    "chili bean",
+    "seed",
+    "pear"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1113,7 +1121,11 @@
     "apricot gelatin",
     "english toffee flavored candy bar",
     "chicken apple sausage",
-    "vegetable soup mix"
+    "vegetable soup mix",
+    "cavenders all purpose greek seasoning",
+    "boboli pizza crust",
+    "coconut sugar crystal",
+    "italian seasoning"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -1792,7 +1804,13 @@
     "french onion soup": "onion soup",
     "liquid coffee creamer": "coffee",
     "blackberry jam": "blackberry",
-    "turkey stuffing": "turkey"
+    "turkey stuffing": "turkey",
+    "english mustard": "dijon mustard",
+    "bean dip": "bean",
+    "cinnamon roll": "cinnamon",
+    "oat bran": "oat",
+    "wheat chex": "wheat",
+    "nacho cheese": "cheddar cheese"
   },
-  "lastSaved": "2026-05-15T08:12:59.428Z"
+  "lastSaved": "2026-05-15T08:15:05.173Z"
 }
