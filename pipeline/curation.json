@@ -736,7 +736,10 @@
     "jalapeno",
     "wild rice",
     "amaretti",
-    "green chili"
+    "green chili",
+    "beef kidney",
+    "foie gras",
+    "lemon curd"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1239,7 +1242,12 @@
     "parchment paper",
     "tiger sauce",
     "fruit slice",
-    "mccormick grill seasoning"
+    "mccormick grill seasoning",
+    "lime gelatin",
+    "candied cherry",
+    "lemon balm",
+    "m & m's",
+    "chinese vegetable"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -2013,7 +2021,14 @@
     "passion fruit juice": "passion fruit",
     "brown lentil": "lentil",
     "passata": "tomato",
-    "mixed nut": "nut"
+    "mixed nut": "nut",
+    "pistachio paste": "pistachio",
+    "sour orange juice": "orange",
+    "green chili pepper": "green chili",
+    "splenda brown sugar blend": "brown sugar",
+    "pork tenderloin": "pork",
+    "creamy peanut butter": "peanut butter",
+    "egg substitute": "egg"
   },
-  "lastSaved": "2026-05-15T08:52:55.653Z"
+  "lastSaved": "2026-05-15T08:54:22.357Z"
 }
