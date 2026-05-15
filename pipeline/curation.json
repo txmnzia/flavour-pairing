@@ -740,7 +740,9 @@
     "beef kidney",
     "foie gras",
     "lemon curd",
-    "lumpia skin"
+    "lumpia skin",
+    "cloud ear mushroom",
+    "fenugreek leaf"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -2030,7 +2032,8 @@
     "pork tenderloin": "pork",
     "creamy peanut butter": "peanut butter",
     "egg substitute": "egg",
-    "apricot brandy": "apricot liqueur"
+    "apricot brandy": "apricot liqueur",
+    "yellow curry paste": "curry paste"
   },
-  "lastSaved": "2026-05-15T09:02:05.570Z"
+  "lastSaved": "2026-05-15T09:16:37.205Z"
 }
