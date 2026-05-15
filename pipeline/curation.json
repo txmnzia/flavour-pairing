@@ -861,7 +861,12 @@
     "banana pepper",
     "cheese",
     "lovage",
-    "elderberry"
+    "elderberry",
+    "meatloaf",
+    "shoe peg corn",
+    "okra",
+    "serrano chili",
+    "carrot"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1465,7 +1470,14 @@
     "toothpick",
     "philadelphia savory garlic cooking creme",
     "spice essence",
-    "colored sugar sprinkle"
+    "colored sugar sprinkle",
+    "dry pectin",
+    "chili bean sauce",
+    "vegetable soup",
+    "ghee",
+    "minestrone soup",
+    "vegetable seasoning",
+    "caponata"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -2428,7 +2440,14 @@
     "salad green": "green salad",
     "smoked mozzarella cheese": "mozzarella cheese",
     "crabmeat": "crab",
-    "skirt steak": "beef"
+    "skirt steak": "beef",
+    "quahog": "clam",
+    "soft taco size flour tortilla": "tortilla",
+    "dry sherry": "sherry wine",
+    "sirloin tip roast": "beef",
+    "beef brisket": "beef",
+    "pork and bean": "pork",
+    "chocolate fudge topping": "chocolate"
   },
-  "lastSaved": "2026-05-15T11:53:45.171Z"
+  "lastSaved": "2026-05-15T11:55:42.606Z"
 }
