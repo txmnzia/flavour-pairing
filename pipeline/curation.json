@@ -593,7 +593,11 @@
     "cookie dough",
     "creme fraiche",
     "ginger garlic paste",
-    "panettone"
+    "panettone",
+    "fettuccine",
+    "herbsaint",
+    "clove",
+    "cherry tomato"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1570,7 +1574,12 @@
     "shortbread cookie": "shortbread",
     "beef rib roast": "beef rib",
     "golden delicious apple": "apple",
-    "ground nutmeg": "nutmeg"
+    "ground nutmeg": "nutmeg",
+    "champagne grape": "grape",
+    "quick oat": "oat",
+    "white radish": "daikon radish",
+    "yakisoba noodle": "noodle",
+    "cracker crumb": "cracker"
   },
-  "lastSaved": "2026-05-15T07:52:21.590Z"
+  "lastSaved": "2026-05-15T07:53:13.497Z"
 }
