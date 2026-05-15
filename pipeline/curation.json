@@ -688,7 +688,11 @@
     "shrimp",
     "sambal oelek",
     "ranch dressing",
-    "pecorino cheese"
+    "pecorino cheese",
+    "peanut butter",
+    "cheese curd",
+    "panch phoron",
+    "lemonade"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1145,7 +1149,11 @@
     "lipton onion soup mix",
     "texas toast thick bread",
     "erythritol",
-    "fresh edible flower"
+    "fresh edible flower",
+    "baby food",
+    "bee pollen",
+    "peppermint ice cream",
+    "hormel chili without bean"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -1844,7 +1852,15 @@
     "vegan cheese": "cheese",
     "raspberry juice": "raspberry",
     "pork fatback": "pork fat",
-    "beef eye round": "beef"
+    "beef eye round": "beef",
+    "green cardamom": "cardamom",
+    "salted mixed nut": "nut",
+    "ginger syrup": "ginger",
+    "premium white baking chocolate": "white chocolate",
+    "fried corn tortilla strip": "tortilla",
+    "yellowfin tuna steak": "tuna",
+    "lamb rib": "lamb",
+    "hersheys cocoa powder": "cocoa"
   },
-  "lastSaved": "2026-05-15T08:26:45.892Z"
+  "lastSaved": "2026-05-15T08:28:23.774Z"
 }
