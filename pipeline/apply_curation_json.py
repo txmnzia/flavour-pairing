@@ -31,10 +31,11 @@ def apply(curation_path, pairings_path):
     merged_names = curation.get('merged', {})   # from_name → to_name
     removed      = deleted | set(merged_names.keys())
 
-    # Detect pairings format:
-    #   v2 (FlavorGraph): keys are plain "idx" strings — no cuisine dimension
-    #   v1 (demo/RecipeNLG): keys are "cuisineIdx,idx"
-    v2 = data.get('v', 1) >= 2
+    # Detect pairings format from actual keys (don't rely on missing 'v' field):
+    #   v2: keys are plain "idx" strings — no cuisine dimension
+    #   v1: keys are "cuisineIdx,idx"
+    sample = next(iter(data['p']), '')
+    v2 = ',' not in sample
 
     def parse_key(k):
         if ',' in k:
