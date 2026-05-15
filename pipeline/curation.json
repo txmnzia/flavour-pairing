@@ -608,7 +608,9 @@
     "vegetable bouillon",
     "ouzo",
     "flounder",
-    "chicken sausage"
+    "chicken sausage",
+    "malt vinegar",
+    "dark rum"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1000,7 +1002,9 @@
     "honey bunches of oats cereal",
     "margarine",
     "dry vegetable soup mix",
-    "spirulina"
+    "spirulina",
+    "corn beef hash",
+    "strawberry jelly"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -1602,7 +1606,9 @@
     "peaches in juice": "peach",
     "green apple": "apple",
     "hash brown patty": "hash brown",
-    "bagel chip": "bagel"
+    "bagel chip": "bagel",
+    "ground szechuan peppercorn": "szechuan peppercorn",
+    "chicken breast": "chicken"
   },
-  "lastSaved": "2026-05-15T07:55:02.092Z"
+  "lastSaved": "2026-05-15T07:56:42.377Z"
 }
