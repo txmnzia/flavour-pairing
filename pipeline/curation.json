@@ -731,7 +731,12 @@
     "dandelion green",
     "ras el hanout spice mix",
     "crouton",
-    "tripe"
+    "tripe",
+    "root vegetable",
+    "jalapeno",
+    "wild rice",
+    "amaretti",
+    "green chili"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1224,7 +1229,17 @@
     "tart crust",
     "lemon gelatin",
     "leek soup mix",
-    "white decorating icing"
+    "white decorating icing",
+    "chuck",
+    "bread pudding",
+    "adobo seasoning",
+    "chocolate cooky",
+    "simple syrup",
+    "xylitol sweetener",
+    "parchment paper",
+    "tiger sauce",
+    "fruit slice",
+    "mccormick grill seasoning"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -1993,7 +2008,12 @@
     "pinot noir wine": "red wine",
     "dry cider": "cider",
     "smoked ham hock": "ham",
-    "beef top round steak": "beef"
+    "beef top round steak": "beef",
+    "chocolate syrup": "chocolate",
+    "passion fruit juice": "passion fruit",
+    "brown lentil": "lentil",
+    "passata": "tomato",
+    "mixed nut": "nut"
   },
-  "lastSaved": "2026-05-15T08:50:00.737Z"
+  "lastSaved": "2026-05-15T08:52:55.653Z"
 }
