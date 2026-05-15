@@ -537,7 +537,8 @@
     "tempeh",
     "green bean",
     "coconut oil",
-    "alligator meat"
+    "alligator meat",
+    "watermelon"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -875,7 +876,8 @@
     "spaghetti sauce",
     "whipped topping",
     "coffee ice cream",
-    "fruit filling"
+    "fruit filling",
+    "hershey chocolate kiss"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -1405,7 +1407,10 @@
     "mango powder": "mango",
     "pink grapefruit": "grapefruit",
     "unsweetened raspberry": "raspberry",
-    "anejo cheese": "cheese"
+    "anejo cheese": "cheese",
+    "plain doritos": "doritos",
+    "fish steak": "fish",
+    "chinese barbecue pork": "pork"
   },
-  "lastSaved": "2026-05-14T22:44:12.706Z"
+  "lastSaved": "2026-05-15T07:33:31.283Z"
 }
