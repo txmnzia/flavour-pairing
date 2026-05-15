@@ -597,7 +597,18 @@
     "fettuccine",
     "herbsaint",
     "clove",
-    "cherry tomato"
+    "cherry tomato",
+    "thai basil",
+    "bouquet garni",
+    "rice cracker",
+    "wax bean",
+    "sweet pea",
+    "gooseberry",
+    "mango chutney",
+    "vegetable bouillon",
+    "ouzo",
+    "flounder",
+    "chicken sausage"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -983,7 +994,13 @@
     "mixed vegetable",
     "lollipop stick",
     "apple chip",
-    "vanilla candy coating"
+    "vanilla candy coating",
+    "sofrito sauce",
+    "italian salad dressing mix",
+    "honey bunches of oats cereal",
+    "margarine",
+    "dry vegetable soup mix",
+    "spirulina"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -1579,7 +1596,13 @@
     "quick oat": "oat",
     "white radish": "daikon radish",
     "yakisoba noodle": "noodle",
-    "cracker crumb": "cracker"
+    "cracker crumb": "cracker",
+    "sweet pickle juice": "pickle juice",
+    "wheat bran": "wheat",
+    "peaches in juice": "peach",
+    "green apple": "apple",
+    "hash brown patty": "hash brown",
+    "bagel chip": "bagel"
   },
-  "lastSaved": "2026-05-15T07:53:13.497Z"
+  "lastSaved": "2026-05-15T07:55:02.092Z"
 }
