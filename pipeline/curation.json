@@ -882,7 +882,8 @@
     "tarragon",
     "galangal",
     "cannellini bean",
-    "passion fruit"
+    "passion fruit",
+    "fig"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1512,7 +1513,8 @@
     "pasta sauce",
     "mixed fresh herb",
     "nabisco triscuits",
-    "edible silver foil"
+    "edible silver foil",
+    "edible glitter"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -2511,7 +2513,11 @@
     "hot chocolate powder": "cocoa",
     "shell pasta": "pasta",
     "lime zest": "lime",
-    "roasted pistachio": "pistachio"
+    "roasted pistachio": "pistachio",
+    "kielbasa": "sausage",
+    "peach liqueur": "peach",
+    "sweet red wine": "red wine",
+    "minced clams with juice": "clam"
   },
-  "lastSaved": "2026-05-15T14:05:05.639Z"
+  "lastSaved": "2026-05-15T14:06:36.436Z"
 }
