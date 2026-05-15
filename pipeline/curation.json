@@ -592,7 +592,8 @@
     "ajwain",
     "cookie dough",
     "creme fraiche",
-    "ginger garlic paste"
+    "ginger garlic paste",
+    "panettone"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -974,7 +975,10 @@
     "red jell o",
     "heavy syrup",
     "jalapeno pepper cheese",
-    "pickling salt"
+    "pickling salt",
+    "mixed vegetable",
+    "lollipop stick",
+    "apple chip"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -1562,7 +1566,10 @@
     "gingersnap cookie": "cookie",
     "stir fry beef": "beef",
     "mustard vinaigrette": "vinaigrette",
-    "shortbread cookie": "shortbread"
+    "shortbread cookie": "shortbread",
+    "beef rib roast": "beef rib",
+    "golden delicious apple": "apple",
+    "ground nutmeg": "nutmeg"
   },
-  "lastSaved": "2026-05-15T07:49:56.959Z"
+  "lastSaved": "2026-05-15T07:51:59.964Z"
 }
