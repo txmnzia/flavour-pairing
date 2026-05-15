@@ -3580,7 +3580,25 @@
     "pork broth": "pork",
     "chocolate spread": "chocolate",
     "chocolate truffle": "chocolate",
-    "red potato": "potato"
+    "red potato": "potato",
+    "candied ginger": "ginger",
+    "chicken broth": "chicken",
+    "duck confit": "duck",
+    "lambs kidney": "lamb",
+    "lamb sausage": "lamb",
+    "vegetable bouillon": "vegetable broth",
+    "vanilla yogurt": "vanilla",
+    "vanilla oil": "vanilla",
+    "vanilla liqueur": "vanilla",
+    "apricot puree": "apricot",
+    "baby corn": "corn",
+    "black olive": "olive",
+    "green olive": "olive",
+    "truffle": "black truffle",
+    "walnut oil": "walnut",
+    "candied walnut": "walnut",
+    "black walnut": "walnut",
+    "taco seasoning": "cajun seasoning"
   },
-  "lastSaved": "2026-05-15T18:32:46.503Z"
+  "lastSaved": "2026-05-15T18:34:25.312Z"
 }
