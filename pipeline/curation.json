@@ -1093,7 +1093,20 @@
     "karo syrup",
     "grenadine",
     "miso",
-    "burdock root"
+    "burdock root",
+    "albacore tuna",
+    "fontina",
+    "barbecue sauce",
+    "marjoram",
+    "pastis",
+    "okonomiyaki sauce",
+    "turkey",
+    "mitsuba",
+    "date sugar",
+    "quinoa",
+    "soup",
+    "dried lily bud",
+    "pimiento"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1895,7 +1908,14 @@
     "fruit cocktail",
     "sugar free shortbread cooky",
     "mixed peel",
-    "italian salad dressing"
+    "italian salad dressing",
+    "meal",
+    "granulated sugar",
+    "tempura batter",
+    "mexican seasoning",
+    "peanut flour",
+    "cooking sauce",
+    "pot roast"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -3204,7 +3224,27 @@
     "spreadable cheese with garlic and herb": "boursin cheese",
     "smoked pork hock": "pork",
     "cane syrup": "sugar cane",
-    "cherrystone clam": "clam"
+    "cherrystone clam": "clam",
+    "guava juice": "guava",
+    "strawberry preserve": "strawberry",
+    "tart apple": "apple",
+    "fiber one cereal": "cereal",
+    "cheesecake filling": "cheesecake",
+    "cheddar cheese soup": "cheddar cheese",
+    "solid white tuna": "tuna",
+    "raspberry vinaigrette dressing": "vinaigrette",
+    "pork leg": "pork",
+    "sweetened cocoa powder": "cocoa",
+    "turkey broth": "turkey",
+    "hawaiian bread": "bread",
+    "chicken gumbo soup": "chicken",
+    "apple butter": "apple",
+    "pale ale": "beer",
+    "comice pear": "pear",
+    "fried chinese noodle": "noodle",
+    "stewing lamb": "lamb",
+    "potato stick": "potato",
+    "hersheys chocolate syrup": "chocolate"
   },
-  "lastSaved": "2026-05-15T15:29:39.684Z"
+  "lastSaved": "2026-05-15T15:34:07.795Z"
 }
