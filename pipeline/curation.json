@@ -1131,7 +1131,10 @@
     "italian seasoning",
     "cedar plank",
     "winter savory",
-    "sour mix"
+    "sour mix",
+    "puff pastry shell",
+    "butterscotch sundae sauce",
+    "diced tomatoes with green pepper and onion"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -1817,7 +1820,9 @@
     "oat bran": "oat",
     "wheat chex": "wheat",
     "nacho cheese": "cheddar cheese",
-    "vanilla custard": "vanilla"
+    "vanilla custard": "vanilla",
+    "tomato puree": "tomato",
+    "salted peanut": "peanut"
   },
-  "lastSaved": "2026-05-15T08:17:21.930Z"
+  "lastSaved": "2026-05-15T08:18:46.053Z"
 }
