@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { loadDatabase, getAllIngredients, getRecommendations, getDataMeta, getRecipesForIngredients } from "./db";
+import { loadDatabase, getAllIngredients, getRecommendations, getDataMeta, getRecipesForIngredients, computeLooScores } from "./db";
 import type { Ingredient, Pairing, DbStatus } from "./types";
 import SearchInput from "./components/SearchInput";
 import RecommendationList from "./components/RecommendationList";
@@ -13,6 +13,7 @@ export default function App() {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [selectedIngredients, setSelectedIngredients] = useState<Ingredient[]>([]);
   const [recommendations, setRecommendations] = useState<Pairing[]>([]);
+  const [looScores, setLooScores] = useState<Map<number, number>>(new Map());
   const [matchingRecipes, setMatchingRecipes] = useState<string[]>([]);
   const [dataMeta, setDataMeta] = useState<{ source: string; recipes: number } | null>(null);
   const [lang, setLang] = useState<"en" | "fr">("en");
@@ -41,11 +42,13 @@ export default function App() {
     if (status.state !== "ready" || selectedIngredients.length === 0) {
       setRecommendations([]);
       setMatchingRecipes([]);
+      setLooScores(new Map());
       return;
     }
     const ids = selectedIngredients.map((i) => i.id);
     setRecommendations(getRecommendations(ids, ingredients, TOP_N));
     setMatchingRecipes(getRecipesForIngredients(ids));
+    setLooScores(computeLooScores(ids));
   }, [selectedIngredients, status, ingredients]);
 
   const selectedIds = useMemo(
@@ -220,6 +223,7 @@ export default function App() {
                   selectedIngredients={selectedIngredients}
                   maxFreqSelected={maxFreq}
                   onRemove={removeIngredient}
+                  looScores={looScores}
                 />
 
                 {matchingRecipes.length > 0 && (
