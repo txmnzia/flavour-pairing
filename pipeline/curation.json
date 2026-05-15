@@ -538,7 +538,9 @@
     "green bean",
     "coconut oil",
     "alligator meat",
-    "watermelon"
+    "watermelon",
+    "purslane",
+    "spam"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -877,7 +879,14 @@
     "whipped topping",
     "coffee ice cream",
     "fruit filling",
-    "hershey chocolate kiss"
+    "hershey chocolate kiss",
+    "herb stuffing mix",
+    "coconut rum",
+    "stir fry sauce",
+    "peach ice cream",
+    "self rising flour",
+    "mushroom gravy mix",
+    "crispy rice cereal"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -1410,7 +1419,18 @@
     "anejo cheese": "cheese",
     "plain doritos": "doritos",
     "fish steak": "fish",
-    "chinese barbecue pork": "pork"
+    "chinese barbecue pork": "pork",
+    "turkey neck": "turkey",
+    "saltine cracker": "cracker",
+    "leg of lamb": "lamb",
+    "queso fresco": "cottage cheese",
+    "white wine vinegar": "white vinegar",
+    "ground aniseed": "anise",
+    "club cracker": "cracker",
+    "o'brien frozen potato": "potato",
+    "pink lemonade": "lemonade",
+    "strawberry puree": "strawberry",
+    "red kidney bean": "red bean"
   },
-  "lastSaved": "2026-05-15T07:33:31.283Z"
+  "lastSaved": "2026-05-15T07:36:19.915Z"
 }
