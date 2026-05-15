@@ -699,7 +699,14 @@
     "sponge cake",
     "snail",
     "pineapple",
-    "red onion"
+    "red onion",
+    "cherry flavored liqueur",
+    "rice vinegar",
+    "angostura bitter",
+    "poppy seed",
+    "duck confit",
+    "msg",
+    "veal kidney"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1161,7 +1168,12 @@
     "bee pollen",
     "peppermint ice cream",
     "hormel chili without bean",
-    "tang orange crystal"
+    "tang orange crystal",
+    "pepsi",
+    "orange food coloring",
+    "sesame ginger salad dressing",
+    "amaranth flour",
+    "shreddies cereal"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -1876,7 +1888,22 @@
     "carob chip": "chocolate",
     "cheese spread": "cheese",
     "steak ums": "beef steak",
-    "macadamia nut oil": "macadamia"
+    "macadamia nut oil": "macadamia",
+    "green tea powder": "green tea",
+    "nestle toll house baking cocoa": "cocoa",
+    "turkey carcass": "turkey",
+    "beef roast": "beef",
+    "rump steak": "beef steak",
+    "curry sauce": "curry",
+    "pears in heavy syrup": "pear",
+    "pear juice": "pear",
+    "pumpkin pie": "pumpkin",
+    "dried celery flake": "celery",
+    "turkey pepperoni": "turkey",
+    "candied violet": "violet",
+    "citrus juice": "lemon",
+    "roasted unsalted peanut": "peanut",
+    "chicory lettuce": "endive"
   },
-  "lastSaved": "2026-05-15T08:33:29.445Z"
+  "lastSaved": "2026-05-15T08:36:36.606Z"
 }
