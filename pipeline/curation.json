@@ -961,7 +961,12 @@
     "gourd",
     "pattypan squash",
     "epazote",
-    "broth"
+    "broth",
+    "sesame paste",
+    "swordfish",
+    "parsnip",
+    "liverwurst",
+    "plantain"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1655,7 +1660,9 @@
     "chicken seasoning",
     "pepper ring",
     "baking mix",
-    "xylitol sugar substitute"
+    "xylitol sugar substitute",
+    "coating mix",
+    "veggie crumbles"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -2754,7 +2761,8 @@
     "cremini mushroom": "mushroom",
     "instant cappuccino mix": "coffee",
     "mung dal": "mung bean",
-    "chocolate liqueur": "chocolate"
+    "chocolate liqueur": "chocolate",
+    "lemon extract": "lemon"
   },
-  "lastSaved": "2026-05-15T14:36:59.058Z"
+  "lastSaved": "2026-05-15T14:37:39.120Z"
 }
