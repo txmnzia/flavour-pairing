@@ -762,7 +762,22 @@
     "ketjap manis",
     "cashew",
     "crabapple",
-    "mackerel"
+    "mackerel",
+    "vanilla",
+    "mezcal",
+    "huckleberry",
+    "asadero cheese",
+    "green mango",
+    "beef fat",
+    "pork broth",
+    "lemonade concentrate",
+    "smoked cheddar cheese",
+    "jamaican jerk spice",
+    "stock",
+    "collard green",
+    "red potato",
+    "five spice powder",
+    "tortellini"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1286,7 +1301,16 @@
     "pineapple orange juice",
     "sugar free instant butterscotch pudding mix",
     "gelatin",
-    "grape leaf"
+    "grape leaf",
+    "mexican cornbread mix",
+    "au jus mix",
+    "potato flour",
+    "coconut macaroon",
+    "submarine roll",
+    "spelt flour",
+    "graham cracker crust",
+    "rubbing alcohol",
+    "coffee creamer"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -2102,7 +2126,26 @@
     "ground ham": "ham",
     "garlic powder": "garlic",
     "key lime juice": "key lime",
-    "sesame dressing": "sesame paste"
+    "sesame dressing": "sesame paste",
+    "red leicester cheese": "cheddar cheese",
+    "apricot half": "apricot",
+    "prime rib roast": "beef rib",
+    "corn tortilla": "tortilla",
+    "banana liqueur": "banana",
+    "rock shrimp": "shrimp",
+    "mashed potato": "potato",
+    "gluten": "wheat gluten",
+    "italian pepper": "chili pepper",
+    "basil vinaigrette": "vinaigrette",
+    "apple pie filling": "apple pie",
+    "ro tel tomato": "tomato",
+    "dry bread": "crouton",
+    "pumpernickel bread": "black bread",
+    "pumpkin pie filling": "pumpkin pie",
+    "stewing chicken": "chicken",
+    "pumpkin pie mix": "pumpkin pie",
+    "truffle oil": "black truffle",
+    "sirloin": "beef sirloin"
   },
-  "lastSaved": "2026-05-15T09:22:15.751Z"
+  "lastSaved": "2026-05-15T09:26:37.786Z"
 }
