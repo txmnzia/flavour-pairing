@@ -658,7 +658,20 @@
     "pistachio",
     "wheat germ",
     "prosecco",
-    "green chili paste"
+    "green chili paste",
+    "turkey liver",
+    "marsala",
+    "chickpea",
+    "textured vegetable protein",
+    "golden syrup",
+    "okara",
+    "sev",
+    "sun dried tomato",
+    "galliano",
+    "golden beet",
+    "breadstick",
+    "basil pesto",
+    "spearmint"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1089,7 +1102,18 @@
     "sweet tart crust",
     "cinnamon swirl bread",
     "seasoned flour",
-    "bloody mary mix"
+    "bloody mary mix",
+    "instant malted milk powder",
+    "cupcake liner",
+    "dish detergent",
+    "glue",
+    "curing salt",
+    "frosting",
+    "no bean chili",
+    "apricot gelatin",
+    "english toffee flavored candy bar",
+    "chicken apple sausage",
+    "vegetable soup mix"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -1751,7 +1775,24 @@
     "pineapple rum": "pineapple",
     "oyster liquor": "oyster",
     "veal demi glace": "veal",
-    "natural bran": "wheat bran"
+    "natural bran": "wheat bran",
+    "creamed corn": "corn",
+    "white corn": "corn",
+    "italian turkey sausage": "turkey sausage",
+    "brick cheese": "cheese",
+    "chinese noodle": "noodle",
+    "ground nut": "nut",
+    "chicken soup": "chicken",
+    "stale bread": "bread",
+    "turkey giblet": "turkey",
+    "marshmallow cream": "marshmallow",
+    "rotini noodle": "noodle",
+    "beef rib": "beef",
+    "plain croissant": "croissant",
+    "french onion soup": "onion soup",
+    "liquid coffee creamer": "coffee",
+    "blackberry jam": "blackberry",
+    "turkey stuffing": "turkey"
   },
-  "lastSaved": "2026-05-15T08:09:36.318Z"
+  "lastSaved": "2026-05-15T08:12:59.428Z"
 }
