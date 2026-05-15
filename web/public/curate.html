@@ -409,7 +409,15 @@ function buildQueue() {
   stats = { kept: 0, deleted: 0, merged: 0 };
 }
 
-function restart() { buildQueue(); showCard(); }
+function restart() {
+  buildQueue();
+  if (queue.length === 0) {
+    document.getElementById('done-stats').textContent =
+      'All ingredients have been curated — nothing left to review.';
+    return;
+  }
+  showCard();
+}
 
 // ── Card display ─────────────────────────────────────────────────────────────
 function showCard() {
