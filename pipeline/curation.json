@@ -977,7 +977,15 @@
     "pork",
     "khoya",
     "guinness stout",
-    "turkey sausage"
+    "turkey sausage",
+    "apricot",
+    "turnip",
+    "prosciutto",
+    "ketchup",
+    "escarole",
+    "gnocchi",
+    "onion seed",
+    "red bean"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1676,7 +1684,18 @@
     "veggie crumbles",
     "miniature graham cracker pie crust",
     "atkins baking mix",
-    "dumpling wrapper"
+    "dumpling wrapper",
+    "coconut butter",
+    "powdered milk",
+    "clamato juice",
+    "tart shell",
+    "instant coconut cream pudding mix",
+    "round roast",
+    "hershey chocolate candy bar",
+    "ranch dressing mix",
+    "wooden popsicle stick",
+    "salad supreme dry seasoning",
+    "leafy green"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -2788,7 +2807,13 @@
     "egg wash": "egg",
     "sweetened lime juice": "lime",
     "buckwheat flour": "buckwheat groat",
-    "garlic bread": "garlic"
+    "garlic bread": "garlic",
+    "sucanat": "sugar cane",
+    "ricotta salata": "ricotta cheese",
+    "brown mustard": "dijon mustard",
+    "beef sirloin": "beef",
+    "barley malt syrup": "barley",
+    "vanilla ice cream": "ice cream"
   },
-  "lastSaved": "2026-05-15T14:41:46.543Z"
+  "lastSaved": "2026-05-15T14:44:19.755Z"
 }
