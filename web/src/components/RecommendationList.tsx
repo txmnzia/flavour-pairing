@@ -163,10 +163,14 @@ function computeOutlierIds(looScores: Map<number, number>): Set<number> {
   if (looScores.size < 2) return new Set();
   const vals = [...looScores.values()];
   const mean = vals.reduce((a, b) => a + b, 0) / vals.length;
+  // If the whole group has no meaningful pairing signal, nothing to flag.
+  if (mean < 0.05) return new Set();
   const std = Math.sqrt(vals.reduce((acc, v) => acc + (v - mean) ** 2, 0) / vals.length);
   const outliers = new Set<number>();
   for (const [id, score] of looScores) {
-    if (score < 0 && score < mean - std) outliers.add(id);
+    // Flag if > 1 std dev below mean AND less than half the group average.
+    // Missing pairings return 0 (not negative), so we cannot rely on score < 0.
+    if (score < mean - std && score < mean * 0.5) outliers.add(id);
   }
   return outliers;
 }
