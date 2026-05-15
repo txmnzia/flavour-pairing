@@ -694,7 +694,8 @@
     "panch phoron",
     "lemonade",
     "madeira wine",
-    "smoked whitefish"
+    "smoked whitefish",
+    "red snapper"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1863,7 +1864,10 @@
     "yellowfin tuna steak": "tuna",
     "lamb rib": "lamb",
     "hersheys cocoa powder": "cocoa",
-    "guajillo chilies": "chilies"
+    "guajillo chilies": "chilies",
+    "ahi": "tuna",
+    "sandwich bun": "bun",
+    "spanish rice": "rice"
   },
-  "lastSaved": "2026-05-15T08:29:23.405Z"
+  "lastSaved": "2026-05-15T08:30:23.353Z"
 }
