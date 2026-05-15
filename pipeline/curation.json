@@ -706,7 +706,10 @@
     "poppy seed",
     "duck confit",
     "msg",
-    "veal kidney"
+    "veal kidney",
+    "sumac",
+    "black truffle",
+    "dragee"
   ],
   "deleted": [
     "12 inch pizza crust",
@@ -1173,7 +1176,14 @@
     "orange food coloring",
     "sesame ginger salad dressing",
     "amaranth flour",
-    "shreddies cereal"
+    "shreddies cereal",
+    "cellophane noodle",
+    "cheese cracker",
+    "chex cereal",
+    "candy corn",
+    "butter cooky",
+    "miracle whip",
+    "turkey hot dog"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -1903,7 +1913,21 @@
     "candied violet": "violet",
     "citrus juice": "lemon",
     "roasted unsalted peanut": "peanut",
-    "chicory lettuce": "endive"
+    "chicory lettuce": "endive",
+    "fish bouillon cube": "seafood stock",
+    "italian cheese": "cheese",
+    "elephant garlic clove": "garlic",
+    "pork butt": "pork",
+    "creamed horseradish": "horseradish cream",
+    "curd cheese": "cheese",
+    "chocolate bar": "chocolate",
+    "farmer cheese": "cheese",
+    "top ramen noodle": "noodle",
+    "thai red chili pepper": "thai chile",
+    "ritz cracker": "cracker",
+    "thick bread": "bread",
+    "pineapple jam": "pineapple",
+    "turkey slice": "turkey"
   },
-  "lastSaved": "2026-05-15T08:36:36.606Z"
+  "lastSaved": "2026-05-15T08:39:01.667Z"
 }
