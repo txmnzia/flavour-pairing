@@ -83,7 +83,9 @@ function DemoCard({
   );
 }
 
-export default function FAQ({ onClose }: { onClose: () => void }) {
+export default function FAQ({ onClose, lang }: { onClose: () => void; lang: "en" | "fr" }) {
+  const fr = lang === "fr";
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", onKey);
@@ -97,7 +99,9 @@ export default function FAQ({ onClose }: { onClose: () => void }) {
     >
       <div className="max-w-lg mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-semibold">How it works</h2>
+          <h2 className="text-lg font-semibold">
+            {fr ? "Comment ça fonctionne" : "How it works"}
+          </h2>
           <button
             onClick={onClose}
             className="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
@@ -112,68 +116,84 @@ export default function FAQ({ onClose }: { onClose: () => void }) {
         <div className="space-y-8 text-sm">
           <section>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-white/50 mb-3">
-              Pairing data
+              {fr ? "Données d'association" : "Pairing data"}
             </h3>
             <p className="text-white/70 leading-relaxed">
-              Pairings come from <strong className="text-white">FlavorGraph</strong>, a scientific dataset built by
-              analysing which ingredients co-occur across hundreds of thousands of recipes. Each pair's strength
-              is measured by <strong className="text-white">NPMI</strong>{" "}
-              (Normalized Pointwise Mutual Information) — a statistical score that asks:{" "}
-              <em>do these two ingredients appear together significantly more often than chance?</em>
+              {fr ? (
+                <>
+                  Les associations proviennent de <strong className="text-white">FlavorGraph</strong>, un jeu de données
+                  scientifique construit en analysant la co-occurrence des ingrédients dans des centaines de milliers de
+                  recettes. La force de chaque paire est mesurée par le{" "}
+                  <strong className="text-white">NPMI</strong>{" "}
+                  (information mutuelle ponctuelle normalisée) — un score statistique qui répond à la question :{" "}
+                  <em>ces deux ingrédients apparaissent-ils ensemble bien plus souvent que par hasard ?</em>
+                </>
+              ) : (
+                <>
+                  Pairings come from <strong className="text-white">FlavorGraph</strong>, a scientific dataset built by
+                  analysing which ingredients co-occur across hundreds of thousands of recipes. Each pair's strength
+                  is measured by <strong className="text-white">NPMI</strong>{" "}
+                  (Normalized Pointwise Mutual Information) — a statistical score that asks:{" "}
+                  <em>do these two ingredients appear together significantly more often than chance?</em>
+                </>
+              )}
             </p>
             <p className="text-white/70 leading-relaxed mt-2">
-              NPMI ranges from −1 (never together) to +1 (always together). Only pairs scoring 0.01 or above are kept.
+              {fr
+                ? "Le NPMI va de −1 (jamais ensemble) à +1 (toujours ensemble). Seules les paires avec un score de 0,01 ou plus sont conservées."
+                : "NPMI ranges from −1 (never together) to +1 (always together). Only pairs scoring 0.01 or above are kept."}
             </p>
           </section>
 
           <section>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-white/50 mb-3">
-              The pairing score
+              {fr ? "Le score d'association" : "The pairing score"}
             </h3>
             <div className="flex gap-4 mb-4">
-              <DemoCard name="lemon" score={0.83} label="Strong (83)" />
-              <DemoCard name="vanilla" score={0.50} label="Moderate (49)" />
-              <DemoCard name="beef" score={0.14} label="Weak (13)" />
+              <DemoCard name="lemon" score={0.83} label={fr ? "Fort (83)" : "Strong (83)"} />
+              <DemoCard name="vanilla" score={0.50} label={fr ? "Moyen (49)" : "Moderate (49)"} />
+              <DemoCard name="beef" score={0.14} label={fr ? "Faible (13)" : "Weak (13)"} />
             </div>
             <p className="text-white/70 leading-relaxed">
-              The circular ring badge on each card shows the pairing score on a{" "}
-              <strong className="text-white">0–99 scale</strong>, coloured from red (weak) to green (strong).
+              {fr
+                ? <>Le badge circulaire sur chaque carte affiche le score d'association sur une <strong className="text-white">échelle de 0 à 99</strong>, coloré du rouge (faible) au vert (fort).</>
+                : <>The circular ring badge on each card shows the pairing score on a <strong className="text-white">0–99 scale</strong>, coloured from red (weak) to green (strong).</>}
             </p>
             <p className="text-white/70 leading-relaxed mt-2">
-              With multiple ingredients selected, the score shown is the{" "}
-              <strong className="text-white">average NPMI</strong> across all of them. A candidate must pair
-              with at least half your selections to appear at all.
+              {fr
+                ? <>Avec plusieurs ingrédients sélectionnés, le score affiché est la <strong className="text-white">moyenne NPMI</strong> entre tous. Un candidat doit s'associer avec au moins la moitié de vos sélections pour apparaître.</>
+                : <>With multiple ingredients selected, the score shown is the <strong className="text-white">average NPMI</strong> across all of them. A candidate must pair with at least half your selections to appear at all.</>}
             </p>
           </section>
 
           <section>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-white/50 mb-3">
-              Selected cards & LOO highlighting
+              {fr ? "Cartes sélectionnées et mise en évidence LOO" : "Selected cards & LOO highlighting"}
             </h3>
             <div className="flex gap-4 mb-4">
-              <DemoCard name="garlic" score={0.74} selected label="Good fit" />
-              <DemoCard name="chocolate" score={0.09} selected outlier label="Poor fit" />
+              <DemoCard name="garlic" score={0.74} selected label={fr ? "Bon accord" : "Good fit"} />
+              <DemoCard name="chocolate" score={0.09} selected outlier label={fr ? "Mauvais accord" : "Poor fit"} />
             </div>
             <p className="text-white/70 leading-relaxed">
-              Once you've selected two or more ingredients, each selected card shows its{" "}
-              <strong className="text-white">LOO score</strong> (Leave-One-Out): the average pairing strength
-              between that ingredient and every other ingredient in your selection.
+              {fr
+                ? <>Une fois deux ingrédients ou plus sélectionnés, chaque carte affiche son <strong className="text-white">score LOO</strong> (Leave-One-Out) : la force d'association moyenne entre cet ingrédient et tous les autres de votre sélection.</>
+                : <>Once you've selected two or more ingredients, each selected card shows its <strong className="text-white">LOO score</strong> (Leave-One-Out): the average pairing strength between that ingredient and every other ingredient in your selection.</>}
             </p>
             <p className="text-white/70 leading-relaxed mt-2">
-              A card turns <strong className="text-red-400">red</strong> when its LOO score is both more than
-              one standard deviation below the group mean <em>and</em> below half the group mean. That
-              ingredient is weakening the combination — removing it will improve overall harmony.
+              {fr
+                ? <>Une carte devient <strong className="text-red-400">rouge</strong> lorsque son score LOO est à la fois plus d'un écart-type en dessous de la moyenne du groupe <em>et</em> inférieur à la moitié de cette moyenne. Cet ingrédient affaiblit la combinaison — le retirer améliorera l'harmonie globale.</>
+                : <>A card turns <strong className="text-red-400">red</strong> when its LOO score is both more than one standard deviation below the group mean <em>and</em> below half the group mean. That ingredient is weakening the combination — removing it will improve overall harmony.</>}
             </p>
             <p className="text-white/70 leading-relaxed mt-2">
-              The large badge shown above the selection grid is the{" "}
-              <strong className="text-white">group harmony score</strong> — the mean LOO score across all
-              selected ingredients.
+              {fr
+                ? <>Le grand badge affiché au-dessus de la grille de sélection est le <strong className="text-white">score d'harmonie du groupe</strong> — la moyenne des scores LOO de tous les ingrédients sélectionnés.</>
+                : <>The large badge shown above the selection grid is the <strong className="text-white">group harmony score</strong> — the mean LOO score across all selected ingredients.</>}
             </p>
           </section>
         </div>
 
         <div className="mt-8 pt-5 border-t border-white/10 text-center text-xs text-white/25">
-          Data: FlavorGraph (Apache 2.0)
+          {fr ? "Données : FlavorGraph (Apache 2.0)" : "Data: FlavorGraph (Apache 2.0)"}
         </div>
       </div>
     </div>
