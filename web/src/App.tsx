@@ -100,15 +100,21 @@ export default function App() {
     if (!isReady) return null;
     const ingCount = ingredients.length.toLocaleString();
     if (!dataMeta || dataMeta.source === "demo") {
-      return `${ingCount} ingredients · Demo data`;
+      return lang === "fr"
+        ? `${ingCount} ingrédients · Données de démonstration`
+        : `${ingCount} ingredients · Demo data`;
     }
     if (dataMeta.source === "flavorgraph") {
-      return `${ingCount} ingredients · FlavorGraph (Apache 2.0)`;
+      return lang === "fr"
+        ? `${ingCount} ingrédients · FlavorGraph (Apache 2.0)`
+        : `${ingCount} ingredients · FlavorGraph (Apache 2.0)`;
     }
     const recCount = dataMeta.recipes.toLocaleString();
     const src = dataMeta.source === "recipenlg" ? "RecipeNLG" : "RecipeNLG + Marmiton";
-    return `Based on ${ingCount} ingredients from ${recCount} recipes · ${src}`;
-  }, [isReady, ingredients, dataMeta]);
+    return lang === "fr"
+      ? `Basé sur ${ingCount} ingrédients issus de ${recCount} recettes · ${src}`
+      : `Based on ${ingCount} ingredients from ${recCount} recipes · ${src}`;
+  }, [isReady, ingredients, dataMeta, lang]);
 
   return (
     <div className="min-h-screen bg-brand-900 text-white flex flex-col">
@@ -118,7 +124,7 @@ export default function App() {
           <div>
             <h1 className="text-lg font-semibold leading-none">Flavour Pairing</h1>
             <p className="text-xs text-white/40 mt-0.5">
-              Discover what goes well together
+              {lang === "fr" ? "Découvrez ce qui s'associe bien ensemble" : "Discover what goes well together"}
             </p>
           </div>
         </div>
@@ -161,7 +167,7 @@ export default function App() {
         )}
         {status.state === "error" && (
           <div className="rounded-xl bg-red-500/20 border border-red-500/30 px-4 py-3 text-sm text-red-300">
-            <strong>Failed to load data.</strong> {status.message}
+            <strong>{lang === "fr" ? "Échec du chargement des données." : "Failed to load data."}</strong> {status.message}
           </div>
         )}
 
@@ -257,7 +263,7 @@ export default function App() {
 
       <footer className="text-center text-xs text-white/20 py-4 px-4 space-y-0.5">
         {footerLine && <div>{footerLine}</div>}
-        <div>Ranked by FlavorGraph pairing score</div>
+        <div>{lang === "fr" ? "Classé par score d'association FlavorGraph" : "Ranked by FlavorGraph pairing score"}</div>
       </footer>
 
       {showFaq && <FAQ onClose={() => setShowFaq(false)} />}
