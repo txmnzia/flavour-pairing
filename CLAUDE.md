@@ -4,8 +4,8 @@
 
 - When the user lists feature ideas, create a GitHub issue for each one (repo: `txmnzia/flavour-pairing`) with a clear description, options, and recommended approach.
 - Features are prioritised periodically. **Only implement the highest-priority open issue.** Never work ahead.
-- Each feature gets its own branch. Never implement on `main` directly.
-- When a feature is complete and working, merge it to `main` immediately without asking — don't wait for permission.
+- Each feature or fix gets its own branch. Never implement on `main` directly.
+- **When any change is complete, merge it to `main` and push immediately — do not wait for permission, do not ask.** This applies to features, bug fixes, and copy changes alike.
 - Exception: destructive changes (schema changes, removing features, any change to data files) — confirm before merging.
 - Branches allow easy rollback — keep them clean and focused on one issue.
 
