@@ -1,9 +1,11 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { loadDatabase, getAllIngredients, getRecommendations, getDataMeta, getRecipesForIngredients } from "./db";
+import { loadDatabase, getAllIngredients, getRecommendations, getDataMeta, getRecipesForIngredients, computeLooScores } from "./db";
 import type { Ingredient, Pairing, DbStatus } from "./types";
 import SearchInput from "./components/SearchInput";
 import RecommendationList from "./components/RecommendationList";
+import FAQ from "./components/FAQ";
 import { translateFr } from "./utils/translateFr";
+import { sentenceCase } from "./utils/format";
 
 const TOP_N = 36;
 const BROWSE_N = 30;
@@ -13,10 +15,12 @@ export default function App() {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [selectedIngredients, setSelectedIngredients] = useState<Ingredient[]>([]);
   const [recommendations, setRecommendations] = useState<Pairing[]>([]);
+  const [looScores, setLooScores] = useState<Map<number, number>>(new Map());
   const [matchingRecipes, setMatchingRecipes] = useState<string[]>([]);
   const [dataMeta, setDataMeta] = useState<{ source: string; recipes: number } | null>(null);
   const [lang, setLang] = useState<"en" | "fr">("en");
   const [query, setQuery] = useState("");
+  const [showFaq, setShowFaq] = useState(false);
 
   const translate = useCallback(
     (name: string) => lang === "fr" ? translateFr(name) : name,
@@ -41,21 +45,18 @@ export default function App() {
     if (status.state !== "ready" || selectedIngredients.length === 0) {
       setRecommendations([]);
       setMatchingRecipes([]);
+      setLooScores(new Map());
       return;
     }
     const ids = selectedIngredients.map((i) => i.id);
     setRecommendations(getRecommendations(ids, ingredients, TOP_N));
     setMatchingRecipes(getRecipesForIngredients(ids));
+    setLooScores(computeLooScores(ids));
   }, [selectedIngredients, status, ingredients]);
 
   const selectedIds = useMemo(
     () => new Set(selectedIngredients.map((i) => i.id)),
     [selectedIngredients]
-  );
-
-  const maxFreq = useMemo(
-    () => ingredients.reduce((m, i) => Math.max(m, i.freq), 1),
-    [ingredients]
   );
 
   const browseIngredients = useMemo(() => {
@@ -137,6 +138,13 @@ export default function App() {
               </button>
             ))}
           </div>
+          <button
+            onClick={() => setShowFaq(true)}
+            aria-label="How it works"
+            className="w-8 h-8 flex items-center justify-center rounded-full border border-white/20 text-white/40 hover:text-white hover:border-white/40 transition-colors text-sm font-semibold"
+          >
+            ?
+          </button>
         </div>
       </header>
 
@@ -192,9 +200,7 @@ export default function App() {
                 </div>
                 <RecommendationList
                   browseIngredients={browseIngredients}
-                  maxFreq={maxFreq}
                   recommendations={[]}
-                  selectedCount={0}
                   onAdd={addIngredient}
                   translate={translate}
                 />
@@ -214,12 +220,11 @@ export default function App() {
                 </div>
                 <RecommendationList
                   recommendations={recommendations}
-                  selectedCount={selectedIngredients.length}
                   onAdd={addIngredient}
                   translate={translate}
                   selectedIngredients={selectedIngredients}
-                  maxFreqSelected={maxFreq}
                   onRemove={removeIngredient}
+                  looScores={looScores}
                 />
 
                 {matchingRecipes.length > 0 && (
@@ -238,7 +243,7 @@ export default function App() {
                             <path strokeLinecap="round" strokeLinejoin="round"
                               d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
                           </svg>
-                          <span className="text-sm text-white/70 capitalize">{title}</span>
+                          <span className="text-sm text-white/70">{sentenceCase(title)}</span>
                         </li>
                       ))}
                     </ul>
@@ -254,6 +259,8 @@ export default function App() {
         {footerLine && <div>{footerLine}</div>}
         <div>Ranked by FlavorGraph pairing score</div>
       </footer>
+
+      {showFaq && <FAQ onClose={() => setShowFaq(false)} />}
     </div>
   );
 }

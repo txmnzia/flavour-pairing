@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useId, useMemo } from "react";
 import type { Ingredient } from "../types";
+import { sentenceCase } from "../utils/format";
 
 interface Props {
   query: string;
@@ -145,12 +146,12 @@ export default function SearchInput({
               onMouseDown={() => commit(ing)}
               onMouseEnter={() => setActiveIdx(idx)}
               className={`
-                px-4 py-2.5 cursor-pointer text-sm capitalize transition-colors
+                px-4 py-2.5 cursor-pointer text-sm transition-colors
                 ${idx === activeIdx ? "bg-brand-600 text-white" : "text-white/80 hover:bg-white/10"}
                 ${idx < suggestions.length - 1 ? "border-b border-white/10" : ""}
               `}
             >
-              {translate(ing.name)}
+              {sentenceCase(translate(ing.name))}
             </li>
           ))}
         </ul>
