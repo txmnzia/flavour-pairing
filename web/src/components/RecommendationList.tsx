@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import type { Ingredient, Pairing } from "../types";
 import { getIngredientEmoji, getIngredientColor } from "../utils/ingredientEmoji";
+import { sentenceCase } from "../utils/format";
 
 const PAGE_SIZE = 9;
 
@@ -116,8 +117,8 @@ function Card({
         </div>
       </div>
       <div className="px-2.5 pt-2 pb-2.5 flex flex-col justify-between flex-1 gap-1.5">
-        <span className="text-xs text-white font-medium capitalize leading-tight line-clamp-2">
-          {translate(name)}
+        <span className="text-xs text-white font-medium leading-tight line-clamp-2">
+          {sentenceCase(translate(name))}
         </span>
         <ScoreBar value={score} color={scoreColor} />
       </div>
