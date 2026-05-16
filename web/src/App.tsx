@@ -124,7 +124,7 @@ export default function App() {
           <div>
             <h1 className="text-lg font-semibold leading-none">Flavour Pairing</h1>
             <p className="text-xs text-white/40 mt-0.5">
-              {lang === "fr" ? "Découvrez ce qui s'associe bien ensemble" : "Discover what goes well together"}
+              {lang === "fr" ? "Associez les saveurs" : "Discover what goes well together"}
             </p>
           </div>
         </div>
