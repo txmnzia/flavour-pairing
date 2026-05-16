@@ -2073,7 +2073,8 @@
     "pen",
     "chicken bouillon granule",
     "jamaican jerk spice",
-    "fruit juice"
+    "fruit juice",
+    "palm oil"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -3646,7 +3647,9 @@
     "yamaimo": "yam",
     "lamb liver": "lamb",
     "au jus sauce": "gravy",
-    "hamburger": "beef"
+    "hamburger": "beef",
+    "horseradish cream": "horseradish",
+    "red pepper paste": "bell pepper"
   },
-  "lastSaved": "2026-05-16T10:05:36.809Z"
+  "lastSaved": "2026-05-16T10:06:51.840Z"
 }
