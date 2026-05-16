@@ -410,12 +410,18 @@ function buildQueue() {
 }
 
 function restart() {
-  buildQueue();
-  if (queue.length === 0) {
-    document.getElementById('done-stats').textContent =
-      'All ingredients have been curated — nothing left to review.';
-    return;
+  // Re-include validated ingredients (soft "seen" flag) — only skip deleted/merged (hard decisions)
+  queue = ingredients.filter(i =>
+    i.pairings > 0 &&
+    !deletedSet.has(i.name) &&
+    !mergedMap.has(i.name)
+  );
+  for (let i = queue.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [queue[i], queue[j]] = [queue[j], queue[i]];
   }
+  idx   = 0;
+  stats = { kept: 0, deleted: 0, merged: 0 };
   showCard();
 }
 
@@ -443,11 +449,14 @@ function showCard() {
 
     const total = ingredients.length;
     const v = validatedSet.size, d = deletedSet.size, m = mergedMap.size;
+    const remaining = total - d - m;
     document.getElementById('done-stats').innerHTML =
       '<b>' + v + '</b> kept &nbsp;·&nbsp; ' +
       '<b>' + d + '</b> deleted &nbsp;·&nbsp; ' +
       '<b>' + m + '</b> merged<br>' +
-      '<b>' + (total - v - d - m) + '</b> undecided of ' + total;
+      (remaining > 0
+        ? '<b>' + remaining + '</b> active ingredients — click Start over to re-review'
+        : 'All ingredients have been deleted or merged.');
     document.getElementById('progress').textContent = 'All reviewed!';
     document.getElementById('pfill').style.width = '100%';
     // Auto-save to GitHub on completion
