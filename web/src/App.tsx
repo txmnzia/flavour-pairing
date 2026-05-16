@@ -266,7 +266,7 @@ export default function App() {
         <div>{lang === "fr" ? "Classé par score d'association FlavorGraph" : "Ranked by FlavorGraph pairing score"}</div>
       </footer>
 
-      {showFaq && <FAQ onClose={() => setShowFaq(false)} />}
+      {showFaq && <FAQ onClose={() => setShowFaq(false)} lang={lang} />}
     </div>
   );
 }
