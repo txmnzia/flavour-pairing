@@ -7,56 +7,55 @@ const PAGE_SIZE = 9;
 
 interface Props {
   recommendations: Pairing[];
-  selectedCount: number;
   onAdd: (name: string) => void;
   translate: (name: string) => string;
   browseIngredients?: Ingredient[];
-  maxFreq?: number;
-  /** Selected ingredients to show as removable cards */
   selectedIngredients?: Ingredient[];
-  maxFreqSelected?: number;
   onRemove?: (id: number) => void;
   looScores?: Map<number, number>;
 }
 
+function scoreToColor(value: number): string {
+  const hue = Math.round(Math.min(Math.max(value, 0), 1) * 120);
+  return `hsl(${hue}, 85%, 55%)`;
+}
 
-function ScoreBar({ value, color }: { value: number; color?: string }) {
-  const pct = Math.round(value * 100);
-  const barColor = color ?? (
-    value >= 0.6 ? "bg-emerald-400" :
-    value >= 0.35 ? "bg-amber-400" : "bg-white/30"
-  );
+function ScoreBadge({ value, size = "sm" }: { value: number; size?: "sm" | "lg" }) {
+  const clamped = Math.min(Math.max(value, 0), 1);
+  const pct = Math.round(clamped * 99);
+  const radius = 14;
+  const circumference = 2 * Math.PI * radius;
+  const dashOffset = circumference * (1 - clamped);
+  const color = scoreToColor(clamped);
 
   return (
-    <div className="flex items-center gap-1.5">
-      <div className="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
-        <div
-          className={`h-full rounded-full transition-all duration-300 ${barColor}`}
-          style={{ width: `${Math.min(pct, 100)}%` }}
-        />
-      </div>
-      <span className="text-xs text-white/40 tabular-nums w-6 text-right shrink-0">
+    <div className={`relative flex items-center justify-center shrink-0 ${size === "lg" ? "w-12 h-12" : "w-9 h-9"}`}>
+      <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 36 36">
+        <circle cx="18" cy="18" r={radius} fill="rgba(0,0,0,0.55)" stroke="rgba(255,255,255,0.08)" strokeWidth="3" />
+        {clamped > 0.01 && (
+          <circle
+            cx="18" cy="18" r={radius}
+            fill="none"
+            stroke={color}
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeDasharray={circumference}
+            strokeDashoffset={dashOffset}
+          />
+        )}
+      </svg>
+      <span className={`relative z-10 font-bold text-white leading-none tabular-nums ${size === "lg" ? "text-sm" : "text-[10px]"}`}>
         {pct}
       </span>
     </div>
   );
 }
 
-function CoverageBadge({ coverage, total }: { coverage: number; total: number }) {
-  if (total <= 1 || coverage === total) return null;
-  return (
-    <span className="absolute top-1.5 right-1.5 text-xs px-1.5 py-0.5 rounded-full bg-black/50 text-white/50 leading-none">
-      {coverage}/{total}
-    </span>
-  );
-}
-
 function Card({
-  name, score, scoreColor, coverage, totalSelected, onClick, translate,
+  name, score, onClick, translate,
   selected = false, outlier = false,
 }: {
-  name: string; score: number; scoreColor?: string;
-  coverage?: number; totalSelected?: number;
+  name: string; score?: number;
   onClick: () => void; translate: (n: string) => string;
   selected?: boolean; outlier?: boolean;
 }) {
@@ -91,8 +90,10 @@ function Card({
         <span className="text-3xl select-none" role="img" aria-label={name}>
           {getIngredientEmoji(name)}
         </span>
-        {coverage !== undefined && totalSelected !== undefined && (
-          <CoverageBadge coverage={coverage} total={totalSelected} />
+        {score !== undefined && (
+          <div className="absolute top-1.5 right-1.5">
+            <ScoreBadge value={score} />
+          </div>
         )}
         <div className={`
           absolute bottom-1.5 right-1.5
@@ -116,19 +117,18 @@ function Card({
           )}
         </div>
       </div>
-      <div className="px-2.5 pt-2 pb-2.5 flex flex-col justify-between flex-1 gap-1.5">
+      <div className="px-2.5 py-2">
         <span className="text-xs text-white font-medium leading-tight line-clamp-2">
           {sentenceCase(translate(name))}
         </span>
-        <ScoreBar value={score} color={scoreColor} />
       </div>
     </button>
   );
 }
 
 function PairingGrid({
-  recommendations, selectedCount, onAdd, translate,
-}: Pick<Props, "recommendations" | "selectedCount" | "onAdd" | "translate">) {
+  recommendations, onAdd, translate,
+}: Pick<Props, "recommendations" | "onAdd" | "translate">) {
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   useEffect(() => {
@@ -146,8 +146,6 @@ function PairingGrid({
             key={pairing.ingredient.id}
             name={pairing.ingredient.name}
             score={pairing.score}
-            coverage={pairing.coverage}
-            totalSelected={selectedCount}
             onClick={() => onAdd(pairing.ingredient.name)}
             translate={translate}
           />
@@ -174,22 +172,19 @@ function computeOutlierIds(looScores: Map<number, number>): Set<number> {
   if (looScores.size < 2) return new Set();
   const vals = [...looScores.values()];
   const mean = vals.reduce((a, b) => a + b, 0) / vals.length;
-  // If the whole group has no meaningful pairing signal, nothing to flag.
   if (mean < 0.05) return new Set();
   const std = Math.sqrt(vals.reduce((acc, v) => acc + (v - mean) ** 2, 0) / vals.length);
   const outliers = new Set<number>();
   for (const [id, score] of looScores) {
-    // Flag if > 1 std dev below mean AND less than half the group average.
-    // Missing pairings return 0 (not negative), so we cannot rely on score < 0.
     if (score < mean - std && score < mean * 0.5) outliers.add(id);
   }
   return outliers;
 }
 
 export default function RecommendationList({
-  recommendations, selectedCount, onAdd, translate,
-  browseIngredients, maxFreq = 1,
-  selectedIngredients, maxFreqSelected = 1, onRemove, looScores,
+  recommendations, onAdd, translate,
+  browseIngredients,
+  selectedIngredients, onRemove, looScores,
 }: Props) {
   if (browseIngredients && browseIngredients.length > 0) {
     return (
@@ -198,8 +193,6 @@ export default function RecommendationList({
           <Card
             key={ing.id}
             name={ing.name}
-            score={ing.freq / maxFreq}
-            scoreColor="bg-brand-400"
             onClick={() => onAdd(ing.name)}
             translate={translate}
           />
@@ -208,7 +201,7 @@ export default function RecommendationList({
     );
   }
 
-  if (browseIngredients && browseIngredients.length === 0 && recommendations.length === 0 && selectedCount === 0) {
+  if (browseIngredients && browseIngredients.length === 0 && recommendations.length === 0 && !selectedIngredients?.length) {
     return (
       <p className="text-center text-white/30 text-sm py-12">
         {translate("No ingredients found")}
@@ -217,18 +210,29 @@ export default function RecommendationList({
   }
 
   const outlierIds = looScores ? computeOutlierIds(looScores) : new Set<number>();
+  const hasLooScores = looScores && looScores.size >= 2;
+
+  const overallScore = hasLooScores
+    ? [...looScores!.values()].reduce((a, b) => a + b, 0) / looScores!.size
+    : null;
 
   const selectedGrid = selectedIngredients && selectedIngredients.length > 0 && onRemove ? (
     <div className="mb-5">
+      {overallScore !== null && (
+        <div className="flex items-center gap-3 mb-4">
+          <ScoreBadge value={overallScore} size="lg" />
+          <span className="text-xs text-white/40 uppercase tracking-wider">Group harmony</span>
+        </div>
+      )}
       <div className="grid grid-cols-3 gap-2.5">
         {selectedIngredients.map((ing) => {
           const isOutlier = outlierIds.has(ing.id);
+          const looScore = hasLooScores ? looScores!.get(ing.id) : undefined;
           return (
             <Card
               key={ing.id}
               name={ing.name}
-              score={ing.freq / maxFreqSelected}
-              scoreColor={isOutlier ? "bg-red-400" : "bg-brand-400"}
+              score={looScore}
               selected
               outlier={isOutlier}
               onClick={() => onRemove(ing.id)}
@@ -261,7 +265,6 @@ export default function RecommendationList({
       {selectedGrid}
       <PairingGrid
         recommendations={recommendations}
-        selectedCount={selectedCount}
         onAdd={onAdd}
         translate={translate}
       />
