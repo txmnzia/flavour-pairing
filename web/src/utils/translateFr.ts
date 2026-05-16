@@ -87,7 +87,15 @@ export function translateFr(name: string): string {
     }
   }
 
-  // 4. Try suffix patterns
+  // 4. Try plural/singular variant before suffix patterns
+  const plural = lookup(lower + "s");
+  if (plural) return plural;
+  if (lower.endsWith("s")) {
+    const singular = lookup(lower.slice(0, -1));
+    if (singular) return singular;
+  }
+
+  // 5. Try suffix patterns
   for (const [suffix, fmt] of SUFFIXES) {
     if (lower.endsWith(suffix)) {
       const baseEn = name.slice(0, name.length - suffix.length);
@@ -96,6 +104,6 @@ export function translateFr(name: string): string {
     }
   }
 
-  // 5. Fall back to English
+  // 6. Fall back to English
   return name;
 }
