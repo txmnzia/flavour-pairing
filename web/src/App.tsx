@@ -57,11 +57,6 @@ export default function App() {
     [selectedIngredients]
   );
 
-  const maxFreq = useMemo(
-    () => ingredients.reduce((m, i) => Math.max(m, i.freq), 1),
-    [ingredients]
-  );
-
   const browseIngredients = useMemo(() => {
     if (selectedIngredients.length > 0) return [];
     const q = query.toLowerCase().trim();
@@ -196,9 +191,7 @@ export default function App() {
                 </div>
                 <RecommendationList
                   browseIngredients={browseIngredients}
-                  maxFreq={maxFreq}
                   recommendations={[]}
-                  selectedCount={0}
                   onAdd={addIngredient}
                   translate={translate}
                 />
@@ -218,11 +211,9 @@ export default function App() {
                 </div>
                 <RecommendationList
                   recommendations={recommendations}
-                  selectedCount={selectedIngredients.length}
                   onAdd={addIngredient}
                   translate={translate}
                   selectedIngredients={selectedIngredients}
-                  maxFreqSelected={maxFreq}
                   onRemove={removeIngredient}
                   looScores={looScores}
                 />
