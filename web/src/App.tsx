@@ -3,6 +3,7 @@ import { loadDatabase, getAllIngredients, getRecommendations, getDataMeta, getRe
 import type { Ingredient, Pairing, DbStatus } from "./types";
 import SearchInput from "./components/SearchInput";
 import RecommendationList from "./components/RecommendationList";
+import FAQ from "./components/FAQ";
 import { translateFr } from "./utils/translateFr";
 import { sentenceCase } from "./utils/format";
 
@@ -19,6 +20,7 @@ export default function App() {
   const [dataMeta, setDataMeta] = useState<{ source: string; recipes: number } | null>(null);
   const [lang, setLang] = useState<"en" | "fr">("en");
   const [query, setQuery] = useState("");
+  const [showFaq, setShowFaq] = useState(false);
 
   const translate = useCallback(
     (name: string) => lang === "fr" ? translateFr(name) : name,
@@ -136,6 +138,13 @@ export default function App() {
               </button>
             ))}
           </div>
+          <button
+            onClick={() => setShowFaq(true)}
+            aria-label="How it works"
+            className="w-8 h-8 flex items-center justify-center rounded-full border border-white/20 text-white/40 hover:text-white hover:border-white/40 transition-colors text-sm font-semibold"
+          >
+            ?
+          </button>
         </div>
       </header>
 
@@ -250,6 +259,8 @@ export default function App() {
         {footerLine && <div>{footerLine}</div>}
         <div>Ranked by FlavorGraph pairing score</div>
       </footer>
+
+      {showFaq && <FAQ onClose={() => setShowFaq(false)} />}
     </div>
   );
 }
