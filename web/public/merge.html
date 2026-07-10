@@ -506,6 +506,27 @@ function restart() {
 }
 
 // ── Merge ─────────────────────────────────────────────────────────────────────
+// Record a merge without ever creating a chain: resolve the target through
+// existing merges, and re-point earlier merges into `from` at the new target.
+function recordMerge(from, to) {
+  let target = to;
+  const seen = new Set([from]);
+  while (mergedMap.has(target) && !seen.has(target)) {
+    seen.add(target);
+    target = mergedMap.get(target);
+  }
+  if (target === from || deletedSet.has(target)) return false;
+  decisions.merged[from] = target;
+  mergedMap.set(from, target);
+  for (const [src, dst] of mergedMap) {
+    if (dst === from) {
+      decisions.merged[src] = target;
+      mergedMap.set(src, target);
+    }
+  }
+  return true;
+}
+
 function doMerge() {
   if (selected.length < 2) return;
   const members   = activeMembers(groups[groupIdx]);
@@ -513,11 +534,7 @@ function doMerge() {
 
   for (let i=1; i<selected.length; i++) {
     const dup = members[selected[i]].name;
-    if (!mergedMap.has(dup)) {
-      decisions.merged[dup] = canonical;
-      mergedMap.set(dup, canonical);
-      sessionMerges++;
-    }
+    if (!mergedMap.has(dup) && recordMerge(dup, canonical)) sessionMerges++;
   }
   saveToLS();
   scheduleAutoSave();
@@ -561,7 +578,9 @@ async function loadFromGH(silent=false) {
     const r = await ghFetch('/repos/'+REPO+'/contents/'+CFILE+'?ref='+CBRANCH);
     if (!r.ok) { if(!silent) setMsg('token-msg','File not found — save to create it.'); return; }
     const meta = await r.json();
-    const remote = JSON.parse(atob(meta.content.replace(/\n/g,'')));
+    // Decode base64 as UTF-8 (atob alone corrupts non-ASCII characters)
+    const bytes = Uint8Array.from(atob(meta.content.replace(/\n/g,'')), c => c.charCodeAt(0));
+    const remote = JSON.parse(new TextDecoder().decode(bytes));
     const v = new Set([...(decisions.validated||[]),...(remote.validated||[])]);
     const d = new Set([...(decisions.deleted||[]),...(remote.deleted||[])]);
     decisions = {
