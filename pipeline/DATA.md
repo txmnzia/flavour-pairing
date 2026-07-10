@@ -23,7 +23,7 @@ web/public/pairings.json  ← COMMITTED BASE  (3,517 ingredients)
         │  .github/workflows/deploy.yml
         │  apply_curation_json.py --curation pipeline/curation.json
         ▼
-[deployed pairings.json]  (currently ~1,081 ingredients, not committed)
+[deployed pairings.json]  (currently ~1,036 ingredients, not committed)
         │
         │  Vite build
         ▼
@@ -69,16 +69,21 @@ Structure:
 }
 ```
 
-| Field | Meaning | Current count |
+| Field | Meaning | Count (2026-07) |
 |-------|---------|--------------|
-| `validated` | Explicitly confirmed as correct — no action taken, just a record | ~740 |
-| `deleted` | Removed from the deployed ingredient list | 878 |
-| `merged` | `from` ingredient is removed; its pairings are absorbed by `to` | 1,560 sources |
+| `validated` | Explicitly confirmed as correct — no action taken, just a record | ~1,190 |
+| `deleted` | Removed from the deployed ingredient list | 893 |
+| `merged` | `from` ingredient is removed; its pairings are absorbed by `to` | 1,591 sources |
 
-**Deployed ingredient count** = 3,517 − 878 deleted − 1,558 merged-away = **1,081**
-(2 curation entries reference names not in the base and are silently skipped.)
+**Deployed ingredient count** ≈ **1,036** (drifts as curation continues — derive it by
+running `apply_curation_json.py` on a copy rather than trusting this number).
+Curation entries referencing names not in the base are silently skipped.
 
-The `merged` map may contain chains (A→B, B→C). `apply_curation_json.py` handles single-hop lookups; agents writing new merges should resolve chains before saving.
+The `merged` map may contain chains (A→B, B→C). `apply_curation_json.py` resolves
+chains to their final target at apply time (a chain ending on a deleted or unknown
+name means the source is treated as deleted, and a source listed in both `deleted`
+and `merged` is deleted). The curation UIs also resolve chains at write time, so
+new chains should no longer be created.
 
 ### `pipeline/merges.json` — normalisation merges (committed, read-only)
 

@@ -535,6 +535,29 @@ function doDelete() {
   showCard();
 }
 
+// Record a merge without ever creating a chain: resolve the target through
+// existing merges, and re-point earlier merges into `from` at the new target.
+function recordMerge(from, to) {
+  let target = to;
+  const seen = new Set([from]);
+  while (mergedMap.has(target) && !seen.has(target)) {
+    seen.add(target);
+    target = mergedMap.get(target);
+  }
+  if (target === from || deletedSet.has(target)) return false;
+  decisions.merged[from] = target;
+  mergedMap.set(from, target);
+  for (const [src, dst] of mergedMap) {
+    if (dst === from) {
+      decisions.merged[src] = target;
+      mergedMap.set(src, target);
+    }
+  }
+  saveDecisionsToLS();
+  scheduleAutoSave();
+  return true;
+}
+
 function doKeep() {
   const name = queue[idx].name;
   if (!validatedSet.has(name)) {
@@ -576,7 +599,7 @@ function filterM() {
   msel = -1;
   if (!q) { document.getElementById('mresults').innerHTML = ''; mhits = []; return; }
   mhits = ingredients
-    .filter(i => i.name !== fromId && !deletedSet.has(i.name) && i.name.toLowerCase().includes(q))
+    .filter(i => i.name !== fromId && !deletedSet.has(i.name) && !mergedMap.has(i.name) && i.name.toLowerCase().includes(q))
     .sort((a, b) => {
       const an = a.name.toLowerCase(), bn = b.name.toLowerCase();
       return rankMatch(an, q) - rankMatch(bn, q) || an.localeCompare(bn);
@@ -609,12 +632,7 @@ function pickM(hitIdx) {
   closeM();
   busy = true;
 
-  if (!mergedMap.has(from)) {
-    decisions.merged[from] = into.name;
-    mergedMap.set(from, into.name);
-    saveDecisionsToLS();
-    scheduleAutoSave();
-  }
+  if (!mergedMap.has(from)) recordMerge(from, into.name);
 
   setLabels(0, 0, 1);
   flyOut('up', () => {
@@ -630,7 +648,7 @@ function getSuggestions(name) {
   if (!words.length) return [];
   const wset = new Set(words);
   return ingredients
-    .filter(i => i.name !== name && !deletedSet.has(i.name) && i.pairings > 0)
+    .filter(i => i.name !== name && !deletedSet.has(i.name) && !mergedMap.has(i.name) && i.pairings > 0)
     .map(i => {
       const iw = i.name.toLowerCase().split(' ').filter(w => w.length > 2);
       const shared = iw.filter(w => wset.has(w)).length;
@@ -659,12 +677,7 @@ function doMergeInto(canonicalName) {
   if (busy || idx >= queue.length) return;
   const from = queue[idx].name;
   busy = true;
-  if (!mergedMap.has(from)) {
-    decisions.merged[from] = canonicalName;
-    mergedMap.set(from, canonicalName);
-    saveDecisionsToLS();
-    scheduleAutoSave();
-  }
+  if (!mergedMap.has(from)) recordMerge(from, canonicalName);
   setLabels(0, 0, 1);
   flyOut('up', () => { stats.merged++; queue.splice(idx, 1); showCard(); });
 }
@@ -760,9 +773,10 @@ async function loadFromGH(silent = false) {
       return;
     }
     const meta = await r.json();
-    const text = atob(meta.content.replace(/\n/g, ''));
-    const remote = JSON.parse(text);
-    // Merge: union of validated/deleted, remote merged takes precedence
+    // Decode base64 as UTF-8 (atob alone corrupts non-ASCII characters)
+    const bytes = Uint8Array.from(atob(meta.content.replace(/\n/g, '')), c => c.charCodeAt(0));
+    const remote = JSON.parse(new TextDecoder().decode(bytes));
+    // Merge: union of validated/deleted; local (unsaved) merges take precedence
     const v = new Set([...(decisions.validated || []), ...(remote.validated || [])]);
     const d = new Set([...(decisions.deleted   || []), ...(remote.deleted   || [])]);
     decisions = {

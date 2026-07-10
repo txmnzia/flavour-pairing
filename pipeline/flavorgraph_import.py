@@ -19,7 +19,7 @@ from collections import defaultdict
 NODES_URL = "https://raw.githubusercontent.com/lamypark/FlavorGraph/master/input/nodes_191120.csv"
 EDGES_URL = "https://raw.githubusercontent.com/lamypark/FlavorGraph/master/input/edges_191120.csv"
 
-TOP_N = 50
+# All pairs with score ≥ MIN_SCORE are kept — no top-N cap (see pipeline/DATA.md invariant 3).
 MIN_SCORE = 0.01
 
 
@@ -71,7 +71,7 @@ def main(output: str) -> None:
 
     print(f"  {len(active_ids)} ingredients with at least one pairing", flush=True)
 
-    # Build pairings dict: "ingredientIdx" → [[pairedIdx, score*100], …] top-N
+    # Build pairings dict: "ingredientIdx" → [[pairedIdx, score*100], …] (all pairs, score-sorted)
     pairings: dict[str, list[list[int]]] = {}
     for old_id in active_ids:
         new_id = old_to_new[old_id]
@@ -83,9 +83,8 @@ def main(output: str) -> None:
             if b in old_to_new
         ]
         remapped.sort(key=lambda x: x[1], reverse=True)
-        top = remapped[:TOP_N]
-        if top:
-            pairings[str(new_id)] = [[b, round(s * 100)] for b, s in top]
+        if remapped:
+            pairings[str(new_id)] = [[b, round(s * 100)] for b, s in remapped]
 
     out = {
         "v": 2,
