@@ -9,6 +9,7 @@ interface Props {
   recommendations: Pairing[];
   onAdd: (name: string) => void;
   translate: (name: string) => string;
+  lang?: "en" | "fr";
   browseIngredients?: Ingredient[];
   selectedIngredients?: Ingredient[];
   onRemove?: (id: number) => void;
@@ -127,8 +128,8 @@ function Card({
 }
 
 function PairingGrid({
-  recommendations, onAdd, translate,
-}: Pick<Props, "recommendations" | "onAdd" | "translate">) {
+  recommendations, onAdd, translate, lang,
+}: Pick<Props, "recommendations" | "onAdd" | "translate" | "lang">) {
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   useEffect(() => {
@@ -156,9 +157,9 @@ function PairingGrid({
         <button
           onClick={() => setVisibleCount((n) => n + PAGE_SIZE)}
           className="mt-4 w-full flex flex-col items-center gap-1 text-xs text-white/30 hover:text-white/60 transition-colors py-1"
-          aria-label="Show more"
+          aria-label={lang === "fr" ? "Afficher plus" : "Show more"}
         >
-          <span>more</span>
+          <span>{lang === "fr" ? "plus" : "more"}</span>
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
           </svg>
@@ -182,10 +183,11 @@ function computeOutlierIds(looScores: Map<number, number>): Set<number> {
 }
 
 export default function RecommendationList({
-  recommendations, onAdd, translate,
+  recommendations, onAdd, translate, lang = "en",
   browseIngredients,
   selectedIngredients, onRemove, looScores,
 }: Props) {
+  const fr = lang === "fr";
   if (browseIngredients && browseIngredients.length > 0) {
     return (
       <div className="grid grid-cols-3 gap-2.5">
@@ -204,7 +206,7 @@ export default function RecommendationList({
   if (browseIngredients && browseIngredients.length === 0 && recommendations.length === 0 && !selectedIngredients?.length) {
     return (
       <p className="text-center text-white/30 text-sm py-12">
-        {translate("No ingredients found")}
+        {fr ? "Aucun ingrédient trouvé" : "No ingredients found"}
       </p>
     );
   }
@@ -221,7 +223,9 @@ export default function RecommendationList({
       {overallScore !== null && (
         <div className="flex items-center gap-3 mb-4">
           <ScoreBadge value={overallScore} size="lg" />
-          <span className="text-xs text-white/40 uppercase tracking-wider">Group harmony</span>
+          <span className="text-xs text-white/40 uppercase tracking-wider">
+            {fr ? "Harmonie du groupe" : "Group harmony"}
+          </span>
         </div>
       )}
       <div className="grid grid-cols-3 gap-2.5">
@@ -243,7 +247,9 @@ export default function RecommendationList({
       </div>
       <div className="mt-5 mb-3 flex items-center gap-3">
         <div className="flex-1 h-px bg-white/10" />
-        <span className="text-xs text-white/30 uppercase tracking-wider shrink-0">pairs well with</span>
+        <span className="text-xs text-white/30 uppercase tracking-wider shrink-0">
+          {fr ? "s'accorde bien avec" : "pairs well with"}
+        </span>
         <div className="flex-1 h-px bg-white/10" />
       </div>
     </div>
@@ -254,7 +260,9 @@ export default function RecommendationList({
       <>
         {selectedGrid}
         <p className="text-center text-white/30 text-sm py-12">
-          {translate("No pairings found — try a different ingredient")}
+          {fr
+            ? "Aucune association trouvée — essayez un autre ingrédient"
+            : "No pairings found — try a different ingredient"}
         </p>
       </>
     );
@@ -267,6 +275,7 @@ export default function RecommendationList({
         recommendations={recommendations}
         onAdd={onAdd}
         translate={translate}
+        lang={lang}
       />
     </>
   );
