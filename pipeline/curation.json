@@ -237,7 +237,6 @@
     "coriander seed",
     "tamarind juice",
     "caper",
-    "fried rice",
     "melon",
     "mizuna",
     "pear liqueur",
@@ -2080,7 +2079,12 @@
     "coconut vinegar",
     "orange oil",
     "butterscotch chip",
-    "scampi"
+    "scampi",
+    "abalone",
+    "fried rice",
+    "hibiscus tea bag",
+    "root beer concentrate",
+    "smelt"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",

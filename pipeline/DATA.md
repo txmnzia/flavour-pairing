@@ -23,7 +23,7 @@ web/public/pairings.json  ← COMMITTED BASE  (3,517 ingredients)
         │  .github/workflows/deploy.yml
         │  apply_curation_json.py --curation pipeline/curation.json
         ▼
-[deployed pairings.json]  (currently ~1,081 ingredients, not committed)
+[deployed pairings.json]  (currently ~1,036 ingredients, not committed)
         │
         │  Vite build
         ▼
@@ -72,10 +72,10 @@ Structure:
 | Field | Meaning | Count (2026-07) |
 |-------|---------|--------------|
 | `validated` | Explicitly confirmed as correct — no action taken, just a record | ~1,190 |
-| `deleted` | Removed from the deployed ingredient list | 888 |
+| `deleted` | Removed from the deployed ingredient list | 893 |
 | `merged` | `from` ingredient is removed; its pairings are absorbed by `to` | 1,591 sources |
 
-**Deployed ingredient count** ≈ **1,041** (drifts as curation continues — derive it by
+**Deployed ingredient count** ≈ **1,036** (drifts as curation continues — derive it by
 running `apply_curation_json.py` on a copy rather than trusting this number).
 Curation entries referencing names not in the base are silently skipped.
 
