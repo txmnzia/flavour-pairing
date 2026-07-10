@@ -150,9 +150,9 @@ export default function FAQ({ onClose, lang }: { onClose: () => void; lang: "en"
               {fr ? "Le score d'association" : "The pairing score"}
             </h3>
             <div className="flex gap-4 mb-4">
-              <DemoCard name="lemon" score={0.83} label={fr ? "Fort (83)" : "Strong (83)"} />
-              <DemoCard name="vanilla" score={0.50} label={fr ? "Moyen (49)" : "Moderate (49)"} />
-              <DemoCard name="beef" score={0.14} label={fr ? "Faible (13)" : "Weak (13)"} />
+              <DemoCard name="lemon" score={0.84} label={fr ? "Fort (83)" : "Strong (83)"} />
+              <DemoCard name="vanilla" score={0.49} label={fr ? "Moyen (49)" : "Moderate (49)"} />
+              <DemoCard name="beef" score={0.13} label={fr ? "Faible (13)" : "Weak (13)"} />
             </div>
             <p className="text-white/70 leading-relaxed">
               {fr

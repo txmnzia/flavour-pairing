@@ -69,9 +69,9 @@ export default function App() {
         return translate(i.name).toLowerCase().includes(q);
       })
       .sort((a, b) => {
-        if (query) {
-          const aStart = translate(a.name).toLowerCase().startsWith(query.toLowerCase());
-          const bStart = translate(b.name).toLowerCase().startsWith(query.toLowerCase());
+        if (q) {
+          const aStart = translate(a.name).toLowerCase().startsWith(q);
+          const bStart = translate(b.name).toLowerCase().startsWith(q);
           if (aStart !== bStart) return aStart ? -1 : 1;
         }
         return b.freq - a.freq;
@@ -180,7 +180,9 @@ export default function App() {
             onSelect={(ing) => addIngredient(ing.name)}
             translate={translate}
             placeholder={
-              isBrowsing
+              !isReady
+                ? (lang === "fr" ? "Chargement…" : "Loading…")
+                : isBrowsing
                 ? (lang === "fr" ? "Rechercher un ingrédient…" : "Search an ingredient…")
                 : (lang === "fr" ? "Ajouter un ingrédient…" : "Add an ingredient…")
             }
@@ -209,6 +211,7 @@ export default function App() {
                   recommendations={[]}
                   onAdd={addIngredient}
                   translate={translate}
+                  lang={lang}
                 />
               </>
             ) : (
@@ -228,6 +231,7 @@ export default function App() {
                   recommendations={recommendations}
                   onAdd={addIngredient}
                   translate={translate}
+                  lang={lang}
                   selectedIngredients={selectedIngredients}
                   onRemove={removeIngredient}
                   looScores={looScores}
