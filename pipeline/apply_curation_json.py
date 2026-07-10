@@ -28,8 +28,25 @@ def apply(curation_path, pairings_path):
     name_to_old = {n: i for i, n in enumerate(old_i)}
 
     deleted      = set(curation.get('deleted', []))
-    merged_names = curation.get('merged', {})   # from_name → to_name
-    removed      = deleted | set(merged_names.keys())
+    raw_merged   = curation.get('merged', {})   # from_name → to_name
+
+    # Resolve merge chains (A→B, B→C ⇒ A→C) and enforce precedence:
+    #   - a source that is also in `deleted` is dropped, not redirected
+    #   - a chain ending on a deleted/unknown target means the source is dropped
+    merged_names = {}
+    for src, tgt in raw_merged.items():
+        if src in deleted:
+            continue
+        seen = {src}
+        while tgt in raw_merged and tgt not in deleted and tgt not in seen:
+            seen.add(tgt)
+            tgt = raw_merged[tgt]
+        if tgt in deleted or tgt in seen or tgt not in name_to_old:
+            deleted.add(src)   # nothing left to merge into — treat as deleted
+        else:
+            merged_names[src] = tgt
+
+    removed = deleted | set(merged_names.keys())
 
     # Detect pairings format from actual keys (don't rely on missing 'v' field):
     #   v2: keys are plain "idx" strings — no cuisine dimension
@@ -101,7 +118,7 @@ def apply(curation_path, pairings_path):
 
     data['i'] = new_i
     data['p'] = new_p
-    data['meta']['ingredients'] = len(new_i)
+    data.setdefault('meta', {})['ingredients'] = len(new_i)
 
     with open(pairings_path, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, separators=(',', ':'))
