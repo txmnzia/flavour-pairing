@@ -117,7 +117,7 @@ export default function SearchInput({
           onFocus={() => setOpen(true)}
           onBlur={() => setTimeout(() => setOpen(false), 150)}
           onKeyDown={handleKeyDown}
-          placeholder={disabled ? "Chargement…" : (placeholder ?? "Search an ingredient…")}
+          placeholder={placeholder ?? "Search an ingredient…"}
           className="
             w-full pl-10 pr-9 py-3 rounded-xl
             bg-white/10 border border-white/20 text-white placeholder-white/40
