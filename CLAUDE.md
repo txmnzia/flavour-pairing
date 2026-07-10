@@ -15,9 +15,9 @@
 
 Short summary:
 - `web/public/pairings.json` — committed pairing database, 3,517 ingredients, all FlavorGraph pairs. **Never truncate, never regenerate without sign-off.**
-- `pipeline/curation.json` — manual curation decisions (deleted, merged). Applied at deploy time. Currently produces **~1,041 ingredients** in the live app (drifts as curation continues).
+- `pipeline/curation.json` — manual curation decisions (deleted, merged). Applied at deploy time. Currently produces **~1,036 ingredients** in the live app (drifts as curation continues).
 - `pipeline/merges.json` — one-time normalisation merges (6,649 → 3,517). Read-only.
-- Deployed ingredient list (~1,041) is derived at build time; no single file lists it.
+- Deployed ingredient list (~1,036) is derived at build time; no single file lists it.
 
 ## Data integrity rules
 

@@ -2,8 +2,8 @@
 
 Full audit of the app: React client, data pipeline, curation UIs, workflows, and
 committed data. Findings are ordered by severity. Items marked **fixed** were
-resolved in the accompanying commits; items marked **needs sign-off** touch data
-files or remove things and are left for the owner to decide.
+resolved in the accompanying commits; the data-file and cleanup items in the last
+section were applied after explicit owner sign-off.
 
 ## Critical — fixed
 
@@ -18,7 +18,7 @@ was lost instead of enriching `beef`.
 **Fix:** `apply_curation_json.py` now resolves chains to the final target, with
 explicit precedence rules (delete wins over merge; a chain ending on a deleted
 or unknown name deletes the source). Verified: the deployed ingredient list is
-byte-identical (1,041 ingredients), while merge targets recover their missing
+byte-identical (at the time, 1,041 ingredients), while merge targets recover their missing
 edges (`chili` +30 pairs, `beef` +14, `chicken` +9, …).
 
 ### 2. Root cause: curation UIs created the chains
@@ -77,34 +77,32 @@ now use the trimmed query.
   1,041; curation counts drifted too). Updated, with a note that the number
   drifts and how to derive it.
 
-## Needs owner sign-off — not changed
+## Data & cleanup items — fixed with owner sign-off (2026-07-10)
 
-### 9. Committed `pairings.json` has stale `meta.ingredients: 6649`
-The base holds 3,517 ingredients but its `meta` still says 6,649 (pre-merge
-count). Harmless at runtime (deploy overwrites it), but wrong at rest. One-line
-data-file fix — per project rules, data files aren't touched without sign-off.
+### 9. Committed `pairings.json` had stale `meta.ingredients: 6649`
+The base holds 3,517 ingredients but its `meta` still said 6,649 (pre-merge
+count). **Fixed:** `meta.ingredients` set to 3,517; no other bytes changed.
 
-### 10. `web/public/pairings.db` (2.2 MB) and `sql-wasm.wasm` (0.66 MB) are committed dead weight
-`pairings.db` is tracked in git despite `.gitignore` and CLAUDE.md saying it
-must not be committed (tracked files ignore later gitignore rules). Nothing in
-the app references sql.js/sqlite anymore. Both files ship in every deploy
-(~2.9 MB of the 4.8 MB dist). Recommended: `git rm --cached web/public/pairings.db`
-and delete `sql-wasm.wasm`.
+### 10. `web/public/pairings.db` (2.2 MB) and `sql-wasm.wasm` (0.66 MB) were committed dead weight
+`pairings.db` was tracked in git despite `.gitignore` and CLAUDE.md saying it
+must not be committed, and nothing in the app references sql.js/sqlite anymore.
+Together they were ~2.9 MB of the 4.8 MB deploy. **Fixed:** both removed.
 
-### 11. `generate-pairings.yml` is a loaded footgun
-The manual workflow regenerates `pairings.json` from RecipeNLG in the **v1
+### 11. `generate-pairings.yml` was a loaded footgun
+The manual workflow regenerated `pairings.json` from RecipeNLG in the **v1
 cuisine-keyed format** (`c` array, `"cuisineIdx,idx"` keys) — running it against
-any branch that gets deployed would break invariant 1, the app, and both
-curation UIs. It also targets the legacy `feature/real-data` branch. Recommended:
-delete the workflow (or archive it) along with the legacy RecipeNLG scripts
-(`process.py`, `apply_curation.py`, `apply_ingredients.py`, `curate.py`,
-`generate_demo.py`) it belongs to.
+any deployed branch would have broken invariant 1, the app, and both curation
+UIs. **Fixed:** workflow deleted along with the legacy RecipeNLG/sqlite scripts
+it belonged to (`process.py`, `apply_curation.py`, `apply_ingredients.py`,
+`curate.py`, `generate_demo.py`, `ingredients.txt`, `requirements.txt`).
+`flavorgraph_import.py`, `apply_curation_json.py`, and
+`generate_translations.py` remain the active pipeline.
 
-### 12. Five deployed ingredients have zero pairings
-After curation, `abalone`, `fried rice`, `hibiscus tea bag`, `root beer
-concentrate`, `smelt` end up with no outgoing pairs (all partners were deleted
-or merged into them-selves). Selecting them shows "No pairings found".
-Candidates for deletion or merging in the next curation pass.
+### 12. Five deployed ingredients had zero pairings
+`abalone`, `fried rice`, `hibiscus tea bag`, `root beer concentrate`, `smelt`
+ended up with no outgoing pairs after curation (all partners deleted or merged).
+**Fixed:** added to `curation.json` `deleted`; the deployed app now has 1,036
+ingredients, every one with at least one pairing.
 
 ## Notes / accepted behaviour
 
