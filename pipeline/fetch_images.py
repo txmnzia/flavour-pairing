@@ -218,6 +218,13 @@ def process_image(raw: bytes, rembg_session) -> tuple[bytes, float] | None:
     canvas.paste(im, ((side - im.width) // 2, (side - im.height) // 2))
     canvas = canvas.resize((TILE_SIZE, TILE_SIZE), Image.LANCZOS)
 
+    # QC gate: a healthy cutout is mostly solid pixels; ghost cutouts
+    # (rembg gutting a low-contrast subject) end up nearly all transparent.
+    # Good tiles measure >=0.13 solid, duds ~0.00 — reject below 0.04.
+    final_hist = canvas.getchannel("A").histogram()
+    if sum(final_hist[200:]) / (TILE_SIZE * TILE_SIZE) < 0.04:
+        return None
+
     buf = io.BytesIO()
     canvas.save(buf, "WEBP", quality=82, method=6)
     return buf.getvalue(), round(coverage, 3)
