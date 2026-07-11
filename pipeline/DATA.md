@@ -65,9 +65,15 @@ Structure:
   "validated": ["ingredient name", ...],
   "deleted":   ["ingredient name", ...],
   "merged":    { "from name": "to name", ... },
+  "badPairs":  [["name a", "name b"], ...],
   "lastSaved": "ISO timestamp"
 }
 ```
+
+`badPairs` (issue #46) removes a single edge in both directions at deploy time —
+for legitimate co-occurrences that don't belong in a pairing tool. Names are
+resolved through merges, so entries survive renames-by-merge. Maintained by
+hand (the curation UIs preserve the field but don't edit it).
 
 | Field | Meaning | Count (2026-07) |
 |-------|---------|--------------|
