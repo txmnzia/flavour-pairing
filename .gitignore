@@ -9,6 +9,8 @@ dist/
 
 # Data (large files not committed — run pipeline locally)
 pipeline/data/
+# Raw recipe corpora are never redistributed (see pipeline/ENRICHMENT.md §1)
+pipeline/corpora/*/raw/
 # pairings.db is a generated build artifact — do not commit.
 # pairings.json is the owned canonical database — it IS committed.
 web/public/pairings.db
