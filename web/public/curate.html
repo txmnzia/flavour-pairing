@@ -776,10 +776,12 @@ async function loadFromGH(silent = false) {
     // Decode base64 as UTF-8 (atob alone corrupts non-ASCII characters)
     const bytes = Uint8Array.from(atob(meta.content.replace(/\n/g, '')), c => c.charCodeAt(0));
     const remote = JSON.parse(new TextDecoder().decode(bytes));
-    // Merge: union of validated/deleted; local (unsaved) merges take precedence
+    // Merge: union of validated/deleted; local (unsaved) merges take precedence.
+    // Spread remote first so fields this UI doesn't manage (badPairs, …) survive.
     const v = new Set([...(decisions.validated || []), ...(remote.validated || [])]);
     const d = new Set([...(decisions.deleted   || []), ...(remote.deleted   || [])]);
     decisions = {
+      ...remote,
       validated: [...v],
       deleted:   [...d],
       merged: { ...(remote.merged || {}), ...(decisions.merged || {}) }
@@ -802,12 +804,20 @@ async function saveToGH(silent = false) {
   }
   setSyncDot('saving');
   try {
-    // Get current SHA (needed to update existing file)
-    let sha = null;
+    // Get current SHA (needed to update existing file) and preserve any
+    // remote fields this UI doesn't manage (badPairs, …)
+    let sha = null, remoteExtra = {};
     const check = await ghFetch('/repos/' + REPO + '/contents/' + CFILE + '?ref=' + CBRANCH);
-    if (check.ok) sha = (await check.json()).sha;
+    if (check.ok) {
+      const meta = await check.json();
+      sha = meta.sha;
+      try {
+        const bytes = Uint8Array.from(atob(meta.content.replace(/\n/g, '')), c => c.charCodeAt(0));
+        remoteExtra = JSON.parse(new TextDecoder().decode(bytes));
+      } catch (_) {}
+    }
 
-    const payload = { ...decisions, lastSaved: new Date().toISOString() };
+    const payload = { ...remoteExtra, ...decisions, lastSaved: new Date().toISOString() };
     const body = {
       message: 'Update curation decisions',
       content: btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2)))),

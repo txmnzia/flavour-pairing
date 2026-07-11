@@ -116,6 +116,32 @@ def apply(curation_path, pairings_path):
                 [[k, v] for k, v in existing.items()], key=lambda x: -x[1]
             )
 
+    # Apply pair-level blacklist: remove the edge between two names in both
+    # directions. Names are resolved through merges, so a badPair written
+    # against a merged-away name still lands on its final target.
+    def final_idx(name):
+        if name in merged_names:
+            name = merged_names[name]
+        old = name_to_old.get(name)
+        return old_to_new.get(old) if old is not None else None
+
+    n_bad = 0
+    for pair in curation.get('badPairs', []):
+        if not (isinstance(pair, (list, tuple)) and len(pair) == 2):
+            continue
+        a, b = final_idx(pair[0]), final_idx(pair[1])
+        if a is None or b is None or a == b:
+            continue
+        for x, y in ((a, b), (b, a)):
+            key = make_key(0, x)
+            if key in new_p:
+                pruned = [p for p in new_p[key] if p[0] != y]
+                if len(pruned) != len(new_p[key]):
+                    new_p[key] = pruned
+                    n_bad += 1
+                if not new_p[key]:
+                    del new_p[key]
+
     data['i'] = new_i
     data['p'] = new_p
     data.setdefault('meta', {})['ingredients'] = len(new_i)
@@ -125,7 +151,8 @@ def apply(curation_path, pairings_path):
 
     n_del    = len(deleted & set(old_i))
     n_merged = sum(1 for k in merged_names if k in name_to_old)
-    print(f"Curation applied: {n_del} deleted, {n_merged} merged → {len(new_i)} ingredients remain")
+    print(f"Curation applied: {n_del} deleted, {n_merged} merged, "
+          f"{n_bad} pair edges removed → {len(new_i)} ingredients remain")
 
 
 if __name__ == '__main__':
