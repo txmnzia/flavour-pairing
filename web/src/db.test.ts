@@ -88,8 +88,12 @@ describe("category re-ranking (#43)", () => {
     }
   });
 
-  it("cinnamon's top-9 contains no other spice", () => {
-    expect(cats(topN(["cinnamon"]))).not.toContain("spice");
+  // Relaxed from "no spice" when the rarity debias (#45) landed: cinnamon+clove
+  // is genuinely exceptional FOR clove, so one same-category suggestion is
+  // acceptable — the complaint was the clove/cardamom/nutmeg/anise WALL.
+  it("cinnamon's top-9 contains at most one other spice", () => {
+    const spices = cats(topN(["cinnamon"])).filter((c) => c === "spice");
+    expect(spices.length).toBeLessThanOrEqual(1);
   });
 
   it("shrimp's top-9 contains no meat (protein cross-penalty)", () => {
@@ -153,8 +157,21 @@ describe("golden pairs — the discoveries the app exists for", () => {
     ["shrimp", "coriander"],
     ["tomato", "pasta"],
     ["soy sauce", "sesame oil"],
+    // Rarity debias (#45) wins — cross-category cooking pairs that the raw
+    // NPMI ranking buried under niche-distinctive partners:
+    ["tomato", "chicken"],
+    ["lemon", "honey"],
   ])("%s surfaces %s in its top-9", (sel, expected) => {
     expect(topN([sel]).map((p) => p.ingredient.name)).toContain(expected);
+  });
+
+  it("scores stay within the badge range [0, 1]", () => {
+    for (const probe of ["shrimp", "lemon", "pork"]) {
+      for (const r of topN([probe], 36)) {
+        expect(r.score).toBeGreaterThanOrEqual(0);
+        expect(r.score).toBeLessThanOrEqual(1);
+      }
+    }
   });
 });
 
