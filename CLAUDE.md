@@ -26,6 +26,12 @@ Short summary:
 - Ingredient names are the runtime join key between `pairings.json` and `recipes.json`. A rename in one requires the same rename in the other.
 - `pairings.json` keys in `p` must stay as plain string indices (`"0"`, `"251"`), not `"cuisineIdx,idx"`.
 
+## Consistency tests — must always pass
+
+- `python3 pipeline/validate_pairings.py` (data structure, curation, taxonomy, deploy transform) and `npm test` in `web/` (ranking behaviour probes) must pass before merging **any** change to data files, pipeline scripts, or ranking code in `web/src/db.ts`.
+- CI enforces this on every push and PR (`.github/workflows/validate.yml`).
+- If a probe fails because behaviour changed *intentionally*, update the test in the same commit and explain the reasoning in the commit message — never delete a probe to make it pass.
+
 ## Git hygiene
 
 - Commit and push after every working change.
