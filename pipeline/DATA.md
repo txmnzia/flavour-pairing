@@ -108,6 +108,23 @@ Downloads FlavorGraph nodes and edges CSVs from GitHub, builds `pairings.json`.
 
 Run only if rebuilding the base from scratch, then re-apply `merges.json`.
 
+### `web/public/taxonomy.json` — ingredient taxonomy (committed, generated)
+
+Category + base-ingredient mapping for every name in the base `pairings.json`
+(issue #41). Consumed by the client for category-aware re-ranking (#43) and
+same-base variant suppression (#44).
+
+- Format: `{ "hash brown": {"c": "starch", "b": "potato"}, "cinnamon": {"c": "spice"} }`
+- `c` — one of 15 categories (meat, seafood, dairy, egg, vegetable, fruit, herb,
+  spice, starch, legume-nut, fat, condiment, sweet, beverage, other)
+- `b` — optional culinary parent, only for *derivatives/preparations*
+  (apple juice → apple, smoked salmon → salmon). Deliberately NOT for siblings
+  (lima bean does not point at bean's siblings) — sibling closeness is handled
+  by the category penalty.
+- Regenerate with `python pipeline/generate_taxonomy.py` after ingredient
+  renames; hand corrections belong in that script's `OVERRIDES` /
+  `BASE_OVERRIDES` dicts (they always win over the rules).
+
 ### `pipeline/apply_curation_json.py` — curation applicator
 
 Takes a base `pairings.json` and a curation JSON file, applies deletions and merges, writes the result in-place.
