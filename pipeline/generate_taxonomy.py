@@ -261,7 +261,16 @@ OVERRIDES = {
     'coconut': 'fruit', 'coconut oil': 'fat', 'coconut water': 'beverage',
     'chocolate': 'sweet', 'white chocolate': 'sweet', 'cocoa': 'sweet',
     'vanilla': 'spice', 'vanilla extract': 'spice', 'vanilla bean': 'spice',
-    'mirin': 'condiment', 'cooking wine': 'condiment', 'sake': 'alcohol',
+    # Cooking alcohols: consumed as seasoning, not as drinks, in the recipe
+    # corpus — classified condiment so they aren't globally damped as alcohol
+    # (drinking wine, beer and spirits stay in 'alcohol').
+    'mirin': 'condiment', 'cooking wine': 'condiment', 'sake': 'condiment',
+    'rice wine': 'condiment', 'cooking sherry': 'condiment',
+    'dry sherry': 'condiment', 'cream sherry': 'condiment',
+    'sweet sherry': 'condiment', 'sherry wine': 'condiment',
+    'marsala': 'condiment', 'sweet marsala wine': 'condiment',
+    'madeira wine': 'condiment', 'port wine': 'condiment',
+    'tawny port': 'condiment',
     'lemon grass': 'herb', 'ginger': 'spice', 'fresh ginger': 'spice',
     'galangal': 'spice', 'candlenut': 'legume-nut',
     'mushroom soup': 'condiment', 'chicken soup': 'condiment',
@@ -294,6 +303,7 @@ BASE_OVERRIDES = {
     'hash brown': 'potato', 'tater tot': 'potato', 'french fry': 'potato',
     'potato chip': 'potato', 'mashed potato': 'potato', 'gnocchi': 'potato',
     'schmaltz': 'chicken', 'lard': 'pork', 'bacon fat': 'bacon',
+    'suet': 'beef', 'tallow': 'beef',
     'guacamole': 'avocado', 'ketchup': 'tomato', 'catsup': 'tomato',
     'marinara sauce': 'tomato', 'tomato sauce': 'tomato', 'salsa': 'tomato',
     'hummus': 'chickpea', 'tahini': 'sesame seed',
