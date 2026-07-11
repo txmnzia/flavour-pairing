@@ -2084,7 +2084,8 @@
     "fried rice",
     "hibiscus tea bag",
     "root beer concentrate",
-    "smelt"
+    "smelt",
+    "advocaat"
   ],
   "merged": {
     "1% fat buttermilk": "buttermilk",
@@ -2097,7 +2098,6 @@
     "2% fat cottage cheese": "cottage cheese",
     "achiote powder": "achiote",
     "acini di pepe pasta": "pasta",
-    "advocaat": "avocado",
     "ahi": "tuna",
     "all bran cereal": "cereal",
     "almond extract": "almond",
@@ -2292,7 +2292,6 @@
     "egg substitute": "egg",
     "elbow macaroni": "pasta",
     "elephant garlic clove": "garlic",
-    "english muffin": "muffin",
     "english mustard": "dijon mustard",
     "evaporated cane juice": "cane syrup",
     "everclear alcohol": "grain alcohol",
@@ -2565,7 +2564,6 @@
     "long grain brown rice": "brown rice",
     "hard cheese": "cheese",
     "peanut brittle": "peanut",
-    "orange roughy": "orange",
     "mushroom soy sauce": "soy sauce",
     "oaxaca cheese": "cheese",
     "lamb chop": "lamb",
@@ -3639,7 +3637,7 @@
     "ground caraway": "caraway seed",
     "cheese tortellini": "tortellini",
     "cookie dough": "cookie",
-    "cranberry bean": "cranberry",
+    "cranberry bean": "bean",
     "fudge sauce": "fudge",
     "green chili salsa": "salsa verde",
     "lemonade concentrate": "lemonade",
@@ -3679,5 +3677,6 @@
     "grenadine": "pomegranate",
     "pumpkin pie spice": "gingerbread"
   },
+  "badPairs": [],
   "lastSaved": "2026-05-16T16:22:36.904Z"
 }
