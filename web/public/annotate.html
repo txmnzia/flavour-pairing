@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pairing Annotation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0; background: #0d0d1a; color: #e2e8f0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  height: 100dvh; display: flex; flex-direction: column; overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+#hdr { display: flex; align-items: center; justify-content: space-between; padding: 11px 16px; flex-shrink: 0; gap: 8px; }
+#progress { font-size: 0.85rem; color: #94a3b8; font-weight: 500; }
+#session  { font-size: 0.73rem; color: #475569; }
+#hdr-right { display: flex; gap: 6px; align-items: center; }
+.ico-btn { background: #1e293b; border: none; color: #94a3b8; border-radius: 8px; padding: 6px 10px; cursor: pointer; font-size: 0.82rem; white-space: nowrap; }
+.ico-btn:hover { background: #334155; color: #e2e8f0; }
+#sync-dot { width: 7px; height: 7px; border-radius: 50%; background: #334155; flex-shrink: 0; transition: background 0.3s; }
+#sync-dot.saved { background: #22c55e; } #sync-dot.saving { background: #f59e0b; } #sync-dot.err { background: #ef4444; }
+#settings { background: #1e293b; border-bottom: 1px solid #334155; padding: 14px 16px; flex-shrink: 0; display: none; flex-direction: column; gap: 10px; }
+#settings.open { display: flex; }
+.setting-row { display: flex; flex-direction: column; gap: 4px; }
+.setting-row label { font-size: 0.72rem; color: #64748b; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+.setting-row input { padding: 8px 10px; background: #0f172a; color: #e2e8f0; border: 1px solid #334155; border-radius: 6px; font-size: 0.85rem; outline: none; }
+.setting-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.sact { padding: 6px 12px; border: none; border-radius: 6px; cursor: pointer; font-size: 0.78rem; font-weight: 600; }
+.sact-primary { background: #6366f1; color: white; } .sact-secondary { background: #334155; color: #cbd5e1; }
+#token-msg { font-size: 0.75rem; color: #64748b; min-height: 14px; }
+#pbar { height: 2px; background: #1e293b; flex-shrink: 0; } #pfill { height: 100%; background: #6366f1; transition: width 0.4s; width: 0%; }
+#stage { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+#loading { text-align: center; color: #475569; padding: 0 24px; line-height: 1.7; }
+#card {
+  background: white; color: #1e293b; border-radius: 20px;
+  width: min(340px, 86vw); padding: 28px 24px 30px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.55);
+  position: relative; cursor: grab; user-select: none; will-change: transform;
+}
+#card:active { cursor: grabbing; }
+#cprobe { text-align: center; font-size: 0.85rem; font-weight: 700; color: #6366f1; letter-spacing: 0.06em; text-transform: uppercase; }
+#cprobe-fr { text-align: center; font-size: 0.72rem; color: #94a3b8; font-style: italic; min-height: 1em; margin-bottom: 10px; }
+#cplus { text-align: center; color: #cbd5e1; font-size: 1.1rem; margin: 2px 0 6px; }
+#cname { font-size: clamp(1.4rem, 6vw, 1.9rem); font-weight: 700; text-align: center; line-height: 1.2; word-break: break-word; }
+#cfr { text-align: center; font-size: 0.92rem; color: #64748b; font-style: italic; min-height: 1.2em; margin-top: 4px; }
+.hlbl { position: absolute; font-size: 0.9rem; font-weight: 800; letter-spacing: 0.08em; padding: 4px 11px; border-radius: 6px; border: 3px solid; opacity: 0; pointer-events: none; }
+#lbl-no  { top: 16px; right: 14px; color: #ef4444; border-color: #ef4444; transform: rotate(12deg); }
+#lbl-yes { top: 16px; left: 14px;  color: #22c55e; border-color: #22c55e; transform: rotate(-12deg); }
+#lbl-ok  { bottom: 16px; left: 50%; transform: translateX(-50%); color: #f59e0b; border-color: #f59e0b; }
+#actions { display: flex; justify-content: center; align-items: center; gap: 18px; padding: 16px; flex-shrink: 0; }
+.abtn { border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.4); transition: transform 0.12s; flex-shrink: 0; color: white; }
+.abtn:hover { transform: scale(1.1); } .abtn:active { transform: scale(0.92); }
+#btn-no  { width: 58px; height: 58px; background: #ef4444; font-size: 1.25rem; }
+#btn-ok  { width: 48px; height: 48px; background: #f59e0b; font-size: 0.85rem; font-weight: 800; }
+#btn-yes { width: 58px; height: 58px; background: #22c55e; font-size: 1.25rem; }
+#legend { text-align: center; font-size: 0.68rem; color: #475569; padding-bottom: 12px; flex-shrink: 0; line-height: 1.6; }
+#done { display: none; flex: 1; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px; }
+#done h2 { font-size: 2rem; margin: 12px 0 8px; } #done p { color: #64748b; line-height: 1.9; }
+</style>
+</head>
+<body>
+
+<div id="hdr">
+  <div>
+    <div id="progress">Loading…</div>
+    <div id="session"></div>
+  </div>
+  <div id="hdr-right">
+    <div id="sync-dot" title="Sync status"></div>
+    <button class="ico-btn" onclick="saveToGH()" title="Save judgments to GitHub">Save ↑</button>
+    <button class="ico-btn" onclick="toggleSettings()">⚙</button>
+  </div>
+</div>
+
+<div id="settings">
+  <div class="setting-row">
+    <label>GitHub Token (repo → contents write)</label>
+    <input id="gh-token" type="password" placeholder="ghp_…" oninput="setSyncDot('')">
+    <div id="token-msg">Same token as the curation tools.</div>
+  </div>
+  <div class="setting-actions">
+    <button class="sact sact-primary" onclick="testAndSaveToken()">Connect</button>
+    <button class="sact sact-secondary" onclick="loadFromGH()">Load from GitHub</button>
+  </div>
+</div>
+
+<div id="pbar"><div id="pfill"></div></div>
+
+<div id="stage">
+  <div id="loading">Loading evaluation pool…</div>
+  <div id="card" style="display:none">
+    <span class="hlbl" id="lbl-no">NO</span>
+    <span class="hlbl" id="lbl-yes">LOVE IT</span>
+    <span class="hlbl" id="lbl-ok">OK / FINE</span>
+    <div id="cprobe"></div>
+    <div id="cprobe-fr"></div>
+    <div id="cplus">+</div>
+    <div id="cname"></div>
+    <div id="cfr"></div>
+  </div>
+</div>
+
+<div id="done">
+  <div style="font-size:3rem">✓</div>
+  <h2>All annotated!</h2>
+  <p id="done-stats"></p>
+</div>
+
+<div id="actions" style="display:none">
+  <button class="abtn" id="btn-no"  title="Useless / wrong (←)" onclick="judge(0)">✕</button>
+  <button class="abtn" id="btn-ok"  title="Fine but unexciting (↑)" onclick="judge(1)">OK</button>
+  <button class="abtn" id="btn-yes" title="Interesting — I'd love the app to suggest this (→)" onclick="judge(2)">♥</button>
+</div>
+<div id="legend" style="display:none">
+  ← useless/wrong · ↑ fine, unexciting · → interesting, teach me this<br>
+  <i>“Would I be glad the app suggested this next to the highlighted ingredient?”</i>
+</div>
+
+<script>
+const REPO = 'txmnzia/flavour-pairing';
+const JFILE = 'pipeline/eval/judgments.json';
+const BRANCH = 'main';
+const LS_TOKEN = 'curate_gh_token';          // shared with curation tools
+const LS_J = 'eval_judgments';
+
+let pool = [];                                // [{name, split, candidates}]
+let frDict = {};
+let judgments = { v: 1, judgments: {} };      // judgments[probe][candidate] = 0|1|2
+let queue = [];                               // [{probe, candidate}]
+let qi = 0, busy = false;
+let session = { 0: 0, 1: 0, 2: 0 };
+
+const fr = n => frDict[n] || '';
+const totalPairs = () => pool.reduce((a, p) => a + p.candidates.length, 0);
+const judgedCount = () => Object.values(judgments.judgments).reduce((a, o) => a + Object.keys(o).length, 0);
+
+async function init() {
+  try { const s = localStorage.getItem(LS_J); if (s) judgments = JSON.parse(s); } catch (_) {}
+  const token = localStorage.getItem(LS_TOKEN);
+  if (token) { document.getElementById('gh-token').value = token; await loadFromGH(true); }
+
+  try {
+    const [poolRes, frRes] = await Promise.all([fetch('./eval/pool.json'), fetch('./translations/fr.json')]);
+    if (!poolRes.ok) throw new Error('pool.json missing — run pipeline/generate_eval_pool.py');
+    pool = (await poolRes.json()).probes;
+    if (frRes.ok) frDict = await frRes.json();
+  } catch (e) {
+    document.getElementById('loading').textContent = 'Could not load: ' + e.message;
+    return;
+  }
+  buildQueue();
+  showCard();
+}
+
+function buildQueue() {
+  queue = [];
+  for (const p of pool) {
+    const done = judgments.judgments[p.name] || {};
+    for (const c of p.candidates) if (!(c in done)) queue.push({ probe: p.name, candidate: c });
+  }
+  qi = 0;
+}
+
+function showCard() {
+  busy = false;
+  setLabels(0, 0, 0);
+  const card = document.getElementById('card');
+  const total = totalPairs(), doneN = judgedCount();
+  document.getElementById('pfill').style.width = (doneN / total * 100) + '%';
+  document.getElementById('progress').textContent = doneN + ' / ' + total + ' judged';
+  const parts = [];
+  if (session[2]) parts.push(session[2] + ' ♥'); if (session[1]) parts.push(session[1] + ' ok'); if (session[0]) parts.push(session[0] + ' ✕');
+  document.getElementById('session').textContent = parts.join(' · ');
+
+  if (qi >= queue.length) {
+    document.getElementById('loading').style.display = 'none';
+    card.style.display = 'none';
+    document.getElementById('actions').style.display = 'none';
+    document.getElementById('legend').style.display = 'none';
+    document.getElementById('done').style.display = 'flex';
+    document.getElementById('done-stats').innerHTML =
+      '<b>' + doneN + '</b> pairs judged across <b>' + pool.length + '</b> ingredients.<br>Saving to GitHub…';
+    saveToGH(true);
+    return;
+  }
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('done').style.display = 'none';
+  card.style.display = 'block';
+  document.getElementById('actions').style.display = 'flex';
+  document.getElementById('legend').style.display = 'block';
+
+  const { probe, candidate } = queue[qi];
+  card.style.transition = 'none'; card.style.transform = ''; card.style.opacity = '1';
+  document.getElementById('cprobe').textContent = probe;
+  document.getElementById('cprobe-fr').textContent = fr(probe);
+  document.getElementById('cname').textContent = candidate;
+  document.getElementById('cfr').textContent = fr(candidate);
+}
+
+function judge(grade) {
+  if (busy || qi >= queue.length) return;
+  busy = true;
+  const { probe, candidate } = queue[qi];
+  (judgments.judgments[probe] = judgments.judgments[probe] || {})[candidate] = grade;
+  localStorage.setItem(LS_J, JSON.stringify(judgments));
+  session[grade]++;
+  scheduleAutoSave();
+  setLabels(grade === 0 ? 1 : 0, grade === 2 ? 1 : 0, grade === 1 ? 1 : 0);
+  flyOut(grade, () => { qi++; showCard(); });
+}
+
+function flyOut(grade, cb) {
+  const card = document.getElementById('card');
+  card.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+  if (grade === 0) card.style.transform = 'translateX(-130vw) rotate(-24deg)';
+  if (grade === 2) card.style.transform = 'translateX(130vw) rotate(24deg)';
+  if (grade === 1) card.style.transform = 'translateY(-110vh)';
+  card.style.opacity = '0';
+  setTimeout(cb, 300);
+}
+
+function setLabels(no, yes, ok) {
+  document.getElementById('lbl-no').style.opacity = no;
+  document.getElementById('lbl-yes').style.opacity = yes;
+  document.getElementById('lbl-ok').style.opacity = ok;
+}
+
+document.addEventListener('keydown', e => {
+  if (document.getElementById('settings').classList.contains('open')) return;
+  if (e.key === 'ArrowLeft')  { e.preventDefault(); judge(0); }
+  if (e.key === 'ArrowUp')    { e.preventDefault(); judge(1); }
+  if (e.key === 'ArrowRight') { e.preventDefault(); judge(2); }
+});
+
+// ── Drag / swipe ──────────────────────────────────────────────────────────────
+let ox, oy, dragging = false;
+const cardEl = document.getElementById('card');
+cardEl.addEventListener('mousedown', e => { if (!busy) { ox = e.clientX; oy = e.clientY; dragging = true; } });
+document.addEventListener('mousemove', e => { if (dragging) moveDrag(e.clientX, e.clientY); });
+document.addEventListener('mouseup', e => { if (dragging) { dragging = false; endDrag(e.clientX, e.clientY); } });
+cardEl.addEventListener('touchstart', e => { if (!busy) { ox = e.touches[0].clientX; oy = e.touches[0].clientY; dragging = true; } }, { passive: true });
+cardEl.addEventListener('touchmove', e => { if (dragging) moveDrag(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
+cardEl.addEventListener('touchend', e => { if (dragging) { dragging = false; endDrag(e.changedTouches[0].clientX, e.changedTouches[0].clientY); } });
+
+function moveDrag(cx, cy) {
+  if (qi >= queue.length) return;
+  const dx = cx - ox, dy = cy - oy, th = 60;
+  cardEl.style.transition = 'none';
+  cardEl.style.transform = 'translate(' + dx + 'px,' + dy + 'px) rotate(' + dx * 0.07 + 'deg)';
+  setLabels(Math.min(Math.max(-dx, 0) / th, 1), Math.min(Math.max(dx, 0) / th, 1), Math.min(Math.max(-dy, 0) / th, 1));
+}
+function endDrag(cx, cy) {
+  const dx = cx - ox, dy = cy - oy, th = 80;
+  if (dx < -th) judge(0);
+  else if (dx > th) judge(2);
+  else if (dy < -th) judge(1);
+  else { cardEl.style.transition = 'transform 0.28s ease'; cardEl.style.transform = ''; setLabels(0, 0, 0); }
+}
+
+// ── GitHub sync (same pattern as curate.html) ────────────────────────────────
+function setSyncDot(s) {
+  const d = document.getElementById('sync-dot');
+  d.className = s;
+  d.title = { saved: 'Saved to GitHub', saving: 'Saving…', err: 'Save failed', '': 'Not connected' }[s] || '';
+}
+async function ghFetch(path, opts = {}) {
+  const token = localStorage.getItem(LS_TOKEN);
+  if (!token) throw new Error('No token');
+  return fetch('https://api.github.com' + path, {
+    ...opts,
+    headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json',
+               'X-GitHub-Api-Version': '2022-11-28', ...(opts.headers || {}) }
+  });
+}
+function decodeContent(meta) {
+  const bytes = Uint8Array.from(atob(meta.content.replace(/\n/g, '')), c => c.charCodeAt(0));
+  return JSON.parse(new TextDecoder().decode(bytes));
+}
+async function loadFromGH(silent = false) {
+  try {
+    const r = await ghFetch('/repos/' + REPO + '/contents/' + JFILE + '?ref=' + BRANCH);
+    if (!r.ok) { if (!silent) setMsg('File not on GitHub yet — save to create it.'); return; }
+    const remote = decodeContent(await r.json());
+    // per-(probe,candidate) merge; local unsaved judgments win
+    const merged = { ...(remote.judgments || {}) };
+    for (const [p, o] of Object.entries(judgments.judgments)) merged[p] = { ...(merged[p] || {}), ...o };
+    judgments = { ...remote, judgments: merged };
+    localStorage.setItem(LS_J, JSON.stringify(judgments));
+    setSyncDot('saved');
+    if (!silent) setMsg('Loaded from GitHub ✓');
+    if (pool.length) { buildQueue(); showCard(); }
+  } catch (e) { if (!silent) setMsg('Load failed: ' + e.message); setSyncDot('err'); }
+}
+let saveTimer = null;
+function scheduleAutoSave() {
+  if (!localStorage.getItem(LS_TOKEN)) return;
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => saveToGH(true), 20000);
+}
+async function saveToGH(silent = false) {
+  const token = localStorage.getItem(LS_TOKEN);
+  if (!token) { if (!silent) setMsg('Enter a token first.'); return; }
+  setSyncDot('saving');
+  try {
+    let sha = null, remoteExtra = {};
+    const check = await ghFetch('/repos/' + REPO + '/contents/' + JFILE + '?ref=' + BRANCH);
+    if (check.ok) {
+      const meta = await check.json();
+      sha = meta.sha;
+      try { remoteExtra = decodeContent(meta); } catch (_) {}
+    }
+    // merge remote judgments in so parallel sessions never lose grades
+    const merged = { ...(remoteExtra.judgments || {}) };
+    for (const [p, o] of Object.entries(judgments.judgments)) merged[p] = { ...(merged[p] || {}), ...o };
+    const payload = { ...remoteExtra, ...judgments, judgments: merged, lastSaved: new Date().toISOString() };
+    const body = {
+      message: 'Update ranking evaluation judgments',
+      content: btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2)))),
+      branch: BRANCH,
+    };
+    if (sha) body.sha = sha;
+    const r = await ghFetch('/repos/' + REPO + '/contents/' + JFILE, {
+      method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+    });
+    if (!r.ok) throw new Error((await r.json()).message || r.status);
+    setSyncDot('saved');
+    if (!silent) setMsg('Saved to GitHub ✓');
+  } catch (e) { setSyncDot('err'); if (!silent) setMsg('Save failed: ' + e.message); }
+}
+function toggleSettings() { document.getElementById('settings').classList.toggle('open'); }
+async function testAndSaveToken() {
+  const token = document.getElementById('gh-token').value.trim();
+  if (!token) { setMsg('Enter a token first.'); return; }
+  setMsg('Testing…');
+  try {
+    const r = await fetch('https://api.github.com/repos/' + REPO, {
+      headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json' }
+    });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    localStorage.setItem(LS_TOKEN, token);
+    setMsg('Connected ✓');
+    await loadFromGH(false);
+  } catch (e) { setMsg('Connection failed: ' + e.message); }
+}
+function setMsg(t) { document.getElementById('token-msg').textContent = t; }
+
+init();
+</script>
+</body>
+</html>
