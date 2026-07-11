@@ -1,20 +1,20 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { loadDatabase, getAllIngredients, getRecommendations, getDataMeta, getRecipesForIngredients, computeLooScores } from "./db";
-import type { Ingredient, Pairing, DbStatus } from "./types";
+import { loadDatabase, getAllIngredients, getRecommendationsByCategory, getDataMeta, getRecipesForIngredients, computeLooScores } from "./db";
+import type { Ingredient, CategoryLane, DbStatus } from "./types";
 import SearchInput from "./components/SearchInput";
 import RecommendationList from "./components/RecommendationList";
 import FAQ from "./components/FAQ";
 import { translateFr } from "./utils/translateFr";
 import { sentenceCase } from "./utils/format";
 
-const TOP_N = 36;
+const LANE_N = 12;
 const BROWSE_N = 30;
 
 export default function App() {
   const [status, setStatus] = useState<DbStatus>({ state: "idle" });
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [selectedIngredients, setSelectedIngredients] = useState<Ingredient[]>([]);
-  const [recommendations, setRecommendations] = useState<Pairing[]>([]);
+  const [lanes, setLanes] = useState<CategoryLane[]>([]);
   const [looScores, setLooScores] = useState<Map<number, number>>(new Map());
   const [matchingRecipes, setMatchingRecipes] = useState<string[]>([]);
   const [dataMeta, setDataMeta] = useState<{ source: string; recipes: number } | null>(null);
@@ -43,13 +43,13 @@ export default function App() {
 
   useEffect(() => {
     if (status.state !== "ready" || selectedIngredients.length === 0) {
-      setRecommendations([]);
+      setLanes([]);
       setMatchingRecipes([]);
       setLooScores(new Map());
       return;
     }
     const ids = selectedIngredients.map((i) => i.id);
-    setRecommendations(getRecommendations(ids, ingredients, TOP_N));
+    setLanes(getRecommendationsByCategory(ids, ingredients, LANE_N));
     setMatchingRecipes(getRecipesForIngredients(ids));
     setLooScores(computeLooScores(ids));
   }, [selectedIngredients, status, ingredients]);
@@ -208,7 +208,7 @@ export default function App() {
                 </div>
                 <RecommendationList
                   browseIngredients={browseIngredients}
-                  recommendations={[]}
+                  lanes={[]}
                   onAdd={addIngredient}
                   translate={translate}
                   lang={lang}
@@ -228,7 +228,7 @@ export default function App() {
                   </button>
                 </div>
                 <RecommendationList
-                  recommendations={recommendations}
+                  lanes={lanes}
                   onAdd={addIngredient}
                   translate={translate}
                   lang={lang}

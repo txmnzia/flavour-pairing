@@ -1,12 +1,11 @@
-import { useState, useEffect } from "react";
-import type { Ingredient, Pairing } from "../types";
+import { useState } from "react";
+import type { CategoryLane, Ingredient } from "../types";
 import IngredientTile from "./IngredientTile";
 import { sentenceCase } from "../utils/format";
-
-const PAGE_SIZE = 9;
+import { categoryLabel } from "../utils/categoryLabels";
 
 interface Props {
-  recommendations: Pairing[];
+  lanes: CategoryLane[];
   onAdd: (name: string) => void;
   translate: (name: string) => string;
   lang?: "en" | "fr";
@@ -68,7 +67,7 @@ function Card({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className={`
-        flex flex-col rounded-xl overflow-hidden text-left
+        w-full flex flex-col rounded-xl overflow-hidden text-left
         transition-all duration-150
         ${selected && outlier
           ? hovered
@@ -121,44 +120,34 @@ function Card({
   );
 }
 
-function PairingGrid({
-  recommendations, onAdd, translate, lang,
-}: Pick<Props, "recommendations" | "onAdd" | "translate" | "lang">) {
-  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
-
-  useEffect(() => {
-    setVisibleCount(PAGE_SIZE);
-  }, [recommendations]);
-
-  const visible = recommendations.slice(0, visibleCount);
-  const hasMore = visibleCount < recommendations.length;
-
+// One horizontally-scrollable row per ingredient category (issue #52).
+// The -mx-4/px-4 bleed lets rows scroll edge-to-edge while headers stay
+// aligned with the page padding; a partially visible card at the right edge
+// is the scroll affordance.
+function CategoryLanes({
+  lanes, onAdd, translate, lang,
+}: Pick<Props, "lanes" | "onAdd" | "translate" | "lang">) {
   return (
-    <div>
-      <div className="grid grid-cols-3 gap-2.5">
-        {visible.map((pairing) => (
-          <Card
-            key={pairing.ingredient.id}
-            name={pairing.ingredient.name}
-            score={pairing.score}
-            onClick={() => onAdd(pairing.ingredient.name)}
-            translate={translate}
-          />
-        ))}
-      </div>
-
-      {hasMore && (
-        <button
-          onClick={() => setVisibleCount((n) => n + PAGE_SIZE)}
-          className="mt-4 w-full flex flex-col items-center gap-1 text-xs text-white/30 hover:text-white/60 transition-colors py-1"
-          aria-label={lang === "fr" ? "Afficher plus" : "Show more"}
-        >
-          <span>{lang === "fr" ? "plus" : "more"}</span>
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
-      )}
+    <div className="space-y-5">
+      {lanes.map((lane) => (
+        <section key={lane.category} aria-label={categoryLabel(lane.category, lang ?? "en")}>
+          <h3 className="text-xs text-white/40 uppercase tracking-wider mb-2">
+            {categoryLabel(lane.category, lang ?? "en")}
+          </h3>
+          <div className="flex gap-2.5 overflow-x-auto -mx-4 px-4 pb-1 snap-x">
+            {lane.pairings.map((pairing) => (
+              <div key={pairing.ingredient.id} className="w-28 shrink-0 snap-start">
+                <Card
+                  name={pairing.ingredient.name}
+                  score={pairing.score}
+                  onClick={() => onAdd(pairing.ingredient.name)}
+                  translate={translate}
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
     </div>
   );
 }
@@ -177,7 +166,7 @@ function computeOutlierIds(looScores: Map<number, number>): Set<number> {
 }
 
 export default function RecommendationList({
-  recommendations, onAdd, translate, lang = "en",
+  lanes, onAdd, translate, lang = "en",
   browseIngredients,
   selectedIngredients, onRemove, looScores,
 }: Props) {
@@ -197,7 +186,7 @@ export default function RecommendationList({
     );
   }
 
-  if (browseIngredients && browseIngredients.length === 0 && recommendations.length === 0 && !selectedIngredients?.length) {
+  if (browseIngredients && browseIngredients.length === 0 && lanes.length === 0 && !selectedIngredients?.length) {
     return (
       <p className="text-center text-white/30 text-sm py-12">
         {fr ? "Aucun ingrédient trouvé" : "No ingredients found"}
@@ -249,7 +238,7 @@ export default function RecommendationList({
     </div>
   ) : null;
 
-  if (recommendations.length === 0) {
+  if (lanes.length === 0) {
     return (
       <>
         {selectedGrid}
@@ -265,8 +254,8 @@ export default function RecommendationList({
   return (
     <>
       {selectedGrid}
-      <PairingGrid
-        recommendations={recommendations}
+      <CategoryLanes
+        lanes={lanes}
         onAdd={onAdd}
         translate={translate}
         lang={lang}
