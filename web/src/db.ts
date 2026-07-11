@@ -1,4 +1,4 @@
-import type { Ingredient, Pairing } from "./types";
+import type { CategoryLane, Ingredient, Pairing } from "./types";
 
 interface RawPairings {
   v: number;
@@ -187,11 +187,14 @@ function categoryPenalty(candidate: string, selectedCats: Set<string>): number {
   return damp;
 }
 
-export function getRecommendations(
+// Shared scoring stage: every candidate that meets coverage, with the full
+// penalty × rarity formula applied, sorted by score descending. Both the
+// blended ranking (getRecommendations) and the category swimlanes (#52)
+// consume this — the formula must never fork between the two views.
+function scoreCandidates(
   selectedIds: number[],
-  allIngredients: Ingredient[],
-  topN = 30
-): Pairing[] {
+  allIngredients: Ingredient[]
+): (Pairing & { cat: string })[] {
   if (selectedIds.length === 0) return [];
 
   const n = selectedIds.length;
@@ -239,10 +242,20 @@ export function getRecommendations(
     });
   }
 
+  candidates.sort((a, b) => b.score - a.score);
+  return candidates;
+}
+
+export function getRecommendations(
+  selectedIds: number[],
+  allIngredients: Ingredient[],
+  topN = 30
+): Pairing[] {
+  const candidates = scoreCandidates(selectedIds, allIngredients);
+
   // Greedy diversity selection: at each step pick the candidate with the best
   // decayed score, where the decay grows with how many suggestions of the same
   // category were already picked.
-  candidates.sort((a, b) => b.score - a.score);
   const results: Pairing[] = [];
   const seen = new Map<string, number>();
   while (candidates.length > 0 && results.length < topN) {
@@ -261,6 +274,34 @@ export function getRecommendations(
     results.push({ ingredient, score: Math.min(bestEff, 1), coverage });
   }
   return results;
+}
+
+// Category swimlanes (issue #52): the same scored candidates, grouped by
+// taxonomy category instead of blended. Within a lane ranking is pure score —
+// the diversity decay exists to stop one category monopolising the blended
+// grid, which grouping already guarantees structurally. Lanes are ordered by
+// their strongest candidate, so penalised categories (e.g. more meat when
+// meat is selected) sink to the bottom rather than disappearing.
+export function getRecommendationsByCategory(
+  selectedIds: number[],
+  allIngredients: Ingredient[],
+  topPerCategory = 12
+): CategoryLane[] {
+  const lanes = new Map<string, Pairing[]>();
+  // candidates arrive sorted by score, so each lane fills in ranked order
+  for (const { ingredient, score, coverage, cat } of scoreCandidates(selectedIds, allIngredients)) {
+    let lane = lanes.get(cat);
+    if (!lane) {
+      lane = [];
+      lanes.set(cat, lane);
+    }
+    if (lane.length >= topPerCategory) continue;
+    // rarity can push a modulated score past 1 — clamp for the 0–99 badge
+    lane.push({ ingredient, score: Math.min(score, 1), coverage });
+  }
+  return [...lanes.entries()]
+    .map(([category, pairings]) => ({ category, pairings }))
+    .sort((a, b) => b.pairings[0].score - a.pairings[0].score);
 }
 
 export function computeLooScores(selectedIds: number[]): Map<number, number> {
