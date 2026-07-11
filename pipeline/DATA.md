@@ -121,8 +121,9 @@ Category + base-ingredient mapping for every name in the base `pairings.json`
 same-base variant suppression (#44).
 
 - Format: `{ "hash brown": {"c": "starch", "b": "potato"}, "cinnamon": {"c": "spice"} }`
-- `c` — one of 15 categories (meat, seafood, dairy, egg, vegetable, fruit, herb,
-  spice, starch, legume-nut, fat, condiment, sweet, beverage, other)
+- `c` — one of 16 categories (meat, seafood, dairy, egg, vegetable, fruit, herb,
+  spice, starch, legume-nut, fat, condiment, sweet, beverage (non-alcoholic),
+  alcohol, other)
 - `b` — optional culinary parent, only for *derivatives/preparations*
   (apple juice → apple, smoked salmon → salmon). Deliberately NOT for siblings
   (lima bean does not point at bean's siblings) — sibling closeness is handled
