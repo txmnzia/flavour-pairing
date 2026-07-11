@@ -44,6 +44,7 @@ Short summary:
 
 - `web/public/curate.html` — swipe-card review (keep / delete / merge)
 - `web/public/merge.html` — batch merge of similar ingredient variants
+- `web/public/annotate.html` — grade pooled pairing suggestions (0/1/2) for the ranking evaluation; saves to `pipeline/eval/judgments.json` (issue #50)
 
 Both save to `pipeline/curation.json` on `main` via GitHub API. Both are excluded from the service worker (`vite.config.ts` `navigateFallbackDenylist`). Adding a new standalone HTML tool requires adding it to that denylist.
 
