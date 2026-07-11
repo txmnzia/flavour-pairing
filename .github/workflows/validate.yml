@@ -1,0 +1,37 @@
+name: Data & ranking consistency
+
+# Changes to the scoring formula, the ingredient data, the curation file, the
+# taxonomy or the pipeline must never break these checks. They run the
+# structural validator (pipeline/validate_pairings.py) and the behavioural
+# probes (web/src/db.test.ts) against the real deploy transform output.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Structural validation (base, curation, taxonomy, deploy transform)
+        run: python3 pipeline/validate_pairings.py
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        working-directory: web
+        run: npm install
+
+      - name: Ranking behaviour probes
+        working-directory: web
+        run: npm test
+
+      - name: Build
+        working-directory: web
+        run: npm run build
