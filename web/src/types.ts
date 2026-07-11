@@ -10,6 +10,11 @@ export interface Pairing {
   coverage: number;
 }
 
+export interface CategoryLane {
+  category: string;
+  pairings: Pairing[];
+}
+
 export type DbStatus =
   | { state: "idle" }
   | { state: "loading"; progress: string }

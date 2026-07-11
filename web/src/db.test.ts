@@ -16,6 +16,7 @@ import {
   loadDatabase,
   getAllIngredients,
   getRecommendations,
+  getRecommendationsByCategory,
   computeLooScores,
 } from "./db";
 import type { Ingredient, Pairing } from "./types";
@@ -172,6 +173,68 @@ describe("golden pairs — the discoveries the app exists for", () => {
         expect(r.score).toBeLessThanOrEqual(1);
       }
     }
+  });
+});
+
+describe("category swimlanes (#52)", () => {
+  const laneProbes = ["chicken", "lemon", "soy sauce"];
+
+  it("every lane is homogeneous and internally ranked by score", () => {
+    for (const probe of laneProbes) {
+      const lanes = getRecommendationsByCategory([byName(probe).id], ingredients, 12);
+      expect(lanes.length).toBeGreaterThan(0);
+      for (const lane of lanes) {
+        expect(lane.pairings.length).toBeGreaterThan(0);
+        expect(lane.pairings.length).toBeLessThanOrEqual(12);
+        for (let i = 0; i < lane.pairings.length; i++) {
+          const p = lane.pairings[i];
+          expect(taxonomy[p.ingredient.name]?.c ?? "other").toBe(lane.category);
+          expect(p.score).toBeGreaterThanOrEqual(0);
+          expect(p.score).toBeLessThanOrEqual(1);
+          if (i > 0) expect(p.score).toBeLessThanOrEqual(lane.pairings[i - 1].score + 1e-9);
+        }
+      }
+    }
+  });
+
+  it("lanes are ordered by their strongest candidate", () => {
+    for (const probe of laneProbes) {
+      const lanes = getRecommendationsByCategory([byName(probe).id], ingredients, 12);
+      for (let i = 1; i < lanes.length; i++) {
+        expect(lanes[i].pairings[0].score).toBeLessThanOrEqual(lanes[i - 1].pairings[0].score + 1e-9);
+      }
+    }
+  });
+
+  it("never contains a selected ingredient, and no category appears twice", () => {
+    const sel = ["chicken", "garlic", "lemon"];
+    const lanes = getRecommendationsByCategory(sel.map((x) => byName(x).id), ingredients, 12);
+    const seenCats = new Set<string>();
+    for (const lane of lanes) {
+      expect(seenCats.has(lane.category)).toBe(false);
+      seenCats.add(lane.category);
+      for (const p of lane.pairings) expect(sel).not.toContain(p.ingredient.name);
+    }
+  });
+
+  it("lane scores agree with the shared scoring stage: a lane's top candidate is the blended ranking's best of that category", () => {
+    for (const probe of laneProbes) {
+      const flat = getRecommendations([byName(probe).id], ingredients, 36);
+      const lanes = getRecommendationsByCategory([byName(probe).id], ingredients, 12);
+      const laneTop = new Map(lanes.map((l) => [l.category, l.pairings[0].ingredient.name]));
+      const seen = new Set<string>();
+      for (const r of flat) {
+        const c = taxonomy[r.ingredient.name]?.c ?? "other";
+        if (seen.has(c)) continue;
+        seen.add(c);
+        // the first blended suggestion of each category is that lane's #1
+        expect(laneTop.get(c)).toBe(r.ingredient.name);
+      }
+    }
+  });
+
+  it("empty selection yields no lanes", () => {
+    expect(getRecommendationsByCategory([], ingredients, 12)).toEqual([]);
   });
 });
 
