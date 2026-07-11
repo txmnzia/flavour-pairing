@@ -1,5 +1,9 @@
 # Flavour Pairing — Project Instructions
 
+## Skill library — task procedures
+
+`.claude/skills/` holds the operational skill library: verified, step-by-step procedures for every recurring task (data edits, validation, ranking tuning, features, deploys, curation tools, images, corpus enrichment). **Start at `.claude/skills/README.md`** — find the skill matching your task and follow it; the skills encode the guardrails and incident history (`AUDIT.md`) that keep the data safe.
+
 ## Backlog & feature workflow
 
 - When the user lists feature ideas, create a GitHub issue for each one (repo: `txmnzia/flavour-pairing`) with a clear description, options, and recommended approach.
@@ -29,7 +33,7 @@ Short summary:
 ## Consistency tests — must always pass
 
 - `python3 pipeline/validate_pairings.py` (data structure, curation, taxonomy, deploy transform) and `npm test` in `web/` (ranking behaviour probes) must pass before merging **any** change to data files, pipeline scripts, or ranking code in `web/src/db.ts`.
-- CI enforces this on every push and PR (`.github/workflows/validate.yml`).
+- CI enforces this on every push to `main` and on every PR (`.github/workflows/validate.yml`) — a bare feature-branch push runs nothing, so run both locally before merging.
 - If a probe fails because behaviour changed *intentionally*, update the test in the same commit and explain the reasoning in the commit message — never delete a probe to make it pass.
 
 ## Git hygiene
@@ -55,4 +59,4 @@ Both save to `pipeline/curation.json` on `main` via GitHub API. Both are exclude
 - Ingredient names are stored as strings in `recipes.json` (not indices) — the client resolves names → IDs at load time.
 - Scoring uses NPMI. Multi-ingredient: average NPMI across selected, minimum coverage = `max(1, round(n * 0.5))`.
 - LOO (leave-one-out) highlighting: a selected card turns red if its average NPMI with the other selected ingredients is >1 std dev below the group mean and <50% of the group mean.
-- French translations live in `web/src/utils/translateFr.ts` (app) and inline in `curate.html`. Both copies must be kept in sync.
+- French translations: the EN→FR dictionary lives in `web/src/translations/fr.json` (imported by `web/src/utils/translateFr.ts`, which adds grammar rules) with a served copy at `web/public/translations/fr.json`, plus an inline `frDict` in `curate.html`. All copies must be kept in sync.
