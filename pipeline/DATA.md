@@ -2,6 +2,8 @@
 
 This document is the authoritative reference for where ingredient data, pairing scores, translations, and curation decisions come from. Read this before touching any data file.
 
+To **enrich the database with a new recipe corpus** (scraping, ingredient mapping, NPMI computation, merge), follow `pipeline/ENRICHMENT.md` — the full runbook for that process.
+
 ---
 
 ## Data flow overview
