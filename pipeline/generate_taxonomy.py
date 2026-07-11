@@ -324,7 +324,7 @@ STOPWORDS = {
     'instant', 'quick', 'light', 'dark', 'red', 'green', 'yellow', 'white',
     'black', 'purple', 'golden', 'brown', 'pink', 'blue', 'orange',
     'style', 'mix', 'blend', 'piece', 'chunk', 'strip', 'and', 'of', 'the',
-    'with', 'in', 'a', 'low', 'fat', 'free', 'reduced', 'nonfat', 'lowfat',
+    'with', 'in', 'a', 'low', 'free', 'reduced', 'nonfat', 'lowfat',
     'italian', 'french', 'mexican', 'greek', 'spanish', 'asian', 'chinese',
     'japanese', 'thai', 'indian', 'english', 'german', 'cuban', 'korean',
 }
