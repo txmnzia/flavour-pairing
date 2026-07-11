@@ -115,6 +115,21 @@ const SELF_PENALTY: Record<string, number> = {
 // suggestion list only, never the compatibility measurement.
 const PROTEIN = new Set(["meat", "seafood"]);
 
+// Same-base variant suppression (issue #44): never suggest a preparation or
+// derivative of something already on the board (potato → hash brown,
+// chicken → schmaltz, orange zest ↔ orange). `b` links only cover
+// derivative relationships — see pipeline/generate_taxonomy.py.
+function resolveBase(name: string): string {
+  let cur = name;
+  const seen = new Set([cur]);
+  for (;;) {
+    const next = taxonomy[cur]?.b;
+    if (!next || seen.has(next)) return cur;
+    seen.add(next);
+    cur = next;
+  }
+}
+
 function categoryPenalty(candidate: string, selectedCats: Set<string>): number {
   const cat = taxonomy[candidate]?.c;
   if (!cat) return 1;
@@ -135,9 +150,13 @@ export function getRecommendations(
   const selectedSet = new Set(selectedIds);
   const ingredientById = new Map(allIngredients.map((i) => [i.id, i]));
   const selectedCats = new Set<string>();
+  const selectedBases = new Set<string>();
   for (const sid of selectedIds) {
-    const cat = taxonomy[ingredientById.get(sid)?.name ?? ""]?.c;
+    const name = ingredientById.get(sid)?.name;
+    if (!name) continue;
+    const cat = taxonomy[name]?.c;
     if (cat) selectedCats.add(cat);
+    selectedBases.add(resolveBase(name));
   }
 
   const scores = new Map<number, { sum: number; coverage: number }>();
@@ -160,6 +179,7 @@ export function getRecommendations(
     if (coverage < minCoverage) continue;
     const ingredient = ingredientById.get(bid);
     if (!ingredient) continue;
+    if (selectedBases.has(resolveBase(ingredient.name))) continue;
     const penalty = categoryPenalty(ingredient.name, selectedCats);
     results.push({ ingredient, score: (sum / n) * penalty, coverage });
   }
