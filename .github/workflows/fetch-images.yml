@@ -1,0 +1,56 @@
+name: Fetch ingredient images
+
+# Manually triggered: fetches open-licensed ingredient images from
+# Wikipedia/Wikimedia Commons, processes them into uniform tiles
+# (pipeline/fetch_images.py) and pushes the result to the
+# `ingredient-images-assets` branch for review — it never touches main.
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Max ingredients to process (0 = all)"
+        default: "0"
+      force:
+        description: "Re-fetch images that already exist"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install requests pillow "rembg[cpu]"
+
+      - name: Fetch and process images
+        run: |
+          ARGS=""
+          if [ "${{ inputs.limit }}" != "0" ]; then ARGS="--limit ${{ inputs.limit }}"; fi
+          if [ "${{ inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
+          python pipeline/fetch_images.py $ARGS
+
+      - name: Push results to assets branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -B ingredient-images-assets
+          git add web/public/ingredient-images web/public/attributions.html \
+                  pipeline/image_credits.json pipeline/image_fetch_report.json
+          if git diff --cached --quiet; then
+            echo "No new images — nothing to push."
+            exit 0
+          fi
+          git commit -m "Fetch ingredient images (automated run ${{ github.run_number }})"
+          git push -u origin ingredient-images-assets --force
