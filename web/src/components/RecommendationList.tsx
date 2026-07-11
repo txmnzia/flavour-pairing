@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import type { Ingredient, Pairing } from "../types";
-import { getIngredientEmoji, getIngredientColor } from "../utils/ingredientEmoji";
+import IngredientTile from "./IngredientTile";
 import { sentenceCase } from "../utils/format";
 
 const PAGE_SIZE = 9;
@@ -84,13 +84,7 @@ function Card({
         }
       `}
     >
-      <div
-        className="relative w-full aspect-square flex items-center justify-center"
-        style={{ background: getIngredientColor(name) }}
-      >
-        <span className="text-3xl select-none" role="img" aria-label={name}>
-          {getIngredientEmoji(name)}
-        </span>
+      <IngredientTile name={name}>
         {score !== undefined && (
           <div className="absolute top-1.5 right-1.5">
             <ScoreBadge value={score} />
@@ -117,7 +111,7 @@ function Card({
             </svg>
           )}
         </div>
-      </div>
+      </IngredientTile>
       <div className="px-2.5 py-2">
         <span className="text-xs text-white font-medium leading-tight line-clamp-2">
           {sentenceCase(translate(name))}
