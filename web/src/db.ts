@@ -41,6 +41,7 @@ export async function loadDatabase(onProgress: (msg: string) => void): Promise<v
 
   onProgress("Parsing data…");
   raw = await pairingsRes.value.json() as RawPairings;
+  rarityStats = null;   // rebuilt lazily from the new data
 
   if (recipesRes.status === "fulfilled" && recipesRes.value.ok) {
     const rawRecipes = await recipesRes.value.json() as RawRecipes;
@@ -124,6 +125,43 @@ const GLOBAL_DAMP: Record<string, number> = { alcohol: 0.6 };
 // drinks (wine / rice wine / sake) can't monopolise the first grid page.
 const DIVERSITY_DECAY = 0.8;
 
+// Rarity debias (issue #45). NPMI structurally favours *distinctive*
+// co-occurrence: niche aromatics that appear almost exclusively alongside one
+// ingredient (galangal median score 37) crush ubiquitous partners (garlic
+// median 12), which is why cocktail liqueurs used to wall out honey for lemon.
+// Each candidate's score is modulated by how exceptional the pair is FOR THAT
+// CANDIDATE — a robust z-score against the candidate's own score
+// distribution, clamped so it reweights rather than replaces the raw NPMI.
+// Disable via ?ranking=raw to compare against the unmodulated ranking.
+const RARITY_FLOOR = 0.25;
+const RARITY_CAP = 1.5;
+const RARITY_ENABLED =
+  typeof location === "undefined" ||
+  new URLSearchParams(location.search).get("ranking") !== "raw";
+
+// candidateIdx → [median, IQR] of its own edge scores (×100 ints), built once
+let rarityStats: Map<number, [number, number]> | null = null;
+
+function getRarityStats(): Map<number, [number, number]> {
+  if (rarityStats) return rarityStats;
+  rarityStats = new Map();
+  for (const [key, pairs] of Object.entries(requireRaw().p)) {
+    const s = pairs.map(([, sc]) => sc).sort((a, b) => a - b);
+    const q = (f: number) => s[Math.floor((s.length - 1) * f)];
+    rarityStats.set(parseInt(key), [q(0.5), q(0.75) - q(0.25)]);
+  }
+  return rarityStats;
+}
+
+function rarityFactor(candidateIdx: number, avgScore100: number): number {
+  if (!RARITY_ENABLED) return 1;
+  const stats = getRarityStats().get(candidateIdx);
+  if (!stats) return 1;
+  const [median, iqr] = stats;
+  const z = (avgScore100 - median) / Math.max(iqr, 5);
+  return Math.min(Math.max(z, RARITY_FLOOR), RARITY_CAP);
+}
+
 // Same-base variant suppression (issue #44): never suggest a preparation or
 // derivative of something already on the board (potato → hash brown,
 // chicken → schmaltz, orange zest ↔ orange). `b` links only cover
@@ -192,9 +230,10 @@ export function getRecommendations(
     if (!ingredient) continue;
     if (selectedBases.has(resolveBase(ingredient.name))) continue;
     const penalty = categoryPenalty(ingredient.name, selectedCats);
+    const rarity = rarityFactor(bid, (sum / n) * 100);
     candidates.push({
       ingredient,
-      score: (sum / n) * penalty,
+      score: (sum / n) * rarity * penalty,
       coverage,
       cat: taxonomy[ingredient.name]?.c ?? "other",
     });
@@ -218,7 +257,8 @@ export function getRecommendations(
     }
     const { ingredient, coverage, cat } = candidates.splice(bestIdx, 1)[0];
     seen.set(cat, (seen.get(cat) ?? 0) + 1);
-    results.push({ ingredient, score: bestEff, coverage });
+    // rarity can push a modulated score past 1 — clamp for the 0–99 badge
+    results.push({ ingredient, score: Math.min(bestEff, 1), coverage });
   }
   return results;
 }
