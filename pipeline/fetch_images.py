@@ -184,7 +184,9 @@ def fetch_file_metadata(files: list[str]) -> dict[str, dict]:
             if not infos:
                 continue
             meta = infos[0].get("extmetadata", {})
-            out[page["title"].removeprefix("File:")] = {
+            # PageImages returns file names with underscores; imageinfo page
+            # titles use spaces. Key on the underscore form so lookups match.
+            out[page["title"].removeprefix("File:").replace(" ", "_")] = {
                 "license": meta.get("LicenseShortName", {}).get("value", ""),
                 "artist": strip_tags(meta.get("Artist", {}).get("value", "")),
                 "description_url": infos[0].get("descriptionurl", ""),
@@ -330,7 +332,7 @@ def main() -> int:
         info = resolved.get(title)
         if info is None:
             continue
-        m = meta.get(info["file"], {})
+        m = meta.get(info["file"].replace(" ", "_"), {})
         if not license_ok(m.get("license", "")):
             report["misses"][name] = f"license not free: {m.get('license') or 'unknown'}"
             continue
