@@ -166,8 +166,8 @@ export default function FAQ({ onClose, lang }: { onClose: () => void; lang: "en"
             </p>
             <p className="text-white/70 leading-relaxed mt-2">
               {fr
-                ? <>Les suggestions favorisent les <strong className="text-white">compléments</strong> : un candidat de la même famille qu'un ingrédient déjà sélectionné (une deuxième viande, une épice à côté d'une épice) est volontairement rétrogradé.</>
-                : <>Suggestions favour <strong className="text-white">complements</strong>: a candidate from the same family as something you already selected (a second meat, a spice next to a spice) is deliberately demoted.</>}
+                ? <>Les suggestions favorisent les <strong className="text-white">compléments</strong> : un candidat de la même famille qu'un ingrédient déjà sélectionné (une deuxième viande, une épice à côté d'une épice) est volontairement rétrogradé, et une association <strong className="text-white">exceptionnelle pour cet ingrédient</strong> passe devant une association banale.</>
+                : <>Suggestions favour <strong className="text-white">complements</strong>: a candidate from the same family as something you already selected (a second meat, a spice next to a spice) is deliberately demoted, and a pairing that is <strong className="text-white">exceptional for that ingredient</strong> outranks a merely common one.</>}
             </p>
           </section>
 
