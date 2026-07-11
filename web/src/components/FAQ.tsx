@@ -164,6 +164,11 @@ export default function FAQ({ onClose, lang }: { onClose: () => void; lang: "en"
                 ? <>Avec plusieurs ingrédients sélectionnés, le score affiché est la <strong className="text-white">moyenne NPMI</strong> entre tous. Un candidat doit s'associer avec au moins la moitié de vos sélections pour apparaître.</>
                 : <>With multiple ingredients selected, the score shown is the <strong className="text-white">average NPMI</strong> across all of them. A candidate must pair with at least half your selections to appear at all.</>}
             </p>
+            <p className="text-white/70 leading-relaxed mt-2">
+              {fr
+                ? <>Les suggestions favorisent les <strong className="text-white">compléments</strong> : un candidat de la même famille qu'un ingrédient déjà sélectionné (une deuxième viande, une épice à côté d'une épice) est volontairement rétrogradé.</>
+                : <>Suggestions favour <strong className="text-white">complements</strong>: a candidate from the same family as something you already selected (a second meat, a spice next to a spice) is deliberately demoted.</>}
+            </p>
           </section>
 
           <section>

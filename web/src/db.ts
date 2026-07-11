@@ -12,6 +12,10 @@ interface RawRecipes {
   r: [string, string[]][];               // [title, [ingredientName, …]][]
 }
 
+// Taxonomy (issue #41): name → { c: category, b?: base/culinary parent }
+type TaxEntry = { c: string; b?: string };
+let taxonomy: Record<string, TaxEntry> = {};
+
 let raw: RawPairings | null = null;
 
 // Recipe inverted index: ingredientId → list of recipe indices
@@ -22,9 +26,10 @@ export async function loadDatabase(onProgress: (msg: string) => void): Promise<v
   onProgress("Fetching pairing data…");
 
   const base = import.meta.env.BASE_URL;
-  const [pairingsRes, recipesRes] = await Promise.allSettled([
+  const [pairingsRes, recipesRes, taxonomyRes] = await Promise.allSettled([
     fetch(base + "pairings.json"),
     fetch(base + "recipes.json"),
+    fetch(base + "taxonomy.json"),
   ]);
 
   if (pairingsRes.status === "rejected" || !pairingsRes.value.ok) {
@@ -40,6 +45,11 @@ export async function loadDatabase(onProgress: (msg: string) => void): Promise<v
   if (recipesRes.status === "fulfilled" && recipesRes.value.ok) {
     const rawRecipes = await recipesRes.value.json() as RawRecipes;
     buildRecipeIndex(rawRecipes);
+  }
+
+  // Optional: without it the engine degrades to raw NPMI ranking
+  if (taxonomyRes.status === "fulfilled" && taxonomyRes.value.ok) {
+    taxonomy = await taxonomyRes.value.json() as Record<string, TaxEntry>;
   }
 }
 
@@ -89,6 +99,30 @@ function getPairingsForIngredient(ingredientIdx: number): Map<number, number> {
   return new Map(entries.map(([pairedIdx, scoreInt]) => [pairedIdx, scoreInt / 100]));
 }
 
+// Same-category demotion (issue #43). Co-occurrence rewards clusters — spice
+// blends, citrus in cocktails, mixed-meat dishes — but a suggestion engine
+// should surface complements, so candidates sharing a category with a selected
+// ingredient are demoted. The factor encodes how unwelcome a same-category
+// suggestion is: another protein next to a protein is nearly useless (0.35),
+// while vegetables combine freely (1 = no demotion).
+const SELF_PENALTY: Record<string, number> = {
+  meat: 0.35, seafood: 0.35, spice: 0.45, beverage: 0.4, fruit: 0.5,
+  fat: 0.5, starch: 0.55, sweet: 0.7, condiment: 0.7, "legume-nut": 0.7,
+  herb: 0.75, dairy: 0.8, vegetable: 1, egg: 1, other: 1,
+};
+// meat and seafood demote each other too — surf & turf is the exception, not
+// the suggestion. LOO/harmony scoring is untouched: penalties shape the
+// suggestion list only, never the compatibility measurement.
+const PROTEIN = new Set(["meat", "seafood"]);
+
+function categoryPenalty(candidate: string, selectedCats: Set<string>): number {
+  const cat = taxonomy[candidate]?.c;
+  if (!cat) return 1;
+  if (selectedCats.has(cat)) return SELF_PENALTY[cat] ?? 1;
+  if (PROTEIN.has(cat) && [...PROTEIN].some((p) => selectedCats.has(p))) return 0.35;
+  return 1;
+}
+
 export function getRecommendations(
   selectedIds: number[],
   allIngredients: Ingredient[],
@@ -100,6 +134,11 @@ export function getRecommendations(
   const minCoverage = Math.max(1, Math.round(n * 0.5));
   const selectedSet = new Set(selectedIds);
   const ingredientById = new Map(allIngredients.map((i) => [i.id, i]));
+  const selectedCats = new Set<string>();
+  for (const sid of selectedIds) {
+    const cat = taxonomy[ingredientById.get(sid)?.name ?? ""]?.c;
+    if (cat) selectedCats.add(cat);
+  }
 
   const scores = new Map<number, { sum: number; coverage: number }>();
 
@@ -121,7 +160,8 @@ export function getRecommendations(
     if (coverage < minCoverage) continue;
     const ingredient = ingredientById.get(bid);
     if (!ingredient) continue;
-    results.push({ ingredient, score: sum / n, coverage });
+    const penalty = categoryPenalty(ingredient.name, selectedCats);
+    results.push({ ingredient, score: (sum / n) * penalty, coverage });
   }
 
   results.sort((a, b) => b.score - a.score);
