@@ -26,8 +26,8 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html}"],
-        globIgnores: ["curate.html", "merge.html", "annotate.html"],
-        navigateFallbackDenylist: [/\/curate\.html$/, /\/merge\.html$/, /\/annotate\.html$/],
+        globIgnores: ["curate.html", "merge.html", "annotate.html", "attributions.html", "ingredient-images/**"],
+        navigateFallbackDenylist: [/\/curate\.html$/, /\/merge\.html$/, /\/annotate\.html$/, /\/attributions\.html$/],
         runtimeCaching: [
           {
             urlPattern: /pairings\.json$/,
@@ -36,6 +36,22 @@ export default defineConfig({
               cacheName: "pairings-data",
               expiration: { maxEntries: 1, maxAgeSeconds: 60 * 60 * 24 * 7 },
               networkTimeoutSeconds: 5,
+            },
+          },
+          {
+            urlPattern: /ingredient-images\/manifest\.json$/,
+            handler: "StaleWhileRevalidate",
+            options: {
+              cacheName: "ingredient-images-manifest",
+              expiration: { maxEntries: 1, maxAgeSeconds: 60 * 60 * 24 * 30 },
+            },
+          },
+          {
+            urlPattern: /ingredient-images\/.*\.webp$/,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "ingredient-images",
+              expiration: { maxEntries: 600, maxAgeSeconds: 60 * 60 * 24 * 90 },
             },
           },
         ],

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { getIngredientEmoji, getIngredientColor } from "../utils/ingredientEmoji";
+import IngredientTile from "./IngredientTile";
 
 function ScoreBadge({ value }: { value: number }) {
   const clamped = Math.min(Math.max(value, 0), 1);
@@ -45,13 +45,7 @@ function DemoCard({
           : "bg-white/5 border border-white/10"
         }
       `}>
-        <div
-          className="relative w-full aspect-square flex items-center justify-center"
-          style={{ background: getIngredientColor(name) }}
-        >
-          <span className="text-3xl select-none" role="img" aria-label={name}>
-            {getIngredientEmoji(name)}
-          </span>
+        <IngredientTile name={name}>
           {score !== undefined && (
             <div className="absolute top-1.5 right-1.5">
               <ScoreBadge value={score} />
@@ -71,7 +65,7 @@ function DemoCard({
               </svg>
             )}
           </div>
-        </div>
+        </IngredientTile>
         <div className="px-2.5 py-2">
           <span className="text-xs text-white font-medium leading-tight">{name}</span>
         </div>
@@ -197,8 +191,18 @@ export default function FAQ({ onClose, lang }: { onClose: () => void; lang: "en"
           </section>
         </div>
 
-        <div className="mt-8 pt-5 border-t border-white/10 text-center text-xs text-white/25">
-          {fr ? "Données : FlavorGraph (Apache 2.0)" : "Data: FlavorGraph (Apache 2.0)"}
+        <div className="mt-8 pt-5 border-t border-white/10 text-center text-xs text-white/25 space-y-1">
+          <div>{fr ? "Données : FlavorGraph (Apache 2.0)" : "Data: FlavorGraph (Apache 2.0)"}</div>
+          <div>
+            <a
+              href={`${import.meta.env.BASE_URL}attributions.html`}
+              target="_blank"
+              rel="noreferrer"
+              className="underline hover:text-white/50 transition-colors"
+            >
+              {fr ? "Crédits images" : "Image credits"}
+            </a>
+          </div>
         </div>
       </div>
     </div>
