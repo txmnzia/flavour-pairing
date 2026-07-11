@@ -24,7 +24,8 @@ OUTPUT   = os.path.join(os.path.dirname(__file__), '..', 'web', 'public', 'taxon
 
 CATEGORIES = [
     'meat', 'seafood', 'dairy', 'egg', 'vegetable', 'fruit', 'herb', 'spice',
-    'starch', 'legume-nut', 'fat', 'condiment', 'sweet', 'beverage', 'other',
+    'starch', 'legume-nut', 'fat', 'condiment', 'sweet', 'beverage', 'alcohol',
+    'other',
 ]
 
 # ── Keyword vocabulary per category ──────────────────────────────────────────
@@ -164,17 +165,19 @@ KEYWORDS = {
         gingerbread truvia ovaltine koshi-an dessert
     """,
     'beverage': """
-        water juice soda cola lemonade coffee espresso tea matcha wine beer
-        ale lager stout porter pilsner cider champagne prosecco whiskey
-        whisky bourbon scotch rum vodka tequila mezcal gin brandy cognac
-        liqueur schnapps vermouth sake sherry port marsala kahlua amaretto
-        cointreau curacao campari aperol absinthe pastis ouzo grappa
-        limoncello frangelico chartreuse drambuie galliano midori
+        water juice soda cola lemonade coffee espresso tea matcha
         beverage drink nectar smoothie punch eggnog horchata kombucha
         seltzer tonic ginger-ale ginger-beer club-soda kool-aid gatorade
-        milk-plant lillet benedictine armagnac cachaca kirsch pisco
-        aquavit anisette pastis herbsaint pimms goldschlager liquor
-        soymilk lager bitter chambord sambuca strega
+        milk-plant soymilk
+    """,
+    'alcohol': """
+        wine beer ale lager stout porter pilsner cider champagne prosecco
+        whiskey whisky bourbon scotch rum vodka tequila mezcal gin brandy
+        cognac liqueur schnapps vermouth sake sherry port marsala kahlua
+        amaretto cointreau curacao campari aperol absinthe pastis ouzo
+        grappa limoncello frangelico chartreuse drambuie galliano midori
+        lillet benedictine armagnac cachaca kirsch pisco aquavit anisette
+        herbsaint pimms goldschlager liquor bitter chambord sambuca strega
     """,
 }
 
@@ -182,7 +185,8 @@ KEYWORDS = {
 # unless a suffix rule (below) already decided.
 RULE_PRIORITY = [
     'seafood', 'meat', 'egg', 'herb', 'spice', 'legume-nut', 'fat',
-    'beverage', 'sweet', 'condiment', 'starch', 'dairy', 'fruit', 'vegetable',
+    'alcohol', 'beverage', 'sweet', 'condiment', 'starch', 'dairy',
+    'fruit', 'vegetable',
 ]
 
 # ── Suffix rules: the last word decides the category and often the base ──────
@@ -190,9 +194,9 @@ RULE_PRIORITY = [
 SUFFIX_CAT = {
     'oil': 'fat', 'butter': None, 'milk': None,
     'juice': 'beverage', 'nectar': 'beverage', 'soda': 'beverage',
-    'tea': 'beverage', 'coffee': 'beverage', 'wine': 'beverage',
-    'beer': 'beverage', 'liqueur': 'beverage', 'brandy': 'beverage',
-    'vodka': 'beverage', 'rum': 'beverage', 'whiskey': 'beverage',
+    'tea': 'beverage', 'coffee': 'beverage', 'wine': 'alcohol',
+    'beer': 'alcohol', 'liqueur': 'alcohol', 'brandy': 'alcohol',
+    'vodka': 'alcohol', 'rum': 'alcohol', 'whiskey': 'alcohol',
     'sauce': 'condiment', 'paste': 'condiment', 'puree': 'condiment',
     'stock': 'condiment', 'broth': 'condiment', 'bouillon': 'condiment',
     'vinegar': 'condiment', 'dressing': 'condiment', 'extract': 'condiment',
@@ -257,7 +261,7 @@ OVERRIDES = {
     'coconut': 'fruit', 'coconut oil': 'fat', 'coconut water': 'beverage',
     'chocolate': 'sweet', 'white chocolate': 'sweet', 'cocoa': 'sweet',
     'vanilla': 'spice', 'vanilla extract': 'spice', 'vanilla bean': 'spice',
-    'mirin': 'condiment', 'cooking wine': 'condiment', 'sake': 'beverage',
+    'mirin': 'condiment', 'cooking wine': 'condiment', 'sake': 'alcohol',
     'lemon grass': 'herb', 'ginger': 'spice', 'fresh ginger': 'spice',
     'galangal': 'spice', 'candlenut': 'legume-nut',
     'mushroom soup': 'condiment', 'chicken soup': 'condiment',
@@ -268,10 +272,10 @@ OVERRIDES = {
     'maca': 'other', 'fat': 'fat', 'khoya': 'dairy', 'fromage blanc': 'dairy',
     'crema': 'dairy', 'montrachet': 'dairy', 'taleggio': 'dairy',
     'kefalotiri': 'dairy', 'caciocavallo': 'dairy',
-    'angostura bitter': 'beverage', 'eau de vie': 'beverage',
-    'grand marnier': 'beverage', 'licor 43': 'beverage',
-    'tia maria': 'beverage', 'triple sec': 'beverage', 'rom': 'beverage',
-    'vin santo': 'beverage', 'peppermint schnapps': 'beverage',
+    'angostura bitter': 'alcohol', 'eau de vie': 'alcohol',
+    'grand marnier': 'alcohol', 'licor 43': 'alcohol',
+    'tia maria': 'alcohol', 'triple sec': 'alcohol', 'rom': 'alcohol',
+    'vin santo': 'alcohol', 'peppermint schnapps': 'alcohol',
     'kewra essence': 'condiment', 'rose water': 'condiment',
     'dried lily bud': 'vegetable', 'cactus piece': 'vegetable',
     'dried kasha': 'starch', 'grit': 'starch', 'roux': 'condiment',
@@ -358,7 +362,7 @@ def classify(name):
     if name in OVERRIDES:
         return OVERRIDES[name]
     if name.startswith('creme de ') or name.startswith('creme d'):
-        return 'beverage'   # creme de menthe/cacao/cassis — liqueurs, not dairy
+        return 'alcohol'   # creme de menthe/cacao/cassis — liqueurs, not dairy
     toks = tokens(name)
     # 1. suffix rule on the last meaningful token
     for t in reversed(toks):

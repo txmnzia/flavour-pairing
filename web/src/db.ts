@@ -106,14 +106,23 @@ function getPairingsForIngredient(ingredientIdx: number): Map<number, number> {
 // suggestion is: another protein next to a protein is nearly useless (0.35),
 // while vegetables combine freely (1 = no demotion).
 const SELF_PENALTY: Record<string, number> = {
-  meat: 0.35, seafood: 0.35, spice: 0.45, beverage: 0.4, fruit: 0.5,
-  fat: 0.5, starch: 0.55, sweet: 0.7, condiment: 0.7, "legume-nut": 0.7,
-  herb: 0.75, dairy: 0.8, vegetable: 1, egg: 1, other: 1,
+  meat: 0.35, seafood: 0.35, spice: 0.45, beverage: 0.4, alcohol: 0.4,
+  fruit: 0.5, fat: 0.5, starch: 0.55, sweet: 0.7, condiment: 0.7,
+  "legume-nut": 0.7, herb: 0.75, dairy: 0.8, vegetable: 1, egg: 1, other: 1,
 };
-// meat and seafood demote each other too — surf & turf is the exception, not
-// the suggestion. LOO/harmony scoring is untouched: penalties shape the
-// suggestion list only, never the compatibility measurement.
+// Cross-category groups: meat and seafood demote each other (surf & turf is
+// the exception, not the suggestion); alcohol and soft drinks likewise.
+// LOO/harmony scoring is untouched: penalties shape the suggestion list only,
+// never the compatibility measurement.
 const PROTEIN = new Set(["meat", "seafood"]);
+const DRINKS = new Set(["alcohol", "beverage"]);
+// Global damp, applied regardless of selection: the corpus is full of cocktail
+// recipes, so alcohol dominates fruit/aromatic suggestions unless held back.
+const GLOBAL_DAMP: Record<string, number> = { alcohol: 0.6 };
+// Diversity decay (issue #43 option B): each additional suggestion from an
+// already-shown category is progressively demoted, so three near-identical
+// drinks (wine / rice wine / sake) can't monopolise the first grid page.
+const DIVERSITY_DECAY = 0.8;
 
 // Same-base variant suppression (issue #44): never suggest a preparation or
 // derivative of something already on the board (potato → hash brown,
@@ -133,9 +142,11 @@ function resolveBase(name: string): string {
 function categoryPenalty(candidate: string, selectedCats: Set<string>): number {
   const cat = taxonomy[candidate]?.c;
   if (!cat) return 1;
-  if (selectedCats.has(cat)) return SELF_PENALTY[cat] ?? 1;
-  if (PROTEIN.has(cat) && [...PROTEIN].some((p) => selectedCats.has(p))) return 0.35;
-  return 1;
+  const damp = GLOBAL_DAMP[cat] ?? 1;
+  if (selectedCats.has(cat)) return (SELF_PENALTY[cat] ?? 1) * damp;
+  if (PROTEIN.has(cat) && [...PROTEIN].some((p) => selectedCats.has(p))) return 0.35 * damp;
+  if (DRINKS.has(cat) && [...DRINKS].some((p) => selectedCats.has(p))) return 0.4 * damp;
+  return damp;
 }
 
 export function getRecommendations(
@@ -174,18 +185,42 @@ export function getRecommendations(
     }
   }
 
-  const results: Pairing[] = [];
+  const candidates: (Pairing & { cat: string })[] = [];
   for (const [bid, { sum, coverage }] of scores) {
     if (coverage < minCoverage) continue;
     const ingredient = ingredientById.get(bid);
     if (!ingredient) continue;
     if (selectedBases.has(resolveBase(ingredient.name))) continue;
     const penalty = categoryPenalty(ingredient.name, selectedCats);
-    results.push({ ingredient, score: (sum / n) * penalty, coverage });
+    candidates.push({
+      ingredient,
+      score: (sum / n) * penalty,
+      coverage,
+      cat: taxonomy[ingredient.name]?.c ?? "other",
+    });
   }
 
-  results.sort((a, b) => b.score - a.score);
-  return results.slice(0, topN);
+  // Greedy diversity selection: at each step pick the candidate with the best
+  // decayed score, where the decay grows with how many suggestions of the same
+  // category were already picked.
+  candidates.sort((a, b) => b.score - a.score);
+  const results: Pairing[] = [];
+  const seen = new Map<string, number>();
+  while (candidates.length > 0 && results.length < topN) {
+    let bestIdx = 0;
+    let bestEff = -Infinity;
+    for (let i = 0; i < candidates.length; i++) {
+      const eff = candidates[i].score * DIVERSITY_DECAY ** (seen.get(candidates[i].cat) ?? 0);
+      if (eff > bestEff) {
+        bestEff = eff;
+        bestIdx = i;
+      }
+    }
+    const { ingredient, coverage, cat } = candidates.splice(bestIdx, 1)[0];
+    seen.set(cat, (seen.get(cat) ?? 0) + 1);
+    results.push({ ingredient, score: bestEff, coverage });
+  }
+  return results;
 }
 
 export function computeLooScores(selectedIds: number[]): Map<number, number> {
