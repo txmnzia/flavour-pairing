@@ -421,10 +421,12 @@ def main() -> int:
             r = session.get(info["thumb_url"], timeout=60)
             r.raise_for_status()
             time.sleep(SLEEP)
+            # Haar cascades false-positive heavily on food textures (a 2026-07
+            # run flagged 171/800 tiles including plain couscous), so a face
+            # hit only flags the tile for manual review in images.html —
+            # it never blocks the fetch.
             if contains_human(r.content):
-                report["misses"][name] = "human detected in photo"
-                failed += 1
-                continue
+                report["flags"][name] = (report["flags"].get(name, "") + " possible human — review").strip()
             result = process_image(r.content, rembg_session)
         except Exception as e:  # noqa: BLE001 — record and continue
             report["misses"][name] = f"error: {e}"
