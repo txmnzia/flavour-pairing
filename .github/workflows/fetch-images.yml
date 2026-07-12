@@ -31,7 +31,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install requests pillow "rembg[cpu]" opencv-python-headless
+        run: pip install requests pillow "rembg[cpu]" "opencv-python-headless>=4.8,<5"
 
       - name: Fetch and process images
         run: |
