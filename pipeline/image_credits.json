@@ -189,11 +189,11 @@
   "page_title": "Annatto"
  },
  "apple": {
-  "artist": "fir0002  flagstaffotos [at] gmail.com\n\t\tCanon 20D + Sigma 150mm f/2.8",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Pink_lady_and_cross_section.jpg",
-  "file": "Pink_lady_and_cross_section.jpg",
-  "license": "GFDL 1.2",
-  "page_title": "Apple"
+  "artist": "Abhijit Tembhekar from Mumbai, India",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Red_Apple.jpg",
+  "file": "Red_Apple.jpg",
+  "license": "CC BY 2.0",
+  "page_title": "File:Red_Apple.jpg"
  },
  "apple cider": {
   "artist": "",
@@ -1126,13 +1126,6 @@
   "license": "CC BY-SA 4.0",
   "page_title": "Chia seed"
  },
- "chicken": {
-  "artist": "Andrei Niemimäki from Turku, Finland",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Male_and_female_chicken_sitting_together.jpg",
-  "file": "Male_and_female_chicken_sitting_together.jpg",
-  "license": "CC BY-SA 2.0",
-  "page_title": "Chicken"
- },
  "chickpea": {
   "artist": "Prathyush Thomas",
   "description_url": "https://commons.wikimedia.org/wiki/File:Chickpea_BNC.jpg",
@@ -1153,6 +1146,13 @@
   "file": "\"Chilequeso\",_taco_de_chile_poblano_con_queso.jpg",
   "license": "CC BY 4.0",
   "page_title": "Queso Chihuahua"
+ },
+ "chili": {
+  "artist": "Takeaway",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Madame_Jeanette_and_other_chillies.jpg",
+  "file": "Madame_Jeanette_and_other_chillies.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "Chili pepper"
  },
  "chili bean": {
   "artist": "Carstor",
@@ -1448,13 +1448,6 @@
   "license": "CC BY-SA 4.0",
   "page_title": "Couscous"
  },
- "crab": {
-  "artist": "Hans Hillewaert",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Cancer_pagurus.jpg",
-  "file": "Cancer_pagurus.jpg",
-  "license": "CC BY-SA 4.0",
-  "page_title": "Crab"
- },
  "crabapple": {
   "artist": "Bruce Marlin",
   "description_url": "https://commons.wikimedia.org/wiki/File:Purple_prince_crabapple_tree.JPG",
@@ -1715,11 +1708,11 @@
   "page_title": "Tapioca"
  },
  "duck": {
-  "artist": "Mdf",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Bucephala-albeola-010.jpg",
-  "file": "Bucephala-albeola-010.jpg",
-  "license": "CC BY-SA 3.0",
-  "page_title": "Duck"
+  "artist": "cyclonebill from Copenhagen, Denmark",
+  "description_url": "https://commons.wikimedia.org/wiki/File:And_(24559569447).jpg",
+  "file": "And_(24559569447).jpg",
+  "license": "CC BY-SA 2.0",
+  "page_title": "Duck as food"
  },
  "duck fat": {
   "artist": "cyclonebill from Copenhagen, Denmark",
@@ -1769,13 +1762,6 @@
   "file": "Edamame_by_Zesmerelda_in_Chicago.jpg",
   "license": "CC BY-SA 2.0",
   "page_title": "Edamame"
- },
- "eel": {
-  "artist": "Charles J. Sharp",
-  "description_url": "https://commons.wikimedia.org/wiki/File:New_Zealand_longfin_eel_(Anguilla_dieffenbachii)_Piha.jpg",
-  "file": "New_Zealand_longfin_eel_(Anguilla_dieffenbachii)_Piha.jpg",
-  "license": "CC BY-SA 4.0",
-  "page_title": "Eel"
  },
  "egg": {
   "artist": "Adolphe Millot",
@@ -2128,11 +2114,11 @@
   "page_title": "Goldschläger"
  },
  "goose": {
-  "artist": "Piotr Kuczynski",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Anser_anser_1_(Piotr_Kuczynski)_(cropped).jpg",
-  "file": "Anser_anser_1_(Piotr_Kuczynski)_(cropped).jpg",
-  "license": "CC BY-SA 3.0",
-  "page_title": "Goose"
+  "artist": "Romi",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Roasted_goose.jpg",
+  "file": "Roasted_goose.jpg",
+  "license": "CC0",
+  "page_title": "Roast goose"
  },
  "gooseberry": {
   "artist": "",
@@ -2478,11 +2464,11 @@
   "page_title": "Herbes de Provence"
  },
  "herring fillet": {
-  "artist": "Silar",
-  "description_url": "https://commons.wikimedia.org/wiki/File:04452_Rollmops.jpg",
-  "file": "04452_Rollmops.jpg",
-  "license": "CC BY-SA 3.0",
-  "page_title": "Rollmops"
+  "artist": "Lapplaender",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Surstr%C3%B6mming.jpg",
+  "file": "Surströmming.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "Surströmming"
  },
  "hershey's syrup": {
   "artist": "Glane23",
@@ -3240,13 +3226,6 @@
   "license": "CC BY-SA 3.0",
   "page_title": "Nigella sativa"
  },
- "noodle": {
-  "artist": "CEphoto, Uwe Aranas",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Dalian_Liaoning_China_Noodlemaker-01.jpg",
-  "file": "Dalian_Liaoning_China_Noodlemaker-01.jpg",
-  "license": "CC BY-SA 4.0",
-  "page_title": "Noodle"
- },
  "nopales": {
   "artist": "ZooFari (talk)",
   "description_url": "https://commons.wikimedia.org/wiki/File:Prickly_Pear_5half.JPG",
@@ -3519,6 +3498,13 @@
   "file": "Custard.jpg",
   "license": "CC BY-SA 3.0",
   "page_title": "Custard"
+ },
+ "pate": {
+  "artist": "David Monniaux",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Pates_p1150435.jpg",
+  "file": "Pates_p1150435.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "Pâté"
  },
  "pattypan squash": {
   "artist": "",
@@ -3962,11 +3948,11 @@
   "page_title": "Portulaca oleracea"
  },
  "quail": {
-  "artist": "Duncan Wright",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Brown_Quail.jpg",
-  "file": "Brown_Quail.jpg",
-  "license": "CC BY-SA 3.0",
-  "page_title": "Quail"
+  "artist": "Alpha from Melbourne, Australia",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Quail_Saltimbocca_with_Polenta_Fritter_-_King_River_Cafe_(65050203).jpg",
+  "file": "Quail_Saltimbocca_with_Polenta_Fritter_-_King_River_Cafe_(65050203).jpg",
+  "license": "CC BY-SA 2.0",
+  "page_title": "Quail as food"
  },
  "quail egg": {
   "artist": "Pdphoto.org",
@@ -4626,13 +4612,6 @@
   "license": "CC BY-SA 3.0",
   "page_title": "Freshwater whitefish"
  },
- "snail": {
-  "artist": "Geierunited",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Snail.jpg",
-  "file": "Snail.jpg",
-  "license": "CC BY-SA 3.0",
-  "page_title": "Snail"
- },
  "snap pea": {
   "artist": "Brianga",
   "description_url": "https://commons.wikimedia.org/wiki/File:Sugar_Snap_Pea.JPG",
@@ -4787,13 +4766,6 @@
   "license": "CC BY-SA 2.0",
   "page_title": "Sponge cake"
  },
- "spring cabbage": {
-  "artist": "fir0002  flagstaffotos [at] gmail.com\n\t\tCanon 20D + Sigma 150mm f/2.8",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Cabbage_and_cross_section_on_white.jpg",
-  "file": "Cabbage_and_cross_section_on_white.jpg",
-  "license": "GFDL 1.2",
-  "page_title": "Cabbage"
- },
  "spring green": {
   "artist": "HoosierMan1816",
   "description_url": "https://commons.wikimedia.org/wiki/File:Spring_Green.svg",
@@ -4814,13 +4786,6 @@
   "file": "Zucchini_flowers_-_stierch.jpg",
   "license": "CC BY 4.0",
   "page_title": "Squash blossom"
- },
- "squid": {
-  "artist": "Nhobgood Nick Hobgood",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Sepioteuthis_sepioidea_(Caribbean_Reef_Squid).jpg",
-  "file": "Sepioteuthis_sepioidea_(Caribbean_Reef_Squid).jpg",
-  "license": "CC BY-SA 3.0",
-  "page_title": "Squid"
  },
  "squirrel": {
   "artist": "Chicoutimi (montage)\n\n\nKarakal\nAndiW\nNational Park Service\nen:User:Markus Krötzsch\nThe Lilac Breasted Roller\nNico Conradie from Centurion, South Africa\nHans Hillewaert\nSylvouille\nNational Park Service",
@@ -5264,11 +5229,11 @@
   "page_title": "Turbot"
  },
  "turkey": {
-  "artist": "Frank Schulenburg",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Male_wild_turkey_(Meleagris_gallopavo)_strutting.jpg",
-  "file": "Male_wild_turkey_(Meleagris_gallopavo)_strutting.jpg",
-  "license": "CC BY-SA 4.0",
-  "page_title": "Turkey (bird)"
+  "artist": "Patrick Fitzgerald from Atlanta, GA, USA",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Thanksgiving_Turkey.jpg",
+  "file": "Thanksgiving_Turkey.jpg",
+  "license": "CC BY 2.0",
+  "page_title": "Turkey as food"
  },
  "turkey liver": {
   "artist": "FotoosVanRobin from Netherlands",
