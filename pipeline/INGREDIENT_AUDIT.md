@@ -111,7 +111,8 @@ are processed and essential — they stay. Delete when it is:
 - **(a) a brand with a generic equivalent — merge into the generic, never delete**
   (owner rule, 2026-07-12): velveeta cheese→cheese, rice krispies→cereal,
   karo syrup→corn syrup, hershey's syrup→chocolate, truvia→stevia,
-  pickapeppa sauce→steak sauce ("Jamaican steak sauce"), dashida→stock.
+  pickapeppa sauce→steak sauce ("Jamaican steak sauce"), dashida→dashi
+  (owner: stock and dashi are distinct things — dashi-family products never fold into stock).
   *corn syrup* and *stevia* were restored from earlier swipe-deletion to serve as targets.
   No generic in the base at all → **rename** to the generic: ovaltine→malted milk.
   Kept as themselves: maggi seasoning, guinness stout, baileys, campari, grand marnier,
