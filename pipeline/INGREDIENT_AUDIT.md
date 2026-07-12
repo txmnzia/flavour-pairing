@@ -108,11 +108,14 @@ Loses real information (a Thai curry wants bird's eye, not ancho) — not recomm
 shop for**, regardless of processing level. Fish sauce, miso, worcestershire, tahini, gochujang
 are processed and essential — they stay. Delete when it is:
 
-- **(a) a brand with a generic equivalent**: velveeta cheese, rice krispies, karo syrup,
-  hershey's syrup, truvia, ovaltine, pickapeppa sauce, dashida, maggi seasoning
-  *(flag: maggi is iconic in several cuisines — your call)*, guinness stout→merge to beer.
-  Kept: baileys, campari, grand marnier, angostura (a brand IS the flavour in cocktails); nutella
-  (distinct enough); marmite/vegemite (distinct flavour).
+- **(a) a brand with a generic equivalent — merge into the generic, never delete**
+  (owner rule, 2026-07-12): velveeta cheese→cheese, rice krispies→cereal,
+  karo syrup→corn syrup, hershey's syrup→chocolate, truvia→stevia,
+  pickapeppa sauce→steak sauce ("Jamaican steak sauce"), dashida→stock.
+  *corn syrup* and *stevia* were restored from earlier swipe-deletion to serve as targets.
+  No generic in the base at all → **rename** to the generic: ovaltine→malted milk.
+  Kept as themselves: maggi seasoning, guinness stout, baileys, campari, grand marnier,
+  angostura (the brand IS the flavour); nutella; marmite/vegemite.
 - **(b) a prepared end-product, not a building block**: meatloaf, meatball, pound cake,
   sponge cake, cheesecake, brownie, shortcake, macaroon, tamale, dumpling, pierogies, tostada,
   waffle, pancake, crepe, fish cake, coleslaw, green salad, soup, refried bean.
@@ -179,9 +182,13 @@ ingredients**, every lane populated by things you'd actually shop for.
 - §2d: no change — the #52 Starches lane is the implementation of the "carbs category" idea.
 - §3 tail applied as written.
 
-Net: 42 merges + 81 deletes in `pipeline/curation.json` → deployed list **1,038 → 915**
-(spam restored after owner review 2026-07-12: used as a real ingredient in Okinawan/Hawaiian
-cooking).
+Net after owner review rounds (2026-07-12): deployed list **1,038 → 951**.
+- spam restored (real ingredient in Okinawan/Hawaiian cooking — spam musubi).
+- jasmine tea and guinness stout restored as distinct ingredients (un-merged).
+- Brand rule changed from delete to **merge into the generic equivalent** (see §2b);
+  ovaltine renamed to *malted milk* in the base `pairings.json` (owner sign-off) since no
+  generic existed; corn syrup and stevia un-deleted to act as merge targets.
+- The §3 niche tail was restored in full (31 names incl. chili bean) — niche stays in.
 `validate_pairings.py` and all 27 ranking probes pass unchanged.
 
 ## Not in scope here
