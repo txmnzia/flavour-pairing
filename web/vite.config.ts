@@ -26,8 +26,8 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html}"],
-        globIgnores: ["curate.html", "merge.html", "annotate.html", "attributions.html", "ingredient-images/**"],
-        navigateFallbackDenylist: [/\/curate\.html$/, /\/merge\.html$/, /\/annotate\.html$/, /\/attributions\.html$/],
+        globIgnores: ["curate.html", "merge.html", "annotate.html", "images.html", "attributions.html", "ingredient-images/**"],
+        navigateFallbackDenylist: [/\/curate\.html$/, /\/merge\.html$/, /\/annotate\.html$/, /\/images\.html$/, /\/attributions\.html$/],
         runtimeCaching: [
           {
             urlPattern: /pairings\.json$/,
