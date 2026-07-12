@@ -26,7 +26,13 @@ unless --force is given.
 
 Manual fixes go in pipeline/image_overrides.json:
   { "<ingredient name>": {"title": "Wikipedia article title"}
+  , "<ingredient name>": {"file": "Exact Commons file name.jpg"}
   , "<ingredient name>": {"skip": true} }
+
+Tile criteria (issue #48 feedback): subject centered and filling the frame,
+ideally a single specimen, no humans in frame (enforced via face detection
+when OpenCV is installed), and the food form rather than the live animal
+(enforced via overrides, e.g. chicken -> "Chicken as food").
 
 Usage:
   python3 pipeline/fetch_images.py [--limit N] [--only NAME] [--force]
@@ -169,7 +175,7 @@ def strip_tags(html: str) -> str:
 
 
 def fetch_file_metadata(files: list[str]) -> dict[str, dict]:
-    """File name (without 'File:') -> {license, artist, description_url}."""
+    """File name (without 'File:') -> {license, artist, description_url, thumb_url}."""
     out: dict[str, dict] = {}
     titles = [f"File:{f}" for f in files]
     for batch in chunked(titles, BATCH):
@@ -178,6 +184,7 @@ def fetch_file_metadata(files: list[str]) -> dict[str, dict]:
             "titles": "|".join(batch),
             "prop": "imageinfo",
             "iiprop": "extmetadata|url",
+            "iiurlwidth": str(THUMB_WIDTH),
         })
         for page in data.get("query", {}).get("pages", []):
             infos = page.get("imageinfo") or []
@@ -190,8 +197,40 @@ def fetch_file_metadata(files: list[str]) -> dict[str, dict]:
                 "license": meta.get("LicenseShortName", {}).get("value", ""),
                 "artist": strip_tags(meta.get("Artist", {}).get("value", "")),
                 "description_url": infos[0].get("descriptionurl", ""),
+                "thumb_url": infos[0].get("thumburl", ""),
             }
     return out
+
+
+_face_cascades = None
+
+
+def contains_human(raw: bytes) -> bool | None:
+    """Face detection on the source photo. None = OpenCV unavailable (check skipped)."""
+    global _face_cascades
+    try:
+        import cv2
+        import numpy as np
+    except ImportError:
+        return None
+    if _face_cascades is None:
+        _face_cascades = [
+            cv2.CascadeClassifier(cv2.data.haarcascades + name)
+            for name in ("haarcascade_frontalface_default.xml", "haarcascade_profileface.xml")
+        ]
+    img = cv2.imdecode(np.frombuffer(raw, np.uint8), cv2.IMREAD_COLOR)
+    if img is None:
+        return None
+    h, w = img.shape[:2]
+    if max(h, w) > 800:
+        s = 800 / max(h, w)
+        img = cv2.resize(img, (int(w * s), int(h * s)))
+    gray = cv2.equalizeHist(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY))
+    for cascade in _face_cascades:
+        # minNeighbors high to keep false positives rare on food textures
+        if len(cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=6, minSize=(40, 40))):
+            return True
+    return False
 
 
 def process_image(raw: bytes, rembg_session) -> tuple[bytes, float] | None:
@@ -294,6 +333,8 @@ def main() -> int:
     collisions = {s: ns for s, ns in by_slug.items() if len(ns) > 1}
     if collisions:
         report["flags"]["_slug_collisions"] = collisions
+
+    file_by_name: dict[str, str] = {}  # direct Commons-file overrides
     todo: dict[str, str] = {}  # name -> wikipedia title to try
     for name in names:
         ov = overrides.get(name, {})
@@ -302,10 +343,13 @@ def main() -> int:
             continue
         if not args.force and (OUT_DIR / f"{slugify(name)}.webp").exists():
             continue
-        todo[name] = ov.get("title", name)
+        if ov.get("file"):
+            file_by_name[name] = ov["file"].removeprefix("File:").replace(" ", "_")
+        else:
+            todo[name] = ov.get("title", name)
 
-    print(f"{len(names)} live ingredients, {len(todo)} to fetch")
-    if not todo:
+    print(f"{len(names)} live ingredients, {len(todo) + len(file_by_name)} to fetch")
+    if not todo and not file_by_name:
         # Still regenerate manifest/attributions from what's on disk.
         finalize(credits, report)
         return 0
@@ -314,9 +358,14 @@ def main() -> int:
     title_by_name = dict(todo.items())
     resolved = resolve_page_images(sorted(set(title_by_name.values())))
 
-    # Pass 2: search fallback for misses (flagged for review).
+    # Pass 2: search fallback for misses (flagged for review). Names with an
+    # explicit override never fall back — a generic search would resurrect
+    # exactly the image the override was written to avoid.
     for name, title in title_by_name.items():
         if title in resolved:
+            continue
+        if name in overrides:
+            report["misses"][name] = f"override title not found: {title}"
             continue
         found = search_title(name)
         if found:
@@ -327,9 +376,23 @@ def main() -> int:
                 continue
         report["misses"][name] = "no wikipedia lead image"
 
+    # Direct Commons-file overrides become synthetic resolutions; the thumb
+    # URL comes from imageinfo below.
+    for name, f in file_by_name.items():
+        title_by_name[name] = f"__file__{name}"
+        resolved[f"__file__{name}"] = {"file": f, "thumb_url": "", "page_title": f"File:{f}"}
+
     # License metadata for all candidate files.
     files = sorted({r["file"] for r in resolved.values()})
     meta = fetch_file_metadata(files)
+
+    for name, f in file_by_name.items():
+        m = meta.get(f.replace(" ", "_"), {})
+        if m.get("thumb_url"):
+            resolved[f"__file__{name}"]["thumb_url"] = m["thumb_url"]
+        else:
+            report["misses"][name] = "override file not found on Commons"
+            del resolved[f"__file__{name}"]
 
     from rembg import new_session
     rembg_session = new_session("u2net")
@@ -347,6 +410,10 @@ def main() -> int:
             r = session.get(info["thumb_url"], timeout=60)
             r.raise_for_status()
             time.sleep(SLEEP)
+            if contains_human(r.content):
+                report["misses"][name] = "human detected in photo"
+                failed += 1
+                continue
             result = process_image(r.content, rembg_session)
         except Exception as e:  # noqa: BLE001 — record and continue
             report["misses"][name] = f"error: {e}"
