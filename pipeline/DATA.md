@@ -178,8 +178,16 @@ ingredients only need a new workflow run. Wrong image? Add an override and
 re-run with `--only "<name>" --force`.
 
 The slug (`slugify()` in the script, `ingredientSlug()` in
-`web/src/utils/ingredientImage.ts`) is the join key between ingredient names
-and image files — the two implementations must stay identical.
+`web/src/utils/ingredientImage.ts`, and inline in `web/public/images.html`)
+is the join key between ingredient names and image files — the
+implementations must stay identical.
+
+**Manual review UI**: `web/public/images.html` — browse all tiles, delete one
+or replace it with an uploaded file / image URL (resized client-side to the
+256×256 WebP format). Saves the tile, `manifest.json`,
+`image_overrides.json` (curated names become `skip` so pipeline runs never
+overwrite them) and `image_credits.json` directly to `main` via the GitHub
+API (same token as curate.html).
 
 ---
 
