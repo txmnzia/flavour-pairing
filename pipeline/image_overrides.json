@@ -21,7 +21,7 @@
     "title": "Kiwifruit"
   },
   "turkey": {
-    "title": "Turkey (bird)"
+    "title": "Turkey as food"
   },
   "mace": {
     "title": "Mace (spice)"
@@ -151,5 +151,50 @@
   },
   "veal stock": {
     "title": "Stock (food)"
+  },
+  "chicken": {
+    "title": "Chicken as food"
+  },
+  "duck": {
+    "title": "Duck as food"
+  },
+  "goose": {
+    "title": "Roast goose"
+  },
+  "quail": {
+    "title": "Quail as food"
+  },
+  "squab": {
+    "title": "Squab (food)"
+  },
+  "pheasant": {
+    "skip": true
+  },
+  "rabbit": {
+    "skip": true
+  },
+  "snail": {
+    "title": "Escargot"
+  },
+  "crab": {
+    "title": "Crab meat"
+  },
+  "lobster": {
+    "title": "Lobster as food"
+  },
+  "eel": {
+    "title": "Unagi"
+  },
+  "squid": {
+    "title": "Squid as food"
+  },
+  "crabapple": {
+    "skip": true
+  },
+  "noodle": {
+    "title": "Chinese noodles"
+  },
+  "apple": {
+    "file": "Red Apple.jpg"
   }
 }
