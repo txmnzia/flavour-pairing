@@ -136,14 +136,16 @@
       <button class="btn" id="btn-url">Fetch</button>
     </div>
     <div class="hint">
-      Replacements are resized to a 256×256 WebP tile. Transparent-background
-      PNGs look best (the app shows tiles on a dark backdrop). Deleting or
+      The background is removed automatically: uniform backgrounds instantly,
+      busy ones via an in-browser AI model (downloaded on first use). The
+      subject is then trimmed and centered on a 256×256 WebP tile. Deleting or
       replacing also marks the ingredient <i>skip</i> in the pipeline overrides,
       so automated fetch runs won't overwrite your choice. Make sure you have
       the right to use any image you upload.
     </div>
     <div id="mmsg"></div>
     <div class="row" style="justify-content: flex-end;">
+      <button class="btn" id="btn-bgtoggle" style="display:none">Keep original background</button>
       <button class="btn" id="btn-unstage" style="display:none">Undo staged change</button>
       <button class="btn" id="btn-close">Close</button>
     </div>
@@ -320,28 +322,173 @@ function openModal(name) {
   else if (hasImage.has(slugify(name))) prev.innerHTML = '<img src="' + tileUrl(name) + '">';
   else prev.innerHTML = '<span class="none">no image (emoji fallback)</span>';
   $('btn-unstage').style.display = st ? '' : 'none';
+  const canToggle = st && st.type === 'replace' && st.srcBlob && st.bgMode !== 'transparent';
+  const tog = $('btn-bgtoggle');
+  tog.style.display = canToggle ? '' : 'none';
+  if (canToggle) tog.textContent = st.bgMode === 'original' ? 'Remove background' : 'Keep original background';
   $('overlay').classList.add('open');
 }
 function closeModal() { $('overlay').classList.remove('open'); current = null; }
 
-async function makeTile(blobOrFile) {
-  const bmp = await createImageBitmap(blobOrFile);
+// ── Image processing: automatic background removal + tile layout ─────────────
+// Uniform backgrounds (typical product shots) are removed instantly with a
+// border flood fill. Busy backgrounds go through an in-browser AI model
+// (@imgly/background-removal, loaded from CDN on first use). Either way the
+// subject is trimmed and centered on a transparent 256×256 canvas, matching
+// the pipeline's tiles. "Keep original" bypasses removal.
+const PROC_MAX = 1024;
+
+async function sourceToCanvas(blob) {
+  const bmp = await createImageBitmap(blob);
+  const s = Math.min(1, PROC_MAX / Math.max(bmp.width, bmp.height));
   const c = document.createElement('canvas');
-  c.width = c.height = TILE;
-  const ctx = c.getContext('2d');
-  const s = (TILE * FILL) / Math.max(bmp.width, bmp.height);
-  const w = bmp.width * s, h = bmp.height * s;
-  ctx.drawImage(bmp, (TILE - w) / 2, (TILE - h) / 2, w, h);
-  return new Promise((res, rej) =>
-    c.toBlob(b => b ? res(b) : rej(new Error('WebP encoding failed')), 'image/webp', 0.85));
+  c.width = Math.max(1, Math.round(bmp.width * s));
+  c.height = Math.max(1, Math.round(bmp.height * s));
+  c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+  return c;
 }
-async function stageReplace(name, source) {
+
+function hasTransparency(d) {
+  const a = d.data;
+  for (let i = 3; i < a.length; i += 4) if (a[i] < 250) return true;
+  return false;
+}
+
+function borderStats(d) {
+  const { width: w, height: h, data } = d;
+  const px = [];
+  const step = Math.max(1, Math.floor((2 * (w + h)) / 2000));
+  const push = (x, y) => { const i = (y * w + x) * 4; px.push([data[i], data[i + 1], data[i + 2]]); };
+  for (let x = 0; x < w; x += step) { push(x, 0); push(x, h - 1); }
+  for (let y = 0; y < h; y += step) { push(0, y); push(w - 1, y); }
+  const mean = [0, 1, 2].map(k => px.reduce((s, p) => s + p[k], 0) / px.length);
+  const rms = Math.sqrt(px.reduce((s, p) =>
+    s + (p[0] - mean[0]) ** 2 + (p[1] - mean[1]) ** 2 + (p[2] - mean[2]) ** 2, 0) / px.length);
+  return { mean, uniform: rms < 32 };
+}
+
+function floodRemoveBackground(d, bg, tol) {
+  const { width: w, height: h, data } = d;
+  const marked = new Uint8Array(w * h);
+  const queue = [];
+  const close = i => {
+    const dr = data[i * 4] - bg[0], dg = data[i * 4 + 1] - bg[1], db = data[i * 4 + 2] - bg[2];
+    return dr * dr + dg * dg + db * db < tol * tol;
+  };
+  const seed = i => { if (!marked[i] && close(i)) { marked[i] = 1; queue.push(i); } };
+  for (let x = 0; x < w; x++) { seed(x); seed((h - 1) * w + x); }
+  for (let y = 0; y < h; y++) { seed(y * w); seed(y * w + w - 1); }
+  while (queue.length) {
+    const i = queue.pop();
+    const x = i % w, y = (i / w) | 0;
+    if (x > 0) seed(i - 1);
+    if (x < w - 1) seed(i + 1);
+    if (y > 0) seed(i - w);
+    if (y < h - 1) seed(i + w);
+  }
+  let removed = 0;
+  for (let i = 0; i < marked.length; i++) if (marked[i]) { data[i * 4 + 3] = 0; removed++; }
+  // Feather: soften subject pixels that touch removed ones.
+  for (let i = 0; i < marked.length; i++) {
+    if (marked[i]) continue;
+    const x = i % w, y = (i / w) | 0;
+    if ((x > 0 && marked[i - 1]) || (x < w - 1 && marked[i + 1]) ||
+        (y > 0 && marked[i - w]) || (y < h - 1 && marked[i + w])) {
+      data[i * 4 + 3] = Math.min(data[i * 4 + 3], 140);
+    }
+  }
+  return removed / marked.length;
+}
+
+let aiModule = null, aiUnavailable = false;
+async function aiRemoveBackground(blob) {
+  if (aiUnavailable) throw new Error('AI model unavailable');
+  if (!aiModule) {
+    for (const url of [
+      'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1/+esm',
+      'https://unpkg.com/@imgly/background-removal@1/dist/index.mjs',
+    ]) {
+      try { aiModule = await import(url); break; } catch (_) { /* next */ }
+    }
+    if (!aiModule || !(aiModule.removeBackground || aiModule.default)) {
+      aiUnavailable = true;
+      throw new Error('AI model unavailable');
+    }
+  }
+  const fn = aiModule.removeBackground || aiModule.default;
+  return await fn(blob);
+}
+
+function trimToTile(canvas) {
+  const ctx = canvas.getContext('2d');
+  const d = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  let minX = canvas.width, minY = canvas.height, maxX = -1, maxY = -1;
+  for (let y = 0; y < canvas.height; y++) {
+    for (let x = 0; x < canvas.width; x++) {
+      if (d.data[(y * canvas.width + x) * 4 + 3] > 16) {
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+        if (y < minY) minY = y;
+        if (y > maxY) maxY = y;
+      }
+    }
+  }
+  if (maxX < 0) throw new Error('image is fully transparent');
+  const bw = maxX - minX + 1, bh = maxY - minY + 1;
+  const out = document.createElement('canvas');
+  out.width = out.height = TILE;
+  const s = (TILE * FILL) / Math.max(bw, bh);
+  out.getContext('2d').drawImage(canvas, minX, minY, bw, bh,
+    (TILE - bw * s) / 2, (TILE - bh * s) / 2, bw * s, bh * s);
+  return new Promise((res, rej) =>
+    out.toBlob(b => b ? res(b) : rej(new Error('WebP encoding failed')), 'image/webp', 0.85));
+}
+
+// -> {blob, mode, note}; mode: 'transparent' | 'flood' | 'ai' | 'original'
+async function processSource(srcBlob, removeBg) {
+  const canvas = await sourceToCanvas(srcBlob);
+  const ctx = canvas.getContext('2d');
+  const d = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  if (hasTransparency(d)) {
+    return { blob: await trimToTile(canvas), mode: 'transparent', note: 'Transparency detected — background kept as-is.' };
+  }
+  if (!removeBg) {
+    return { blob: await trimToTile(canvas), mode: 'original', note: 'Original kept (no background removal).' };
+  }
+  const border = borderStats(d);
+  if (border.uniform) {
+    const frac = floodRemoveBackground(d, border.mean, 46);
+    if (frac > 0.03 && frac < 0.98) {
+      ctx.putImageData(d, 0, 0);
+      return { blob: await trimToTile(canvas), mode: 'flood', note: 'Background removed ✓' };
+    }
+  }
   try {
-    const tile = await makeTile(source);
+    $('mmsg').textContent = 'Removing background (AI — first use downloads the model, ~1 min)…';
+    const cut = await aiRemoveBackground(srcBlob);
+    const c2 = await sourceToCanvas(cut);
+    return { blob: await trimToTile(c2), mode: 'ai', note: 'Background removed (AI) ✓' };
+  } catch (_) {
+    return {
+      blob: await trimToTile(canvas), mode: 'original',
+      note: 'Background NOT removed: it is not uniform and the AI model could not be loaded. Staged with original background.',
+    };
+  }
+}
+
+async function stageReplace(name, source, removeBg = true) {
+  try {
+    $('mmsg').textContent = 'Processing…';
+    const srcBlob = source instanceof Blob ? source : new Blob([source]);
+    const { blob, mode, note } = await processSource(srcBlob, removeBg);
     const old = staged.get(name);
     if (old && old.previewUrl) URL.revokeObjectURL(old.previewUrl);
-    staged.set(name, { type: 'replace', blob: tile, previewUrl: URL.createObjectURL(tile) });
+    staged.set(name, {
+      type: 'replace', blob, previewUrl: URL.createObjectURL(blob),
+      srcBlob, bgMode: mode,
+    });
     openModal(name); render();
+    $('mmsg').textContent = note;
   } catch (e) {
     $('mmsg').textContent = 'Could not process image: ' + e.message;
   }
@@ -371,6 +518,12 @@ $('btn-delete').onclick = () => {
   if (old && old.previewUrl) URL.revokeObjectURL(old.previewUrl);
   staged.set(current, { type: 'delete' });
   openModal(current); render();
+};
+$('btn-bgtoggle').onclick = () => {
+  if (!current) return;
+  const st = staged.get(current);
+  if (!st || st.type !== 'replace' || !st.srcBlob) return;
+  stageReplace(current, st.srcBlob, st.bgMode === 'original');
 };
 $('btn-unstage').onclick = () => {
   if (!current) return;
