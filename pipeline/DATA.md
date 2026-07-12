@@ -206,7 +206,11 @@ Swipe-card interface for reviewing ingredients one by one. Actions: keep, delete
 
 Batch merge interface. Groups ingredients by shared key terms (e.g. all squash variants, all potato variants). User selects a canonical (👑) and duplicates (✓), then hits Merge. Saves to the same `pipeline/curation.json`.
 
-Both UIs share `localStorage` key `curate_decisions` and GitHub token `curate_gh_token`.
+### `web/public/annotate.html`
+
+Grading interface for the ranking evaluation (issue #50): swipes assign grade 2 / 1 / 0 to pooled pairing suggestions (`web/public/eval/pool.json`). Saves to `pipeline/eval/judgments.json` on `main` via the same GitHub API flow; judgments feed the metrics report in `web/src/eval.test.ts`.
+
+The two curation UIs share `localStorage` key `curate_decisions`; annotate.html caches under `eval_judgments`. All three share the GitHub token `curate_gh_token`.
 
 ---
 
