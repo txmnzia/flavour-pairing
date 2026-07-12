@@ -144,7 +144,7 @@
     "title": "Soy sauce"
   },
   "tenderloin": {
-    "title": "Filet mignon"
+    "skip": true
   },
   "turkey liver": {
     "title": "Liver (food)"
