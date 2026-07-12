@@ -296,6 +296,16 @@ OVERRIDES = {
     'filet mignon': 'meat', 'pimiento': 'vegetable', 'quatre epices': 'spice',
     'hearts of palm': 'vegetable', 'heart of palm': 'vegetable',
     'creme fraiche': 'dairy',
+    # ingredient audit (#51) — miscategorisations surfaced by the #52 swimlanes
+    'scotch bonnet pepper': 'vegetable', 'bitter melon': 'vegetable',
+    'root beer': 'beverage', 'ginger beer': 'beverage', 'ginger ale': 'beverage',
+    'baileys irish cream': 'alcohol',
+    'oyster mushroom': 'vegetable', 'chestnut mushroom': 'vegetable',
+    'artichoke heart': 'vegetable', 'mustard green': 'vegetable',
+    'cherry pepper': 'vegetable', 'lemon pepper': 'spice',
+    'corn flake': 'starch', 'spaghetti squash': 'vegetable',
+    'sugar pumpkin': 'vegetable', 'black pudding': 'meat',
+    'rice cake': 'starch', 'pastry cream': 'sweet',
 }
 
 BASE_OVERRIDES = {
