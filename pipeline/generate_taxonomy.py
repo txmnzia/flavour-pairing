@@ -305,6 +305,9 @@ OVERRIDES = {
     'cherry pepper': 'vegetable', 'lemon pepper': 'spice',
     'corn flake': 'starch', 'spaghetti squash': 'vegetable',
     'malted milk': 'sweet',  # renamed from ovaltine; a drink/baking powder, not dairy
+    # curation audit (#49) — restored ingredients the token rules misfile
+    'basil pesto': 'condiment', 'pesto sauce': 'condiment',
+    'citron': 'fruit', 'pumpkin pie spice': 'spice',
     'sugar pumpkin': 'vegetable', 'black pudding': 'meat',
     'rice cake': 'starch', 'pastry cream': 'sweet',
 }

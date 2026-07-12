@@ -135,9 +135,12 @@ describe("variant suppression (#44)", () => {
     }
   });
 
-  it("orange zest suppresses orange and vice versa", () => {
-    expect(topN(["orange zest"], 36).map((p) => p.ingredient.name)).not.toContain("orange");
-    expect(topN(["orange"], 36).map((p) => p.ingredient.name)).not.toContain("orange zest");
+  // Curation audit (#49): zests fold into their fruit — lemon zest and orange
+  // zest are merged, so neither exists as a deployed ingredient any more.
+  it("zests are merged into their fruit, not deployed", () => {
+    for (const zest of ["orange zest", "lemon zest"]) {
+      expect(ingredients.find((i) => i.name === zest)).toBeUndefined();
+    }
   });
 });
 
