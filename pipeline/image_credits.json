@@ -1070,6 +1070,13 @@
   "license": "Public domain",
   "page_title": "Kirsch"
  },
+ "cherry flavored liqueur": {
+  "artist": "",
+  "description_url": "https://en.wikipedia.org/wiki/File:Maraschino_cocktail.jpeg",
+  "file": "Maraschino_cocktail.jpeg",
+  "license": "Attribution",
+  "page_title": "Maraschino"
+ },
  "cherry pepper": {
   "artist": "James Lee",
   "description_url": "https://commons.wikimedia.org/wiki/File:Cherry_peppers.jpg",
@@ -1092,6 +1099,13 @@
   "page_title": "Cherry tomato"
  },
  "chestnut": {
+  "artist": "Vassil",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Ch%C3%A2taignier_120807_1.jpg",
+  "file": "Châtaignier_120807_1.jpg",
+  "license": "Public domain",
+  "page_title": "Chestnut"
+ },
+ "chestnut flour": {
   "artist": "Vassil",
   "description_url": "https://commons.wikimedia.org/wiki/File:Ch%C3%A2taignier_120807_1.jpg",
   "file": "Châtaignier_120807_1.jpg",
@@ -1440,6 +1454,13 @@
   "file": "Purple_prince_crabapple_tree.JPG",
   "license": "CC BY 3.0",
   "page_title": "Malus"
+ },
+ "cracked farro": {
+  "artist": "",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Castel_del_Piano-Minestra_di_farro.jpg",
+  "file": "Castel_del_Piano-Minestra_di_farro.jpg",
+  "license": "CC BY-SA 2.5",
+  "page_title": "Farro"
  },
  "crawfish": {
   "artist": "Gusmonkeyboy at English Wikipedia",
@@ -1980,6 +2001,13 @@
   "license": "Public domain",
   "page_title": "Galangal"
  },
+ "galliano": {
+  "artist": "J.P.Lon",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Galliano-and-glass.jpg",
+  "file": "Galliano-and-glass.jpg",
+  "license": "Public domain",
+  "page_title": "Galliano (liqueur)"
+ },
  "garlic": {
   "artist": "",
   "description_url": "https://commons.wikimedia.org/wiki/File:Allium_sativum_Woodwill_1793.jpg",
@@ -2414,6 +2442,13 @@
   "license": "CC BY 3.0",
   "page_title": "Hazelnut butter"
  },
+ "hazelnut flavored liqueur": {
+  "artist": "Shabbychef at English Wikipedia",
+  "description_url": "https://commons.wikimedia.org/wiki/File:ManyAmari.jpg",
+  "file": "ManyAmari.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "List of liqueur brands"
+ },
  "hearts of palm": {
   "artist": "mhoenig",
   "description_url": "https://commons.wikimedia.org/wiki/File:Heart_of_palm.jpg",
@@ -2441,6 +2476,13 @@
   "file": "04452_Rollmops.jpg",
   "license": "CC BY-SA 3.0",
   "page_title": "Rollmops"
+ },
+ "hershey's syrup": {
+  "artist": "Glane23",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Chocolate_syrup_topping_on_ice_cream.JPG",
+  "file": "Chocolate_syrup_topping_on_ice_cream.JPG",
+  "license": "CC BY-SA 3.0",
+  "page_title": "Chocolate syrup"
  },
  "hijiki seaweed": {
   "artist": "Okamura, Kintaro",
@@ -2631,6 +2673,13 @@
   "license": "Public domain",
   "page_title": "Amorphophallus konjac"
  },
+ "koshi an": {
+  "artist": "Midori",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Red_bean_paste_anko.JPG",
+  "file": "Red_bean_paste_anko.JPG",
+  "license": "CC BY-SA 3.0",
+  "page_title": "Red bean paste"
+ },
  "kumquat": {
   "artist": "Ivar Leidus",
   "description_url": "https://commons.wikimedia.org/wiki/File:Kumquat_from_Spain.jpg",
@@ -2701,6 +2750,13 @@
   "license": "CC BY-SA 4.0",
   "page_title": "Licor 43"
  },
+ "light cheese": {
+  "artist": "Takeaway",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Eru_goudkuipje_sambal.jpg",
+  "file": "Eru_goudkuipje_sambal.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "Processed cheese"
+ },
  "lillet blanc": {
   "artist": "Ralf Roletschek",
   "description_url": "https://commons.wikimedia.org/wiki/File:16-09-17-WikiLovesCocktails-Flaschen-Img0053.jpg",
@@ -2763,6 +2819,13 @@
   "file": "KreeftbijDenOsse.jpg",
   "license": "Public domain",
   "page_title": "Lobster"
+ },
+ "lobster stock": {
+  "artist": "Blue Lotus",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Making_stock_for_pho_bo.jpg",
+  "file": "Making_stock_for_pho_bo.jpg",
+  "license": "CC BY 2.0",
+  "page_title": "Stock (food)"
  },
  "lotus seed": {
   "artist": "Sjschen at English Wikipedia",
@@ -2910,6 +2973,13 @@
   "file": "Masa_de_tortillas.jpg",
   "license": "CC0",
   "page_title": "Masa"
+ },
+ "masala": {
+  "artist": "Miansari66",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Garam_Masala.JPG",
+  "file": "Garam_Masala.JPG",
+  "license": "Public domain",
+  "page_title": "Spice mix"
  },
  "mascarpone": {
   "artist": "Lasagnolo9",
@@ -3107,6 +3177,13 @@
   "license": "CC BY 3.0",
   "page_title": "Mushroom"
  },
+ "mushroom stock": {
+  "artist": "Blue Lotus",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Making_stock_for_pho_bo.jpg",
+  "file": "Making_stock_for_pho_bo.jpg",
+  "license": "CC BY 2.0",
+  "page_title": "Stock (food)"
+ },
  "mustard": {
   "artist": "fuji01",
   "description_url": "https://commons.wikimedia.org/wiki/File:Mustard.JPG",
@@ -3226,6 +3303,13 @@
   "license": "CC BY-SA 3.0",
   "page_title": "Onion"
  },
+ "onion paste": {
+  "artist": "Colin",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Mixed_onions.jpg",
+  "file": "Mixed_onions.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "Onion"
+ },
  "onion seed": {
   "artist": "AndreHolz at English Wikipedia",
   "description_url": "https://commons.wikimedia.org/wiki/File:Nsativa001Wien.jpg",
@@ -3234,6 +3318,13 @@
   "page_title": "Nigella sativa"
  },
  "orange": {
+  "artist": "Ivar Leidus",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Oranges_-_whole-halved-segment.jpg",
+  "file": "Oranges_-_whole-halved-segment.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "Orange (fruit)"
+ },
+ "orange extract": {
   "artist": "Ivar Leidus",
   "description_url": "https://commons.wikimedia.org/wiki/File:Oranges_-_whole-halved-segment.jpg",
   "file": "Oranges_-_whole-halved-segment.jpg",
@@ -3443,6 +3534,13 @@
   "license": "CC BY-SA 3.0",
   "page_title": "Pea"
  },
+ "peach jam": {
+  "artist": "毒島みるく",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Fruits_jam_variants.jpg",
+  "file": "Fruits_jam_variants.jpg",
+  "license": "CC0",
+  "page_title": "Fruit preserves"
+ },
  "peanut butter": {
   "artist": "Famartin",
   "description_url": "https://commons.wikimedia.org/wiki/File:2020-03-24_20_57_22_An_open_jar_of_Skippy_Creamy_Peanut_Butter_in_the_Dulles_section_of_Sterling,_Loudoun_County,_Virginia.jpg",
@@ -3612,6 +3710,13 @@
   "page_title": "Pine nut"
  },
  "pineapple": {
+  "artist": "Suniltg at Malayalam Wikipedia",
+  "description_url": "https://commons.wikimedia.org/wiki/File:%E0%B4%95%E0%B5%88%E0%B4%A4%E0%B4%9A%E0%B5%8D%E0%B4%9A%E0%B4%95%E0%B5%8D%E0%B4%95.jpg",
+  "file": "കൈതച്ചക്ക.jpg",
+  "license": "CC BY 3.0",
+  "page_title": "Pineapple"
+ },
+ "pineapple syrup": {
   "artist": "Suniltg at Malayalam Wikipedia",
   "description_url": "https://commons.wikimedia.org/wiki/File:%E0%B4%95%E0%B5%88%E0%B4%A4%E0%B4%9A%E0%B5%8D%E0%B4%9A%E0%B4%95%E0%B5%8D%E0%B4%95.jpg",
   "file": "കൈതച്ചക്ക.jpg",
@@ -4248,6 +4353,13 @@
   "license": "CC BY-SA 2.0",
   "page_title": "Salsa verde"
  },
+ "salsify": {
+  "artist": "Dcrjsr",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Goats_beard_Tragopogon_dubius_close.jpg",
+  "file": "Goats_beard_Tragopogon_dubius_close.jpg",
+  "license": "CC BY 3.0",
+  "page_title": "Tragopogon dubius"
+ },
  "sambal oelek": {
   "artist": "Midori",
   "description_url": "https://commons.wikimedia.org/wiki/File:Sambal_cobek.JPG",
@@ -4472,12 +4584,26 @@
   "license": "CC BY-SA 3.0",
   "page_title": "Smoked salmon"
  },
+ "smoked tofu": {
+  "artist": "DryPot",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Japanese_SilkyTofu_(Kinugoshi_Tofu).JPG",
+  "file": "Japanese_SilkyTofu_(Kinugoshi_Tofu).JPG",
+  "license": "CC BY-SA 3.0",
+  "page_title": "Tofu"
+ },
  "smoked trout": {
   "artist": "Anne Burgess",
   "description_url": "https://commons.wikimedia.org/wiki/File:Arbroath_Smokies_-_geograph.org.uk_-_481678.jpg",
   "file": "Arbroath_Smokies_-_geograph.org.uk_-_481678.jpg",
   "license": "CC BY-SA 2.0",
   "page_title": "Smoked fish"
+ },
+ "smoked turkey": {
+  "artist": "Patrick Fitzgerald from Atlanta, GA, USA",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Thanksgiving_Turkey.jpg",
+  "file": "Thanksgiving_Turkey.jpg",
+  "license": "CC BY 2.0",
+  "page_title": "Turkey as food"
  },
  "smoked whitefish": {
   "artist": "",
@@ -4646,6 +4772,13 @@
   "file": "Victoria_Sponges.jpg",
   "license": "CC BY-SA 2.0",
   "page_title": "Sponge cake"
+ },
+ "spring cabbage": {
+  "artist": "fir0002  flagstaffotos [at] gmail.com\n\t\tCanon 20D + Sigma 150mm f/2.8",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Cabbage_and_cross_section_on_white.jpg",
+  "file": "Cabbage_and_cross_section_on_white.jpg",
+  "license": "GFDL 1.2",
+  "page_title": "Cabbage"
  },
  "spring green": {
   "artist": "HoosierMan1816",
@@ -4829,6 +4962,13 @@
   "license": "Public domain",
   "page_title": "Chard"
  },
+ "swiss cheese": {
+  "artist": "Manuel2",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Emmentaler_Premier_Cru.jpg",
+  "file": "Emmentaler_Premier_Cru.jpg",
+  "license": "CC BY-SA 2.0 de",
+  "page_title": "Emmental cheese"
+ },
  "swordfish": {
   "artist": "Naturalis Biodiversity Center",
   "description_url": "https://commons.wikimedia.org/wiki/File:Xiphias_gladius_Linnaeus,_1758_2599925021.jpg",
@@ -4884,6 +5024,13 @@
   "file": "Tamale_Oaxaqueño.jpg",
   "license": "CC BY-SA 3.0",
   "page_title": "Tamale"
+ },
+ "tamari": {
+  "artist": "국립국어원",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Soy_sauce_2.jpg",
+  "file": "Soy_sauce_2.jpg",
+  "license": "CC BY-SA 2.0 kr",
+  "page_title": "Soy sauce"
  },
  "tamarind paste": {
   "artist": "B.navez",
@@ -4989,6 +5136,13 @@
   "file": "Tia_Maria_(7._november_2018).jpg",
   "license": "CC BY-SA 3.0",
   "page_title": "Tia Maria"
+ },
+ "tilapia fillet": {
+  "artist": "Panellet",
+  "description_url": "https://commons.wikimedia.org/wiki/File:TilapiamossambicaBCN.jpg",
+  "file": "TilapiamossambicaBCN.jpg",
+  "license": "Public domain",
+  "page_title": "Hybrid tilapia"
  },
  "tofu": {
   "artist": "DryPot",
@@ -5102,6 +5256,13 @@
   "license": "CC BY-SA 4.0",
   "page_title": "Turkey (bird)"
  },
+ "turkey liver": {
+  "artist": "FotoosVanRobin from Netherlands",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Pig%27s_liver_with_sauteed_onion.jpg",
+  "file": "Pig's_liver_with_sauteed_onion.jpg",
+  "license": "CC BY-SA 2.0",
+  "page_title": "Liver as food"
+ },
  "turmeric": {
   "artist": "SKsiddhartthan",
   "description_url": "https://commons.wikimedia.org/wiki/File:Turmeric_inflorescence.jpg",
@@ -5164,6 +5325,13 @@
   "file": "Holstein_cow_with_one-day_calf_01.jpg",
   "license": "CC BY-SA 4.0",
   "page_title": "Veal"
+ },
+ "veal stock": {
+  "artist": "Blue Lotus",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Making_stock_for_pho_bo.jpg",
+  "file": "Making_stock_for_pho_bo.jpg",
+  "license": "CC BY 2.0",
+  "page_title": "Stock (food)"
  },
  "vegemite": {
   "artist": "Unknown authorUnknown author",
