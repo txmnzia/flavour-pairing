@@ -115,7 +115,9 @@ are processed and essential — they stay. Delete when it is:
   (distinct enough); marmite/vegemite (distinct flavour).
 - **(b) a prepared end-product, not a building block**: meatloaf, meatball, pound cake,
   sponge cake, cheesecake, brownie, shortcake, macaroon, tamale, dumpling, pierogies, tostada,
-  waffle, pancake, crepe, fish cake, coleslaw, green salad, soup, refried bean, spam.
+  waffle, pancake, crepe, fish cake, coleslaw, green salad, soup, refried bean.
+  Kept after owner review: spam (a genuine ingredient in Okinawan/Hawaiian cooking —
+  spam musubi, spam sushi).
   Kept deliberately: gingerbread, ladyfinger, amaretti, biscotti, crouton, english muffin
   (recipe *components* with distinct flavour — tiramisu, tuna melt…), and all sauces/condiments
   (tzatziki, guacamole, tapenade are pairing-relevant).
@@ -177,7 +179,9 @@ ingredients**, every lane populated by things you'd actually shop for.
 - §2d: no change — the #52 Starches lane is the implementation of the "carbs category" idea.
 - §3 tail applied as written.
 
-Net: 42 merges + 82 deletes in `pipeline/curation.json` → deployed list **1,038 → 914**.
+Net: 42 merges + 81 deletes in `pipeline/curation.json` → deployed list **1,038 → 915**
+(spam restored after owner review 2026-07-12: used as a real ingredient in Okinawan/Hawaiian
+cooking).
 `validate_pairings.py` and all 27 ranking probes pass unchanged.
 
 ## Not in scope here
