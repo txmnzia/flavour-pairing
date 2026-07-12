@@ -304,6 +304,7 @@ OVERRIDES = {
     'artichoke heart': 'vegetable', 'mustard green': 'vegetable',
     'cherry pepper': 'vegetable', 'lemon pepper': 'spice',
     'corn flake': 'starch', 'spaghetti squash': 'vegetable',
+    'malted milk': 'sweet',  # renamed from ovaltine; a drink/baking powder, not dairy
     'sugar pumpkin': 'vegetable', 'black pudding': 'meat',
     'rice cake': 'starch', 'pastry cream': 'sweet',
 }
