@@ -203,34 +203,45 @@ def fetch_file_metadata(files: list[str]) -> dict[str, dict]:
 
 
 _face_cascades = None
+_face_check_broken = False
 
 
 def contains_human(raw: bytes) -> bool | None:
-    """Face detection on the source photo. None = OpenCV unavailable (check skipped)."""
-    global _face_cascades
+    """Face detection on the source photo. None = check unavailable (skipped).
+
+    Never raises: a broken OpenCV install (e.g. OpenCV 5 removed
+    CascadeClassifier) must degrade to "check skipped", not fail the fetch.
+    Requires opencv-python-headless 4.x (pinned in the workflow).
+    """
+    global _face_cascades, _face_check_broken
+    if _face_check_broken:
+        return None
     try:
         import cv2
         import numpy as np
-    except ImportError:
+
+        if _face_cascades is None:
+            _face_cascades = [
+                cv2.CascadeClassifier(cv2.data.haarcascades + name)
+                for name in ("haarcascade_frontalface_default.xml", "haarcascade_profileface.xml")
+            ]
+        img = cv2.imdecode(np.frombuffer(raw, np.uint8), cv2.IMREAD_COLOR)
+        if img is None:
+            return None
+        h, w = img.shape[:2]
+        if max(h, w) > 800:
+            s = 800 / max(h, w)
+            img = cv2.resize(img, (int(w * s), int(h * s)))
+        gray = cv2.equalizeHist(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY))
+        for cascade in _face_cascades:
+            # minNeighbors high to keep false positives rare on food textures
+            if len(cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=6, minSize=(40, 40))):
+                return True
+        return False
+    except Exception as e:  # noqa: BLE001
+        _face_check_broken = True
+        print(f"WARNING: face detection unavailable ({e}) — human check skipped")
         return None
-    if _face_cascades is None:
-        _face_cascades = [
-            cv2.CascadeClassifier(cv2.data.haarcascades + name)
-            for name in ("haarcascade_frontalface_default.xml", "haarcascade_profileface.xml")
-        ]
-    img = cv2.imdecode(np.frombuffer(raw, np.uint8), cv2.IMREAD_COLOR)
-    if img is None:
-        return None
-    h, w = img.shape[:2]
-    if max(h, w) > 800:
-        s = 800 / max(h, w)
-        img = cv2.resize(img, (int(w * s), int(h * s)))
-    gray = cv2.equalizeHist(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY))
-    for cascade in _face_cascades:
-        # minNeighbors high to keep false positives rare on food textures
-        if len(cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=6, minSize=(40, 40))):
-            return True
-    return False
 
 
 def process_image(raw: bytes, rembg_session) -> tuple[bytes, float] | None:
