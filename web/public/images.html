@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Image curation — Flavour Pairing</title>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: system-ui, sans-serif; background: #12141c; color: #e7e9ee; min-height: 100vh; }
+  header {
+    position: sticky; top: 0; z-index: 20; background: #171a24; border-bottom: 1px solid #262b3a;
+    padding: 10px 14px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+  }
+  header h1 { font-size: 15px; font-weight: 600; margin-right: 4px; }
+  #sync-dot { width: 9px; height: 9px; border-radius: 50%; background: #3a4157; flex-shrink: 0; }
+  #sync-dot.saved  { background: #34d399; }
+  #sync-dot.saving { background: #fbbf24; }
+  #sync-dot.err    { background: #f87171; }
+  #search {
+    flex: 1; min-width: 160px; max-width: 340px; padding: 7px 12px; border-radius: 9px;
+    border: 1px solid #2c3245; background: #1d2130; color: #fff; font-size: 13px; outline: none;
+  }
+  #search:focus { border-color: #6366f1; }
+  select, .btn {
+    padding: 7px 12px; border-radius: 9px; border: 1px solid #2c3245; background: #1d2130;
+    color: #cdd3e0; font-size: 13px; cursor: pointer;
+  }
+  .btn:hover { border-color: #6366f1; color: #fff; }
+  .btn.primary { background: #4f46e5; border-color: #4f46e5; color: #fff; font-weight: 600; }
+  .btn.primary:disabled { opacity: 0.45; cursor: default; }
+  .btn.danger { background: #7f1d1d; border-color: #9f2d2d; color: #fecaca; }
+  #stats { font-size: 12px; color: #8b93a7; margin-left: auto; white-space: nowrap; }
+
+  #grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+    gap: 10px; padding: 14px; max-width: 1200px; margin: 0 auto;
+  }
+  .card {
+    background: #1a1e2b; border: 1px solid #262b3a; border-radius: 12px; overflow: hidden;
+    cursor: pointer; transition: border-color 0.12s, transform 0.12s;
+  }
+  .card:hover { border-color: #6366f1; transform: translateY(-1px); }
+  .card.staged { border-color: #fbbf24; }
+  .thumb {
+    width: 100%; aspect-ratio: 1; background: #232a3d; display: flex;
+    align-items: center; justify-content: center; position: relative;
+  }
+  .thumb img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
+  .thumb .none { font-size: 11px; color: #5b647c; }
+  .badge {
+    position: absolute; top: 5px; right: 5px; font-size: 9px; padding: 2px 6px;
+    border-radius: 99px; background: rgba(0,0,0,0.55); color: #fbbf24; font-weight: 700;
+  }
+  .card .nm { padding: 7px 9px; font-size: 11.5px; line-height: 1.25; color: #d6dae4; }
+
+  /* modal */
+  #overlay {
+    display: none; position: fixed; inset: 0; background: rgba(6,8,12,0.75); z-index: 40;
+    align-items: center; justify-content: center; padding: 16px;
+  }
+  #overlay.open { display: flex; }
+  #modal {
+    width: min(440px, 94vw); background: #1a1e2b; border: 1px solid #2c3245;
+    border-radius: 16px; padding: 18px; box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+  }
+  #modal h2 { font-size: 16px; margin-bottom: 12px; text-transform: capitalize; }
+  #mprev {
+    width: 200px; height: 200px; margin: 0 auto 14px; background: #232a3d; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  #mprev img { width: 100%; height: 100%; object-fit: contain; padding: 8px; }
+  #mprev .none { font-size: 12px; color: #5b647c; }
+  .row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .row input[type=url] {
+    flex: 1; min-width: 0; padding: 8px 10px; border-radius: 9px; border: 1px solid #2c3245;
+    background: #12141c; color: #fff; font-size: 12.5px; outline: none;
+  }
+  .hint { font-size: 11px; color: #7b8399; margin-top: 10px; line-height: 1.5; }
+  #mmsg { font-size: 12px; margin-top: 10px; min-height: 16px; color: #fbbf24; }
+
+  /* save bar */
+  #savebar {
+    display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 30;
+    background: #171a24; border-top: 1px solid #2c3245; padding: 10px 14px;
+    align-items: center; gap: 12px; justify-content: center;
+  }
+  #savebar.show { display: flex; }
+  #savebar .info { font-size: 13px; color: #e7e9ee; }
+  #savemsg { font-size: 12px; color: #8b93a7; }
+
+  /* settings */
+  #settings { display: none; position: fixed; inset: 0; background: rgba(6,8,12,0.75); z-index: 50; align-items: center; justify-content: center; }
+  #settings.open { display: flex; }
+  #settings .box { width: min(400px, 92vw); background: #1a1e2b; border: 1px solid #2c3245; border-radius: 16px; padding: 20px; }
+  #settings h2 { font-size: 15px; margin-bottom: 10px; }
+  #token { width: 100%; padding: 9px 11px; border-radius: 9px; border: 1px solid #2c3245; background: #12141c; color: #fff; font-size: 13px; outline: none; margin-bottom: 10px; }
+  #token-msg { font-size: 12px; color: #8b93a7; min-height: 16px; margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🖼 Image curation</h1>
+  <span id="sync-dot" title="Not connected"></span>
+  <input id="search" type="search" placeholder="Search ingredient…">
+  <select id="filter">
+    <option value="all">All</option>
+    <option value="with">With image</option>
+    <option value="without">Without image</option>
+    <option value="staged">Staged changes</option>
+  </select>
+  <button class="btn" id="btn-settings">⚙</button>
+  <span id="stats"></span>
+</header>
+
+<div id="grid"></div>
+
+<div id="savebar">
+  <span class="info"><b id="nstaged">0</b> staged change(s)</span>
+  <button class="btn" id="btn-discard">Discard</button>
+  <button class="btn primary" id="btn-save">Save to GitHub</button>
+  <span id="savemsg"></span>
+</div>
+
+<div id="overlay">
+  <div id="modal">
+    <h2 id="mname"></h2>
+    <div id="mprev"></div>
+    <div class="row">
+      <button class="btn" id="btn-upload">Upload image…</button>
+      <input type="file" id="file-input" accept="image/*" hidden>
+      <button class="btn danger" id="btn-delete">Delete image</button>
+    </div>
+    <div class="row">
+      <input type="url" id="url-input" placeholder="…or paste an image URL">
+      <button class="btn" id="btn-url">Fetch</button>
+    </div>
+    <div class="hint">
+      Replacements are resized to a 256×256 WebP tile. Transparent-background
+      PNGs look best (the app shows tiles on a dark backdrop). Deleting or
+      replacing also marks the ingredient <i>skip</i> in the pipeline overrides,
+      so automated fetch runs won't overwrite your choice. Make sure you have
+      the right to use any image you upload.
+    </div>
+    <div id="mmsg"></div>
+    <div class="row" style="justify-content: flex-end;">
+      <button class="btn" id="btn-unstage" style="display:none">Undo staged change</button>
+      <button class="btn" id="btn-close">Close</button>
+    </div>
+  </div>
+</div>
+
+<div id="settings">
+  <div class="box">
+    <h2>GitHub token</h2>
+    <p style="font-size:12px;color:#8b93a7;margin-bottom:10px">
+      Personal access token with <code>contents: write</code> on the repo.
+      Shared with the other curation tools. Saves go to <code>main</code>.
+    </p>
+    <input id="token" type="password" placeholder="github_pat_…">
+    <div class="row">
+      <button class="btn primary" id="btn-token-save">Save token</button>
+      <button class="btn" id="btn-token-close">Close</button>
+    </div>
+    <div id="token-msg"></div>
+  </div>
+</div>
+
+<script>
+'use strict';
+const REPO      = 'txmnzia/flavour-pairing';
+const BRANCH    = 'main';
+const LS_TOKEN  = 'curate_gh_token';
+const IMG_DIR   = 'web/public/ingredient-images/';
+const MANIFEST  = IMG_DIR + 'manifest.json';
+const OVERRIDES = 'pipeline/image_overrides.json';
+const CREDITS   = 'pipeline/image_credits.json';
+const CURATION  = 'pipeline/curation.json';
+const TILE = 256, FILL = 0.80;
+
+// name -> {type:'delete'} | {type:'replace', blob, previewUrl}
+const staged = new Map();
+let names = [];            // live ingredient names
+let hasImage = new Set();  // slugs with a committed tile
+
+const $ = id => document.getElementById(id);
+
+function slugify(name) {
+  return name.normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
+function tileUrl(name) { return 'ingredient-images/' + slugify(name) + '.webp'; }
+
+// ── GitHub API ────────────────────────────────────────────────────────────────
+function ghFetch(path, opts = {}) {
+  const token = localStorage.getItem(LS_TOKEN);
+  if (!token) throw new Error('No token — set it via ⚙');
+  return fetch('https://api.github.com' + path, {
+    ...opts,
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28',
+      ...(opts.headers || {})
+    }
+  });
+}
+async function ghGetFile(path) {   // -> {sha, text} | null
+  const r = await ghFetch('/repos/' + REPO + '/contents/' + path + '?ref=' + BRANCH);
+  if (r.status === 404) return null;
+  if (!r.ok) throw new Error(path + ': HTTP ' + r.status);
+  const meta = await r.json();
+  const bytes = Uint8Array.from(atob(meta.content.replace(/\n/g, '')), c => c.charCodeAt(0));
+  return { sha: meta.sha, text: new TextDecoder().decode(bytes) };
+}
+async function ghPutFile(path, base64Content, message, sha) {
+  const body = { message, content: base64Content, branch: BRANCH };
+  if (sha) body.sha = sha;
+  const r = await ghFetch('/repos/' + REPO + '/contents/' + path, {
+    method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+  });
+  if (!r.ok) throw new Error(path + ': ' + ((await r.json()).message || r.status));
+}
+async function ghDeleteFile(path, message) {
+  const cur = await ghGetFileMeta(path);
+  if (!cur) return; // already gone
+  const r = await ghFetch('/repos/' + REPO + '/contents/' + path, {
+    method: 'DELETE', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message, sha: cur.sha, branch: BRANCH })
+  });
+  if (!r.ok) throw new Error(path + ': ' + ((await r.json()).message || r.status));
+}
+async function ghGetFileMeta(path) {
+  const r = await ghFetch('/repos/' + REPO + '/contents/' + path + '?ref=' + BRANCH);
+  if (r.status === 404) return null;
+  if (!r.ok) throw new Error(path + ': HTTP ' + r.status);
+  return r.json();
+}
+function utf8b64(s) { return btoa(unescape(encodeURIComponent(s))); }
+function blobToB64(blob) {
+  return new Promise((res, rej) => {
+    const fr = new FileReader();
+    fr.onload = () => res(fr.result.split(',')[1]);
+    fr.onerror = rej;
+    fr.readAsDataURL(blob);
+  });
+}
+
+// ── Load data ─────────────────────────────────────────────────────────────────
+async function init() {
+  const [pairings, manifest] = await Promise.all([
+    fetch('pairings.json').then(r => r.json()),
+    fetch('ingredient-images/manifest.json').then(r => r.ok ? r.json() : { slugs: [] }).catch(() => ({ slugs: [] })),
+  ]);
+  hasImage = new Set(manifest.slugs || []);
+  let all = pairings.i || [];
+  // Apply curation (deleted/merged) when a token is available, so the grid
+  // matches the live app. Degrades to the full name list without one.
+  try {
+    const cur = await ghGetFile(CURATION);
+    if (cur) {
+      const c = JSON.parse(cur.text);
+      const deleted = new Set(c.deleted || []);
+      const merged = new Set(Object.keys(c.merged || {}));
+      all = all.filter(n => !deleted.has(n) && !merged.has(n));
+      setDot('saved');
+    }
+  } catch (_) { /* no token yet */ }
+  names = all.sort();
+  render();
+}
+
+// ── Grid ──────────────────────────────────────────────────────────────────────
+function render() {
+  const q = $('search').value.trim().toLowerCase();
+  const f = $('filter').value;
+  const grid = $('grid');
+  grid.innerHTML = '';
+  let shown = 0;
+  const frag = document.createDocumentFragment();
+  for (const name of names) {
+    if (q && !name.includes(q)) continue;
+    const slug = slugify(name);
+    const st = staged.get(name);
+    const has = st ? st.type === 'replace' : hasImage.has(slug);
+    if (f === 'with' && !has) continue;
+    if (f === 'without' && has) continue;
+    if (f === 'staged' && !st) continue;
+    if (++shown > 400) break;
+    const card = document.createElement('div');
+    card.className = 'card' + (st ? ' staged' : '');
+    const src = st && st.type === 'replace' ? st.previewUrl
+              : (!st && hasImage.has(slug)) ? tileUrl(name) : null;
+    card.innerHTML =
+      '<div class="thumb">' +
+        (src ? '<img loading="lazy" src="' + src + '">' : '<span class="none">no image</span>') +
+        (st ? '<span class="badge">' + (st.type === 'delete' ? 'DELETE' : 'REPLACE') + '</span>' : '') +
+      '</div><div class="nm">' + name + '</div>';
+    card.onclick = () => openModal(name);
+    frag.appendChild(card);
+  }
+  grid.appendChild(frag);
+  const withImg = names.filter(n => hasImage.has(slugify(n))).length;
+  $('stats').textContent = withImg + '/' + names.length + ' with image';
+  $('nstaged').textContent = staged.size;
+  $('savebar').classList.toggle('show', staged.size > 0);
+}
+
+// ── Modal ─────────────────────────────────────────────────────────────────────
+let current = null;
+function openModal(name) {
+  current = name;
+  $('mname').textContent = name;
+  $('mmsg').textContent = '';
+  $('url-input').value = '';
+  const st = staged.get(name);
+  const prev = $('mprev');
+  if (st && st.type === 'replace') prev.innerHTML = '<img src="' + st.previewUrl + '">';
+  else if (st && st.type === 'delete') prev.innerHTML = '<span class="none">staged for deletion</span>';
+  else if (hasImage.has(slugify(name))) prev.innerHTML = '<img src="' + tileUrl(name) + '">';
+  else prev.innerHTML = '<span class="none">no image (emoji fallback)</span>';
+  $('btn-unstage').style.display = st ? '' : 'none';
+  $('overlay').classList.add('open');
+}
+function closeModal() { $('overlay').classList.remove('open'); current = null; }
+
+async function makeTile(blobOrFile) {
+  const bmp = await createImageBitmap(blobOrFile);
+  const c = document.createElement('canvas');
+  c.width = c.height = TILE;
+  const ctx = c.getContext('2d');
+  const s = (TILE * FILL) / Math.max(bmp.width, bmp.height);
+  const w = bmp.width * s, h = bmp.height * s;
+  ctx.drawImage(bmp, (TILE - w) / 2, (TILE - h) / 2, w, h);
+  return new Promise((res, rej) =>
+    c.toBlob(b => b ? res(b) : rej(new Error('WebP encoding failed')), 'image/webp', 0.85));
+}
+async function stageReplace(name, source) {
+  try {
+    const tile = await makeTile(source);
+    const old = staged.get(name);
+    if (old && old.previewUrl) URL.revokeObjectURL(old.previewUrl);
+    staged.set(name, { type: 'replace', blob: tile, previewUrl: URL.createObjectURL(tile) });
+    openModal(name); render();
+  } catch (e) {
+    $('mmsg').textContent = 'Could not process image: ' + e.message;
+  }
+}
+
+$('btn-upload').onclick = () => $('file-input').click();
+$('file-input').onchange = e => {
+  if (e.target.files[0] && current) stageReplace(current, e.target.files[0]);
+  e.target.value = '';
+};
+$('btn-url').onclick = async () => {
+  const url = $('url-input').value.trim();
+  if (!url || !current) return;
+  $('mmsg').textContent = 'Fetching…';
+  try {
+    const r = await fetch(url);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    await stageReplace(current, await r.blob());
+    $('mmsg').textContent = '';
+  } catch (e) {
+    $('mmsg').textContent = 'Fetch failed (' + e.message + '). The host may block cross-origin requests — download the file and use Upload instead.';
+  }
+};
+$('btn-delete').onclick = () => {
+  if (!current) return;
+  const old = staged.get(current);
+  if (old && old.previewUrl) URL.revokeObjectURL(old.previewUrl);
+  staged.set(current, { type: 'delete' });
+  openModal(current); render();
+};
+$('btn-unstage').onclick = () => {
+  if (!current) return;
+  const old = staged.get(current);
+  if (old && old.previewUrl) URL.revokeObjectURL(old.previewUrl);
+  staged.delete(current);
+  openModal(current); render();
+};
+$('btn-close').onclick = closeModal;
+$('overlay').onclick = e => { if (e.target === $('overlay')) closeModal(); };
+
+// ── Save ──────────────────────────────────────────────────────────────────────
+function setDot(state) {
+  const dot = $('sync-dot');
+  dot.className = state;
+  dot.title = { saved: 'Connected', saving: 'Saving…', err: 'Error', '': 'Not connected' }[state] || '';
+}
+
+$('btn-discard').onclick = () => {
+  for (const st of staged.values()) if (st.previewUrl) URL.revokeObjectURL(st.previewUrl);
+  staged.clear(); render();
+};
+
+$('btn-save').onclick = async () => {
+  if (!localStorage.getItem(LS_TOKEN)) { $('settings').classList.add('open'); return; }
+  const btn = $('btn-save');
+  btn.disabled = true;
+  setDot('saving');
+  const msg = t => { $('savemsg').textContent = t; };
+  try {
+    const changes = [...staged.entries()];
+    // 1. Tile files
+    let done = 0;
+    for (const [name, st] of changes) {
+      const path = IMG_DIR + slugify(name) + '.webp';
+      msg('(' + (++done) + '/' + changes.length + ') ' + name + '…');
+      if (st.type === 'delete') {
+        await ghDeleteFile(path, 'Image curation: delete ' + name + ' tile (via images.html)');
+      } else {
+        const meta = await ghGetFileMeta(path);
+        await ghPutFile(path, await blobToB64(st.blob),
+          'Image curation: replace ' + name + ' tile (via images.html)', meta && meta.sha);
+      }
+    }
+    // 2. Manifest: reflect adds/removes
+    msg('Updating manifest…');
+    const man = await ghGetFile(MANIFEST);
+    const manifest = man ? JSON.parse(man.text) : { slugs: [] };
+    const slugs = new Set(manifest.slugs || []);
+    for (const [name, st] of changes) {
+      if (st.type === 'delete') slugs.delete(slugify(name));
+      else slugs.add(slugify(name));
+    }
+    manifest.slugs = [...slugs].sort();
+    manifest.count = manifest.slugs.length;
+    manifest.generated = new Date().toISOString();
+    await ghPutFile(MANIFEST, utf8b64(JSON.stringify(manifest, null, 1)),
+      'Image curation: update manifest (via images.html)', man && man.sha);
+    // 3. Overrides: protect curated choices from future pipeline runs
+    msg('Updating overrides…');
+    const ovf = await ghGetFile(OVERRIDES);
+    const overrides = ovf ? JSON.parse(ovf.text) : {};
+    for (const [name] of changes) overrides[name] = { skip: true };
+    await ghPutFile(OVERRIDES, utf8b64(JSON.stringify(overrides, null, 2)),
+      'Image curation: mark curated ingredients skip (via images.html)', ovf && ovf.sha);
+    // 4. Credits: keep attribution data truthful
+    msg('Updating credits…');
+    const crf = await ghGetFile(CREDITS);
+    const credits = crf ? JSON.parse(crf.text) : {};
+    for (const [name, st] of changes) {
+      if (st.type === 'delete') delete credits[name];
+      else credits[name] = { file: 'owner upload', license: 'provided by owner', artist: '', description_url: '' };
+    }
+    await ghPutFile(CREDITS, utf8b64(JSON.stringify(credits, null, 1)),
+      'Image curation: update credits (via images.html)', crf && crf.sha);
+
+    // Local state
+    for (const [name, st] of changes) {
+      if (st.type === 'delete') hasImage.delete(slugify(name));
+      else hasImage.add(slugify(name));
+      if (st.previewUrl) URL.revokeObjectURL(st.previewUrl);
+    }
+    staged.clear();
+    setDot('saved');
+    msg('Saved ✓ — deploy runs automatically from main.');
+    render();
+  } catch (e) {
+    setDot('err');
+    msg('Save failed: ' + e.message);
+  } finally {
+    btn.disabled = false;
+  }
+};
+
+// ── Settings ──────────────────────────────────────────────────────────────────
+$('btn-settings').onclick = () => {
+  $('token').value = localStorage.getItem(LS_TOKEN) || '';
+  $('settings').classList.add('open');
+};
+$('btn-token-close').onclick = () => $('settings').classList.remove('open');
+$('btn-token-save').onclick = async () => {
+  localStorage.setItem(LS_TOKEN, $('token').value.trim());
+  $('token-msg').textContent = 'Checking…';
+  try {
+    const r = await ghFetch('/repos/' + REPO);
+    $('token-msg').textContent = r.ok ? 'Token works ✓' : 'Token rejected (HTTP ' + r.status + ')';
+    if (r.ok) { setDot('saved'); init(); }
+  } catch (e) {
+    $('token-msg').textContent = 'Error: ' + e.message;
+  }
+};
+$('settings').onclick = e => { if (e.target === $('settings')) $('settings').classList.remove('open'); };
+
+$('search').oninput = render;
+$('filter').onchange = render;
+
+init().catch(e => { $('stats').textContent = 'Load failed: ' + e.message; });
+</script>
+</body>
+</html>
