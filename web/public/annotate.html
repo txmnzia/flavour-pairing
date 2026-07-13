@@ -69,6 +69,7 @@ body {
   </div>
   <div id="hdr-right">
     <div id="sync-dot" title="Sync status"></div>
+    <button class="ico-btn" onclick="exportJudgments()" title="Download judgments as a file (no token needed)">Export ⬇</button>
     <button class="ico-btn" onclick="saveToGH()" title="Save judgments to GitHub">Save ↑</button>
     <button class="ico-btn" onclick="toggleSettings()">⚙</button>
   </div>
@@ -328,6 +329,20 @@ async function saveToGH(silent = false) {
     setSyncDot('saved');
     if (!silent) setMsg('Saved to GitHub ✓');
   } catch (e) { setSyncDot('err'); if (!silent) setMsg('Save failed: ' + e.message); }
+}
+// Tokenless escape hatch: download the local judgments as the exact file
+// that lives at pipeline/eval/judgments.json, for manual hand-off.
+function exportJudgments() {
+  const payload = { ...judgments, lastSaved: new Date().toISOString() };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'judgments.json';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(a.href);
+  setMsg('Exported ' + judgedCount() + ' judgments ⬇');
 }
 function toggleSettings() { document.getElementById('settings').classList.toggle('open'); }
 async function testAndSaveToken() {
