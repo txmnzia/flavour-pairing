@@ -115,12 +115,18 @@ describe.skipIf(!judgments)("ranking evaluation vs owner judgments (#50)", () =>
     return { p9, d9, r36, ndcg: ideal ? dcg / ideal : 0, judgedInTop9: top9.length };
   }
 
+  // Staple probes (owner, 2026-07-13): every rice candidate is graded 0 —
+  // "no valuable flavour, doesn't mean the association is not valid". Their
+  // achievable P@9 is 0 for ANY formula, so they'd only add a constant noise
+  // floor to the averages the tuning chases. Reported separately instead.
+  const STAPLE_PROBES = new Set(["rice"]);
+
   it("reports metrics per split (no thresholds until baseline is agreed)", () => {
     for (const split of ["dev", "holdout"]) {
       const rows = pool
         .filter((p) => p.split === split)
         .map((p) => resolveName(p.name))
-        .filter((n): n is string => n !== null)
+        .filter((n): n is string => n !== null && !STAPLE_PROBES.has(n))
         .map((name) => ({ probe: name, m: metricsFor(name) }))
         .filter((r) => r.m);
       if (rows.length === 0) continue;
@@ -134,6 +140,13 @@ describe.skipIf(!judgments)("ranking evaluation vs owner judgments (#50)", () =>
           `R@36=${r.m!.r36.toFixed(2)} nDCG=${r.m!.ndcg.toFixed(2)} (judged in top9: ${r.m!.judgedInTop9})`);
       }
       expect(rows.length).toBeGreaterThan(0);
+    }
+    for (const name of STAPLE_PROBES) {
+      const m = metricsFor(name);
+      if (m) {
+        console.log(`\n=== STAPLE (excluded from averages) ${name} ` +
+          `P@9=${m.p9.toFixed(2)} D@9=${m.d9.toFixed(2)} R@36=${m.r36.toFixed(2)} nDCG=${m.ndcg.toFixed(2)}`);
+      }
     }
   });
 });
