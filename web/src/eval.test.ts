@@ -28,13 +28,49 @@ const TAXONOMY = path.join(here, "..", "public", "taxonomy.json");
 const POOL = path.join(here, "..", "public", "eval", "pool.json");
 const JUDGMENTS = path.join(here, "..", "..", "pipeline", "eval", "judgments.json");
 
+const CURATION = path.join(here, "..", "..", "pipeline", "curation.json");
+
 const MIN_JUDGMENTS = 200;
 
 type Judgments = Record<string, Record<string, number>>;
 
+// Pool and judgments were captured before the #51/#49 curation waves, so they
+// reference pre-audit names (chili pepper, red chile, sea scallop…). Resolve
+// every name through the curation merge map exactly like the deploy transform
+// does; names that end deleted resolve to null. On collisions (two variants
+// merged into one name) the max grade wins — if any variant was loved, the
+// merged ingredient inherits it.
+function makeResolver(): (name: string) => string | null {
+  const cur = JSON.parse(readFileSync(CURATION, "utf-8"));
+  const merged: Record<string, string> = cur.merged;
+  const deleted = new Set<string>(cur.deleted);
+  return (name: string) => {
+    let n = name;
+    const seen = new Set([n]);
+    while (merged[n] !== undefined && !seen.has(merged[n])) {
+      n = merged[n];
+      seen.add(n);
+    }
+    return deleted.has(n) ? null : n;
+  };
+}
+
+const resolveName = makeResolver();
+
 function loadJudgments(): Judgments | null {
   if (!existsSync(JUDGMENTS)) return null;
-  const j = JSON.parse(readFileSync(JUDGMENTS, "utf-8")).judgments as Judgments;
+  const raw = JSON.parse(readFileSync(JUDGMENTS, "utf-8")).judgments as Judgments;
+  const j: Judgments = {};
+  for (const [probe, cands] of Object.entries(raw)) {
+    const p = resolveName(probe);
+    if (!p) continue;
+    const target = (j[p] = j[p] ?? {});
+    for (const [cand, grade] of Object.entries(cands)) {
+      const c = resolveName(cand);
+      if (!c || c === p) continue;
+      target[c] = Math.max(target[c] ?? -1, grade);
+    }
+  }
   const n = Object.values(j).reduce((a, o) => a + Object.keys(o).length, 0);
   return n >= MIN_JUDGMENTS ? j : null;
 }
@@ -83,7 +119,9 @@ describe.skipIf(!judgments)("ranking evaluation vs owner judgments (#50)", () =>
     for (const split of ["dev", "holdout"]) {
       const rows = pool
         .filter((p) => p.split === split)
-        .map((p) => ({ probe: p.name, m: metricsFor(p.name) }))
+        .map((p) => resolveName(p.name))
+        .filter((n): n is string => n !== null)
+        .map((name) => ({ probe: name, m: metricsFor(name) }))
         .filter((r) => r.m);
       if (rows.length === 0) continue;
       const avg = (k: "p9" | "d9" | "r36" | "ndcg") =>
