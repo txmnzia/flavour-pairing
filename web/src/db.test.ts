@@ -157,13 +157,15 @@ describe("golden pairs — the discoveries the app exists for", () => {
     expect(topN(["apple"]).map((p) => p.ingredient.name)).toContain("cinnamon");
   });
 
+  // tomato→pasta and tomato→chicken were dropped 2026-07-13: the owner's
+  // graded judgments (#53) rate both 0 — "very basic pairings were graded 0;
+  // pasta is not bringing any relevant flavour to tomatoes". The judgment set
+  // is the authority on taste now; these probes only guard discovery wins.
   it.each([
     ["shrimp", "coriander"],
-    ["tomato", "pasta"],
     ["soy sauce", "sesame oil"],
-    // Rarity debias (#45) wins — cross-category cooking pairs that the raw
+    // Rarity debias (#45) win — a cross-category cooking pair that the raw
     // NPMI ranking buried under niche-distinctive partners:
-    ["tomato", "chicken"],
     ["lemon", "honey"],
   ])("%s surfaces %s in its top-9", (sel, expected) => {
     expect(topN([sel]).map((p) => p.ingredient.name)).toContain(expected);
