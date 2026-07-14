@@ -85,6 +85,13 @@ export function getDataMeta(): { source: string; recipes: number } {
   return { source: meta?.source ?? "demo", recipes: meta?.recipes ?? 0 };
 }
 
+// Taxonomy category slug for an ingredient name (e.g. "spice", "dairy").
+// Falls back to "other" for unmapped names. Taxonomy is loaded in
+// loadDatabase() before any tile renders, so this resolves synchronously.
+export function getIngredientCategory(name: string): string {
+  return taxonomy[name]?.c ?? "other";
+}
+
 export function getAllIngredients(): Ingredient[] {
   const raw = requireRaw();
   const freq = new Array(raw.i.length).fill(0);
