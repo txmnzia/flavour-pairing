@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import type { CategoryLane, Ingredient } from "../types";
 import IngredientTile from "./IngredientTile";
 import { sentenceCase } from "../utils/format";
@@ -20,19 +20,51 @@ function scoreToColor(value: number): string {
   return `hsl(${hue}, 85%, 55%)`;
 }
 
-function ScoreBadge({ value, size = "sm" }: { value: number; size?: "sm" | "lg" }) {
-  const clamped = Math.min(Math.max(value, 0), 1);
-  const pct = Math.round(clamped * 99);
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// When `animate` is set, the ring sweeps and the number counts up from the
+// previously-shown value to the new one whenever the score is (re)computed —
+// the "affinity computed" feedback. Static (animate=false) elsewhere.
+function ScoreBadge({ value, size = "sm", animate = false }: { value: number; size?: "sm" | "lg"; animate?: boolean }) {
+  const target = Math.min(Math.max(value, 0), 1);
+  const [display, setDisplay] = useState(animate ? 0 : target);
+  const fromRef = useRef(0);
+
+  useEffect(() => {
+    if (!animate || prefersReducedMotion()) {
+      setDisplay(target);
+      fromRef.current = target;
+      return;
+    }
+    const from = fromRef.current;
+    const start = performance.now();
+    const duration = 650;
+    let raf = 0;
+    const step = (now: number) => {
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
+      setDisplay(from + (target - from) * eased);
+      if (t < 1) raf = requestAnimationFrame(step);
+      else fromRef.current = target;
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [target, animate]);
+
+  const shown = Math.min(Math.max(display, 0), 1);
+  const pct = Math.round(shown * 99);
   const radius = 14;
   const circumference = 2 * Math.PI * radius;
-  const dashOffset = circumference * (1 - clamped);
-  const color = scoreToColor(clamped);
+  const dashOffset = circumference * (1 - shown);
+  const color = scoreToColor(shown);
 
   return (
     <div className={`relative flex items-center justify-center shrink-0 ${size === "lg" ? "w-12 h-12" : "w-9 h-9"}`}>
       <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 36 36">
         <circle cx="18" cy="18" r={radius} fill="rgba(0,0,0,0.55)" stroke="rgba(255,255,255,0.08)" strokeWidth="3" />
-        {clamped > 0.01 && (
+        {shown > 0.01 && (
           <circle
             cx="18" cy="18" r={radius}
             fill="none"
@@ -53,11 +85,11 @@ function ScoreBadge({ value, size = "sm" }: { value: number; size?: "sm" | "lg" 
 
 function Card({
   name, score, onClick, translate,
-  selected = false, outlier = false,
+  selected = false, outlier = false, enter = false, animateScore = false,
 }: {
   name: string; score?: number;
   onClick: () => void; translate: (n: string) => string;
-  selected?: boolean; outlier?: boolean;
+  selected?: boolean; outlier?: boolean; enter?: boolean; animateScore?: boolean;
 }) {
   const [hovered, setHovered] = useState(false);
 
@@ -69,6 +101,7 @@ function Card({
       className={`
         w-full flex flex-col rounded-xl overflow-hidden text-left
         transition-all duration-150
+        ${enter ? "motion-safe:animate-pop-in" : ""}
         ${selected && outlier
           ? hovered
             ? "bg-red-600/30 border border-red-400/70"
@@ -86,7 +119,7 @@ function Card({
       <IngredientTile name={name}>
         {score !== undefined && (
           <div className="absolute top-1.5 right-1.5">
-            <ScoreBadge value={score} />
+            <ScoreBadge value={score} animate={animateScore} />
           </div>
         )}
         <div className={`
@@ -211,7 +244,7 @@ export default function RecommendationList({
     <div className="mb-5">
       {overallScore !== null && (
         <div className="flex items-center gap-3 mb-4">
-          <ScoreBadge value={overallScore} size="lg" />
+          <ScoreBadge value={overallScore} size="lg" animate />
           <span className="text-xs text-white/40 uppercase tracking-wider">
             {fr ? "Harmonie du groupe" : "Group harmony"}
           </span>
@@ -228,6 +261,8 @@ export default function RecommendationList({
               score={looScore}
               selected
               outlier={isOutlier}
+              enter
+              animateScore
               onClick={() => onRemove(ing.id)}
               translate={translate}
             />
