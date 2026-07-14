@@ -92,6 +92,14 @@ export function getIngredientCategory(name: string): string {
   return taxonomy[name]?.c ?? "other";
 }
 
+// Precompute the expensive rarity-stats cache. Otherwise it is built lazily
+// on the first call to rarityFactor() — i.e. during the user's first ingredient
+// selection — stalling that interaction by hundreds of ms on mobile. Call this
+// once after load, off the interaction path.
+export function warmCaches(): void {
+  getRarityStats();
+}
+
 export function getAllIngredients(): Ingredient[] {
   const raw = requireRaw();
   const freq = new Array(raw.i.length).fill(0);
