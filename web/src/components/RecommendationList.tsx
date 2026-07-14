@@ -13,6 +13,8 @@ interface Props {
   selectedIngredients?: Ingredient[];
   onRemove?: (id: number) => void;
   looScores?: Map<number, number>;
+  // True while pairings for the current selection are still being computed.
+  computing?: boolean;
 }
 
 function scoreToColor(value: number): string {
@@ -207,7 +209,7 @@ function computeOutlierIds(looScores: Map<number, number>): Set<number> {
 export default function RecommendationList({
   lanes, onAdd, translate, lang = "en",
   browseIngredients,
-  selectedIngredients, onRemove, looScores,
+  selectedIngredients, onRemove, looScores, computing = false,
 }: Props) {
   const fr = lang === "fr";
   if (browseIngredients && browseIngredients.length > 0) {
@@ -283,11 +285,21 @@ export default function RecommendationList({
     return (
       <>
         {selectedGrid}
-        <p className="text-center text-white/30 text-sm py-12">
-          {fr
-            ? "Aucune association trouvée — essayez un autre ingrédient"
-            : "No pairings found — try a different ingredient"}
-        </p>
+        {computing ? (
+          <div className="flex items-center justify-center gap-3 text-sm text-white/50 py-12">
+            <svg className="w-4 h-4 animate-spin shrink-0" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+            </svg>
+            {fr ? "Recherche des associations…" : "Finding pairings…"}
+          </div>
+        ) : (
+          <p className="text-center text-white/30 text-sm py-12">
+            {fr
+              ? "Aucune association trouvée — essayez un autre ingrédient"
+              : "No pairings found — try a different ingredient"}
+          </p>
+        )}
       </>
     );
   }

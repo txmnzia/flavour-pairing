@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { loadDatabase, getAllIngredients, getRecommendationsByCategory, getDataMeta, getRecipesForIngredients, computeLooScores } from "./db";
+import { loadDatabase, getAllIngredients, getRecommendationsByCategory, getDataMeta, getRecipesForIngredients, computeLooScores, warmCaches } from "./db";
 import type { Ingredient, CategoryLane, DbStatus } from "./types";
 import SearchInput from "./components/SearchInput";
 import RecommendationList from "./components/RecommendationList";
@@ -15,6 +15,10 @@ export default function App() {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [selectedIngredients, setSelectedIngredients] = useState<Ingredient[]>([]);
   const [lanes, setLanes] = useState<CategoryLane[]>([]);
+  // The selection the current `lanes` were computed for, so a render that
+  // happens before the (post-paint) compute effect runs can show a loading
+  // state instead of a misleading "no pairings" message.
+  const [lanesKey, setLanesKey] = useState("");
   const [looScores, setLooScores] = useState<Map<number, number>>(new Map());
   const [matchingRecipes, setMatchingRecipes] = useState<string[]>([]);
   const [dataMeta, setDataMeta] = useState<{ source: string; recipes: number } | null>(null);
@@ -34,6 +38,11 @@ export default function App() {
         setIngredients(getAllIngredients());
         setDataMeta(getDataMeta());
         setStatus({ state: "ready" });
+        // Warm the rarity-stats cache in the background so the first ingredient
+        // selection doesn't pay for it (issue: empty/stalled first selection).
+        const warm = () => warmCaches();
+        if (typeof requestIdleCallback === "function") requestIdleCallback(warm);
+        else setTimeout(warm, 0);
       })
       .catch((err) => {
         console.error(err);
@@ -41,18 +50,26 @@ export default function App() {
       });
   }, []);
 
+  const selectionKey = selectedIngredients.map((i) => i.id).join(",");
+
   useEffect(() => {
     if (status.state !== "ready" || selectedIngredients.length === 0) {
       setLanes([]);
       setMatchingRecipes([]);
       setLooScores(new Map());
+      setLanesKey(selectionKey);
       return;
     }
     const ids = selectedIngredients.map((i) => i.id);
     setLanes(getRecommendationsByCategory(ids, ingredients, LANE_N));
     setMatchingRecipes(getRecipesForIngredients(ids));
     setLooScores(computeLooScores(ids));
-  }, [selectedIngredients, status, ingredients]);
+    setLanesKey(selectionKey);
+  }, [selectedIngredients, status, ingredients, selectionKey]);
+
+  // True in the brief window after a selection change but before the compute
+  // effect (which runs after paint) has produced lanes for it.
+  const computing = selectedIngredients.length > 0 && lanesKey !== selectionKey;
 
   const selectedIds = useMemo(
     () => new Set(selectedIngredients.map((i) => i.id)),
@@ -235,6 +252,7 @@ export default function App() {
                   selectedIngredients={selectedIngredients}
                   onRemove={removeIngredient}
                   looScores={looScores}
+                  computing={computing}
                 />
 
                 {matchingRecipes.length > 0 && (
