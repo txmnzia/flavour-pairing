@@ -203,6 +203,9 @@ export default function FAQ({ onClose, lang }: { onClose: () => void; lang: "en"
               {fr ? "Crédits images" : "Image credits"}
             </a>
           </div>
+          <div className="pt-1 text-white/20 tabular-nums">
+            {fr ? "Version" : "Version"} {__BUILD_ID__}
+          </div>
         </div>
       </div>
     </div>
