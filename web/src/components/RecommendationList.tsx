@@ -123,8 +123,10 @@ function Card({
 
 // One horizontally-scrollable row per ingredient category (issue #52).
 // Cards sit in the normal content box so the first card lines up with the
-// section headers and the selected-ingredient grid; a partially visible card
-// at the right edge is the scroll affordance.
+// section headers and the selected-ingredient grid. Each card is sized to show
+// exactly N per view (3 on mobile, scaling up with the grid columns) and the
+// row is snap-mandatory, so scrolling always rests on whole tiles — never a
+// half-tile at the edge.
 function CategoryLanes({
   lanes, onAdd, translate, lang,
 }: Pick<Props, "lanes" | "onAdd" | "translate" | "lang">) {
@@ -135,9 +137,12 @@ function CategoryLanes({
           <h3 className="text-xs text-white/40 uppercase tracking-wider mb-2">
             {categoryLabel(lane.category, lang ?? "en")}
           </h3>
-          <div className="flex gap-2.5 overflow-x-auto pb-1 snap-x">
+          <div className="flex gap-2.5 overflow-x-auto pb-1 snap-x snap-mandatory">
             {lane.pairings.map((pairing) => (
-              <div key={pairing.ingredient.id} className="w-24 sm:w-28 shrink-0 snap-start">
+              <div
+                key={pairing.ingredient.id}
+                className="shrink-0 snap-start w-[calc((100%_-_1.25rem)_/_3)] sm:w-[calc((100%_-_1.875rem)_/_4)] lg:w-[calc((100%_-_3.125rem)_/_6)] 2xl:w-[calc((100%_-_4.375rem)_/_8)]"
+              >
                 <Card
                   name={pairing.ingredient.name}
                   score={pairing.score}
@@ -174,7 +179,7 @@ export default function RecommendationList({
   const fr = lang === "fr";
   if (browseIngredients && browseIngredients.length > 0) {
     return (
-      <div className="grid grid-cols-[repeat(auto-fill,6rem)] sm:grid-cols-[repeat(auto-fill,7rem)] gap-2.5">
+      <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 2xl:grid-cols-8 gap-2.5">
         {browseIngredients.map((ing) => (
           <Card
             key={ing.id}
@@ -212,7 +217,7 @@ export default function RecommendationList({
           </span>
         </div>
       )}
-      <div className="grid grid-cols-[repeat(auto-fill,6rem)] sm:grid-cols-[repeat(auto-fill,7rem)] gap-2.5">
+      <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 2xl:grid-cols-8 gap-2.5">
         {selectedIngredients.map((ing) => {
           const isOutlier = outlierIds.has(ing.id);
           const looScore = hasLooScores ? looScores!.get(ing.id) : undefined;
