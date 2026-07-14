@@ -111,7 +111,8 @@ function Card({
           )}
         </div>
       </IngredientTile>
-      <div className="px-2.5 py-2">
+      {/* Fixed height so 1- and 2-line labels produce equal-height tiles. */}
+      <div className="px-2.5 py-2 min-h-[2.9rem]">
         <span className="text-xs text-white font-medium leading-tight line-clamp-2">
           {sentenceCase(translate(name))}
         </span>
@@ -121,9 +122,9 @@ function Card({
 }
 
 // One horizontally-scrollable row per ingredient category (issue #52).
-// The -mx-4/px-4 bleed lets rows scroll edge-to-edge while headers stay
-// aligned with the page padding; a partially visible card at the right edge
-// is the scroll affordance.
+// Cards sit in the normal content box so the first card lines up with the
+// section headers and the selected-ingredient grid; a partially visible card
+// at the right edge is the scroll affordance.
 function CategoryLanes({
   lanes, onAdd, translate, lang,
 }: Pick<Props, "lanes" | "onAdd" | "translate" | "lang">) {
@@ -134,9 +135,9 @@ function CategoryLanes({
           <h3 className="text-xs text-white/40 uppercase tracking-wider mb-2">
             {categoryLabel(lane.category, lang ?? "en")}
           </h3>
-          <div className="flex gap-2.5 overflow-x-auto -mx-4 px-4 pb-1 snap-x">
+          <div className="flex gap-2.5 overflow-x-auto pb-1 snap-x">
             {lane.pairings.map((pairing) => (
-              <div key={pairing.ingredient.id} className="w-28 shrink-0 snap-start">
+              <div key={pairing.ingredient.id} className="w-24 sm:w-28 shrink-0 snap-start">
                 <Card
                   name={pairing.ingredient.name}
                   score={pairing.score}
@@ -173,7 +174,7 @@ export default function RecommendationList({
   const fr = lang === "fr";
   if (browseIngredients && browseIngredients.length > 0) {
     return (
-      <div className="grid grid-cols-3 gap-2.5">
+      <div className="grid grid-cols-[repeat(auto-fill,6rem)] sm:grid-cols-[repeat(auto-fill,7rem)] gap-2.5">
         {browseIngredients.map((ing) => (
           <Card
             key={ing.id}
@@ -211,7 +212,7 @@ export default function RecommendationList({
           </span>
         </div>
       )}
-      <div className="grid grid-cols-3 gap-2.5">
+      <div className="grid grid-cols-[repeat(auto-fill,6rem)] sm:grid-cols-[repeat(auto-fill,7rem)] gap-2.5">
         {selectedIngredients.map((ing) => {
           const isOutlier = outlierIds.has(ing.id);
           const looScore = hasLooScores ? looScores!.get(ing.id) : undefined;
