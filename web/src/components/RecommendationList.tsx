@@ -134,7 +134,7 @@ function CategoryLanes({
           <h3 className="text-xs text-white/40 uppercase tracking-wider mb-2">
             {categoryLabel(lane.category, lang ?? "en")}
           </h3>
-          <div className="flex gap-2.5 overflow-x-auto -mx-4 px-4 pb-1 snap-x">
+          <div className="flex gap-2.5 overflow-x-auto -mx-4 px-4 lg:-mx-8 lg:px-8 pb-1 snap-x">
             {lane.pairings.map((pairing) => (
               <div key={pairing.ingredient.id} className="w-28 shrink-0 snap-start">
                 <Card
@@ -173,7 +173,7 @@ export default function RecommendationList({
   const fr = lang === "fr";
   if (browseIngredients && browseIngredients.length > 0) {
     return (
-      <div className="grid grid-cols-3 gap-2.5">
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 xl:grid-cols-8 gap-2.5">
         {browseIngredients.map((ing) => (
           <Card
             key={ing.id}
@@ -211,7 +211,7 @@ export default function RecommendationList({
           </span>
         </div>
       )}
-      <div className="grid grid-cols-3 gap-2.5">
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 xl:grid-cols-8 gap-2.5">
         {selectedIngredients.map((ing) => {
           const isOutlier = outlierIds.has(ing.id);
           const looScore = hasLooScores ? looScores!.get(ing.id) : undefined;
