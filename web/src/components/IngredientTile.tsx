@@ -1,10 +1,8 @@
 import { useState, type ReactNode } from "react";
-import { getIngredientEmoji, getIngredientColor } from "../utils/ingredientEmoji";
+import { getIngredientEmoji } from "../utils/ingredientEmoji";
 import { useIngredientImageUrl } from "../utils/ingredientImage";
-
-// One backdrop shared by every photo tile (issue #48: similar background).
-// Emoji fallback tiles keep their hash-derived colour.
-const IMAGE_BG = "hsl(233, 23%, 22%)";
+import { getIngredientCategory } from "../db";
+import { categoryColor } from "../utils/categoryColor";
 
 export default function IngredientTile({
   name,
@@ -16,11 +14,13 @@ export default function IngredientTile({
   const url = useIngredientImageUrl(name);
   const [failedUrl, setFailedUrl] = useState<string | null>(null);
   const showImage = url !== null && url !== failedUrl;
+  // Tile background tinted by ingredient category (photo and emoji alike).
+  const bg = categoryColor(getIngredientCategory(name));
 
   return (
     <div
       className="relative w-full aspect-square flex items-center justify-center"
-      style={{ background: showImage ? IMAGE_BG : getIngredientColor(name) }}
+      style={{ background: bg }}
     >
       {showImage ? (
         <img
