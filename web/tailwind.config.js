@@ -23,6 +23,16 @@ export default {
           "Roboto", "Helvetica Neue", "Arial", "sans-serif",
         ],
       },
+      keyframes: {
+        "pop-in": {
+          "0%": { opacity: "0", transform: "scale(0.85)" },
+          "60%": { opacity: "1", transform: "scale(1.04)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
+      },
+      animation: {
+        "pop-in": "pop-in 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) both",
+      },
     },
   },
   plugins: [],
