@@ -24,3 +24,6 @@ web/dist/
 *.log
 .env
 web/test/.deployed.json
+
+# transient image-ranking scaffolding (candidates + montages)
+pipeline/image_candidates/
