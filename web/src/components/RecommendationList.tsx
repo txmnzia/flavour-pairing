@@ -162,12 +162,36 @@ function Card({
 // exactly N per view (3 on mobile, scaling up with the grid columns) and the
 // row is snap-mandatory, so scrolling always rests on whole tiles — never a
 // half-tile at the edge.
+const INITIAL_LANES = 3;
+const LANE_STEP = 3;
+
 function CategoryLanes({
   lanes, onAdd, translate, lang,
 }: Pick<Props, "lanes" | "onAdd" | "translate" | "lang">) {
+  // Progressive mount: render the first lanes immediately, then reveal the rest
+  // over subsequent animation frames. A selection can produce ~16 lanes / ~170
+  // cards; mounting them all in one task blocks the main thread for seconds on
+  // mobile. The later lanes are below the fold, so filling them in over the next
+  // few frames is invisible but keeps the first paint fast and the UI responsive.
+  const [shown, setShown] = useState(INITIAL_LANES);
+  const lanesRef = useRef(lanes);
+  if (lanesRef.current !== lanes) {
+    // New selection → restart the reveal from the top (adjusting state during
+    // render is the supported way to reset when a prop changes).
+    lanesRef.current = lanes;
+    setShown(INITIAL_LANES);
+  }
+  useEffect(() => {
+    if (shown >= lanes.length) return;
+    const id = requestAnimationFrame(() =>
+      setShown((s) => Math.min(s + LANE_STEP, lanes.length))
+    );
+    return () => cancelAnimationFrame(id);
+  }, [shown, lanes.length]);
+
   return (
     <div className="space-y-5">
-      {lanes.map((lane) => (
+      {lanes.slice(0, shown).map((lane) => (
         <section key={lane.category} aria-label={categoryLabel(lane.category, lang ?? "en")}>
           <h3 className="text-xs text-white/40 uppercase tracking-wider mb-2">
             {categoryLabel(lane.category, lang ?? "en")}
