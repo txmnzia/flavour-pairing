@@ -755,7 +755,7 @@
   "skip": true
  },
  "bulgur": {
-  "file": "Bulgur.jpg"
+  "skip": true
  },
  "cactus piece": {
   "skip": true
@@ -767,7 +767,7 @@
   "skip": true
  },
  "caraway seed": {
-  "file": "Kümmel 2012-07-08-9523.jpg"
+  "skip": true
  },
  "catfish": {
   "file": "Black bullhead fish (white background).jpg"
@@ -779,7 +779,7 @@
   "skip": true
  },
  "chervil": {
-  "file": "Farmer's Market - Chervil (3497853296).jpg"
+  "skip": true
  },
  "chicken fat": {
   "skip": true
@@ -1238,7 +1238,7 @@
   "skip": true
  },
  "tarragon": {
-  "file": "Estragon 1511.jpg"
+  "skip": true
  },
  "tarragon vinegar": {
   "skip": true
