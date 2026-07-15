@@ -7,18 +7,18 @@
   "page_title": "Absinthe"
  },
  "achiote": {
-  "artist": "Primejyothi",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Achiote_pj.JPG",
-  "file": "Achiote_pj.JPG",
-  "license": "CC BY-SA 3.0",
-  "page_title": "Bixa orellana"
+  "artist": "Leonardo Ré-Jorge",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Bixa_orellana_fruit_open.jpg",
+  "file": "Bixa_orellana_fruit_open.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Bixa_orellana_fruit_open.jpg"
  },
  "acorn squash": {
   "artist": "Forest &amp; Kim Starr",
   "description_url": "https://commons.wikimedia.org/wiki/File:Starr_070730-7820_Cucurbita_pepo.jpg",
   "file": "Starr_070730-7820_Cucurbita_pepo.jpg",
   "license": "CC BY 3.0",
-  "page_title": "Acorn squash"
+  "page_title": "File:Starr_070730-7820_Cucurbita_pepo.jpg"
  },
  "adobo sauce": {
   "artist": "Tamorlan",
@@ -26,6 +26,13 @@
   "file": "Lomo_en_adobo-2009.jpg",
   "license": "CC BY 3.0",
   "page_title": "Adobo"
+ },
+ "adzuki bean": {
+  "artist": "Midori",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Red_bean_paste_anko.JPG",
+  "file": "Red_bean_paste_anko.JPG",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Red_bean_paste_anko.JPG"
  },
  "agave nectar": {
   "artist": "Sharky78",
@@ -77,11 +84,11 @@
   "page_title": "Alligator meat"
  },
  "allspice": {
-  "artist": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Pimenta_dioica_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-239.jpg",
-  "file": "Pimenta_dioica_-_Köhler–s_Medizinal-Pflanzen-239.jpg",
-  "license": "Public domain",
-  "page_title": "Allspice"
+  "artist": "Jonathunder",
+  "description_url": "https://commons.wikimedia.org/wiki/File:AllspiceBowl.JPG",
+  "file": "AllspiceBowl.JPG",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:AllspiceBowl.JPG"
  },
  "almond": {
   "artist": "Ivar Leidus",
@@ -147,11 +154,18 @@
   "page_title": "Amchoor"
  },
  "ancho chili": {
-  "artist": "stef yau from Seattle, USA",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Poblano_Pepper.jpg",
-  "file": "Poblano_Pepper.jpg",
-  "license": "CC BY 2.0",
-  "page_title": "Poblano"
+  "artist": "User:Carstor",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Capsicum_annuum_ancho_dried.jpg",
+  "file": "Capsicum_annuum_ancho_dried.jpg",
+  "license": "CC BY-SA 2.5",
+  "page_title": "File:Capsicum_annuum_ancho_dried.jpg"
+ },
+ "anchovy": {
+  "artist": "Gervais et Boulart, 1877",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Engraulis_encrasicolus_Gervais_flipped.jpg",
+  "file": "Engraulis_encrasicolus_Gervais_flipped.jpg",
+  "license": "Public domain",
+  "page_title": "File:Engraulis_encrasicolus_Gervais_flipped.jpg"
  },
  "andouille sausage": {
   "artist": "",
@@ -173,6 +187,13 @@
   "file": "Angostura_aromatic_bitters_dD.jpg",
   "license": "CC BY-SA 3.0",
   "page_title": "Angostura bitters"
+ },
+ "anise": {
+  "artist": "User:Ben_pcc.",
+  "description_url": "https://commons.wikimedia.org/wiki/File:AniseSeeds.jpg",
+  "file": "AniseSeeds.jpg",
+  "license": "Public domain",
+  "page_title": "File:AniseSeeds.jpg"
  },
  "anisette": {
   "artist": "DLT1975",
@@ -217,11 +238,11 @@
   "page_title": "Apricot"
  },
  "apricot jam": {
-  "artist": "毒島みるく",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Fruits_jam_variants.jpg",
-  "file": "Fruits_jam_variants.jpg",
-  "license": "CC0",
-  "page_title": "Fruit preserves"
+  "artist": "Amanda Slater",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Homemade_marmalade,_England.jpg",
+  "file": "Homemade_marmalade,_England.jpg",
+  "license": "CC BY-SA 2.0",
+  "page_title": "File:Homemade_marmalade,_England.jpg"
  },
  "arame seaweed": {
   "artist": "Nordisk familjebok",
@@ -280,11 +301,11 @@
   "page_title": "Asiago cheese"
  },
  "asian chili sauce": {
-  "artist": "purdman1",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Accras_et_sauce_chili.jpg",
-  "file": "Accras_et_sauce_chili.jpg",
-  "license": "CC BY 2.0",
-  "page_title": "Chili sauce and paste"
+  "artist": "Glane23",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Sriracha_sauce.JPG",
+  "file": "Sriracha_sauce.JPG",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Sriracha_sauce.JPG"
  },
  "asian pear": {
   "artist": "Jjok",
@@ -292,6 +313,13 @@
   "file": "Shinko_Yali_and_Whangkeum.JPG",
   "license": "CC BY-SA 3.0",
   "page_title": "Asian pear"
+ },
+ "asparagus": {
+  "artist": "Evan-Amos",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Asparagus-Bundle.jpg",
+  "file": "Asparagus-Bundle.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Asparagus-Bundle.jpg"
  },
  "avocado": {
   "artist": "B.navez",
@@ -336,11 +364,11 @@
   "page_title": "Balsamic vinegar"
  },
  "bamboo shoot": {
-  "artist": "Haragayato",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Bamboo_sprout2.JPG",
-  "file": "Bamboo_sprout2.JPG",
-  "license": "CC BY-SA 2.5",
-  "page_title": "Bamboo shoot"
+  "artist": "Gaurav Dhwaj Khadka",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Bamboo_Shoot.jpg",
+  "file": "Bamboo_Shoot.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Bamboo_Shoot.jpg"
  },
  "banana": {
   "artist": "TimothyPilgrim",
@@ -357,11 +385,25 @@
   "page_title": "Barbecue sauce"
  },
  "barberry": {
-  "artist": "",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Berberis_darwinii_shoot.jpg",
-  "file": "Berberis_darwinii_shoot.jpg",
+  "artist": "User:MPF",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Berberis_thunb_frt.jpg",
+  "file": "Berberis_thunb_frt.jpg",
   "license": "CC BY-SA 3.0",
-  "page_title": "Berberis"
+  "page_title": "File:Berberis_thunb_frt.jpg"
+ },
+ "barley": {
+  "artist": "Sanjay Acharya",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Barley_Seeds.jpg",
+  "file": "Barley_Seeds.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Barley_Seeds.jpg"
+ },
+ "basil": {
+  "artist": "",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Basilic-spice.jpg",
+  "file": "Basilic-spice.jpg",
+  "license": "CC BY-SA 1.0",
+  "page_title": "File:Basilic-spice.jpg"
  },
  "bay leaf": {
   "artist": "Miansari66",
@@ -390,6 +432,13 @@
   "file": "Soy_powder.jpg",
   "license": "CC BY-SA 3.0",
   "page_title": "Flour"
+ },
+ "bean sprout": {
+  "artist": "ja:利用者:Tamago915",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Moyashi.jpg",
+  "file": "Moyashi.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Moyashi.jpg"
  },
  "bearnaise sauce": {
   "artist": "Alexander Guy",
@@ -420,11 +469,11 @@
   "page_title": "Tallow"
  },
  "beer": {
-  "artist": "File:Hacker-Pschorr Oktoberfest Girl.jpg by Markburger83\nDerivative work: Lauro Sirgado (talk · contribs)",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Hacker-Pschorr_Oktoberfest_Girl_Remix.jpg",
-  "file": "Hacker-Pschorr_Oktoberfest_Girl_Remix.jpg",
-  "license": "CC BY-SA 3.0",
-  "page_title": "Beer"
+  "artist": "Steven Walling",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Pilsner_urquell_mug.jpg",
+  "file": "Pilsner_urquell_mug.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Pilsner_urquell_mug.jpg"
  },
  "beet": {
   "artist": "BriannaWalther",
@@ -441,11 +490,11 @@
   "page_title": "Bell pepper"
  },
  "benedictine": {
-  "artist": "Tom-L",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Coat_of_Arms_of_the_Order_of_Saint_Benedict_(simple).svg",
-  "file": "Coat_of_Arms_of_the_Order_of_Saint_Benedict_(simple).svg",
-  "license": "CC0",
-  "page_title": "Benedictines"
+  "artist": "Хрюша",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Benedictine_01_08.jpg",
+  "file": "Benedictine_01_08.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Benedictine_01_08.jpg"
  },
  "berry": {
   "artist": "Petritap",
@@ -469,25 +518,25 @@
   "page_title": "Biscuit"
  },
  "bitter melon": {
-  "artist": "Francisco Manuel Blanco (O.S.A.)",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Momordica_charantia_Blanco2.357.png",
-  "file": "Momordica_charantia_Blanco2.357.png",
-  "license": "Public domain",
-  "page_title": "Momordica charantia"
+  "artist": "Salil Kumar Mukherjee",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Bitter_gourd_(Momordica_charantia).jpg",
+  "file": "Bitter_gourd_(Momordica_charantia).jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Bitter_gourd_(Momordica_charantia).jpg"
  },
  "black bread": {
-  "artist": "Ken Eckert",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Market_Bread,_Riga,_Latvia.jpg",
-  "file": "Market_Bread,_Riga,_Latvia.jpg",
-  "license": "CC BY-SA 4.0",
-  "page_title": "Rye bread"
+  "artist": "",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Pumpernickel.jpg",
+  "file": "Pumpernickel.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Pumpernickel.jpg"
  },
  "black eyed pea": {
   "artist": "Jud McCranie",
   "description_url": "https://commons.wikimedia.org/wiki/File:Black-eyed_peas_close_up.jpg",
   "file": "Black-eyed_peas_close_up.jpg",
   "license": "CC BY-SA 4.0",
-  "page_title": "Black-eyed pea"
+  "page_title": "File:Black-eyed_peas_close_up.jpg"
  },
  "black mushroom": {
   "artist": "frankenstoen from Portland, Oregon",
@@ -497,11 +546,11 @@
   "page_title": "Shiitake"
  },
  "black pepper": {
-  "artist": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Piper_nigrum_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-107.jpg",
-  "file": "Piper_nigrum_-_Köhler–s_Medizinal-Pflanzen-107.jpg",
-  "license": "Public domain",
-  "page_title": "Black pepper"
+  "artist": "Diego Delso",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Pimienta_negra_(Piper_nigrum),_2020-06-12,_DD_20-40_FS.jpg",
+  "file": "Pimienta_negra_(Piper_nigrum),_2020-06-12,_DD_20-40_FS.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Pimienta_negra_(Piper_nigrum),_2020-06-12,_DD_20-40_FS.jpg"
  },
  "black pudding": {
   "artist": "Alexbrn",
@@ -615,6 +664,13 @@
   "license": "CC BY-SA 3.0",
   "page_title": "Brandy"
  },
+ "bratwurst": {
+  "artist": "Schofför",
+  "description_url": "https://commons.wikimedia.org/wiki/File:W%C3%BCrste_r.JPG",
+  "file": "Würste_r.JPG",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Würste_r.JPG"
+ },
  "brazil nut": {
   "artist": "Lior Golgher (upper left photo and upper middle photo), U.S. Department of Agriculture (upper right photo), mauroguanandi (bottom left photo), USDA Forest Service Alaska Region from Juneau, Alaska, USA (bottom right photo), montage by User:RoRo",
   "description_url": "https://commons.wikimedia.org/wiki/File:Bertholletia_excelsa_compose.jpg",
@@ -635,6 +691,13 @@
   "file": "Breadcrumb.jpg",
   "license": "CC BY-SA 3.0",
   "page_title": "Breadcrumbs"
+ },
+ "breadstick": {
+  "artist": "kochtopf",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Grissini.jpg",
+  "file": "Grissini.jpg",
+  "license": "CC BY 2.0",
+  "page_title": "File:Grissini.jpg"
  },
  "bresaola": {
   "artist": "Romano.massimiliano",
@@ -693,11 +756,11 @@
   "page_title": "Brown rice syrup"
  },
  "brown sugar": {
-  "artist": "Romain Behar",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Sucre_blanc_cassonade_complet_rapadura.jpg",
-  "file": "Sucre_blanc_cassonade_complet_rapadura.jpg",
-  "license": "Public domain",
-  "page_title": "Brown sugar"
+  "artist": "Moe Rubenzahl",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Brown_sugar_examples.JPG",
+  "file": "Brown_sugar_examples.JPG",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Brown_sugar_examples.JPG"
  },
  "browning sauce": {
   "artist": "Bob Peters",
@@ -707,11 +770,11 @@
   "page_title": "Brown sauce"
  },
  "buckwheat groat": {
-  "artist": "STRONGlk7",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Japanese_Buckwheat_Flower.JPG",
-  "file": "Japanese_Buckwheat_Flower.JPG",
+  "artist": "Laitr Keiows",
+  "description_url": "https://commons.wikimedia.org/wiki/File:%D0%93%D1%80%D0%B5%D1%87%D0%BD%D0%B5%D0%B2%D0%B0%D1%8F_%D0%BA%D0%B0%D1%88%D0%B0.jpg",
+  "file": "Гречневая_каша.jpg",
   "license": "CC BY-SA 3.0",
-  "page_title": "Buckwheat"
+  "page_title": "File:Гречневая_каша.jpg"
  },
  "bun": {
   "artist": "jeffreyw",
@@ -825,6 +888,13 @@
   "license": "CC BY-SA 3.0",
   "page_title": "Camembert"
  },
+ "campari": {
+  "artist": "Kenneth C. Zirkel",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Bottle_of_Campari_(United_States).jpg",
+  "file": "Bottle_of_Campari_(United_States).jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Bottle_of_Campari_(United_States).jpg"
+ },
  "candlenut": {
   "artist": "Forest &amp; Kim Starr",
   "description_url": "https://commons.wikimedia.org/wiki/File:Starr_020803-0119_Aleurites_moluccana.jpg",
@@ -861,11 +931,11 @@
   "page_title": "Capocollo"
  },
  "caramel": {
-  "artist": "No machine-readable author provided. Rainer Zenz assumed (based on copyright claims).",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Caramel-2.jpg",
-  "file": "Caramel-2.jpg",
+  "artist": "Evan-Amos",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Caramels.jpg",
+  "file": "Caramels.jpg",
   "license": "CC BY-SA 3.0",
-  "page_title": "Caramel"
+  "page_title": "File:Caramels.jpg"
  },
  "cardamom": {
   "artist": "Silar",
@@ -937,6 +1007,13 @@
   "license": "Public domain",
   "page_title": "Cassava"
  },
+ "catfish": {
+  "artist": "Duane Raver\n\n(transferred from en.wikimedia.org to commons.wikimedia.org by user:Auriong)",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Black_bullhead_fish_(white_background).jpg",
+  "file": "Black_bullhead_fish_(white_background).jpg",
+  "license": "Public domain",
+  "page_title": "File:Black_bullhead_fish_(white_background).jpg"
+ },
  "cauliflower": {
   "artist": "Coyau",
   "description_url": "https://commons.wikimedia.org/wiki/File:Chou-fleur_02.jpg",
@@ -950,6 +1027,13 @@
   "file": "Caviar_spoons.jpg",
   "license": "CC BY 2.0",
   "page_title": "Caviar"
+ },
+ "cayenne pepper": {
+  "artist": "André Karwath aka Aka",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Large_Cayenne.jpg",
+  "file": "Large_Cayenne.jpg",
+  "license": "CC BY-SA 2.5",
+  "page_title": "File:Large_Cayenne.jpg"
  },
  "celeriac": {
   "artist": "DocteurCosmos",
@@ -966,18 +1050,18 @@
   "page_title": "Celery"
  },
  "celery seed": {
-  "artist": "Lombroso",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Celery_1.jpg",
-  "file": "Celery_1.jpg",
-  "license": "Public domain",
-  "page_title": "Celery"
+  "artist": "Holly Cheng",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Celery_seed.jpg",
+  "file": "Celery_seed.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Celery_seed.jpg"
  },
  "cereal": {
-  "artist": "File:Les_plantes_cultivades._Cereals_(2008).djvu: Miquel Pujol Palol\nderivative work: Joancreus (talk)",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Les_Plantes_Cultivades._Cereals._Imatge_119.jpg",
-  "file": "Les_Plantes_Cultivades._Cereals._Imatge_119.jpg",
-  "license": "CC BY-SA 3.0",
-  "page_title": "Cereal"
+  "artist": "Evan-Amos",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Froot-Loops-Cereal-Bowl.jpg",
+  "file": "Froot-Loops-Cereal-Bowl.jpg",
+  "license": "CC0",
+  "page_title": "File:Froot-Loops-Cereal-Bowl.jpg"
  },
  "chai tea": {
   "artist": "Dadhichbittu007",
@@ -1071,11 +1155,11 @@
   "page_title": "Kirsch"
  },
  "cherry flavored liqueur": {
-  "artist": "",
-  "description_url": "https://en.wikipedia.org/wiki/File:Maraschino_cocktail.jpeg",
-  "file": "Maraschino_cocktail.jpeg",
-  "license": "Attribution",
-  "page_title": "Maraschino"
+  "artist": "Alex P. Kok",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Cherry_Heering_-_Peter_Heering_Liqueur_70cl_35cl_50cl_bottles.jpg",
+  "file": "Cherry_Heering_-_Peter_Heering_Liqueur_70cl_35cl_50cl_bottles.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Cherry_Heering_-_Peter_Heering_Liqueur_70cl_35cl_50cl_bottles.jpg"
  },
  "cherry pepper": {
   "artist": "James Lee",
@@ -1099,11 +1183,11 @@
   "page_title": "Cherry tomato"
  },
  "chestnut": {
-  "artist": "Vassil",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Ch%C3%A2taignier_120807_1.jpg",
-  "file": "Châtaignier_120807_1.jpg",
-  "license": "Public domain",
-  "page_title": "Chestnut"
+  "artist": "domdomegg",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Chestnuts_at_Ljubljana_Central_Market.JPG",
+  "file": "Chestnuts_at_Ljubljana_Central_Market.JPG",
+  "license": "CC BY 4.0",
+  "page_title": "File:Chestnuts_at_Ljubljana_Central_Market.JPG"
  },
  "chestnut flour": {
   "artist": "Vassil",
@@ -1124,7 +1208,7 @@
   "description_url": "https://commons.wikimedia.org/wiki/File:Seed_of_chia_(Salvia_hispanica)Salvia_hispanica_group.jpg",
   "file": "Seed_of_chia_(Salvia_hispanica)Salvia_hispanica_group.jpg",
   "license": "CC BY-SA 4.0",
-  "page_title": "Chia seed"
+  "page_title": "File:Seed_of_chia_(Salvia_hispanica)Salvia_hispanica_group.jpg"
  },
  "chicken": {
   "artist": "Evan Swigart from Chicago, USA",
@@ -1134,11 +1218,11 @@
   "page_title": "Roast chicken"
  },
  "chickpea": {
-  "artist": "Prathyush Thomas",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Chickpea_BNC.jpg",
-  "file": "Chickpea_BNC.jpg",
-  "license": "GFDL 1.2",
-  "page_title": "Chickpea"
+  "artist": "Atudu",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Bengal_gram,_chickpea_(_%E0%A6%9B%E0%A7%8B%E0%A6%B2%E0%A6%BE%E0%A6%B0_%E0%A6%A1%E0%A6%BE%E0%A6%B2).JPG",
+  "file": "Bengal_gram,_chickpea_(_ছোলার_ডাল).JPG",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Bengal_gram,_chickpea_(_ছোলার_ডাল).JPG"
  },
  "chickpea flour": {
   "artist": "AlexanderVanLoon",
@@ -1169,11 +1253,11 @@
   "page_title": "Chili con carne"
  },
  "chili garlic sauce": {
-  "artist": "Robert Kindermann aka RobertK. User RobertK on de.wikipedia",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Aioli_mit_Oliven.jpg",
-  "file": "Aioli_mit_Oliven.jpg",
-  "license": "CC BY-SA 2.0 de",
-  "page_title": "Garlic sauce"
+  "artist": "GeoTrinity",
+  "description_url": "https://commons.wikimedia.org/wiki/File:GT_Sambal_Oelek.jpg",
+  "file": "GT_Sambal_Oelek.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:GT_Sambal_Oelek.jpg"
  },
  "chili oil": {
   "artist": "Alpha",
@@ -1197,11 +1281,11 @@
   "page_title": "Chili pepper"
  },
  "chili sauce": {
-  "artist": "purdman1",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Accras_et_sauce_chili.jpg",
-  "file": "Accras_et_sauce_chili.jpg",
-  "license": "CC BY 2.0",
-  "page_title": "Chili sauce and paste"
+  "artist": "Veganbaking.net from USA",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Fermented_hot_sauce.jpg",
+  "file": "Fermented_hot_sauce.jpg",
+  "license": "CC BY-SA 2.0",
+  "page_title": "File:Fermented_hot_sauce.jpg"
  },
  "chimichurri sauce": {
   "artist": "Dominic Lockyer",
@@ -1245,6 +1329,13 @@
   "license": "CC BY-SA 2.5",
   "page_title": "Chipotle"
  },
+ "chive": {
+  "artist": "Gabriela sellart",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Cocinando.jpg",
+  "file": "Cocinando.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Cocinando.jpg"
+ },
  "chocolate": {
   "artist": "Lynnereal",
   "description_url": "https://commons.wikimedia.org/wiki/File:Three_Bars_(1).jpg",
@@ -1258,6 +1349,13 @@
   "file": "Akbar_Mashti.JPG",
   "license": "Public domain",
   "page_title": "Wafer"
+ },
+ "choy sum": {
+  "artist": "Anna Frodesiak",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Chinese_vegetable_027.jpg",
+  "file": "Chinese_vegetable_027.jpg",
+  "license": "CC0",
+  "page_title": "File:Chinese_vegetable_027.jpg"
  },
  "chuck roast": {
   "artist": "JoeSmack at English Wikipedia",
@@ -1294,12 +1392,26 @@
   "license": "CC BY-SA 3.0",
   "page_title": "Cinnamon"
  },
+ "citron": {
+  "artist": "Richard Huber",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Zitronatszitrone.jpg",
+  "file": "Zitronatszitrone.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Zitronatszitrone.jpg"
+ },
  "citrus infused vodka": {
   "artist": "Ralf Roletschek",
   "description_url": "https://commons.wikimedia.org/wiki/File:15-09-26-RalfR-WLC-0084.jpg",
   "file": "15-09-26-RalfR-WLC-0084.jpg",
   "license": "CC BY-SA 3.0",
   "page_title": "List of cocktails"
+ },
+ "clam": {
+  "artist": "Ken Hammond",
+  "description_url": "https://commons.wikimedia.org/wiki/File:LittleNeck_clams_USDA96c1862.jpg",
+  "file": "LittleNeck_clams_USDA96c1862.jpg",
+  "license": "Public domain",
+  "page_title": "File:LittleNeck_clams_USDA96c1862.jpg"
  },
  "clementine": {
   "artist": "carol",
@@ -1321,6 +1433,13 @@
   "file": "Auricularia_cornea_(Wellington,_New_Zealand).jpg",
   "license": "CC BY-SA 4.0",
   "page_title": "Auricularia cornea"
+ },
+ "clove": {
+  "artist": "Brian Arthur",
+  "description_url": "https://commons.wikimedia.org/wiki/File:ClovesDried.jpg",
+  "file": "ClovesDried.jpg",
+  "license": "CC BY 2.5",
+  "page_title": "File:ClovesDried.jpg"
  },
  "cocoa butter": {
   "artist": "David Monniaux",
@@ -1386,11 +1505,11 @@
   "page_title": "Comté cheese"
  },
  "conch": {
-  "artist": "Daniel Neal from Sacramento, CA, US",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Queen_Conch_(Lobatus_gigas).jpg",
-  "file": "Queen_Conch_(Lobatus_gigas).jpg",
-  "license": "CC BY 2.0",
-  "page_title": "Conch"
+  "artist": "Wilson44691",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Inagua_Lobatus_gigas.jpg",
+  "file": "Inagua_Lobatus_gigas.jpg",
+  "license": "CC0",
+  "page_title": "File:Inagua_Lobatus_gigas.jpg"
  },
  "condensed milk": {
   "artist": "Superbass",
@@ -1406,12 +1525,19 @@
   "license": "CC BY 2.5",
   "page_title": "Cookie"
  },
- "corn": {
-  "artist": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Zea_mays_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-283.jpg",
-  "file": "Zea_mays_-_Köhler–s_Medizinal-Pflanzen-283.jpg",
+ "coriander": {
+  "artist": "No machine-readable author provided. Malcolm Morley~commonswiki assumed (based on copyright claims).",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Coriander_roots.JPG",
+  "file": "Coriander_roots.JPG",
   "license": "Public domain",
-  "page_title": "Maize"
+  "page_title": "File:Coriander_roots.JPG"
+ },
+ "corn": {
+  "artist": "",
+  "description_url": "https://commons.wikimedia.org/wiki/File:VegCorn.jpg",
+  "file": "VegCorn.jpg",
+  "license": "Public domain",
+  "page_title": "File:VegCorn.jpg"
  },
  "corn flake": {
   "artist": "Th78blue",
@@ -1476,12 +1602,19 @@
   "license": "CC BY-SA 2.5",
   "page_title": "Farro"
  },
+ "cranberry": {
+  "artist": "Ɱ",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Dried-Cranberries.png",
+  "file": "Dried-Cranberries.png",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Dried-Cranberries.png"
+ },
  "crawfish": {
-  "artist": "Gusmonkeyboy at English Wikipedia",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Paranephrops.jpg",
-  "file": "Paranephrops.jpg",
-  "license": "Public domain",
-  "page_title": "Crayfish"
+  "artist": "Knuckles",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Cooked_crayfish_with_dill.jpg",
+  "file": "Cooked_crayfish_with_dill.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Cooked_crayfish_with_dill.jpg"
  },
  "cream cheese": {
   "artist": "Renee Comet (photographer)",
@@ -1553,6 +1686,13 @@
   "license": "Public domain",
   "page_title": "Cubanelle"
  },
+ "cucumber": {
+  "artist": "Prathyush Thomas",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Cucumber_BNC.jpg",
+  "file": "Cucumber_BNC.jpg",
+  "license": "GFDL 1.2",
+  "page_title": "File:Cucumber_BNC.jpg"
+ },
  "cucumber juice": {
   "artist": "T.Tseng",
   "description_url": "https://commons.wikimedia.org/wiki/File:Cucumber_juice.jpg",
@@ -1568,18 +1708,18 @@
   "page_title": "Cumin"
  },
  "curacao": {
-  "artist": "Original: Unknown Vector:  David Benbennick",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Flag_of_Cura%C3%A7ao.svg",
-  "file": "Flag_of_Curaçao.svg",
-  "license": "Public domain",
-  "page_title": "Curaçao"
+  "artist": "Jacek Halicki",
+  "description_url": "https://commons.wikimedia.org/wiki/File:2020_Bols_Blue.jpg",
+  "file": "2020_Bols_Blue.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:2020_Bols_Blue.jpg"
  },
  "curd": {
-  "artist": "James.folsom at English Wikipedia",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Curd_Setting.jpg",
-  "file": "Curd_Setting.jpg",
+  "artist": "User:Atyndall",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Cheese_Curds_with_scale_measurement.png",
+  "file": "Cheese_Curds_with_scale_measurement.png",
   "license": "Public domain",
-  "page_title": "Curd"
+  "page_title": "File:Cheese_Curds_with_scale_measurement.png"
  },
  "curry": {
   "artist": "Francesc Fort",
@@ -1587,6 +1727,20 @@
   "file": "Taj_Mahal_-_Lamb_Curry_Madras.jpg",
   "license": "CC BY-SA 4.0",
   "page_title": "Curry"
+ },
+ "curry leaf": {
+  "artist": "spurekar",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Fresh_curry_Leaf_(49697684423).jpg",
+  "file": "Fresh_curry_Leaf_(49697684423).jpg",
+  "license": "CC BY 2.0",
+  "page_title": "File:Fresh_curry_Leaf_(49697684423).jpg"
+ },
+ "curry paste": {
+  "artist": "Helge Høifødt",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Curry_pastes_Thailand_(cropped).JPG",
+  "file": "Curry_pastes_Thailand_(cropped).JPG",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Curry_pastes_Thailand_(cropped).JPG"
  },
  "custard": {
   "artist": "No machine-readable author provided. Interiot~commonswiki assumed (based on copyright claims).",
@@ -1603,11 +1757,11 @@
   "page_title": "Cuttlefish"
  },
  "daikon radish": {
-  "artist": "KimYunmi",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Different_kinds_of_White_Radish.png",
-  "file": "Different_kinds_of_White_Radish.png",
-  "license": "CC BY-SA 4.0",
-  "page_title": "Daikon"
+  "artist": "jetsun",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Daikon,_Nara_Prefecture,_Japan.jpg",
+  "file": "Daikon,_Nara_Prefecture,_Japan.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Daikon,_Nara_Prefecture,_Japan.jpg"
  },
  "daikon sprout": {
   "artist": "KimYunmi",
@@ -1645,11 +1799,11 @@
   "page_title": "Dashi"
  },
  "date": {
-  "artist": "Nepenthes",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Dates005.jpg",
-  "file": "Dates005.jpg",
-  "license": "CC BY-SA 3.0",
-  "page_title": "Date palm"
+  "artist": "Ivar Leidus",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Mazafati_dates_-_whole,_halved_and_seed.jpg",
+  "file": "Mazafati_dates_-_whole,_halved_and_seed.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Mazafati_dates_-_whole,_halved_and_seed.jpg"
  },
  "date sugar": {
   "artist": "Fritzs",
@@ -1666,11 +1820,25 @@
   "page_title": "Delicata squash"
  },
  "demi glace": {
-  "artist": "Edward Russell",
-  "description_url": "https://commons.wikimedia.org/wiki/File:C%C3%B4te_de_Porc_Fermi%C3%A8re.jpg",
-  "file": "Côte_de_Porc_Fermière.jpg",
-  "license": "CC BY 2.0",
-  "page_title": "Demi-glace"
+  "artist": "rainy_bird from Japan.",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Sauce_demi-glace_01.jpg",
+  "file": "Sauce_demi-glace_01.jpg",
+  "license": "CC BY-SA 2.1 jp",
+  "page_title": "File:Sauce_demi-glace_01.jpg"
+ },
+ "dill": {
+  "artist": "Rillke",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Dill1_(cropped).jpg",
+  "file": "Dill1_(cropped).jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Dill1_(cropped).jpg"
+ },
+ "dill seed": {
+  "artist": "Forest and Kim Starr",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Starr-090801-3500-Anethum_graveolens-seedhead-Olinda-Maui_(24603259659).jpg",
+  "file": "Starr-090801-3500-Anethum_graveolens-seedhead-Olinda-Maui_(24603259659).jpg",
+  "license": "CC BY 3.0 us",
+  "page_title": "File:Starr-090801-3500-Anethum_graveolens-seedhead-Olinda-Maui_(24603259659).jpg"
  },
  "dragee": {
   "artist": "Wiggum",
@@ -1736,11 +1904,11 @@
   "page_title": "Duck as food"
  },
  "duck stock": {
-  "artist": "cyclonebill from Copenhagen, Denmark",
-  "description_url": "https://commons.wikimedia.org/wiki/File:And_(24559569447).jpg",
-  "file": "And_(24559569447).jpg",
-  "license": "CC BY-SA 2.0",
-  "page_title": "Duck as food"
+  "artist": "Blue Lotus",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Making_stock_for_pho_bo.jpg",
+  "file": "Making_stock_for_pho_bo.jpg",
+  "license": "CC BY 2.0",
+  "page_title": "File:Making_stock_for_pho_bo.jpg"
  },
  "dulce de leche": {
   "artist": "audinou from Paris, France",
@@ -1791,6 +1959,13 @@
   "license": "Public domain",
   "page_title": "Egg"
  },
+ "egg white": {
+  "artist": "",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Blancs_d%27oeufs_battus.jpg",
+  "file": "Blancs_d'oeufs_battus.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Blancs_d'oeufs_battus.jpg"
+ },
  "egg yolk": {
   "artist": "by jefras a.k.a Joăo Estęvăo A. de Freitas. \"There are no usage restrictions for this photo.\"",
   "description_url": "https://commons.wikimedia.org/wiki/File:Raw_egg.jpg",
@@ -1818,6 +1993,13 @@
   "file": "Sambucus-berries.jpg",
   "license": "CC BY-SA 3.0",
   "page_title": "Sambucus"
+ },
+ "endive": {
+  "artist": "Bff",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Cichorium_intybus_convar_foliosum20120319_02.jpg",
+  "file": "Cichorium_intybus_convar_foliosum20120319_02.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Cichorium_intybus_convar_foliosum20120319_02.jpg"
  },
  "english muffin": {
   "artist": "Missvain",
@@ -1847,6 +2029,13 @@
   "license": "Public domain",
   "page_title": "Snails as food"
  },
+ "escarole": {
+  "artist": "Michel Chauvet",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Cicoria_puntarelle_Torino.JPG",
+  "file": "Cicoria_puntarelle_Torino.JPG",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Cicoria_puntarelle_Torino.JPG"
+ },
  "fat": {
   "artist": "",
   "description_url": "https://commons.wikimedia.org/wiki/File:Trimyristin-3D-vdW.png",
@@ -1855,11 +2044,32 @@
   "page_title": "Fat"
  },
  "fava bean": {
-  "artist": "",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Illustration_Vicia_faba1.jpg",
-  "file": "Illustration_Vicia_faba1.jpg",
+  "artist": "Bodhi Peace",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Five_favas_around_a_quarter_(close_up).jpg",
+  "file": "Five_favas_around_a_quarter_(close_up).jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Five_favas_around_a_quarter_(close_up).jpg"
+ },
+ "fennel": {
+  "artist": "Arnaud 25",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Fenouil.jpg",
+  "file": "Fenouil.jpg",
   "license": "Public domain",
-  "page_title": "Vicia faba"
+  "page_title": "File:Fenouil.jpg"
+ },
+ "fennel seed": {
+  "artist": "Holly Cheng",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Fennel_seed.jpg",
+  "file": "Fennel_seed.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Fennel_seed.jpg"
+ },
+ "fenugreek seed": {
+  "artist": "Takeaway",
+  "description_url": "https://commons.wikimedia.org/wiki/File:2017_0102_fenugreek_seeds.jpg",
+  "file": "2017_0102_fenugreek_seeds.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:2017_0102_fenugreek_seeds.jpg"
  },
  "feta cheese": {
   "artist": "JJ Harrison (https://www.jjharrison.com.au/)",
@@ -1883,18 +2093,25 @@
   "page_title": "Fig"
  },
  "fig jam": {
-  "artist": "Trew, C.J",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Ficus_carica_L,_1771.jpg",
-  "file": "Ficus_carica_L,_1771.jpg",
-  "license": "Public domain",
-  "page_title": "Fig"
+  "artist": "FrogsLegs71",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Fig_cut_open.jpg",
+  "file": "Fig_cut_open.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Fig_cut_open.jpg"
  },
  "filet mignon": {
-  "artist": "JoeSmack",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Filmin.png",
-  "file": "Filmin.png",
-  "license": "CC0",
-  "page_title": "Filet mignon"
+  "artist": "Taishonambu",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Filet_mignon.jpg",
+  "file": "Filet_mignon.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Filet_mignon.jpg"
+ },
+ "fines herbes": {
+  "artist": "David Monniaux",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Bouquet_garni_p1150476_extracted.jpg",
+  "file": "Bouquet_garni_p1150476_extracted.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Bouquet_garni_p1150476_extracted.jpg"
  },
  "fish": {
   "artist": "H. Zell",
@@ -1930,6 +2147,13 @@
   "file": "Five_spice_powder.jpg",
   "license": "Public domain",
   "page_title": "Five-spice powder"
+ },
+ "flageolet bean": {
+  "artist": "Oreo Priest",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Canned_flageolets.jpg",
+  "file": "Canned_flageolets.jpg",
+  "license": "CC0",
+  "page_title": "File:Canned_flageolets.jpg"
  },
  "flounder": {
   "artist": "",
@@ -1973,12 +2197,19 @@
   "license": "CC BY 4.0",
   "page_title": "Fried onion"
  },
+ "frisee": {
+  "artist": "Photograph:  Frank C. Müller, Baden-Baden",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Friseesalat1_(fcm).jpg",
+  "file": "Friseesalat1_(fcm).jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Friseesalat1_(fcm).jpg"
+ },
  "frog's leg": {
   "artist": "Anagoria",
   "description_url": "https://commons.wikimedia.org/wiki/File:2012_Froschschenkel_anagoria.JPG",
   "file": "2012_Froschschenkel_anagoria.JPG",
   "license": "CC BY 3.0",
-  "page_title": "Frog legs"
+  "page_title": "File:2012_Froschschenkel_anagoria.JPG"
  },
  "fromage blanc": {
   "artist": "Pancrat",
@@ -1988,11 +2219,11 @@
   "page_title": "Fromage blanc"
  },
  "fruit jam": {
-  "artist": "毒島みるく",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Fruits_jam_variants.jpg",
-  "file": "Fruits_jam_variants.jpg",
-  "license": "CC0",
-  "page_title": "Fruit preserves"
+  "artist": "Moonsun1981",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Az-Strawberry_jam,_making_by_e-citizen_(moonsun1981).JPG",
+  "file": "Az-Strawberry_jam,_making_by_e-citizen_(moonsun1981).JPG",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Az-Strawberry_jam,_making_by_e-citizen_(moonsun1981).JPG"
  },
  "fudge": {
   "artist": "Siona Watson",
@@ -2009,11 +2240,11 @@
   "page_title": "Gai lan"
  },
  "galangal": {
-  "artist": "",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Galangal.web.jpg",
-  "file": "Galangal.web.jpg",
+  "artist": "Piano non troppo (talk)",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Galangal_ready_for_preparation.png",
+  "file": "Galangal_ready_for_preparation.png",
   "license": "Public domain",
-  "page_title": "Galangal"
+  "page_title": "File:Galangal_ready_for_preparation.png"
  },
  "galliano": {
   "artist": "J.P.Lon",
@@ -2022,19 +2253,40 @@
   "license": "Public domain",
   "page_title": "Galliano (liqueur)"
  },
+ "ganache": {
+  "artist": "Sarah Marriage",
+  "description_url": "https://commons.wikimedia.org/wiki/File:PBfudge_ganache.jpg",
+  "file": "PBfudge_ganache.jpg",
+  "license": "CC BY 2.0",
+  "page_title": "File:PBfudge_ganache.jpg"
+ },
  "garlic": {
-  "artist": "",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Allium_sativum_Woodwill_1793.jpg",
-  "file": "Allium_sativum_Woodwill_1793.jpg",
-  "license": "Public domain",
-  "page_title": "Garlic"
+  "artist": "Dubravko Sorić SoraZG on Flickr",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Opened_garlic_bulb_with_garlic_clove.jpg",
+  "file": "Opened_garlic_bulb_with_garlic_clove.jpg",
+  "license": "CC BY 2.0",
+  "page_title": "File:Opened_garlic_bulb_with_garlic_clove.jpg"
+ },
+ "garlic chive": {
+  "artist": "FotoosVanRobin from Netherlands",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Cut_Garlic_Chives.jpg",
+  "file": "Cut_Garlic_Chives.jpg",
+  "license": "CC BY-SA 2.0",
+  "page_title": "File:Cut_Garlic_Chives.jpg"
  },
  "garlic oil": {
-  "artist": "Salil Kumar Mukherjee",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Garlic_oil_capsules.jpg",
-  "file": "Garlic_oil_capsules.jpg",
-  "license": "CC BY-SA 4.0",
-  "page_title": "Garlic oil"
+  "artist": "urbanfoodie33",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Garlic_oil.jpg",
+  "file": "Garlic_oil.jpg",
+  "license": "CC BY 2.0",
+  "page_title": "File:Garlic_oil.jpg"
+ },
+ "garlic scape": {
+  "artist": "Evan-Amos",
+  "description_url": "https://commons.wikimedia.org/wiki/File:CSA-Garlic-Scapes.jpg",
+  "file": "CSA-Garlic-Scapes.jpg",
+  "license": "Public domain",
+  "page_title": "File:CSA-Garlic-Scapes.jpg"
  },
  "gherkin": {
   "artist": "Renee Comet (photographer)",
@@ -2049,6 +2301,20 @@
   "file": "GiardinieraSpicy.JPG",
   "license": "Public domain",
   "page_title": "Giardiniera"
+ },
+ "gin": {
+  "artist": "Will Shenton",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Bee%27s_Knees.jpg",
+  "file": "Bee's_Knees.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Bee's_Knees.jpg"
+ },
+ "ginger": {
+  "artist": "Photograph:  Frank C. Müller, Baden-Baden",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Ingwer_2_(fcm).jpg",
+  "file": "Ingwer_2_(fcm).jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Ingwer_2_(fcm).jpg"
  },
  "ginger ale": {
   "artist": "Larry Page",
@@ -2072,11 +2338,11 @@
   "page_title": "Gingerbread"
  },
  "ginkgo nut": {
-  "artist": "EecherplazGinkgo06.jpg: Cayambe\nderivative work: Ginkgotree (talk)",
-  "description_url": "https://commons.wikimedia.org/wiki/File:GINKGOBAUM-2.jpg",
-  "file": "GINKGOBAUM-2.jpg",
+  "artist": "Aomorikuma",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Ginkgo_Seed.JPG",
+  "file": "Ginkgo_Seed.JPG",
   "license": "CC BY-SA 3.0",
-  "page_title": "Ginkgo biloba"
+  "page_title": "File:Ginkgo_Seed.JPG"
  },
  "glutinous rice": {
   "artist": "국립국어원",
@@ -2112,6 +2378,20 @@
   "file": "Liqueur_from_goat_milk,_Fuerteventura.JPG",
   "license": "CC BY-SA 4.0",
   "page_title": "Goat milk"
+ },
+ "gochujang": {
+  "artist": "Veganbaking.net from USA",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Fermented_hot_sauce.jpg",
+  "file": "Fermented_hot_sauce.jpg",
+  "license": "CC BY-SA 2.0",
+  "page_title": "File:Fermented_hot_sauce.jpg"
+ },
+ "goji berry": {
+  "artist": "GiryaGirl",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Goji_Berries.jpg",
+  "file": "Goji_Berries.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Goji_Berries.jpg"
  },
  "golden beet": {
   "artist": "BriannaWalther",
@@ -2184,11 +2464,11 @@
   "page_title": "Granola"
  },
  "grape": {
-  "artist": "Vyacheslav Argenberg",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Grapes,_Rostov-on-Don,_Russia.jpg",
-  "file": "Grapes,_Rostov-on-Don,_Russia.jpg",
-  "license": "CC BY 4.0",
-  "page_title": "Grape"
+  "artist": "Glane23",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Thompson_seedless_grapes.JPG",
+  "file": "Thompson_seedless_grapes.JPG",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Thompson_seedless_grapes.JPG"
  },
  "grape juice": {
   "artist": "Oyp",
@@ -2226,11 +2506,11 @@
   "page_title": "Gravy"
  },
  "greek yogurt": {
-  "artist": "No machine-readable author provided. Omernos~commonswiki assumed (based on copyright claims).",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Labneh01.jpg",
-  "file": "Labneh01.jpg",
-  "license": "Public domain",
-  "page_title": "Strained yogurt"
+  "artist": "Takeaway",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Turkish_strained_yogurt.jpg",
+  "file": "Turkish_strained_yogurt.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Turkish_strained_yogurt.jpg"
  },
  "green chili": {
   "artist": "Takeaway",
@@ -2254,11 +2534,11 @@
   "page_title": "Le Puy green lentil"
  },
  "green mango": {
-  "artist": "(c) Wich’yanan L, some rights reserved (CC BY)",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Green_Mango_imported_from_iNaturalist_photo_282336546_on_17_March_2024.jpg",
-  "file": "Green_Mango_imported_from_iNaturalist_photo_282336546_on_17_March_2024.jpg",
-  "license": "CC BY 4.0",
-  "page_title": "Green mango"
+  "artist": "Asit K. Ghosh  Thaumaturgist",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Mango_LangraBenarsi_Asit_fs8.jpg",
+  "file": "Mango_LangraBenarsi_Asit_fs8.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Mango_LangraBenarsi_Asit_fs8.jpg"
  },
  "green onion": {
   "artist": "Evan-Amos",
@@ -2296,11 +2576,11 @@
   "page_title": "Green tea"
  },
  "green tomato": {
-  "artist": "Softeis",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Tomato_je.jpg",
-  "file": "Tomato_je.jpg",
-  "license": "CC BY-SA 3.0",
-  "page_title": "Tomato"
+  "artist": "Prosthetic Head",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Green_Tomato.jpg",
+  "file": "Green_Tomato.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Green_Tomato.jpg"
  },
  "gremolata": {
   "artist": "Popo le Chien",
@@ -2350,6 +2630,13 @@
   "file": "Guava_pink_fruit.jpg",
   "license": "CC BY-SA 4.0",
   "page_title": "Guava"
+ },
+ "guinness stout": {
+  "artist": "Rafaelquint99, Rishi Nangia. Contributions by: Evan Markowitz, Matthew Michaels",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Guinness_Splitting_the_G.jpg",
+  "file": "Guinness_Splitting_the_G.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Guinness_Splitting_the_G.jpg"
  },
  "gumbo file": {
   "artist": "Jperlow",
@@ -2408,11 +2695,11 @@
   "page_title": "Ham"
  },
  "ham hock": {
-  "artist": "User Rainer Zenz on de.wikipedia",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Schwein-Eisbein.png",
-  "file": "Schwein-Eisbein.png",
+  "artist": "Rainer Zenz",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Eisbein-2.jpg",
+  "file": "Eisbein-2.jpg",
   "license": "CC BY-SA 3.0",
-  "page_title": "Ham hock"
+  "page_title": "File:Eisbein-2.jpg"
  },
  "ham stock": {
   "artist": "Blue Lotus",
@@ -2484,6 +2771,13 @@
   "license": "CC BY-SA 4.0",
   "page_title": "Herbes de Provence"
  },
+ "herbsaint": {
+  "artist": "Eric Litton",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Absinthe-glass.jpg",
+  "file": "Absinthe-glass.jpg",
+  "license": "CC BY-SA 2.5",
+  "page_title": "File:Absinthe-glass.jpg"
+ },
  "herring fillet": {
   "artist": "Lapplaender",
   "description_url": "https://commons.wikimedia.org/wiki/File:Surstr%C3%B6mming.jpg",
@@ -2499,11 +2793,11 @@
   "page_title": "Chocolate syrup"
  },
  "hijiki seaweed": {
-  "artist": "Okamura, Kintaro",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Icones_of_Japanese_algae_(Pl._CXXVIII)_(8006311177).jpg",
-  "file": "Icones_of_Japanese_algae_(Pl._CXXVIII)_(8006311177).jpg",
-  "license": "Public domain",
-  "page_title": "Hijiki"
+  "artist": "Lombroso",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Hijiki,_at_The_Meshiya_(2014-10-18).JPG",
+  "file": "Hijiki,_at_The_Meshiya_(2014-10-18).JPG",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Hijiki,_at_The_Meshiya_(2014-10-18).JPG"
  },
  "hoisin sauce": {
   "artist": "allen watkin from London, UK",
@@ -2539,6 +2833,13 @@
   "file": "Honeydew.jpg",
   "license": "Public domain",
   "page_title": "Honeydew (melon)"
+ },
+ "horseradish": {
+  "artist": "Anna reg",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Kren_Verkauf.jpg",
+  "file": "Kren_Verkauf.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Kren_Verkauf.jpg"
  },
  "hot bean paste": {
   "artist": "Badagnani",
@@ -2583,11 +2884,32 @@
   "page_title": "Jalapeño"
  },
  "jam": {
-  "artist": "毒島みるく",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Fruits_jam_variants.jpg",
-  "file": "Fruits_jam_variants.jpg",
-  "license": "CC0",
-  "page_title": "Fruit preserves"
+  "artist": "Amanda Slater",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Homemade_marmalade,_England.jpg",
+  "file": "Homemade_marmalade,_England.jpg",
+  "license": "CC BY-SA 2.0",
+  "page_title": "File:Homemade_marmalade,_England.jpg"
+ },
+ "jasmine tea": {
+  "artist": "fotologic",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Jasmine_Flower_Tea.jpg",
+  "file": "Jasmine_Flower_Tea.jpg",
+  "license": "CC BY 2.0",
+  "page_title": "File:Jasmine_Flower_Tea.jpg"
+ },
+ "jerusalem artichoke": {
+  "artist": "Gilabrand at English Wikipedia",
+  "description_url": "https://commons.wikimedia.org/wiki/File:JlmartichokeS.jpg",
+  "file": "JlmartichokeS.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:JlmartichokeS.jpg"
+ },
+ "jicama": {
+  "artist": "Eric in SF",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Pachyrhizus_erosus_2.jpg",
+  "file": "Pachyrhizus_erosus_2.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Pachyrhizus_erosus_2.jpg"
  },
  "juniper berry": {
   "artist": "Ivar Leidus",
@@ -2597,11 +2919,18 @@
   "page_title": "Juniper berry"
  },
  "kaffir lime leaf": {
-  "artist": "Robyn Jay from Sydney, Australia",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Citrus_hystrix_fruit.jpg",
-  "file": "Citrus_hystrix_fruit.jpg",
-  "license": "CC BY-SA 2.0",
-  "page_title": "Kaffir lime"
+  "artist": "Mokkie",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Kaffir_Lime_(Citrus_hystrix)_1.jpg",
+  "file": "Kaffir_Lime_(Citrus_hystrix)_1.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Kaffir_Lime_(Citrus_hystrix)_1.jpg"
+ },
+ "kale": {
+  "artist": "Evan-Amos",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Kale-Bundle.jpg",
+  "file": "Kale-Bundle.jpg",
+  "license": "CC0",
+  "page_title": "File:Kale-Bundle.jpg"
  },
  "kasseri cheese": {
   "artist": "Catlemur",
@@ -2625,11 +2954,11 @@
   "page_title": "Kefir"
  },
  "kelp": {
-  "artist": "Bjørn Christian Tørrissen",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Kelp_In_Freycinet_Tasmania.jpg",
-  "file": "Kelp_In_Freycinet_Tasmania.jpg",
-  "license": "CC BY-SA 3.0",
-  "page_title": "Kelp"
+  "artist": "Steve Lonhart / NOAA MBNMS",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Five-ribbed_kelp_(Costaria_costata).jpg",
+  "file": "Five-ribbed_kelp_(Costaria_costata).jpg",
+  "license": "Public domain",
+  "page_title": "File:Five-ribbed_kelp_(Costaria_costata).jpg"
  },
  "ketchup": {
   "artist": "Kim Holger Kelting",
@@ -2681,11 +3010,11 @@
   "page_title": "Kombu"
  },
  "konnyaku": {
-  "artist": "Walter Hood Fitch",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Amorphophallus_konjac_CBM.png",
-  "file": "Amorphophallus_konjac_CBM.png",
-  "license": "Public domain",
-  "page_title": "Amorphophallus konjac"
+  "artist": "woinary from Mushroom restaurant Kinokomura Shinzan in Maeyama, Ueda, Nagano",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Sashimi_konnyaku_by_woinary_Ueda,_Nagano.jpg",
+  "file": "Sashimi_konnyaku_by_woinary_Ueda,_Nagano.jpg",
+  "license": "CC BY-SA 2.0",
+  "page_title": "File:Sashimi_konnyaku_by_woinary_Ueda,_Nagano.jpg"
  },
  "koshi an": {
   "artist": "Midori",
@@ -2693,6 +3022,13 @@
   "file": "Red_bean_paste_anko.JPG",
   "license": "CC BY-SA 3.0",
   "page_title": "Red bean paste"
+ },
+ "kudzu": {
+  "artist": "Louann Banda",
+  "description_url": "https://commons.wikimedia.org/wiki/File:2010_Kuzumochi(Kudzu_starch_cake)_by_Sanda-Minoya.jpg",
+  "file": "2010_Kuzumochi(Kudzu_starch_cake)_by_Sanda-Minoya.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:2010_Kuzumochi(Kudzu_starch_cake)_by_Sanda-Minoya.jpg"
  },
  "kumquat": {
   "artist": "Ivar Leidus",
@@ -2750,6 +3086,13 @@
   "license": "CC BY 2.0",
   "page_title": "Lemonade"
  },
+ "lemongrass": {
+  "artist": "No machine-readable author provided. Malcolm Morley~commonswiki assumed (based on copyright claims).",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Prepared_lemon_grass.JPG",
+  "file": "Prepared_lemon_grass.JPG",
+  "license": "Public domain",
+  "page_title": "File:Prepared_lemon_grass.JPG"
+ },
  "lentil": {
   "artist": "User:Justinc",
   "description_url": "https://commons.wikimedia.org/wiki/File:3_types_of_lentil.png",
@@ -2757,12 +3100,26 @@
   "license": "CC BY-SA 2.5",
   "page_title": "Lentil"
  },
+ "lettuce": {
+  "artist": "Rainer Zenz",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Romaine_lettuce.jpg",
+  "file": "Romaine_lettuce.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Romaine_lettuce.jpg"
+ },
  "licor 43": {
   "artist": "Diego Zamora",
   "description_url": "https://commons.wikimedia.org/wiki/File:700_ml_bottle_Licor_43.jpg",
   "file": "700_ml_bottle_Licor_43.jpg",
   "license": "CC BY-SA 4.0",
   "page_title": "Licor 43"
+ },
+ "licorice": {
+  "artist": "Salil Kumar Mukherjee",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Sections_of_liquorice_root.jpg",
+  "file": "Sections_of_liquorice_root.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Sections_of_liquorice_root.jpg"
  },
  "light cheese": {
   "artist": "Takeaway",
@@ -2778,12 +3135,33 @@
   "license": "GFDL 1.2",
   "page_title": "Lillet"
  },
+ "lima bean": {
+  "artist": "Roger Culos",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Phaseolus_lunatus_MHNT.BOT.2008.1.40.jpg",
+  "file": "Phaseolus_lunatus_MHNT.BOT.2008.1.40.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Phaseolus_lunatus_MHNT.BOT.2008.1.40.jpg"
+ },
  "lime": {
   "artist": "Prosthetic Head",
   "description_url": "https://commons.wikimedia.org/wiki/File:Lime_Blossom.jpg",
   "file": "Lime_Blossom.jpg",
   "license": "CC BY-SA 3.0",
   "page_title": "Lime (fruit)"
+ },
+ "limoncello": {
+  "artist": "Alessio Damato",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Homemade_limoncello.jpg",
+  "file": "Homemade_limoncello.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Homemade_limoncello.jpg"
+ },
+ "lingonberry": {
+  "artist": "Philip Gabrielsen",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Tytteb%C3%A6r.jpg",
+  "file": "Tyttebær.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Tyttebær.jpg"
  },
  "linguine": {
   "artist": "Sebastian Zurkuhl (= Circle357)",
@@ -2814,11 +3192,11 @@
   "page_title": "Liquor"
  },
  "liver": {
-  "artist": "Tvanbr",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Anatomy_Abdomen_Tiesworks.jpg",
-  "file": "Anatomy_Abdomen_Tiesworks.jpg",
-  "license": "Public domain",
-  "page_title": "Liver"
+  "artist": "FotoosVanRobin from Netherlands",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Pig%27s_liver_with_sauteed_onion.jpg",
+  "file": "Pig's_liver_with_sauteed_onion.jpg",
+  "license": "CC BY-SA 2.0",
+  "page_title": "File:Pig's_liver_with_sauteed_onion.jpg"
  },
  "liverwurst": {
   "artist": "stu_spivack",
@@ -2828,11 +3206,11 @@
   "page_title": "Liverwurst"
  },
  "lobster": {
-  "artist": "Bart Braun",
-  "description_url": "https://commons.wikimedia.org/wiki/File:KreeftbijDenOsse.jpg",
-  "file": "KreeftbijDenOsse.jpg",
-  "license": "Public domain",
-  "page_title": "Lobster"
+  "artist": "The Pancake of Heaven!",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Lobster_in_Boston.jpg",
+  "file": "Lobster_in_Boston.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Lobster_in_Boston.jpg"
  },
  "lobster stock": {
   "artist": "Blue Lotus",
@@ -2889,6 +3267,13 @@
   "file": "Biji_Pala_Bubuk.jpg",
   "license": "CC BY-SA 4.0",
   "page_title": "Nutmeg"
+ },
+ "mackerel": {
+  "artist": "Kernow Skies",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Mackerel_freshly_caught.jpg",
+  "file": "Mackerel_freshly_caught.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Mackerel_freshly_caught.jpg"
  },
  "madeira wine": {
   "artist": "Origenes.Adamantius",
@@ -2967,6 +3352,13 @@
   "license": "CC0",
   "page_title": "Marinara sauce"
  },
+ "marjoram": {
+  "artist": "SKsiddhartthan",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Marjoram_flowers.jpg",
+  "file": "Marjoram_flowers.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Marjoram_flowers.jpg"
+ },
  "marmalade": {
   "artist": "Amanda Slater",
   "description_url": "https://commons.wikimedia.org/wiki/File:Homemade_marmalade,_England.jpg",
@@ -2974,12 +3366,19 @@
   "license": "CC BY-SA 2.0",
   "page_title": "Marmalade"
  },
+ "marmite": {
+  "artist": "Tamorlan",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Marmite-Guinness_edition.JPG",
+  "file": "Marmite-Guinness_edition.JPG",
+  "license": "CC BY-SA 2.5",
+  "page_title": "File:Marmite-Guinness_edition.JPG"
+ },
  "marshmallow": {
   "artist": "John Morgan",
   "description_url": "https://commons.wikimedia.org/wiki/File:White_Marshmallows.jpg",
   "file": "White_Marshmallows.jpg",
   "license": "CC BY 2.0",
-  "page_title": "Marshmallow"
+  "page_title": "File:White_Marshmallows.jpg"
  },
  "marzipan": {
   "artist": "James Petts from London, England",
@@ -3071,6 +3470,13 @@
   "file": "Salade_mesclun_et_chèvre_chaud_sur_toasts.jpg",
   "license": "CC BY-SA 3.0",
   "page_title": "Mesclun"
+ },
+ "mesquite powder": {
+  "artist": "Mudd1",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Flours.jpg",
+  "file": "Flours.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Flours.jpg"
  },
  "mezcal": {
   "artist": "ProtoplasmaKid",
@@ -3184,6 +3590,13 @@
   "license": "CC0",
   "page_title": "Muffin"
  },
+ "mulberry": {
+  "artist": "Khalid Mahmood",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Long_Mulberry.JPG",
+  "file": "Long_Mulberry.JPG",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Long_Mulberry.JPG"
+ },
  "mung bean": {
   "artist": "Ivar Leidus",
   "description_url": "https://commons.wikimedia.org/wiki/File:Mung_beans_(Vigna_radiata).jpg",
@@ -3204,6 +3617,13 @@
   "file": "Making_stock_for_pho_bo.jpg",
   "license": "CC BY 2.0",
   "page_title": "Stock (food)"
+ },
+ "mussel": {
+  "artist": "Charles Haynes from Hobart, Australia",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Mussel_dish.jpg",
+  "file": "Mussel_dish.jpg",
+  "license": "CC BY-SA 2.0",
+  "page_title": "File:Mussel_dish.jpg"
  },
  "mustard": {
   "artist": "fuji01",
@@ -3238,7 +3658,7 @@
   "description_url": "https://commons.wikimedia.org/wiki/File:Napa_cabbages.png",
   "file": "Napa_cabbages.png",
   "license": "CC0",
-  "page_title": "Napa cabbage"
+  "page_title": "File:Napa_cabbages.png"
  },
  "navy bean": {
   "artist": "Rasbak",
@@ -3247,12 +3667,19 @@
   "license": "CC BY-SA 3.0",
   "page_title": "Navy bean"
  },
+ "nectarine": {
+  "artist": "Fir0002",
+  "description_url": "https://commons.wikimedia.org/wiki/File:White_nectarine_and_cross_section02_edit.jpg",
+  "file": "White_nectarine_and_cross_section02_edit.jpg",
+  "license": "GFDL 1.2",
+  "page_title": "File:White_nectarine_and_cross_section02_edit.jpg"
+ },
  "nigella seed": {
-  "artist": "AndreHolz at English Wikipedia",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Nsativa001Wien.jpg",
-  "file": "Nsativa001Wien.jpg",
+  "artist": "No machine-readable author provided. TheGoblin~commonswiki assumed (based on copyright claims).",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Nigella_Sativa_Seed.jpg",
+  "file": "Nigella_Sativa_Seed.jpg",
   "license": "CC BY-SA 3.0",
-  "page_title": "Nigella sativa"
+  "page_title": "File:Nigella_Sativa_Seed.jpg"
  },
  "nopales": {
   "artist": "ZooFari (talk)",
@@ -3282,12 +3709,26 @@
   "license": "CC BY-SA 4.0",
   "page_title": "Nutmeg"
  },
+ "oat": {
+  "artist": "Bill Ebbesen",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Oatmeal.jpg",
+  "file": "Oatmeal.jpg",
+  "license": "Copyrighted free use",
+  "page_title": "File:Oatmeal.jpg"
+ },
  "oatmeal": {
   "artist": "Bill Ebbesen",
   "description_url": "https://commons.wikimedia.org/wiki/File:Oatmeal.jpg",
   "file": "Oatmeal.jpg",
   "license": "Copyrighted free use",
   "page_title": "Oatmeal"
+ },
+ "octopus": {
+  "artist": "Darren Stevens",
+  "description_url": "https://commons.wikimedia.org/wiki/File:E_zealandicus_(white_background).jpg",
+  "file": "E_zealandicus_(white_background).jpg",
+  "license": "Attribution",
+  "page_title": "File:E_zealandicus_(white_background).jpg"
  },
  "okonomiyaki sauce": {
   "artist": "ume-y",
@@ -3296,12 +3737,26 @@
   "license": "CC BY 2.0",
   "page_title": "Okonomiyaki"
  },
+ "okra": {
+  "artist": "Geo Lightspeed7",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Oklahoma-grown_okra.jpg",
+  "file": "Oklahoma-grown_okra.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Oklahoma-grown_okra.jpg"
+ },
  "old bay seasoning": {
   "artist": "L1veb4y0udi3",
   "description_url": "https://commons.wikimedia.org/wiki/File:Old_Bay_Seasoning.jpg",
   "file": "Old_Bay_Seasoning.jpg",
   "license": "CC0",
   "page_title": "Old Bay Seasoning"
+ },
+ "olive": {
+  "artist": "User:A,Ocram",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Gr%C3%BCne_Oliven.jpg",
+  "file": "Grüne_Oliven.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Grüne_Oliven.jpg"
  },
  "olive oil": {
   "artist": "Poyraz 72",
@@ -3325,11 +3780,11 @@
   "page_title": "Onion"
  },
  "onion seed": {
-  "artist": "AndreHolz at English Wikipedia",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Nsativa001Wien.jpg",
-  "file": "Nsativa001Wien.jpg",
+  "artist": "No machine-readable author provided. TheGoblin~commonswiki assumed (based on copyright claims).",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Nigella_Sativa_Seed.jpg",
+  "file": "Nigella_Sativa_Seed.jpg",
   "license": "CC BY-SA 3.0",
-  "page_title": "Nigella sativa"
+  "page_title": "File:Nigella_Sativa_Seed.jpg"
  },
  "orange": {
   "artist": "Ivar Leidus",
@@ -3379,6 +3834,13 @@
   "file": "Orgeat_syrup_flavored_drinks.jpg",
   "license": "CC BY-SA 4.0",
   "page_title": "Orgeat syrup"
+ },
+ "ouzo": {
+  "artist": "AlMare",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Ouzo_Sans_Rival_Bottle.jpg",
+  "file": "Ouzo_Sans_Rival_Bottle.jpg",
+  "license": "CC BY-SA 2.5",
+  "page_title": "File:Ouzo_Sans_Rival_Bottle.jpg"
  },
  "ovaltine": {
   "artist": "Leon Brocard",
@@ -3465,11 +3927,11 @@
   "page_title": "Panettone"
  },
  "papaya": {
-  "artist": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Carica_papaya_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-029.jpg",
-  "file": "Carica_papaya_-_Köhler–s_Medizinal-Pflanzen-029.jpg",
-  "license": "Public domain",
-  "page_title": "Papaya"
+  "artist": "Ivar Leidus",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Papaya_-_longitudinal_section.jpg",
+  "file": "Papaya_-_longitudinal_section.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Papaya_-_longitudinal_section.jpg"
  },
  "pappadams": {
   "artist": "Biswarup Ganguly",
@@ -3492,6 +3954,13 @@
   "license": "CC BY-SA 4.0",
   "page_title": "Parmesan"
  },
+ "parsley": {
+  "artist": "PilotChicago",
+  "description_url": "https://commons.wikimedia.org/wiki/File:ParsleyStem.jpg",
+  "file": "ParsleyStem.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:ParsleyStem.jpg"
+ },
  "parsnip": {
   "artist": "Didier Descouens",
   "description_url": "https://commons.wikimedia.org/wiki/File:Pastinaca_sativa_MHNT.BOT.2004.0.jpg",
@@ -3500,11 +3969,18 @@
   "page_title": "Parsnip"
  },
  "passion fruit": {
-  "artist": "Unknown authorUnknown author",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Passiflora_edulis_forma_flavicarpa.jpg",
-  "file": "Passiflora_edulis_forma_flavicarpa.jpg",
-  "license": "Public domain",
-  "page_title": "Passiflora edulis"
+  "artist": "Ivar Leidus",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Passion_fruits_-_whole_and_halved.jpg",
+  "file": "Passion_fruits_-_whole_and_halved.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Passion_fruits_-_whole_and_halved.jpg"
+ },
+ "pasta": {
+  "artist": "Joy",
+  "description_url": "https://commons.wikimedia.org/wiki/File:A_better_homemade_pasta.jpg",
+  "file": "A_better_homemade_pasta.jpg",
+  "license": "CC BY 2.0",
+  "page_title": "File:A_better_homemade_pasta.jpg"
  },
  "pastis": {
   "artist": "",
@@ -3555,12 +4031,33 @@
   "license": "CC BY-SA 3.0",
   "page_title": "Pea"
  },
+ "peach": {
+  "artist": "Fir0002",
+  "description_url": "https://commons.wikimedia.org/wiki/File:White_peach_and_cross_section_edit.jpg",
+  "file": "White_peach_and_cross_section_edit.jpg",
+  "license": "GFDL 1.2",
+  "page_title": "File:White_peach_and_cross_section_edit.jpg"
+ },
  "peach jam": {
   "artist": "毒島みるく",
   "description_url": "https://commons.wikimedia.org/wiki/File:Fruits_jam_variants.jpg",
   "file": "Fruits_jam_variants.jpg",
   "license": "CC0",
   "page_title": "Fruit preserves"
+ },
+ "peach schnapps": {
+  "artist": "Ich",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Mirabelle,_sloe,_and_pear_schnaps.jpg",
+  "file": "Mirabelle,_sloe,_and_pear_schnaps.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Mirabelle,_sloe,_and_pear_schnaps.jpg"
+ },
+ "peanut": {
+  "artist": "Ivar Leidus",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Peanuts_(Arachis_hypogaea)_-_in_shell,_shell_cracked_open,_shelled,_peeled.jpg",
+  "file": "Peanuts_(Arachis_hypogaea)_-_in_shell,_shell_cracked_open,_shelled,_peeled.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Peanuts_(Arachis_hypogaea)_-_in_shell,_shell_cracked_open,_shelled,_peeled.jpg"
  },
  "peanut butter": {
   "artist": "Famartin",
@@ -3575,6 +4072,13 @@
   "file": "Pears.jpg",
   "license": "Public domain",
   "page_title": "Pear"
+ },
+ "pecan": {
+  "artist": "Jud McCranie",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Pecan_halves_with_centimeter_scale.jpg",
+  "file": "Pecan_halves_with_centimeter_scale.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Pecan_halves_with_centimeter_scale.jpg"
  },
  "pecorino cheese": {
   "artist": "Peachyeung316",
@@ -3591,11 +4095,11 @@
   "page_title": "Bell pepper"
  },
  "peppercorn": {
-  "artist": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Piper_nigrum_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-107.jpg",
-  "file": "Piper_nigrum_-_Köhler–s_Medizinal-Pflanzen-107.jpg",
-  "license": "Public domain",
-  "page_title": "Black pepper"
+  "artist": "Diego Delso",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Pimienta_negra_(Piper_nigrum),_2020-06-12,_DD_20-40_FS.jpg",
+  "file": "Pimienta_negra_(Piper_nigrum),_2020-06-12,_DD_20-40_FS.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Pimienta_negra_(Piper_nigrum),_2020-06-12,_DD_20-40_FS.jpg"
  },
  "peppermint": {
   "artist": "",
@@ -3603,6 +4107,13 @@
   "file": "Pfefferminze_natur_peppermint.jpg",
   "license": "CC BY 3.0",
   "page_title": "Peppermint"
+ },
+ "peppermint schnapps": {
+  "artist": "Ich",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Mirabelle,_sloe,_and_pear_schnaps.jpg",
+  "file": "Mirabelle,_sloe,_and_pear_schnaps.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Mirabelle,_sloe,_and_pear_schnaps.jpg"
  },
  "pepperoncini pepper": {
   "artist": "User:CFang",
@@ -3633,11 +4144,11 @@
   "page_title": "Bucatini"
  },
  "peri peri": {
-  "artist": "Bovineone at English Wikipedia",
-  "description_url": "https://commons.wikimedia.org/wiki/File:African_red_devil_peppers.jpg",
-  "file": "African_red_devil_peppers.jpg",
-  "license": "Public domain",
-  "page_title": "Piri piri"
+  "artist": "Takeaway",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Phrik_khi_nu.jpg",
+  "file": "Phrik_khi_nu.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Phrik_khi_nu.jpg"
  },
  "persimmon": {
   "artist": "Frank Schulenburg",
@@ -3687,6 +4198,13 @@
   "file": "Pierogi_z_masłem_-_2023.03.31.jpg",
   "license": "CC BY-SA 4.0",
   "page_title": "Pierogi"
+ },
+ "pigeon pea": {
+  "artist": "",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Cajanus_cajan_Steve_Hurst_1.jpg",
+  "file": "Cajanus_cajan_Steve_Hurst_1.jpg",
+  "license": "Public domain",
+  "page_title": "File:Cajanus_cajan_Steve_Hurst_1.jpg"
  },
  "piloncillo": {
   "artist": "Camilo Sanchez at en.wikipedia",
@@ -3805,7 +4323,7 @@
   "description_url": "https://commons.wikimedia.org/wiki/File:Pomegranate_molasses_in_a_chinese_spoon.jpg",
   "file": "Pomegranate_molasses_in_a_chinese_spoon.jpg",
   "license": "CC BY-SA 4.0",
-  "page_title": "Pomegranate molasses"
+  "page_title": "File:Pomegranate_molasses_in_a_chinese_spoon.jpg"
  },
  "pomegranate seed": {
   "artist": "Augustus Binu : flickr",
@@ -3819,7 +4337,7 @@
   "description_url": "https://commons.wikimedia.org/wiki/File:Pomegranate_molasses_in_a_chinese_spoon.jpg",
   "file": "Pomegranate_molasses_in_a_chinese_spoon.jpg",
   "license": "CC BY-SA 4.0",
-  "page_title": "Pomegranate molasses"
+  "page_title": "File:Pomegranate_molasses_in_a_chinese_spoon.jpg"
  },
  "pomelo fruit": {
   "artist": "Ivar Leidus",
@@ -3834,6 +4352,13 @@
   "file": "Canada_Prime_Beef_Tataki_with_ponzu_pearls_and_horseradish_(5895881268).jpg",
   "license": "CC BY 2.0",
   "page_title": "Ponzu"
+ },
+ "popcorn": {
+  "artist": "User:Bunchofgrapes",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Mushroom_and_butterfly_popcorn.jpg",
+  "file": "Mushroom_and_butterfly_popcorn.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Mushroom_and_butterfly_popcorn.jpg"
  },
  "porcini mushroom": {
   "artist": "ReddishClover",
@@ -3876,6 +4401,13 @@
   "file": "Amager_Rugporter_(4941931513).jpg",
   "license": "CC BY 2.0",
   "page_title": "Porter (beer)"
+ },
+ "potato": {
+  "artist": "",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Phytophtora_infestans-effects.jpg",
+  "file": "Phytophtora_infestans-effects.jpg",
+  "license": "Public domain",
+  "page_title": "File:Phytophtora_infestans-effects.jpg"
  },
  "potato bread": {
   "artist": "Daniel J. Layton",
@@ -3955,11 +4487,11 @@
   "page_title": "Psyllium"
  },
  "pudding": {
-  "artist": "SKopp",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Blanc-manger_on_glass_platter,_full_view.jpg",
-  "file": "Blanc-manger_on_glass_platter,_full_view.jpg",
-  "license": "CC BY-SA 3.0",
-  "page_title": "Pudding"
+  "artist": "Famartin",
+  "description_url": "https://commons.wikimedia.org/wiki/File:2020-03-08_23_43_19_Jell-O_chocolate_pudding_in_the_Dulles_section_of_Sterling,_Loudoun_County,_Virginia.jpg",
+  "file": "2020-03-08_23_43_19_Jell-O_chocolate_pudding_in_the_Dulles_section_of_Sterling,_Loudoun_County,_Virginia.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:2020-03-08_23_43_19_Jell-O_chocolate_pudding_in_the_Dulles_section_of_Sterling,_Loudoun_County,_Virginia.jpg"
  },
  "puff pastry": {
   "artist": "Popo le Chien",
@@ -3974,6 +4506,20 @@
   "file": "FrenchMarketPumpkinsB.jpg",
   "license": "CC BY-SA 3.0",
   "page_title": "Pumpkin"
+ },
+ "pumpkin pie spice": {
+  "artist": "Stephen Witherden",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Pumpkin_Pie_Spice.jpg",
+  "file": "Pumpkin_Pie_Spice.jpg",
+  "license": "CC BY 2.0",
+  "page_title": "File:Pumpkin_Pie_Spice.jpg"
+ },
+ "pumpkin seed": {
+  "artist": "Mk2010",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Pumpkin_Seeds.jpg",
+  "file": "Pumpkin_Seeds.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Pumpkin_Seeds.jpg"
  },
  "purslane": {
   "artist": "ZooFari",
@@ -3997,11 +4543,11 @@
   "page_title": "Quail eggs"
  },
  "quark": {
-  "artist": "Arpad Horvath",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Quark_structure_proton.svg",
-  "file": "Quark_structure_proton.svg",
-  "license": "CC BY-SA 2.5",
-  "page_title": "Quark"
+  "artist": "SKopp",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Skimmed_milk_quark_on_spoon.jpg",
+  "file": "Skimmed_milk_quark_on_spoon.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Skimmed_milk_quark_on_spoon.jpg"
  },
  "quatre epices": {
   "artist": "Claudia_midori",
@@ -4018,18 +4564,18 @@
   "page_title": "Quince"
  },
  "quinoa": {
-  "artist": "User:MarkusHagenlocher",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Reismelde.jpg",
-  "file": "Reismelde.jpg",
+  "artist": "",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Quinoa.jpg",
+  "file": "Quinoa.jpg",
   "license": "CC BY-SA 3.0",
-  "page_title": "Quinoa"
+  "page_title": "File:Quinoa.jpg"
  },
  "rabbit": {
-  "artist": "JM Ligero Loarte",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Oryctolagus_cuniculus_Rcdo.jpg",
-  "file": "Oryctolagus_cuniculus_Rcdo.jpg",
-  "license": "CC BY 3.0",
-  "page_title": "Rabbit"
+  "artist": "F Ceragioli",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Coniglio_olive_pinoli.jpg",
+  "file": "Coniglio_olive_pinoli.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Coniglio_olive_pinoli.jpg"
  },
  "radicchio": {
   "artist": "Xopolino",
@@ -4037,6 +4583,13 @@
   "file": "Radicchio,_halbiert.jpg",
   "license": "CC BY-SA 4.0",
   "page_title": "Radicchio"
+ },
+ "radish": {
+  "artist": "Robert Kerton, CSIRO",
+  "description_url": "https://commons.wikimedia.org/wiki/File:CSIRO_ScienceImage_2779_Radishes.jpg",
+  "file": "CSIRO_ScienceImage_2779_Radishes.jpg",
+  "license": "CC BY 3.0",
+  "page_title": "File:CSIRO_ScienceImage_2779_Radishes.jpg"
  },
  "raisin": {
   "artist": "Paweł Kuźniar (Jojo_1, Jojo)",
@@ -4053,11 +4606,11 @@
   "page_title": "Raisin bread"
  },
  "ramp": {
-  "artist": "Coyau",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Chartres,_H%C3%B4tel_Montescot_08_rampe_PMR.jpg",
-  "file": "Chartres,_Hôtel_Montescot_08_rampe_PMR.jpg",
-  "license": "CC BY-SA 3.0",
-  "page_title": "Inclined plane"
+  "artist": "Ɱ",
+  "description_url": "https://commons.wikimedia.org/wiki/File:RampBunch.png",
+  "file": "RampBunch.png",
+  "license": "CC0",
+  "page_title": "File:RampBunch.png"
  },
  "ranch dressing": {
   "artist": "Whitney from Chicago, IL",
@@ -4078,7 +4631,7 @@
   "description_url": "https://commons.wikimedia.org/wiki/File:Raspberry_-_halved_(Rubus_idaeus).jpg",
   "file": "Raspberry_-_halved_(Rubus_idaeus).jpg",
   "license": "CC BY-SA 4.0",
-  "page_title": "Raspberry"
+  "page_title": "File:Raspberry_-_halved_(Rubus_idaeus).jpg"
  },
  "ravioli": {
   "artist": "cyclonebill",
@@ -4151,11 +4704,11 @@
   "page_title": "Red wine"
  },
  "red wine vinegar": {
-  "artist": "Georges Seguin (Okki)",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Eguilles_20110828_14.jpg",
-  "file": "Eguilles_20110828_14.jpg",
+  "artist": "KENPEI",
+  "description_url": "https://commons.wikimedia.org/wiki/File:%E9%BB%92%E9%85%A2.jpg",
+  "file": "黒酢.jpg",
   "license": "CC BY-SA 3.0",
-  "page_title": "Vinegar"
+  "page_title": "File:黒酢.jpg"
  },
  "refried bean": {
   "artist": "Karyn Christner",
@@ -4191,6 +4744,13 @@
   "file": "Rheum_rhabarbarum.2006-04-27.uellue.jpg",
   "license": "CC BY-SA 3.0",
   "page_title": "Rhubarb"
+ },
+ "rice": {
+  "artist": "IRRI Images",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Rice_grains_(IRRI).jpg",
+  "file": "Rice_grains_(IRRI).jpg",
+  "license": "CC BY 2.0",
+  "page_title": "File:Rice_grains_(IRRI).jpg"
  },
  "rice bran oil": {
   "artist": "Dennis Sylvester Hurd",
@@ -4232,14 +4792,14 @@
   "description_url": "https://commons.wikimedia.org/wiki/File:Rice_vinegar.jpg",
   "file": "Rice_vinegar.jpg",
   "license": "CC0",
-  "page_title": "Rice vinegar"
+  "page_title": "File:Rice_vinegar.jpg"
  },
  "rice wine": {
   "artist": "Lionel Maitrepierre",
   "description_url": "https://commons.wikimedia.org/wiki/File:Bottles_of_Sombai_Liqueur.jpg",
   "file": "Bottles_of_Sombai_Liqueur.jpg",
   "license": "CC BY-SA 4.0",
-  "page_title": "Rice wine"
+  "page_title": "File:Bottles_of_Sombai_Liqueur.jpg"
  },
  "ricotta cheese": {
   "artist": "8w9d",
@@ -4305,11 +4865,11 @@
   "page_title": "Rosé"
  },
  "rosemary": {
-  "artist": "Margalob",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Rosemary_in_bloom.JPG",
-  "file": "Rosemary_in_bloom.JPG",
+  "artist": "PilotChicago",
+  "description_url": "https://commons.wikimedia.org/wiki/File:RosemarySprig.jpg",
+  "file": "RosemarySprig.jpg",
   "license": "CC BY-SA 4.0",
-  "page_title": "Rosemary"
+  "page_title": "File:RosemarySprig.jpg"
  },
  "roux": {
   "artist": "Megs",
@@ -4324,6 +4884,13 @@
   "file": "A_glass_of_rum.jpg",
   "license": "CC BY 2.0",
   "page_title": "Rum"
+ },
+ "rutabaga": {
+  "artist": "pin add",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Swede_-_rutabaga_-_veggiegroup.jpg",
+  "file": "Swede_-_rutabaga_-_veggiegroup.jpg",
+  "license": "CC BY 2.0",
+  "page_title": "File:Swede_-_rutabaga_-_veggiegroup.jpg"
  },
  "rye cracker": {
   "artist": "Cymydog Naakka",
@@ -4416,19 +4983,33 @@
   "license": "CC BY-SA 4.0",
   "page_title": "Zanthoxylum piperitum"
  },
+ "sardine": {
+  "artist": "Gervais et Boulart",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Sardina_pilchardus_Gervais.jpg",
+  "file": "Sardina_pilchardus_Gervais.jpg",
+  "license": "Public domain",
+  "page_title": "File:Sardina_pilchardus_Gervais.jpg"
+ },
  "saskatoon berry": {
-  "artist": "Thayne Tuason",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Amelanchier_alnifolia_var._semiintegrifolia_4.jpg",
-  "file": "Amelanchier_alnifolia_var._semiintegrifolia_4.jpg",
+  "artist": "Ken Eckert",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Saskatoon_Berries_in_Alberta.jpg",
+  "file": "Saskatoon_Berries_in_Alberta.jpg",
   "license": "CC BY-SA 4.0",
-  "page_title": "Amelanchier alnifolia"
+  "page_title": "File:Saskatoon_Berries_in_Alberta.jpg"
+ },
+ "sauerkraut": {
+  "artist": "Qwerty Binary",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Sauerkraut_2.jpg",
+  "file": "Sauerkraut_2.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Sauerkraut_2.jpg"
  },
  "sausage": {
-  "artist": "Alice Wiegand",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Wurstplatte.jpg",
-  "file": "Wurstplatte.jpg",
-  "license": "CC BY-SA 4.0",
-  "page_title": "Sausage"
+  "artist": "Conan",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Salsiccia_Italian_pork_sausage.jpg",
+  "file": "Salsiccia_Italian_pork_sausage.jpg",
+  "license": "CC BY 2.0",
+  "page_title": "File:Salsiccia_Italian_pork_sausage.jpg"
  },
  "sauvignon blanc wine": {
   "artist": "Nathan",
@@ -4521,6 +5102,13 @@
   "license": "CC BY-SA 3.0",
   "page_title": "Tahini"
  },
+ "sesame seed": {
+  "artist": "국립국어원",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Black_sesame.jpg",
+  "file": "Black_sesame.jpg",
+  "license": "CC BY-SA 2.0 kr",
+  "page_title": "File:Black_sesame.jpg"
+ },
  "shad": {
   "artist": "Hans Hillewaert",
   "description_url": "https://commons.wikimedia.org/wiki/File:Alosa_fallax.jpg",
@@ -4536,11 +5124,11 @@
   "page_title": "Shallot"
  },
  "sherry wine": {
-  "artist": "Té y kriptonita",
-  "description_url": "https://commons.wikimedia.org/wiki/File:DO_Jerez_location.svg",
-  "file": "DO_Jerez_location.svg",
+  "artist": "Matt Saunders",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Del_Duque_Amontillado_Sherry.jpg",
+  "file": "Del_Duque_Amontillado_Sherry.jpg",
   "license": "CC BY-SA 3.0",
-  "page_title": "Sherry"
+  "page_title": "File:Del_Duque_Amontillado_Sherry.jpg"
  },
  "shichimi togarashi": {
   "artist": "http://www.recipelab.jp/sozai/detail/1779/",
@@ -4592,11 +5180,11 @@
   "page_title": "Tofu"
  },
  "sloe gin": {
-  "artist": "Stephanie Watson",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Sloe_berry.jpg",
-  "file": "Sloe_berry.jpg",
-  "license": "CC BY 2.0",
-  "page_title": "Sloe gin"
+  "artist": "Smifff",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Hand_Made_Sloe_Gin.jpg",
+  "file": "Hand_Made_Sloe_Gin.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Hand_Made_Sloe_Gin.jpg"
  },
  "smoked fish fillet": {
   "artist": "Brücke-Osteuropa",
@@ -4690,11 +5278,11 @@
   "page_title": "Sorbet"
  },
  "sorghum": {
-  "artist": "No machine-readable author provided. Pethan assumed (based on copyright claims).",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Sorghum_bicolor03.jpg",
-  "file": "Sorghum_bicolor03.jpg",
-  "license": "CC BY-SA 3.0",
-  "page_title": "Sorghum"
+  "artist": "MGB CEE",
+  "description_url": "https://commons.wikimedia.org/wiki/File:%E0%A4%A6%E0%A4%97%E0%A4%A1%E0%A5%80_%E0%A4%9C%E0%A5%8D%E0%A4%B5%E0%A4%BE%E0%A4%B0%E0%A5%80,_%E0%A4%86%E0%A4%9F%E0%A4%AA%E0%A4%BE%E0%A4%A1%E0%A5%80_Dagadi_Jowar,_Aatpadi_(Sorghum_bicolor).jpg",
+  "file": "दगडी_ज्वारी,_आटपाडी_Dagadi_Jowar,_Aatpadi_(Sorghum_bicolor).jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:दगडी_ज्वारी,_आटपाडी_Dagadi_Jowar,_Aatpadi_(Sorghum_bicolor).jpg"
  },
  "sorrel": {
   "artist": "Didier Descouens",
@@ -4723,6 +5311,13 @@
   "file": "Latte_025.jpg",
   "license": "CC BY-SA 3.0",
   "page_title": "Soured milk"
+ },
+ "sourdough roll": {
+  "artist": "BetoComics",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Marraqueta_Pace%C3%B1a_BetoComics.jpg",
+  "file": "Marraqueta_Paceña_BetoComics.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Marraqueta_Paceña_BetoComics.jpg"
  },
  "soy oil": {
   "artist": "United Soybean Board",
@@ -4785,7 +5380,7 @@
   "description_url": "https://commons.wikimedia.org/wiki/File:Minze.jpg",
   "file": "Minze.jpg",
   "license": "CC BY-SA 3.0",
-  "page_title": "Spearmint"
+  "page_title": "File:Minze.jpg"
  },
  "speck": {
   "artist": "Fotograf Frieder Blickle",
@@ -4795,11 +5390,11 @@
   "page_title": "Speck"
  },
  "spicy sausage": {
-  "artist": "Alice Wiegand",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Wurstplatte.jpg",
-  "file": "Wurstplatte.jpg",
+  "artist": "Mercurywoodrose",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Salvadorean_style_chorizo.JPG",
+  "file": "Salvadorean_style_chorizo.JPG",
   "license": "CC BY-SA 4.0",
-  "page_title": "Sausage"
+  "page_title": "File:Salvadorean_style_chorizo.JPG"
  },
  "sponge cake": {
   "artist": "euphro",
@@ -4829,12 +5424,33 @@
   "license": "CC BY-SA 3.0",
   "page_title": "Squab"
  },
+ "squash": {
+  "artist": "Evan-Amos",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Festival-Squash.jpg",
+  "file": "Festival-Squash.jpg",
+  "license": "CC0",
+  "page_title": "File:Festival-Squash.jpg"
+ },
  "squash blossom": {
   "artist": "Sarah Stierch",
   "description_url": "https://commons.wikimedia.org/wiki/File:Zucchini_flowers_-_stierch.jpg",
   "file": "Zucchini_flowers_-_stierch.jpg",
   "license": "CC BY 4.0",
   "page_title": "Squash blossom"
+ },
+ "squid": {
+  "artist": "self",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Todarodes_pacificus_(white_background).jpg",
+  "file": "Todarodes_pacificus_(white_background).jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Todarodes_pacificus_(white_background).jpg"
+ },
+ "squid ink": {
+  "artist": "Joy",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Squid_ink.jpg",
+  "file": "Squid_ink.jpg",
+  "license": "CC BY 2.0",
+  "page_title": "File:Squid_ink.jpg"
  },
  "squirrel": {
   "artist": "Chicoutimi (montage)\n\n\nKarakal\nAndiW\nNational Park Service\nen:User:Markus Krötzsch\nThe Lilac Breasted Roller\nNico Conradie from Centurion, South Africa\nHans Hillewaert\nSylvouille\nNational Park Service",
@@ -4851,11 +5467,11 @@
   "page_title": "Sriracha"
  },
  "star anise": {
-  "artist": "Photo by David J. Stang",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Illicium_verum_1zz.jpg",
-  "file": "Illicium_verum_1zz.jpg",
+  "artist": "Sanjay Acharya",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Dried_Star_Anise_Fruit_Seeds.jpg",
+  "file": "Dried_Star_Anise_Fruit_Seeds.jpg",
   "license": "CC BY-SA 4.0",
-  "page_title": "Illicium verum"
+  "page_title": "File:Dried_Star_Anise_Fruit_Seeds.jpg"
  },
  "star fruit": {
   "artist": "",
@@ -4921,11 +5537,11 @@
   "page_title": "Suet"
  },
  "sugar": {
-  "artist": "Romain Behar",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Sucre_blanc_cassonade_complet_rapadura.jpg",
-  "file": "Sucre_blanc_cassonade_complet_rapadura.jpg",
-  "license": "Public domain",
-  "page_title": "Sugar"
+  "artist": "Sparkveela",
+  "description_url": "https://commons.wikimedia.org/wiki/File:A_Bowl_of_Sugar_2.jpg",
+  "file": "A_Bowl_of_Sugar_2.jpg",
+  "license": "CC0",
+  "page_title": "File:A_Bowl_of_Sugar_2.jpg"
  },
  "sugar cane": {
   "artist": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
@@ -4941,6 +5557,13 @@
   "license": "CC BY-SA 3.0",
   "page_title": "Connecticut field pumpkin"
  },
+ "sugar syrup": {
+  "artist": "Roozitaa",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Inverted_sugar_syrup_(Trimoline).jpg",
+  "file": "Inverted_sugar_syrup_(Trimoline).jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Inverted_sugar_syrup_(Trimoline).jpg"
+ },
  "sumac": {
   "artist": "Oneconscious at English Wikipedia",
   "description_url": "https://commons.wikimedia.org/wiki/File:SumacFruit.JPG",
@@ -4948,12 +5571,26 @@
   "license": "CC BY-SA 3.0",
   "page_title": "Sumac"
  },
+ "summer squash": {
+  "artist": "Evan-Amos",
+  "description_url": "https://commons.wikimedia.org/wiki/File:CSA-Yellow-Squash.jpg",
+  "file": "CSA-Yellow-Squash.jpg",
+  "license": "Public domain",
+  "page_title": "File:CSA-Yellow-Squash.jpg"
+ },
  "sun dried tomato": {
   "artist": "Andrew Deacon",
   "description_url": "https://commons.wikimedia.org/wiki/File:Sun-dried_tomatoes.jpg",
   "file": "Sun-dried_tomatoes.jpg",
   "license": "CC BY 2.0",
   "page_title": "Sun-dried tomato"
+ },
+ "sunflower oil": {
+  "artist": "Itineranttrader",
+  "description_url": "https://commons.wikimedia.org/wiki/File:OleicSunflowerOil.png",
+  "file": "OleicSunflowerOil.png",
+  "license": "Public domain",
+  "page_title": "File:OleicSunflowerOil.png"
  },
  "sunflower seed": {
   "artist": "Kaldari",
@@ -4969,12 +5606,19 @@
   "license": "CC BY 2.5",
   "page_title": "Surimi"
  },
- "sweet pea": {
-  "artist": "Aftabbanoori",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Sweet_Pea-7.jpg",
-  "file": "Sweet_Pea-7.jpg",
+ "sweet and sour sauce": {
+  "artist": "",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Sweet-and-sour_pork.jpg",
+  "file": "Sweet-and-sour_pork.jpg",
   "license": "CC BY-SA 3.0",
-  "page_title": "Sweet pea"
+  "page_title": "File:Sweet-and-sour_pork.jpg"
+ },
+ "sweet pea": {
+  "artist": "Bill Ebbesen",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Peas_in_pods_-_Studio.jpg",
+  "file": "Peas_in_pods_-_Studio.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Peas_in_pods_-_Studio.jpg"
  },
  "sweet potato": {
   "artist": "Llez",
@@ -5012,11 +5656,11 @@
   "page_title": "Swordfish"
  },
  "szechuan hot bean sauce": {
-  "artist": "Praneeth Thalla",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Hot_Pot.jpg",
-  "file": "Hot_Pot.jpg",
-  "license": "CC BY-SA 4.0",
-  "page_title": "Hot pot"
+  "artist": "Badagnani",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Doubanjiang.jpg",
+  "file": "Doubanjiang.jpg",
+  "license": "CC BY 3.0",
+  "page_title": "File:Doubanjiang.jpg"
  },
  "szechuan peppercorn": {
   "artist": "Matt K",
@@ -5026,11 +5670,11 @@
   "page_title": "Sichuan pepper"
  },
  "tabasco sauce": {
-  "artist": "Unknown authorUnknown author",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Tabasco_Logo.svg",
-  "file": "Tabasco_Logo.svg",
-  "license": "Public domain",
-  "page_title": "Tabasco sauce"
+  "artist": "JIP",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Tabasco_Scorpion_Sauce.jpg",
+  "file": "Tabasco_Scorpion_Sauce.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Tabasco_Scorpion_Sauce.jpg"
  },
  "taco sauce": {
   "artist": "Popo le Chien",
@@ -5068,11 +5712,11 @@
   "page_title": "Soy sauce"
  },
  "tamarind paste": {
-  "artist": "B.navez",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Tamarindus_indica_pods.JPG",
-  "file": "Tamarindus_indica_pods.JPG",
-  "license": "CC BY 2.5",
-  "page_title": "Tamarind"
+  "artist": "Anieyo",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Tamarind_paste.jpg",
+  "file": "Tamarind_paste.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Tamarind_paste.jpg"
  },
  "tandoori masala": {
   "artist": "Kamava1971",
@@ -5110,11 +5754,11 @@
   "page_title": "Taramasalata"
  },
  "taro root": {
-  "artist": "No machine-readable author provided. Thierry Caro assumed (based on copyright claims).",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Songe-R%C3%A9union.JPG",
-  "file": "Songe-Réunion.JPG",
-  "license": "CC BY-SA 2.5",
-  "page_title": "Taro"
+  "artist": "Tim Evanson",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Taro_root_and_crossection_of_taro_root.jpg",
+  "file": "Taro_root_and_crossection_of_taro_root.jpg",
+  "license": "CC BY-SA 2.0",
+  "page_title": "File:Taro_root_and_crossection_of_taro_root.jpg"
  },
  "tatsoi": {
   "artist": "Idéalités",
@@ -5131,11 +5775,11 @@
   "page_title": "Tea"
  },
  "teff": {
-  "artist": "No machine-readable author provided. Rasbak assumed (based on copyright claims).",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Teff_pluim_Eragrostis_tef.jpg",
-  "file": "Teff_pluim_Eragrostis_tef.jpg",
-  "license": "CC BY-SA 3.0",
-  "page_title": "Teff"
+  "artist": "Maheder",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Mashella_ena_Teff.JPG",
+  "file": "Mashella_ena_Teff.JPG",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Mashella_ena_Teff.JPG"
  },
  "tempeh": {
   "artist": "Veganbaking.net from USA",
@@ -5157,6 +5801,20 @@
   "file": "22nd_June_2012_Teriyaki_Duck.jpg",
   "license": "CC BY-SA 3.0",
   "page_title": "Teriyaki"
+ },
+ "textured vegetable protein": {
+  "artist": "Elke Wetzig (Elya)",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Soja_texturiert.jpg",
+  "file": "Soja_texturiert.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Soja_texturiert.jpg"
+ },
+ "thai pepper": {
+  "artist": "Takeaway",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Phrik_khi_nu.jpg",
+  "file": "Phrik_khi_nu.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Phrik_khi_nu.jpg"
  },
  "thyme": {
   "artist": "Evan-Amos",
@@ -5313,11 +5971,11 @@
   "page_title": "Turnip"
  },
  "turnip green": {
-  "artist": "thebittenword.com",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Turnip_2622027.jpg",
-  "file": "Turnip_2622027.jpg",
-  "license": "CC BY 2.0",
-  "page_title": "Turnip"
+  "artist": "Evan-Amos",
+  "description_url": "https://commons.wikimedia.org/wiki/File:CSA-Tokyo-Turnips.jpg",
+  "file": "CSA-Tokyo-Turnips.jpg",
+  "license": "Public domain",
+  "page_title": "File:CSA-Tokyo-Turnips.jpg"
  },
  "tzatziki": {
   "artist": "Rainer Zenz",
@@ -5341,11 +5999,11 @@
   "page_title": "Umeboshi"
  },
  "vanilla": {
-  "artist": "Malcolm Manners from Lakeland FL, USA",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Vanilla_planifolia_(6998639597).jpg",
-  "file": "Vanilla_planifolia_(6998639597).jpg",
-  "license": "CC BY 2.0",
-  "page_title": "Vanilla"
+  "artist": "B.navez",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Vanilla_6beans.JPG",
+  "file": "Vanilla_6beans.JPG",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Vanilla_6beans.JPG"
  },
  "vanilla sugar": {
   "artist": "GeoTrinity",
@@ -5355,11 +6013,11 @@
   "page_title": "Vanilla sugar"
  },
  "veal": {
-  "artist": "Witia",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Holstein_cow_with_one-day_calf_01.jpg",
-  "file": "Holstein_cow_with_one-day_calf_01.jpg",
-  "license": "CC BY-SA 4.0",
-  "page_title": "Veal"
+  "artist": "Mogens Engelund",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Veal-shank.jpg",
+  "file": "Veal-shank.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Veal-shank.jpg"
  },
  "veal stock": {
   "artist": "Blue Lotus",
@@ -5369,11 +6027,11 @@
   "page_title": "Stock (food)"
  },
  "vegemite": {
-  "artist": "Unknown authorUnknown author",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Vegemite_brand_logo.png",
-  "file": "Vegemite_brand_logo.png",
+  "artist": "Vegemite",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Vegemite.JPG",
+  "file": "Vegemite.JPG",
   "license": "Public domain",
-  "page_title": "Vegemite"
+  "page_title": "File:Vegemite.JPG"
  },
  "vegetable broth": {
   "artist": "Hannes Grobe (talk)",
@@ -5432,18 +6090,18 @@
   "page_title": "Vin Santo"
  },
  "vinaigrette": {
-  "artist": "GrammarFascist",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Vinaigrette_dressing_with_a_chopped_salad.jpg",
-  "file": "Vinaigrette_dressing_with_a_chopped_salad.jpg",
-  "license": "CC BY-SA 4.0",
-  "page_title": "Vinaigrette"
+  "artist": "jules",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Salad_Dressing-2_(23044326320).jpg",
+  "file": "Salad_Dressing-2_(23044326320).jpg",
+  "license": "CC BY 2.0",
+  "page_title": "File:Salad_Dressing-2_(23044326320).jpg"
  },
  "vinegar": {
-  "artist": "Georges Seguin (Okki)",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Eguilles_20110828_14.jpg",
-  "file": "Eguilles_20110828_14.jpg",
-  "license": "CC BY-SA 3.0",
-  "page_title": "Vinegar"
+  "artist": "Veganbaking.net from USA",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Coconut_Vinegar_(8681608491).jpg",
+  "file": "Coconut_Vinegar_(8681608491).jpg",
+  "license": "CC BY-SA 2.0",
+  "page_title": "File:Coconut_Vinegar_(8681608491).jpg"
  },
  "vodka": {
   "artist": "Ashley Pomeroy",
@@ -5460,11 +6118,11 @@
   "page_title": "Waffle"
  },
  "wakame seaweed": {
-  "artist": "division, CSIRO",
-  "description_url": "https://commons.wikimedia.org/wiki/File:CSIRO_ScienceImage_952_Undaria_pinnatifida_Japanese_kelp.jpg",
-  "file": "CSIRO_ScienceImage_952_Undaria_pinnatifida_Japanese_kelp.jpg",
-  "license": "CC BY 3.0",
-  "page_title": "Wakame"
+  "artist": "えむかとー",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Boiled_wakame.jpg",
+  "file": "Boiled_wakame.jpg",
+  "license": "Public domain",
+  "page_title": "File:Boiled_wakame.jpg"
  },
  "walleye": {
   "artist": "USFWS Mountain Prairie",
@@ -5481,11 +6139,11 @@
   "page_title": "Walnut"
  },
  "wasabi": {
-  "artist": "Qwert1234",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Wasabia_japonica_4.JPG",
-  "file": "Wasabia_japonica_4.JPG",
-  "license": "CC BY-SA 3.0",
-  "page_title": "Wasabi"
+  "artist": "https://publicdomainq.net/wasabi-japanese-horseradish-0000353/",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Wasabi_002.jpg",
+  "file": "Wasabi_002.jpg",
+  "license": "CC0",
+  "page_title": "File:Wasabi_002.jpg"
  },
  "watermelon": {
   "artist": "Fred Hsu (Wikipedia:User:Fred Hsu on en.wikipedia)",
@@ -5493,6 +6151,20 @@
   "file": "Taiwan_2009_Tainan_City_Organic_Farm_Watermelon_FRD_7962.jpg",
   "license": "CC BY-SA 3.0",
   "page_title": "Watermelon"
+ },
+ "wheat": {
+  "artist": "Original uploader was Gabi bart at pl.wikipedia",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Wheat_Ear_milk_full.jpg",
+  "file": "Wheat_Ear_milk_full.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Wheat_Ear_milk_full.jpg"
+ },
+ "white bean": {
+  "artist": "Rasbak",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Phaseolus_vulgaris_white_beans,_witte_boon.jpg",
+  "file": "Phaseolus_vulgaris_white_beans,_witte_boon.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Phaseolus_vulgaris_white_beans,_witte_boon.jpg"
  },
  "white chocolate": {
   "artist": "Mixy Lorenzo",
@@ -5530,11 +6202,11 @@
   "page_title": "Tuber magnatum"
  },
  "white vinegar": {
-  "artist": "Georges Seguin (Okki)",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Eguilles_20110828_14.jpg",
-  "file": "Eguilles_20110828_14.jpg",
-  "license": "CC BY-SA 3.0",
-  "page_title": "Vinegar"
+  "artist": "Veganbaking.net from USA",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Coconut_Vinegar_(8681608491).jpg",
+  "file": "Coconut_Vinegar_(8681608491).jpg",
+  "license": "CC BY-SA 2.0",
+  "page_title": "File:Coconut_Vinegar_(8681608491).jpg"
  },
  "white wine": {
   "artist": "André Karwath aka Aka",
@@ -5550,6 +6222,13 @@
   "license": "CC0",
   "page_title": "Mustard (condiment)"
  },
+ "wild rice": {
+  "artist": "No machine-readable author provided. ElinorD assumed (based on copyright claims).",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Wildricecooked.jpg",
+  "file": "Wildricecooked.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Wildricecooked.jpg"
+ },
  "wine": {
   "artist": "André Karwath",
   "description_url": "https://commons.wikimedia.org/wiki/File:Red_and_white_wine_in_glass.jpg",
@@ -5558,11 +6237,11 @@
   "page_title": "Wine"
  },
  "winter melon": {
-  "artist": "Akshay.paramatmuni1987 (left photo), মৌচুমী (bottom right photo), Zhangzhugang (upper right photo), montage by User:RoRo",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Benincasa_hispida_compose.jpg",
-  "file": "Benincasa_hispida_compose.jpg",
-  "license": "CC BY-SA 3.0",
-  "page_title": "Wax gourd"
+  "artist": "Kpsudeep",
+  "description_url": "https://commons.wikimedia.org/wiki/File:India_Ash_Gourd.jpg",
+  "file": "India_Ash_Gourd.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:India_Ash_Gourd.jpg"
  },
  "winter squash": {
   "artist": "Californiacondor",
@@ -5612,6 +6291,13 @@
   "file": "Green-Yellow-Red-Pepper-2009.jpg",
   "license": "CC BY-SA 3.0",
   "page_title": "Bell pepper"
+ },
+ "yellow squash": {
+  "artist": "Evan-Amos",
+  "description_url": "https://commons.wikimedia.org/wiki/File:CSA-Yellow-Squash.jpg",
+  "file": "CSA-Yellow-Squash.jpg",
+  "license": "Public domain",
+  "page_title": "File:CSA-Yellow-Squash.jpg"
  },
  "yellowfin tuna fillet": {
   "artist": "NOAA",
