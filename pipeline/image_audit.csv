@@ -1,0 +1,807 @@
+slug,score,category,note
+cashew,1,wrong form / part,"cashew APPLES (fruit), not the nut people expect"
+chuck-roast,1,wrong-subject (diagram/logo/map),"a BEEF CUTS butcher diagram, not a photo"
+crabapple,1,wrong form / part,"a whole flowering tree, not the fruit"
+curacao,1,other / misleading,"two white star shapes, no drink"
+fat,1,wrong-subject (diagram/logo/map),"molecular diagram, completely wrong"
+filet-mignon,1,wrong-subject (diagram/logo/map),"a COW cuts diagram, not a photo"
+green-mango,1,live animal / wrong creature,"a HUMMINGBIRD, completely wrong"
+ground-elk,1,live animal / wrong creature,"a live elk, not ground meat"
+liver,1,wrong-subject (diagram/logo/map),an anatomy diagram of organs
+poultry,1,wrong-subject (diagram/logo/map),"a vintage poultry-chart poster, not food"
+quark,1,wrong-subject (diagram/logo/map),"a physics quark diagram, completely wrong"
+ramp,1,wrong form / part,"a metallic solar/satellite panel, not the vegetable"
+salsify,1,wrong form / part,"the salsify flower, not the root"
+sherry-wine,1,wrong-subject (diagram/logo/map),"a MAP of Spain, not a photo of sherry"
+spring-green,1,wrong-subject (diagram/logo/map),"a green color swatch/bar, not food"
+squirrel,1,live animal / wrong creature,"live squirrels, not the meat"
+star-anise,1,wrong form / part,"green leaves, not the star spice"
+veal,1,live animal / wrong creature,"a live dairy cow, not the meat"
+verjuice,1,other / misleading,"a medieval winemaking illustration, not food"
+achiote,2,wrong form / part,"red flowers, ghost halo, hard to read"
+acorn-squash,2,bad cutout / unreadable,"grey ghost blocks, bad cutout"
+adobo-sauce,2,wrong form / part,"shows a hunk of cured meat, not a sauce"
+ajwain,2,wrong form / part,"white flowers, not the seed spice"
+alligator-meat,2,bad cutout / unreadable,"tiny dark dish + halo, unrecognizable"
+allspice,2,wrong form / part,"shows plant/leaves, not the dried berry/spice"
+almond-flour,2,other / misleading,"dark blob, does not read as pale almond flour"
+amarula-cream-liqueur,2,other / misleading,"two generic drink glasses, no bottle, unidentifiable"
+ancho-chili,2,other / misleading,fresh green poblano; ancho is the DRIED dark pepper
+apricot-jam,2,wrong form / part,"row of assorted jam smears, not clearly apricot"
+asian-chili-sauce,2,bad cutout / unreadable,"messy blobs + ghosting, unreadable"
+bamboo-shoot,2,wrong form / part,"dark mass + halo, not the pale shoot"
+barberry,2,wrong form / part,"shrub with orange flowers, not the red berries"
+beer,2,other / misleading,a WOMAN holding beers dominates the tile
+benedictine,2,other / misleading,"yellow abstract blob, does not represent the liqueur"
+bitter-melon,2,wrong form / part,"vine with ghosting, melon barely visible"
+black-bread,2,bad cutout / unreadable,"dark chunk + heavy halo, barely reads as bread"
+black-eyed-pea,2,bad cutout / unreadable,single tiny pea + ghosting
+black-pepper,2,wrong form / part,"pepper plant leaves, not the peppercorn/spice"
+brine,2,other / misleading,"looks like a marked water bottle/column, does not read as brine"
+brown-rice-syrup,2,wrong form / part,"pale/green dishes, not amber syrup"
+brown-sugar,2,bad cutout / unreadable,"mixed sugars + grey halo, bad cutout"
+browning-sauce,2,wrong form / part,"a full English breakfast plate, not the sauce"
+buckwheat-groat,2,wrong form / part,"white plant flowers, not the groats"
+burdock-root,2,wrong form / part,"thistle flowers, not the root"
+buttercup-squash,2,wrong form / part,"squash vine/flowers, not the fruit"
+cajun-seasoning,2,wrong form / part,"a shrimp/gumbo dish, not the seasoning"
+calamari,2,bad cutout / unreadable,"messy cooked squid, hard to read"
+candlenut,2,bad cutout / unreadable,"leaf + one tiny nut, sparse"
+cannellini-bean,2,other / misleading,shows RED kidney beans; cannellini are white
+cantaloupe,2,wrong form / part,"green-rind gourd/melon + flower, not a cantaloupe"
+caramel,2,other / misleading,"empty orange plate, no caramel visible"
+carob-powder,2,wrong form / part,"dark twisted object, not a powder"
+cashew-nut,2,wrong form / part,"shows the cashew fruit again, not the nut"
+cassava,2,wrong form / part,"cassava plant leaves, not the root"
+celery-seed,2,wrong form / part,"duplicate celery crate, not the seeds"
+cereal,2,other / misleading,"few corn/grain kernels, does not read as cereal"
+char-siu-sauce,2,wrong form / part,"a food skewer, not the sauce"
+cherry-flavored-liqueur,2,wrong form / part,"bottle with basil leaves overlaid, messy"
+chestnut,2,wrong form / part,"a single green leaf, not a chestnut"
+chestnut-flour,2,other / misleading,"a green leaf, not flour"
+chia-seed,2,bad cutout / unreadable,"faint ghost blobs, barely visible"
+chickpea,2,wrong form / part,"one odd brown blob, not clearly chickpeas"
+chihuahua-cheese,2,bad cutout / unreadable,"dark slices on bread, unreadable"
+chili-garlic-sauce,2,other / misleading,"plate with white sauce + olives, not chili-garlic"
+chili-paste,2,bad cutout / unreadable,messy brown lumps on plate + ghost
+chili-sauce,2,bad cutout / unreadable,"same messy plate as chili-paste, unreadable"
+conch,2,bad cutout / unreadable,"murky cooked conch, unrecognizable"
+corn,2,bad cutout / unreadable,"small corn cob + faint ghost, sparse"
+cotija-cheese,2,bad cutout / unreadable,"cheese with ghost halos, messy"
+crawfish,2,bad cutout / unreadable,"single crawfish + ghost, murky"
+curd,2,other / misleading,a gloved HAND holding curd
+daikon-radish,2,bad cutout / unreadable,heavy motion-blur/ghost artifacts
+daikon-sprout,2,bad cutout / unreadable,"same daikon image, not sprouts, messy"
+dandelion-green,2,wrong form / part,"a yellow dandelion flower, not the greens"
+date,2,bad cutout / unreadable,"red clusters + ghost, does not read as dates"
+demi-glace,2,wrong form / part,"plate of meat/veg + ghost, not the sauce"
+dried-lily-bud,2,wrong form / part,"fresh lily flower, not the dried buds"
+duck-fat,2,duplicate / store-shelf placeholder,"same roasted duck image, not fat"
+duck-stock,2,duplicate / store-shelf placeholder,"same roasted duck image, not stock"
+fava-bean,2,wrong form / part,"sparse plant sprig + one pod, ghosty"
+fig-jam,2,duplicate / store-shelf placeholder,"same fig botanical illustration, not jam"
+frog-s-leg,2,bad cutout / unreadable,"frog legs + bread, messy"
+fruit-jam,2,other / misleading,row of assorted jam smears
+galangal,2,other / misleading,"botanical illustration, rhizome not clear"
+garlic,2,wrong form / part,"whole garlic plant with scapes, not clear bulbs/cloves (common ingredient!)"
+garlic-oil,2,other / misleading,"orange gel supplement capsules, not culinary garlic oil"
+ginkgo-nut,2,wrong form / part,"a ginkgo tree/foliage, not the nuts"
+golden-beet,2,wrong form / part,"dark purple/red beets, not golden"
+grape,2,bad cutout / unreadable,"few dark grapes/plums, heavy ghost, sparse"
+greek-yogurt,2,other / misleading,"blob in liquid on plate, does not read as greek yogurt"
+green-chili,2,wrong form / part,"yellow + red chilies, not green"
+green-chili-paste,2,bad cutout / unreadable,messy brown lumps on plate
+green-peppercorn,2,wrong form / part,"pepper plant leaves, not the peppercorns"
+green-tomato,2,wrong form / part,"RED tomatoes, not green"
+ground-meat,2,bad cutout / unreadable,"hand + patties + ghost, messy"
+ham-hock,2,wrong-subject (diagram/logo/map),"a pig anatomy line-drawing, not a photo"
+hash-brown,2,bad cutout / unreadable,"faint ghosty orange, poor cutout"
+hazelnut-flavored-liqueur,2,duplicate / store-shelf placeholder,"a crowd of many bottles, unidentifiable"
+hijiki-seaweed,2,bad cutout / unreadable,faint botanical print on paper
+hubbard-squash,2,wrong form / part,"squash vine + flowers, not the fruit"
+huckleberry,2,bad cutout / unreadable,"dark berries, heavy ghost, sparse"
+jam,2,other / misleading,row of assorted jam smears
+kaffir-lime-leaf,2,wrong form / part,"kaffir limes (fruit), not the leaves"
+kasseri-cheese,2,other / misleading,"translucent ice-cube block, not cheese"
+kelp,2,wrong form / part,"orange peel-like thing + ghost, not kelp"
+khoya,2,other / misleading,a MAN making khoya dominates the tile
+konnyaku,2,wrong form / part,"a konjac flower/plant, not the konnyaku block"
+liquor,2,other / misleading,"a copper still/alembic, not liquor"
+lobster,2,bad cutout / unreadable,"dark ghosted mess, unrecognizable"
+lumpia-skin,2,bad cutout / unreadable,"messy food pile, not wrappers"
+maggi-seasoning,2,wrong-subject (diagram/logo/map),"just the MAGGI logo, not a product"
+malt-vinegar,2,duplicate / store-shelf placeholder,"a store shelf of bottles, does not represent it"
+marshmallow,2,bad cutout / unreadable,"grey ghosted blobs, unreadable"
+masa-harina,2,wrong form / part,"dark burnt blobs + ghost, not pale flour"
+napa-cabbage,2,bad cutout / unreadable,ghost halo artifact on the left
+nigella-seed,2,wrong form / part,"a white nigella flower, not the black seeds"
+onion-paste,2,duplicate / store-shelf placeholder,"same assorted onions image, not paste"
+onion-seed,2,wrong form / part,"a white nigella flower, not seeds"
+orange-extract,2,duplicate / store-shelf placeholder,"same orange image, not an extract"
+orange-flower-water,2,wrong form / part,"a metal juicer/press, not the water"
+papaya,2,bad cutout / unreadable,"floral ghost artifact + papaya, poor cutout"
+parsnip,2,wrong form / part,"dried seed umbel, not the parsnip root"
+passion-fruit,2,wrong form / part,"the passion flower, not clearly the fruit"
+peach-jam,2,other / misleading,row of assorted jam smears
+peppercorn,2,wrong form / part,"pepper plant leaves, not the peppercorns"
+peri-peri,2,wrong form / part,"planter of chili plants + ghost, unclear"
+pheasant,2,live animal / wrong creature,"a live pheasant bird in a field, not the meat"
+pickle-juice,2,other / misleading,"pink shot glasses, reads as a cocktail"
+pineapple-syrup,2,duplicate / store-shelf placeholder,"same pineapple image, not syrup"
+pomegranate-molasses,2,wrong form / part,"a dark ham-like blob, not molasses"
+pomegranate-syrup,2,duplicate / store-shelf placeholder,"same dark blob, not syrup"
+ponzu-sauce,2,bad cutout / unreadable,"dark red messy mass, unreadable"
+potato-flake,2,other / misleading,"a green gourd/melon, not potato flakes"
+psyllium,2,wrong form / part,"a dried plant sprig, sparse, not the husk"
+pudding,2,other / misleading,"empty glass dish, no pudding"
+quinoa,2,wrong form / part,"a quinoa plant head, not the grains"
+rabbit,2,live animal / wrong creature,"a live rabbit, not the meat"
+raspberry,2,other / misleading,"looks like a halved red pepper, not raspberry"
+red-wine-vinegar,2,duplicate / store-shelf placeholder,a store shelf of bottles
+rice-krispies,2,wrong-subject (diagram/logo/map),just the Rice Krispies logo
+rice-vinegar,2,wrong form / part,"an empty pale bowl, no vinegar visible"
+rice-wine,2,duplicate / store-shelf placeholder,"a shelf of bottles, unclear"
+rosemary,2,wrong form / part,"blurry rosemary flowers, sparse ghost"
+safflower-oil,2,wrong form / part,"a safflower flower, not oil"
+saskatoon-berry,2,wrong form / part,"white plant flowers, not the berries"
+sausage,2,bad cutout / unreadable,"small unclear cut object, hard to read"
+sloe-gin,2,wrong form / part,"a blue-grey sphere, not sloe gin"
+smoked-tofu,2,wrong form / part,"white tofu on blue plate, not smoked (brown) tofu"
+sorghum,2,wrong form / part,"dried sorghum plant heads, sparse, not the grain"
+spearmint,2,wrong form / part,"looks like aloe, not spearmint leaves"
+spicy-sausage,2,bad cutout / unreadable,"small unclear cut object, hard to read"
+suckling-pig,2,bad cutout / unreadable,"ghosty hanging object, hard to read"
+sugar,2,wrong form / part,"mixed brown sugars + grey halo, not clean white sugar"
+sweet-pea,2,wrong form / part,"sweet pea flowers, not the edible pea"
+szechuan-hot-bean-sauce,2,bad cutout / unreadable,"a small pot/grinder + ghost, unclear"
+tabasco-sauce,2,wrong-subject (diagram/logo/map),just the Tabasco diamond logo
+tamarind-paste,2,bad cutout / unreadable,"dark ghosty scattered pieces, unclear"
+taro-root,2,bad cutout / unreadable,"dark murky taro, hard to read"
+teff,2,wrong form / part,"a green plant sprig, sparse, not the grain"
+turnip-green,2,wrong form / part,"same turnips image, not the greens"
+vanilla,2,wrong form / part,"a vanilla flower, not the beans/pods"
+vegemite,2,wrong-subject (diagram/logo/map),just the Vegemite logo
+vinaigrette,2,bad cutout / unreadable,"greenish blobs + ghost, unclear"
+vinegar,2,duplicate / store-shelf placeholder,a store shelf of bottles
+wakame-seaweed,2,bad cutout / unreadable,"dark dried sparse ghost, unclear"
+wasabi,2,bad cutout / unreadable,"a sparse wasabi shoot + ghost, no paste/root"
+white-pepper,2,wrong form / part,"pepper plant leaves, not the white pepper"
+white-vinegar,2,duplicate / store-shelf placeholder,a store shelf of bottles
+winter-melon,2,wrong form / part,"a flower + small melon slice, sparse/odd"
+yacon-syrup,2,wrong form / part,"raw yacon roots, not the syrup"
+yellow-pear-tomato,2,bad cutout / unreadable,"heavy ghost/transparency artifacts, messy"
+alfredo-sauce,3,,"plate of fettuccine, sauce not obvious"
+alum,3,,"clear crystals, accurate but abstract"
+amaranth,3,,"magenta flowering plant, messy ghosting"
+amaretto,3,,"multiple bottles, busy"
+amchoor-powder,3,,"dried mango slices, not the powder"
+angelica,3,,"purple flowering plant, messy ghosting"
+anisette,3,,"branded bottle, ghost halo behind"
+arame-seaweed,3,,"black dried spindly form, plausible seaweed"
+artichoke-heart,3,,"whole artichoke shown, not the heart"
+arugula,3,,"generic leafy shrub, not clearly arugula"
+asadero-cheese,3,,packaged cheese with label
+asiago-cheese,3,,branded wheel
+baguette,3,,"baguettes in basket, busy packaging"
+balsamic-vinegar,3,,abstract dark liquid splash
+barbecue-sauce,3,,foil tray of BBQ meat + stray piece; reads as BBQ
+bay-scallop,3,,"closed shell, not the scallop meat"
+bean-flour,3,,"pale flour pile, some halo"
+beef-fat,3,,jar of white fat
+beet,3,,"beets, dark with ghosting"
+berry,3,,"red berries on a twig, generic"
+biscuit,3,,"UK biscuits, name ambiguous"
+black-vinegar,3,,glass of dark liquid
+blackberry,3,,"assorted berries, not only blackberry"
+blue-cheese,3,,"cheese with label sign, some ghosting"
+boursin-cheese,3,,foil tub of soft cheese
+brazil-nut,3,,"mixed nuts/dried bits, a bit odd"
+breadcrumb,3,,small plate of crumbs
+brown-bean-sauce,3,,dark glossy sauce dome
+butter,3,,butter chunks + halo
+cachaca,3,,"multiple bottles, busy"
+caciocavallo,3,,gourd cheese + chunks
+canola-oil,3,,bowl of pale oil
+capicola,3,,"cured meat piece, some ghost wisps"
+cardoon,3,,cardoon thistle plant/flower
+cashew-milk,3,,"bowl of white liquid, generic"
+celery,3,,"crate of celery, packaging visible"
+champagne,3,,"glass of champagne, ghosting"
+cheese,3,,"assorted cheese platter, busy"
+cheese-curd,3,,scattered yellow curds
+chinese-celery,3,,celery stalk
+chinese-duck-sauce,3,,duck sauce packets
+chutney,3,,bowls of chutney
+ciabatta,3,,"ciabatta slices, ghost at top"
+citrus-infused-vodka,3,,martini glass cocktail
+cloud-ear-mushroom,3,,"dark mushrooms on stick, sparse"
+condensed-milk,3,,"tube + white puddle, odd"
+crab,3,,"crab on toast, a bit hard to read"
+cracked-farro,3,,bowl of farro
+creme-fraiche,3,,bowl of cream + ghost halo
+crouton,3,,single small crouton
+cubanelle-pepper,3,,"bowl of peppers, colors a bit off, ghost"
+cucumber-juice,3,,glass of green juice + lid
+cumin,3,,"cumin plant illustration, seeds secondary"
+cuttlefish,3,,"cuttlefish, ok"
+dashi,3,,bonito flakes pile
+date-sugar,3,,"brown powder, reads as brown sugar"
+dried-hibiscus-flower,3,,"fresh hibiscus, not dried, but recognizable"
+dry-tapioca,3,,plate of tapioca + odd bits
+egg,3,,"quail eggs, not the expected chicken egg"
+enoki-mushroom,3,,"enoki, ghost reflection below"
+epazote,3,,epazote sprig
+fig,3,,botanical illustration of fig plant + fruit
+five-spice-powder,3,,spice jar + cap
+focaccia-bread,3,,slice of focaccia
+foie-gras,3,,plated foie gras dish
+fried-onion,3,,"fried mass, reads as fried onion"
+ginger-beer,3,,ginger beer bottles
+goat-cheese,3,,white cheese chunks/logs
+goat-meat,3,,"hanging goat carcass, a bit graphic"
+goose,3,,plated goose slices with garnish
+gorgonzola,3,,gorgonzola chunks
+gourd,3,,decorative gourds in basket
+grapeseed-oil,3,,bottle of oil
+grappa,3,,glass of grappa
+green-tea,3,,bowls of tea leaves + matcha
+gremolata,3,,bowl of chopped herb
+gumbo-file,3,,bowl of gumbo + sauce bottles
+hake-fillet,3,,"whole fish illustration, not a fillet"
+ham-stock,3,,pot of stock with bones
+harissa,3,,red harissa paste + decorative flowers
+hearts-of-palm,3,,sliced hearts of palm + knife
+hemp-milk,3,,glass of milk + seeds
+herbes-de-provence,3,,jars of herbs
+herring-fillet,3,,can of herring
+hershey-s-syrup,3,,chocolate syrup over ice cream
+hoisin-sauce,3,,dark sauce + fried food
+hollandaise-sauce,3,,yellow sauce over food
+hot-bean-paste,3,,reddish flakes pile
+kohlrabi,3,,kohlrabi + ghost
+kombu,3,,dark kelp sheets
+koshi-an,3,,bowl of red bean paste
+lard,3,,white lard blob + knife
+leek,3,,leek greens only
+lemon-pepper,3,,decorative bowl of seasoning
+lemon-verbena,3,,lemon verbena sprig
+light-cheese,3,,packaged sliced cheese
+liquid-smoke,3,,spoon of dark liquid
+lobster-stock,3,,pot of stock
+lotus-seed,3,,lotus seeds + ghost
+lychee,3,,small cluster of lychees
+maca,3,,maca roots + ghost
+macadamia,3,,"macadamia nuts on branch, in shell"
+mace,3,,mace + dark bowl
+marinara-sauce,3,,red saucy dish
+marzipan,3,,rolling pin + marzipan slab
+masala,3,,spice pile + ghost
+meat,3,,board of assorted meats
+meatball,3,,pot of meatballs/stew
+melba-toast,3,,"toast + toppings on plate, ghost"
+mesclun,3,,mesclun salad on bread
+mirin,3,,bowl of amber liquid
+monkfish-fillet,3,,"whole monkfish, not a fillet"
+msg,3,,pile of white crystals
+mushroom-stock,3,,pot of stock
+mustard-powder,3,,pile of seeds/powder
+oatmeal,3,,pile of oats
+okonomiyaki-sauce,3,,okonomiyaki dish with sauce
+oregano,3,,"oregano with flowers, ghost"
+ovaltine,3,,dish of powder + spoon
+oyster,3,,"single oyster, pale/murky"
+pappadams,3,,pappadums
+pate,3,,plated pate dish
+pawpaw,3,,pawpaw fruit illustration
+peppermint,3,,peppermint leaves + ghost
+phyllo-pastry,3,,baked filled phyllo
+pie-crust,3,,a baked meat pie
+pimento,3,,small red pimento pepper
+pimento-cheese,3,,plate of pimento cheese
+pimiento,3,,small red pepper
+pineapple,3,,pineapple with odd flowering base
+pisco,3,,"Pisco bottles, small"
+pita-bread,3,,pita bread
+plum-wine,3,,glass of plum wine
+polenta,3,,polenta dish with sausage
+pomegranate-seed,3,,"whole pomegranate + juice, not just seeds"
+pork-fat,3,,pork/ham slices
+portabella-mushroom,3,,"mushrooms, look like button not portabella"
+praline,3,,pink praline crumble
+puff-pastry,3,,rolled pastry sheet
+quail,3,,plated quail dish
+quail-egg,3,,plated dish with quail eggs
+quatre-epices,3,,ground spice pile + fork
+quince,3,,"quince on branch, illustration"
+red-chile,3,,"mostly yellow chilies, color off for red"
+refried-bean,3,,refried beans in pan
+relish,3,,bowls of relish + ghost
+remoulade-sauce,3,,green-flecked sauce disc
+rennet,3,,"bottle of animal rennet, labeled"
+rice-cake,3,,decorated rice cake
+rice-milk,3,,glass of rice milk + grated bits
+ricotta-cheese,3,,"ricotta tubs + spoon, ghost"
+rum,3,,glass of rum
+sake,3,,sake cup/set
+salad-dressing,3,,salad with dressing
+salsa-verde,3,,spill of green salsa
+sambhar-powder,3,,"bowl of sambar soup, not the powder"
+sansho-pepper,3,,branch with berries/leaves
+sauvignon-blanc-wine,3,,"green grapes, not wine"
+savoy-cabbage,3,,savoy leaf + ghost
+scallop,3,,scallop shell
+schmaltz,3,,pale fat blob
+scone,3,,plate of scones
+seitan,3,,plate of seitan strips
+sesame-oil,3,,vial of oil
+sesame-paste,3,,tahini bowls + lemon
+shiso,3,,purple shiso leaves + ghost
+shortening,3,,jar of shortening in basket
+smoked-trout,3,,a smoker apparatus with fish
+snap-pea,3,,snap peas + ghost
+snow-pea,3,,"single snow pea pod, small"
+soup,3,,asparagus + bowl of soup + spoon
+sour-cream,3,,"plate/dish, not clearly sour cream"
+sour-milk,3,,glass of milk
+soy-oil,3,,bottles of oil
+soybean,3,,"dried soybean plant sprig, sparse"
+squab,3,,whole raw squab/pigeon
+star-fruit,3,,"star fruit whole + slices, ghost"
+steak-sauce,3,,A1 sauce boxes row
+stock,3,,pot of stock
+suet,3,,chunk of raw fat
+sugar-cane,3,,sugar cane stalks illustration
+sun-dried-tomato,3,,sun-dried tomatoes + heavy ghost
+surimi,3,,bowl of pale paste
+sweet-potato,3,,sweet potato + ghost
+sweetbread,3,,plated sweetbread dish
+taco-sauce,3,,bowls of sauce on a plate
+tahini,3,,tahini bowls + lemon
+tandoori-masala,3,,"spice tin, labeled"
+tapioca,3,,plate of tapioca + odd bits
+tarama,3,,plate of taramasalata + veg
+tea,3,,bowl of tea leaves
+teriyaki-sauce,3,,teriyaki dish
+tilapia-fillet,3,,"whole tilapia, not a fillet"
+tom-yum-paste,3,,"bowl of tom yum soup, not paste"
+tostada,3,,tostada plate
+treacle,3,,dish of treacle + spoon
+tripe,3,,pale folded tripe
+triple-sec,3,,bottle + pineapple + limes
+turkey-liver,3,,liver + onions dish
+turmeric,3,,fresh turmeric root + ghost
+umeboshi,3,,umeboshi plum
+veal-stock,3,,pot of stock
+whole-grain-mustard,3,,"dish of mustard, grain not obvious"
+yellowfin-tuna-fillet,3,,"whole tuna, not a fillet"
+absinthe,4,,"glass+spoon serve, iconic"
+agave-nectar,4,,clear branded syrup bottle
+aioli,4,,"bowl+spoon, recognizable"
+albacore-tuna,4,,"whole tuna, clean"
+aleppo-pepper,4,,"red pepper flakes pile, accurate"
+almond-milk,4,,glass+jug of milk
+amaretti,4,,"amaretti cookies, clean"
+andouille-sausage,4,,"sausage, recognizable"
+angostura-bitter,4,,branded bottle + glass
+annatto-seed,4,,"open pod with red seeds, accurate"
+apple-cider,4,,two glasses of cider
+apple-juice,4,,glasses of juice with apple
+arctic-char,4,,"fish, clean"
+armagnac,4,,branded bottle
+asian-pear,4,,"asian pears, clean"
+avocado,4,,"two whole avocados, no cut flesh"
+bacon,4,,cooked bacon strip
+bagel,4,,"sesame bagel, clean"
+baileys-irish-cream,4,,bottle + glass
+banana,4,,bunches of bananas/plantains
+bay-leaf,4,,dried bay leaves
+bean,4,,"green beans, reads fine"
+bearnaise-sauce,4,,bowl of sauce + tarragon
+bechamel-sauce,4,,pot of bechamel + spoon
+biscotti,4,,"biscotti slice, clean"
+black-mushroom,4,,shiitake mushrooms
+black-pudding,4,,slice of black pudding
+black-tea,4,,cup of tea
+blueberry,4,,"few blueberries, clean"
+bluefish,4,,fish illustration
+bolognese-sauce,4,,pasta with bolognese
+bonito-flake,4,,bonito flakes pile
+bouquet-garni,4,,tied herb bundle
+bran-flake,4,,bowl of bran flakes
+brandy,4,,brandy snifter
+bread,4,,seeded bread rolls
+bresaola,4,,cured meat pieces
+broth,4,,jar of broth + spoon
+brown-bread,4,,slice of brown bread
+bun,4,,sesame buns
+burrata-cheese,4,,burrata ball in bowl
+butterfish,4,,B&W fish illustration
+buttermilk,4,,two glasses of milk
+cabbage,4,,"cabbage, clean"
+cabbage-kimchi,4,,kimchi
+cardamom,4,,cardamom pods pile
+carp,4,,carp fish
+carrot,4,,carrots with greens
+carrot-juice,4,,glass of juice + carrots
+caviar,4,,caviar on spoon + pile
+celeriac,4,,celeriac root
+chai-tea,4,,pouring chai into cup
+challah,4,,challah loaf
+charcoal,4,,"charcoal chunks, clean"
+cheddar-cheese,4,,cheddar wedge
+cheesecake,4,,cheesecake slice + berries
+cherry-brandy,4,,kirschwasser bottle
+cherry-pepper,4,,red cherry pepper
+cherry-syrup,4,,bottle + glass of syrup
+chestnut-mushroom,4,,mushrooms
+chicken,4,,"roasted whole chicken, appealing"
+chickpea-flour,4,,pile of yellow flour
+chili-bean,4,,"chili in bowl, recognizable"
+chili-oil,4,,dish of chili oil
+chimichurri-sauce,4,,bowl of green sauce
+chinese-eggplant,4,,purple eggplants
+chinese-sausage,4,,strings of chinese sausage
+chipotle-chile,4,,dried chipotle chiles
+chocolate-wafer,4,,wafer cookies
+cider,4,,glass of cider
+cinnamon,4,,cinnamon sticks + cloves
+clotted-cream,4,,tub of cream
+cocoa-butter,4,,block of cocoa butter
+coconut,4,,coconuts whole + cut
+cod,4,,cod fish
+coffee,4,,latte + dish of coffee
+cognac,4,,cognac snifter
+colby-cheese,4,,orange cheese block
+coleslaw,4,,coleslaw pile
+collard-green,4,,"collard greens, clean"
+comte-cheese,4,,comte on board
+cookie,4,,chocolate chip cookie
+corn-flake,4,,bowl of corn flakes
+cornbread,4,,cornbread round
+cornmeal,4,,pile of cornmeal
+cottage-cheese,4,,bowl of cottage cheese
+couscous,4,,bowl of couscous
+cream-cheese,4,,"Philadelphia tub, branded"
+creme-anglaise,4,,bowl of pale custard sauce
+creme-de-menthe,4,,glass of green liquid
+crepe,4,,stack of crepes
+crostini,4,,topped crostini
+crumpet,4,,buttered crumpet
+curry,4,,bowl of curry
+custard,4,,bowl of custard
+dal,4,,lentil piles
+delicata-squash,4,,delicata squash
+dragee,4,,colorful dragees
+drambuie,4,,Drambuie bottle
+dried-kasha,4,,kasha pile + butter
+dry-onion,4,,onions whole + cut
+duck,4,,roasted duck
+dulce-de-leche,4,,bowl of caramel
+dumpling,4,,plate of dumplings
+eau-de-vie,4,,eau-de-vie bottles
+edam-cheese,4,,edam wheel with red wax
+edamame,4,,edamame pods
+eel,4,,grilled eel dish
+egg-yolk,4,,"egg yolk, clean"
+eggnog,4,,glass of eggnog
+eggplant,4,,"eggplants, clean"
+elderberry,4,,elderberries
+english-muffin,4,,muffins + butter on plate
+escargot,4,,escargot dish
+feta-cheese,4,,"feta block, clean"
+fish,4,,generic fish illustration
+fish-cake,4,,fish cakes with sauce
+fish-roe,4,,roe on spoon + pile
+fish-sauce,4,,bowl of amber sauce
+flounder,4,,B&W flounder illustration
+fontina,4,,fontina cheese in basket
+french-fry,4,,french fries
+fromage-blanc,4,,tub + spoon of fromage blanc
+fudge,4,,fudge pieces
+gai-lan,4,,"gai lan, clean"
+galliano,4,,Galliano bottle + glass
+gherkin,4,,gherkin pickle
+giardiniera,4,,giardiniera mix
+ginger-ale,4,,mug of ginger ale
+gingerbread,4,,gingerbread cake slice
+gnocchi,4,,gnocchi dish
+goat-s-milk,4,,glass of milk
+golden-syrup,4,,bowl of amber syrup
+goldschlager,4,,Goldschlager bottle
+gooseberry,4,,green gooseberries
+gouda-cheese,4,,gouda wheels
+grand-marnier,4,,bottle + glass
+granola-cereal,4,,granola with fruit + yogurt
+grape-juice,4,,glass of grape juice
+gravy,4,,gravy boat
+green-lentil,4,,bowl of green lentils
+green-onion,4,,green onions/scallions
+green-salad,4,,plated salad
+grouper,4,,grouper fish
+gruyere,4,,gruyere wheel + wedge
+guacamole,4,,bowl of guacamole
+haddock,4,,fish
+halibut,4,,B&W halibut illustration
+halloumi-cheese,4,,halloumi slices + parsley
+ham,4,,ham
+haricot-bean,4,,"white beans, clean"
+hazelnut,4,,"hazelnuts, clean"
+hazelnut-butter,4,,jar of hazelnut butter
+hominy,4,,bowl of hominy
+honey,4,,jar of honey + dipper
+hummus,4,,bowl of hummus
+jackfruit,4,,whole jackfruit
+juniper-berry,4,,juniper berries on branch
+kefalotiri,4,,cheese wedges
+kefir,4,,glass of kefir
+ketchup,4,,bowl of ketchup
+ketjap-manis,4,,bottle of kecap manis
+kirsch,4,,kirsch bottle
+kiwi,4,,"kiwi slices, appealing"
+lavender,4,,lavender sprigs
+lemonade,4,,glass of lemonade
+lentil,4,,assorted lentil piles
+licor-43,4,,Licor 43 bottle
+lillet-blanc,4,,Lillet bottle
+linguine,4,,dry linguine fan
+liqueur,4,,Beirao bottle
+liverwurst,4,,liverwurst slices
+macaroon,4,,macaroons
+madeira-wine,4,,Madeira bottle + glass
+mahi-mahi,4,,mahi-mahi fish
+maitake-mushroom,4,,maitake mushroom
+malted-milk,4,,Carnation malted milk tin
+manchego-cheese,4,,manchego wedges on board
+mandarin-orange,4,,single mandarin
+maple-syrup,4,,maple syrup bottle
+marmalade,4,,jar of marmalade
+mascarpone,4,,tub of mascarpone
+matcha-green-tea-powder,4,,matcha powder pile
+mayonnaise,4,,jar of mayo
+meatloaf,4,,sliced meatloaf
+melon,4,,assorted melons
+meringue,4,,swirl of meringue
+mezcal,4,,mezcal bottles
+milk,4,,glass of milk
+miso,4,,mound of miso paste
+mizithra-cheese,4,,white cheese ball
+mizuna,4,,mizuna greens
+mochi-rice,4,,mound of glutinous rice
+molasses,4,,molasses pouring from ladle
+monterey-jack-cheese,4,,Vella cheese wheel with label
+mortadella,4,,mortadella
+mozzarella-cheese,4,,mozzarella ball
+muenster-cheese,4,,orange-rinded cheese slice
+muffin,4,,muffins
+mung-bean,4,,green mung beans pile
+mushroom,4,,"cluster of mushrooms, slight ghost"
+mustard,4,,dish of mustard
+mustard-seed,4,,pile of mustard seeds
+mutton,4,,mutton cut
+navy-bean,4,,"white navy beans, clean"
+nopales,4,,nopales cactus pads
+nori,4,,nori sheets
+nutella,4,,Nutella jar + on bread
+nutmeg,4,,nutmeg + mace in bowls
+old-bay-seasoning,4,,"Old Bay box, branded"
+olive-oil,4,,olive oil bottle + olives
+onion,4,,assorted onions
+orange-roughy,4,,orange roughy fish illustration
+orange-zest,4,,orange being zested + curls
+orgeat-syrup,4,,Orzata bottle
+oxtail,4,,oxtail pieces
+oyster-mushroom,4,,oyster mushrooms
+oyster-sauce,4,,pouring oyster sauce
+palm-sugar,4,,palm sugar discs
+pancake,4,,"stack of pancakes, appealing"
+pancetta,4,,rolled pancetta
+panch-phoron,4,,spice seed mix pile
+paneer-cheese,4,,white paneer block
+panela-cheese,4,,white cheese pieces
+panettone,4,,panettone
+parmesan-cheese,4,,parmesan wheel + wedge
+pastis,4,,glass of pastis
+pastrami,4,,pastrami sandwich
+pastry-cream,4,,bowl of pastry cream
+peanut-butter,4,,jar of peanut butter
+pecorino-cheese,4,,pecorino on board
+pepperoncini-pepper,4,,pepperoncini peppers
+pepperoni,4,,pepperoni pizza
+perch,4,,perch fish
+perciatelli,4,,dry perciatelli pasta
+pickled-onion,4,,jar of pickled onions
+pierogies,4,,pierogies
+piloncillo,4,,piloncillo sugar cones
+pimms,4,,Pimm's bottle + cocktail
+pine-nut,4,,pine nuts pile
+pinto-bean,4,,pinto beans pile
+piquillo-pepper,4,,piquillo peppers
+pomelo-fruit,4,,pomelo whole + segments
+porcini-mushroom,4,,"porcini mushroom, clean"
+pork,4,,raw pork belly on board
+port-wine,4,,"glass of port, appealing"
+porter,4,,glass of dark porter
+potato-bread,4,,loaf of bread
+pound-cake,4,,pound cake
+pretzel,4,,pretzels
+prosciutto,4,,prosciutto ham leg
+prosecco,4,,bottle + glass
+provolone-cheese,4,,provolone with label
+prune,4,,prunes pile
+pumpkin,4,,pile of pumpkins
+purslane,4,,purslane succulent
+raisin,4,,bowl of raisins
+raisin-bread,4,,raisin bread loaf + slice
+ranch-dressing,4,,jar of ranch
+ras-el-hanout-spice-mix,4,,bowl of spice powder
+ravioli,4,,ravioli dish
+razor-clam,4,,razor clam
+red-bean,4,,bowl of red beans
+red-lentil,4,,assorted lentil piles
+red-onion,4,,"red onions, clean"
+red-rice,4,,pile of red rice
+red-snapper,4,,red snapper fish
+red-wine,4,,"glass of red wine, appealing"
+rhubarb,4,,"rhubarb stalks, clean"
+rice-bran-oil,4,,rice bran oil bottle
+rice-cracker,4,,pile of rice crackers
+rockfish-fillet,4,,whole rockfish
+romano-bean,4,,romano beans on plate
+romano-cheese,4,,romano cheese wedges
+romesco-sauce,4,,bowl of romesco + ingredients
+root-beer,4,,mug of root beer
+roquefort-cheese,4,,roquefort wedge
+rose,4,,pink rose flower
+rose-wine,4,,glass of rose
+roux,4,,bowl of roux + whisk
+rye-cracker,4,,rye crackers
+rye-whiskey,4,,whiskey bottle
+salami,4,,salami with white rind
+salmon,4,,whole salmon
+sambal-oelek,4,,red sambal + lime
+sea-bream,4,,sea bream fish
+sea-scallop,4,,scallop shell + meat
+seafood,4,,seafood platter
+semolina,4,,pile of semolina
+shad,4,,shad fish
+shallot,4,,shallots whole + cut
+shichimi-togarashi,4,,orange spice pile
+shimeji-mushroom,4,,cluster of mushrooms
+shortbread,4,,shortbread round
+silken-tofu,4,,tofu block on blue plate
+smoked-fish-fillet,4,,pink fish fillet
+smoked-ham,4,,smoked ham
+smoked-salmon,4,,smoked salmon canape
+smoked-turkey,4,,smoked/roasted turkey
+smoked-whitefish,4,,whitefish
+snail,4,,escargot dish
+sole,4,,sole fish
+soppressata,4,,soppressata slices
+sorbet,4,,"bowl of red sorbet, appealing"
+sorrel,4,,sorrel leaves
+soy-sauce,4,,bowl of soy sauce
+soya-milk,4,,bottle + glass of milk
+soymilk,4,,bottle + glass of milk
+spaetzle-noodle,4,,pile of spaetzle
+spaghetti-squash,4,,whole spaghetti squash
+sparkling-wine,4,,glass of sparkling wine
+speck,4,,speck cured meat
+sponge-cake,4,,sponge cake
+spring-cabbage,4,,cabbage whole + cut
+squash-blossom,4,,squash blossoms
+sriracha-sauce,4,,sriracha bottle
+stevia,4,,"green stevia leaf, clean"
+sturgeon-fillet,4,,fish fillet
+sugar-pumpkin,4,,pumpkins
+sumac,4,,red sumac berry clusters
+sunflower-seed,4,,sunflower seeds shelled + shell
+swiss-chard,4,,"swiss chard, clean"
+swiss-cheese,4,,swiss cheese wedge with holes
+swordfish,4,,swordfish
+szechuan-peppercorn,4,,szechuan peppercorns pile
+taleggio,4,,taleggio wedge
+tamale,4,,tamales on plate
+tamari,4,,bowl of dark tamari
+tapenade,4,,mound of tapenade
+tatsoi,4,,green tatsoi leaves
+tempeh,4,,tempeh blocks
+tequila,4,,tequila bottles + glass
+thyme,4,,bundle of thyme
+tia-maria,4,,Tia Maria box + glass
+tofu,4,,tofu block on blue plate
+tomato-juice,4,,glass of tomato juice + tomato
+tonkatsu-sauce,4,,tonkatsu sauce bottle + drink
+tortellini,4,,tortellini
+tortilla,4,,tortillas
+tortilla-chip,4,,tortilla chips + salsa
+trout,4,,trout
+tuna,4,,tuna fish
+turbot,4,,turbot fish
+turkey,4,,roasted turkey
+tzatziki,4,,bowl of tzatziki
+udon-noodle,4,,bowl of udon
+vanilla-sugar,4,,jar of vanilla beans in sugar
+vegetable-broth,4,,bowl of broth + spoon
+vegetable-oil,4,,decanter of oil
+velveeta-cheese,4,,yellow cheese block
+venison,4,,raw venison steaks
+vermicelli,4,,plate of vermicelli
+vermouth,4,,vermouth bottles
+vin-santo,4,,biscotti + glass of vin santo
+vodka,4,,Smirnoff bottle
+waffle,4,,"waffles + strawberries, appealing"
+walleye,4,,walleye fish
+watermelon,4,,whole watermelon
+white-chocolate,4,,white chocolate chunks
+white-pearl-onion,4,,pearl onions pile
+white-truffle,4,,white truffle
+white-wine,4,,glass of white wine
+wine,4,,red + white wine glasses
+winter-squash,4,,assorted squashes
+wonton,4,,plate of wontons
+wood-ear-mushroom,4,,wood ear mushroom
+worcestershire-sauce,4,,bowl of dark sauce
+yellow-pepper,4,,"bell peppers incl yellow, clean"
+yogurt,4,,bowl of yogurt
+yuzu,4,,"yuzu citrus, clean"
+almond,5,,clean almonds
+apple,5,,clean red apple
+apricot,5,,"whole + half, clean"
+artichoke,5,,"green artichoke, clean"
+beef,5,,"raw ribeye, clean and appealing"
+bell-pepper,5,,"three peppers, clean and appealing"
+black-rice,5,,clean pile of black rice
+blood-orange,5,,"halves, clean and appealing"
+bok-choy,5,,clean bok choy
+brie-cheese,5,,"brie wedge, clean"
+broccoli,5,,"two broccoli, clean"
+butternut-squash,5,,"cut butternut, clean"
+button-mushroom,5,,"button mushrooms, clean"
+camembert-cheese,5,,"wheel + wedge, clean"
+cauliflower,5,,"cauliflower head, clean"
+chanterelle-mushroom,5,,"chanterelle, clean and accurate"
+chayote,5,,"chayote squash, clean"
+cherry,5,,"two cherries, clean"
+cherry-tomato,5,,"cherry tomatoes, clean"
+chili,5,,"colorful chilies, clean"
+chili-pepper,5,,"colorful chilies, clean"
+chocolate,5,,"chocolate bar, clean"
+clementine,5,,"clementines, clean and appealing"
+croissant,5,,"croissant, clean and appealing"
+dandelion-flower,5,,"dandelion flower, clean"
+fiddlehead,5,,"fiddleheads, clean and accurate"
+glutinous-rice,5,,"sticky rice mound, clean"
+grapefruit,5,,"whole + half, clean and appealing"
+green-pea,5,,"pea pods, clean"
+guava,5,,"whole + half, clean and appealing"
+habanero,5,,"orange habanero, clean"
+habanero-pepper,5,,"orange habanero, clean"
+honeydew-melon,5,,"honeydew cut, clean"
+jalapeno,5,,"two jalapenos, clean"
+kumquat,5,,"kumquats whole + cut, appealing"
+lemon,5,,"lemon, clean and appealing"
+lime,5,,"lime, clean and appealing"
+mango,5,,"mango whole + half, appealing"
+morel,5,,"morel mushroom, clean"
+orange,5,,"orange whole + half, appealing"
+paprika,5,,"paprika powder pile, clean"
+pattypan-squash,5,,"pattypan squashes, clean"
+pea,5,,"pea pods, clean"
+pear,5,,"pears, clean and appealing"
+pepper,5,,"bell peppers, clean"
+persimmon,5,,"persimmons whole + half, appealing"
+plum,5,,"plums whole + cut, appealing"
+pomegranate,5,,"pomegranate + juice, appealing"
+radicchio,5,,"radicchio half, clean"
+red-cabbage,5,,"red cabbage, clean"
+saffron,5,,"bowl of saffron threads, appealing"
+scotch-bonnet-pepper,5,,"orange scotch bonnet, clean"
+shiitake-mushroom,5,,"shiitake mushrooms, clean"
+sticky-rice,5,,"sticky rice mound, clean"
+strawberry,5,,"strawberry, clean and appealing"
+tangerine,5,,"tangerine, clean and appealing"
+tomato,5,,"tomatoes, clean and appealing"
+turnip,5,,"turnips, clean"
+walnut,5,,"walnuts, clean"
+white-mushroom,5,,"white mushrooms, clean"
+zucchini,5,,"zucchini, clean"
