@@ -24,7 +24,7 @@
   "title": "Mace (spice)"
  },
  "sage": {
-  "file": "Salvia officinalis Berggarten.JPG"
+  "skip": true
  },
  "stock": {
   "title": "Stock (food)"
@@ -153,7 +153,7 @@
   "file": "Todarodes pacificus (white background).jpg"
  },
  "noodle": {
-  "file": "Egg noodles.JPG"
+  "skip": true
  },
  "apple": {
   "file": "Red Apple.jpg"
@@ -168,7 +168,7 @@
   "skip": true
  },
  "ajwain": {
-  "file": "Carom.jpg"
+  "skip": true
  },
  "alligator meat": {
   "skip": true
@@ -213,7 +213,7 @@
   "file": "Black-eyed peas close up.jpg"
  },
  "black pepper": {
-  "file": "Dried Peppercorns.jpg"
+  "file": "Pimienta negra (Piper nigrum), 2020-06-12, DD 20-40 FS.jpg"
  },
  "brine": {
   "skip": true
@@ -260,7 +260,7 @@
   "skip": true
  },
  "cashew": {
-  "file": "CashewSnack.jpg"
+  "skip": true
  },
  "cashew nut": {
   "title": "Cashew",
@@ -336,7 +336,7 @@
   "skip": true
  },
  "dandelion green": {
-  "file": "Dandelion greens at market.jpg"
+  "skip": true
  },
  "date": {
   "file": "Mazafati dates - whole, halved and seed.jpg"
@@ -432,7 +432,7 @@
   "scan": true
  },
  "huckleberry": {
-  "file": "Huckleberry 1.jpg"
+  "skip": true
  },
  "jam": {
   "file": "Homemade marmalade, England.jpg"
@@ -499,7 +499,7 @@
   "file": "Papaya - longitudinal section.jpg"
  },
  "parsnip": {
-  "file": "Parsnip with honey and mustard.JPG"
+  "skip": true
  },
  "passion fruit": {
   "file": "Passion fruits - whole and halved.jpg"
@@ -508,7 +508,7 @@
   "skip": true
  },
  "peppercorn": {
-  "file": "4 color mix of peppercorns.jpg"
+  "file": "Pimienta negra (Piper nigrum), 2020-06-12, DD 20-40 FS.jpg"
  },
  "peri peri": {
   "file": "Phrik khi nu.jpg"
@@ -548,7 +548,7 @@
   "file": "Skimmed milk quark on spoon.jpg"
  },
  "quinoa": {
-  "file": "White, red, and black quinoa.jpg"
+  "file": "Quinoa.jpg"
  },
  "rabbit": {
   "file": "Coniglio olive pinoli.jpg"
@@ -557,7 +557,7 @@
   "file": "RampBunch.png"
  },
  "raspberry": {
-  "file": "Raspberries (Rubus idaeus).jpg"
+  "file": "Raspberry - halved (Rubus idaeus).jpg"
  },
  "red wine vinegar": {
   "file": "黒酢.jpg"
@@ -593,7 +593,7 @@
   "file": "Hand Made Sloe Gin.jpg"
  },
  "smoked tofu": {
-  "file": "Dong Dou Fu (tofu).jpg"
+  "skip": true
  },
  "sorghum": {
   "file": "दगडी ज्वारी, आटपाडी Dagadi Jowar, Aatpadi (Sorghum bicolor).jpg"
@@ -667,7 +667,7 @@
   "file": "Wasabi 002.jpg"
  },
  "white pepper": {
-  "file": "Dried Peppercorns.jpg"
+  "skip": true
  },
  "white vinegar": {
   "file": "Coconut Vinegar (8681608491).jpg"
@@ -683,10 +683,10 @@
   "scan": true
  },
  "adzuki bean": {
-  "file": "Azuki Beans.jpg"
+  "file": "Red bean paste anko.JPG"
  },
  "alfalfa sprout": {
-  "file": "AlfalfaSprouts1.jpg"
+  "skip": true
  },
  "almond butter": {
   "skip": true
@@ -695,7 +695,7 @@
   "file": "Engraulis encrasicolus Gervais flipped.jpg"
  },
  "anise": {
-  "file": "Aniseed p1160018.jpg"
+  "file": "AniseSeeds.jpg"
  },
  "apple brandy": {
   "skip": true
@@ -719,7 +719,7 @@
   "file": "Barley Seeds.jpg"
  },
  "basil": {
-  "file": "Ocimum basilicum 8zz.jpg"
+  "file": "Basilic-spice.jpg"
  },
  "basil pesto": {
   "skip": true
@@ -731,7 +731,7 @@
   "skip": true
  },
  "black truffle": {
-  "file": "Truffe nature.JPG"
+  "skip": true
  },
  "bourbon": {
   "skip": true
@@ -743,19 +743,19 @@
   "file": "Grissini.jpg"
  },
  "broccolini": {
-  "file": "Broccolini.jpg"
+  "skip": true
  },
  "brown rice": {
-  "file": "Reis - Sorte C voll.jpg"
+  "skip": true
  },
  "brussels sprout": {
-  "file": "Brussels sprout closeup.jpg"
+  "skip": true
  },
  "buffalo": {
   "skip": true
  },
  "bulgur": {
-  "file": "Bulgur2.jpg"
+  "file": "Bulgur.jpg"
  },
  "cactus piece": {
   "skip": true
@@ -776,7 +776,7 @@
   "file": "Large Cayenne.jpg"
  },
  "chamomile flower": {
-  "file": "Kamomillasaunio (Matricaria recutita).JPG"
+  "skip": true
  },
  "chervil": {
   "file": "Farmer's Market - Chervil (3497853296).jpg"
@@ -815,10 +815,10 @@
   "skip": true
  },
  "coriander": {
-  "file": "A scene of Coriander leaves.JPG"
+  "file": "Coriander roots.JPG"
  },
  "coriander seed": {
-  "file": "Coriander Seeds.jpg"
+  "skip": true
  },
  "corn syrup": {
   "skip": true
@@ -875,7 +875,7 @@
   "file": "2017 0102 fenugreek seeds.jpg"
  },
  "fettuccine": {
-  "file": "Fettucine1.JPG"
+  "skip": true
  },
  "fines herbes": {
   "file": "Bouquet garni p1150476 extracted.jpg"
@@ -887,7 +887,7 @@
   "file": "Canned flageolets.jpg"
  },
  "flax seed": {
-  "file": "Brown Flax Seeds.jpg"
+  "skip": true
  },
  "frangelico": {
   "skip": true
@@ -899,13 +899,13 @@
   "file": "Friseesalat1 (fcm).jpg"
  },
  "ganache": {
-  "file": "00 Ganaché de chocolate.jpg"
+  "file": "PBfudge ganache.jpg"
  },
  "garlic chive": {
   "file": "Cut Garlic Chives.jpg"
  },
  "garlic scape": {
-  "file": "Garlic scape.jpg"
+  "file": "CSA-Garlic-Scapes.jpg"
  },
  "gin": {
   "file": "Bee's Knees.jpg"
@@ -923,7 +923,7 @@
   "file": "Goji Berries.jpg"
  },
  "green bean": {
-  "file": "Cut Green Beans.jpg"
+  "skip": true
  },
  "grit": {
   "skip": true
@@ -935,7 +935,7 @@
   "skip": true
  },
  "hemp seed": {
-  "file": "HempSeed.jpg"
+  "skip": true
  },
  "herbsaint": {
   "file": "Absinthe-glass.jpg"
@@ -971,7 +971,7 @@
   "skip": true
  },
  "lemon thyme": {
-  "file": "Starr 070906-8846 Thymus citriodorus.jpg"
+  "skip": true
  },
  "lemongrass": {
   "file": "Prepared lemon grass.JPG"
@@ -983,7 +983,7 @@
   "file": "Sections of liquorice root.jpg"
  },
  "lima bean": {
-  "file": "Phaseoulus lunatus.jpg"
+  "file": "Phaseolus lunatus MHNT.BOT.2008.1.40.jpg"
  },
  "limoncello": {
   "file": "Homemade limoncello.jpg"
@@ -992,13 +992,13 @@
   "file": "Tyttebær.jpg"
  },
  "lovage": {
-  "file": "Liebstöckel.JPG"
+  "skip": true
  },
  "mackerel": {
   "file": "Mackerel freshly caught.jpg"
  },
  "mango chutney": {
-  "file": "Unripe Mango Chutney - Kolkata 2011-02-23 1714.JPG"
+  "skip": true
  },
  "marjoram": {
   "file": "Marjoram flowers.jpg"
@@ -1022,7 +1022,7 @@
   "file": "Flours.jpg"
  },
  "millet": {
-  "file": "A closeup of Pearl Millet (Cumbu).JPG"
+  "skip": true
  },
  "mint": {
   "skip": true
@@ -1043,7 +1043,7 @@
   "file": "Mussel dish.jpg"
  },
  "mustard green": {
-  "file": "Mustardgreensraw.jpg"
+  "skip": true
  },
  "nectarine": {
   "file": "White nectarine and cross section02 edit.jpg"
@@ -1100,19 +1100,19 @@
   "skip": true
  },
  "pigeon pea": {
-  "file": "Cap-Vert-Pois secs.jpg"
+  "file": "Cajanus cajan Steve Hurst 1.jpg"
  },
  "pistachio": {
-  "file": "Pistachio vera.jpg"
+  "skip": true
  },
  "plantain": {
   "skip": true
  },
  "popcorn": {
-  "file": "Popcorn up close salted and air popped.jpg"
+  "file": "Mushroom and butterfly popcorn.jpg"
  },
  "poppy seed": {
-  "file": "Poppy seeds.jpg"
+  "skip": true
  },
  "potato": {
   "file": "Phytophtora infestans-effects.jpg"
@@ -1124,10 +1124,10 @@
   "file": "Pumpkin Pie Spice.jpg"
  },
  "pumpkin seed": {
-  "file": "Pepita de calabaza.jpg"
+  "file": "Pumpkin Seeds.jpg"
  },
  "purple potato": {
-  "file": "Patates.jpg"
+  "skip": true
  },
  "radish": {
   "file": "CSIRO ScienceImage 2779 Radishes.jpg"
@@ -1145,7 +1145,7 @@
   "file": "Rice grains (IRRI).jpg"
  },
  "rice noodle": {
-  "file": "Rice vermicelli.jpg"
+  "skip": true
  },
  "roll": {
   "skip": true
@@ -1157,7 +1157,7 @@
   "skip": true
  },
  "sago": {
-  "file": "Sago1.jpg"
+  "skip": true
  },
  "salsa": {
   "skip": true
@@ -1178,10 +1178,10 @@
   "skip": true
  },
  "serrano pepper": {
-  "file": "Starr 070730-7846 Capsicum annuum.jpg"
+  "skip": true
  },
  "sesame seed": {
-  "file": "Sa white sesame seeds.jpg"
+  "file": "Black sesame.jpg"
  },
  "sev": {
   "skip": true
@@ -1205,19 +1205,19 @@
   "skip": true
  },
  "spelt": {
-  "file": "2009-06-20 Silvolde 02 dinkel.jpg"
+  "skip": true
  },
  "spinach": {
   "skip": true
  },
  "split pea": {
-  "file": "Split pea.jpg"
+  "skip": true
  },
  "squid ink": {
   "file": "Squid ink.jpg"
  },
  "straw mushroom": {
-  "file": "StrawMushroom.jpg"
+  "skip": true
  },
  "sugar syrup": {
   "file": "Inverted sugar syrup (Trimoline).jpg"
@@ -1244,13 +1244,13 @@
   "skip": true
  },
  "tartar sauce": {
-  "file": "Tartar Sauce.jpg"
+  "skip": true
  },
  "textured vegetable protein": {
   "file": "Soja texturiert.jpg"
  },
  "thai basil": {
-  "file": "Thai basil with flowers.jpg"
+  "skip": true
  },
  "toast": {
   "skip": true
@@ -1274,16 +1274,16 @@
   "file": "Phrik khi nu.jpg"
  },
  "urad dal": {
-  "file": "Black gram.jpg"
+  "skip": true
  },
  "watercress": {
-  "file": "Watercress (2).JPG"
+  "skip": true
  },
  "wheat": {
   "file": "Wheat Ear milk full.jpg"
  },
  "wheatberries": {
-  "file": "Wheatberries.jpg"
+  "skip": true
  },
  "white bean": {
   "file": "Phaseolus vulgaris white beans, witte boon.jpg"
