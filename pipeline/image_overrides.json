@@ -1,7 +1,4 @@
 {
-  "date": {
-    "title": "Date palm"
-  },
   "game": {
     "title": "Game (hunting)"
   },
@@ -71,12 +68,6 @@
   "bird chile": {
     "title": "Bird's eye chili"
   },
-  "cherry flavored liqueur": {
-    "title": "Cherry Heering"
-  },
-  "chestnut flour": {
-    "skip": true
-  },
   "cracked farro": {
     "title": "Farro"
   },
@@ -85,9 +76,6 @@
   },
   "galliano": {
     "title": "Galliano (liqueur)"
-  },
-  "hazelnut flavored liqueur": {
-    "title": "Frangelico"
   },
   "hershey's syrup": {
     "title": "Chocolate syrup"
@@ -110,26 +98,11 @@
   "mushroom stock": {
     "title": "Stock (food)"
   },
-  "onion paste": {
-    "skip": true
-  },
-  "orange extract": {
-    "skip": true
-  },
-  "peach jam": {
-    "skip": true
-  },
   "pigs tail": {
-    "skip": true
-  },
-  "pineapple syrup": {
     "skip": true
   },
   "rom": {
     "skip": true
-  },
-  "smoked tofu": {
-    "title": "Tofu"
   },
   "smoked turkey": {
     "title": "Turkey as food"
@@ -167,28 +140,16 @@
   "squab": {
     "title": "Squab (food)"
   },
-  "pheasant": {
-    "skip": true
-  },
-  "rabbit": {
-    "skip": true
-  },
   "snail": {
     "title": "Escargot"
   },
   "crab": {
     "title": "Crab meat"
   },
-  "lobster": {
-    "title": "Lobster as food"
-  },
   "eel": {
     "title": "Unagi"
   },
   "squid": {
-    "skip": true
-  },
-  "crabapple": {
     "skip": true
   },
   "noodle": {
@@ -198,25 +159,35 @@
     "file": "Red Apple.jpg"
   },
   "achiote": {
-    "title": "Annatto"
+    "title": "Annatto",
+    "scan": true
+  },
+  "acorn squash": {
+    "title": "Acorn squash",
+    "scan": true
   },
   "adobo sauce": {
     "skip": true
   },
   "ajwain": {
-    "skip": true
+    "title": "Ajwain",
+    "scan": true
   },
   "alligator meat": {
-    "skip": true
+    "title": "Alligator meat",
+    "scan": true
   },
   "allspice": {
-    "skip": true
+    "title": "Allspice",
+    "scan": true
   },
   "almond flour": {
-    "skip": true
+    "title": "Almond meal",
+    "scan": true
   },
   "amarula cream liqueur": {
-    "skip": true
+    "title": "Amarula",
+    "scan": true
   },
   "ancho chili": {
     "skip": true
@@ -225,22 +196,39 @@
     "skip": true
   },
   "asian chili sauce": {
-    "title": "Sriracha"
+    "title": "Sriracha",
+    "scan": true
+  },
+  "bamboo shoot": {
+    "title": "Bamboo shoot",
+    "scan": true
   },
   "barberry": {
-    "skip": true
+    "title": "Berberis",
+    "scan": true
   },
   "beer": {
-    "title": "Lager"
+    "title": "Lager",
+    "scan": true
   },
   "benedictine": {
-    "title": "Bénédictine"
+    "title": "Bénédictine",
+    "scan": true
   },
   "bitter melon": {
-    "skip": true
+    "title": "Momordica charantia",
+    "scan": true
   },
   "black bread": {
-    "title": "Pumpernickel"
+    "title": "Pumpernickel",
+    "scan": true
+  },
+  "black eyed pea": {
+    "title": "Black-eyed pea",
+    "scan": true
+  },
+  "black pepper": {
+    "file": "Black Peppercorns.jpg"
   },
   "brine": {
     "skip": true
@@ -248,92 +236,155 @@
   "brown rice syrup": {
     "skip": true
   },
+  "brown sugar": {
+    "title": "Brown sugar",
+    "scan": true
+  },
   "browning sauce": {
     "skip": true
   },
   "buckwheat groat": {
-    "title": "Kasha"
+    "title": "Kasha",
+    "scan": true
   },
   "burdock root": {
-    "skip": true
+    "title": "Arctium",
+    "scan": true
   },
   "buttercup squash": {
-    "skip": true
+    "title": "Cucurbita maxima",
+    "scan": true
   },
   "cajun seasoning": {
     "skip": true
   },
   "calamari": {
-    "title": "Fried squid"
+    "title": "Fried squid",
+    "scan": true
   },
   "candlenut": {
-    "skip": true
+    "title": "Aleurites moluccanus",
+    "scan": true
   },
   "cannellini bean": {
-    "title": "Cannellini bean"
+    "title": "Cannellini bean",
+    "scan": true
   },
   "cantaloupe": {
-    "title": "Muskmelon"
+    "title": "Muskmelon",
+    "scan": true
   },
   "caramel": {
-    "title": "Caramel candy"
+    "title": "Caramel candy",
+    "scan": true
   },
   "carob powder": {
-    "skip": true
+    "title": "Carob",
+    "scan": true
   },
   "cashew": {
-    "skip": true
+    "title": "Cashew",
+    "scan": true
   },
   "cashew nut": {
-    "skip": true
+    "title": "Cashew",
+    "scan": true
   },
   "cassava": {
-    "skip": true
+    "title": "Cassava",
+    "scan": true
   },
   "celery seed": {
-    "skip": true
+    "title": "Celery",
+    "scan": true
   },
   "cereal": {
-    "title": "Breakfast cereal"
+    "title": "Breakfast cereal",
+    "scan": true
   },
   "char siu sauce": {
     "skip": true
   },
+  "cherry flavored liqueur": {
+    "title": "Cherry Heering",
+    "scan": true
+  },
+  "chestnut": {
+    "title": "Chestnut",
+    "scan": true
+  },
+  "chestnut flour": {
+    "title": "Chestnut",
+    "scan": true
+  },
+  "chia seed": {
+    "title": "Chia seed",
+    "scan": true
+  },
+  "chickpea": {
+    "title": "Chickpea",
+    "scan": true
+  },
   "chihuahua cheese": {
-    "skip": true
+    "title": "Queso Chihuahua",
+    "scan": true
   },
   "chili garlic sauce": {
-    "title": "Sambal oelek"
+    "title": "Sambal oelek",
+    "scan": true
   },
   "chili paste": {
-    "title": "Gochujang"
+    "title": "Gochujang",
+    "scan": true
   },
   "chili sauce": {
-    "title": "Sambal"
+    "title": "Sambal",
+    "scan": true
   },
   "chuck roast": {
-    "skip": true
+    "title": "Chuck steak",
+    "scan": true
   },
   "conch": {
-    "title": "Lobatus gigas"
+    "title": "Lobatus gigas",
+    "scan": true
   },
   "corn": {
-    "title": "Sweet corn"
+    "title": "Sweet corn",
+    "scan": true
+  },
+  "cotija cheese": {
+    "title": "Cotija cheese",
+    "scan": true
+  },
+  "crabapple": {
+    "skip": true
   },
   "crawfish": {
-    "title": "Crayfish as food"
+    "title": "Crayfish as food",
+    "scan": true
   },
   "curacao": {
-    "title": "Curaçao (liqueur)"
+    "title": "Curaçao (liqueur)",
+    "scan": true
   },
   "curd": {
-    "title": "Cheese curd"
+    "title": "Cheese curd",
+    "scan": true
+  },
+  "daikon radish": {
+    "title": "Daikon",
+    "scan": true
   },
   "daikon sprout": {
     "skip": true
   },
   "dandelion green": {
     "skip": true
+  },
+  "date": {
+    "title": "Date palm",
+    "scan": true
   },
   "demi glace": {
     "skip": true
@@ -345,46 +396,69 @@
     "skip": true
   },
   "duck stock": {
-    "title": "Stock (food)"
+    "title": "Stock (food)",
+    "scan": true
   },
   "fat": {
     "skip": true
+  },
+  "fava bean": {
+    "title": "Broad bean",
+    "scan": true
   },
   "fig jam": {
     "skip": true
   },
   "filet mignon": {
-    "skip": true
+    "title": "Filet mignon",
+    "scan": true
+  },
+  "frog's leg": {
+    "title": "Frog legs",
+    "scan": true
   },
   "fruit jam": {
     "skip": true
   },
   "galangal": {
-    "skip": true
+    "title": "Galangal",
+    "scan": true
+  },
+  "garlic": {
+    "file": "Garlic bulbs and cloves.jpg"
   },
   "garlic oil": {
     "skip": true
   },
   "ginkgo nut": {
-    "skip": true
+    "title": "Ginkgo biloba",
+    "scan": true
   },
   "golden beet": {
     "skip": true
   },
   "grape": {
-    "title": "Table grape"
+    "title": "Table grape",
+    "scan": true
+  },
+  "greek yogurt": {
+    "title": "Strained yogurt",
+    "scan": true
   },
   "green chili": {
-    "title": "Anaheim pepper"
+    "title": "Anaheim pepper",
+    "scan": true
   },
   "green chili paste": {
     "skip": true
   },
   "green mango": {
-    "title": "Mango"
+    "title": "Mango",
+    "scan": true
   },
   "green peppercorn": {
-    "skip": true
+    "title": "Black pepper",
+    "scan": true
   },
   "green tomato": {
     "skip": true
@@ -393,40 +467,66 @@
     "skip": true
   },
   "ground meat": {
-    "title": "Ground beef"
+    "title": "Ground beef",
+    "scan": true
   },
   "ham hock": {
-    "title": "Pork knuckle"
+    "title": "Pork knuckle",
+    "scan": true
+  },
+  "hash brown": {
+    "title": "Hash browns",
+    "scan": true
+  },
+  "hazelnut flavored liqueur": {
+    "title": "Frangelico",
+    "scan": true
   },
   "hijiki seaweed": {
-    "skip": true
+    "title": "Hijiki",
+    "scan": true
   },
   "hubbard squash": {
-    "skip": true
+    "title": "Cucurbita maxima",
+    "scan": true
+  },
+  "huckleberry": {
+    "title": "Huckleberry",
+    "scan": true
   },
   "jam": {
     "skip": true
   },
   "kaffir lime leaf": {
-    "skip": true
+    "title": "Kaffir lime",
+    "scan": true
   },
   "kasseri cheese": {
-    "skip": true
+    "title": "Kasseri",
+    "scan": true
   },
   "kelp": {
-    "skip": true
+    "title": "Kelp",
+    "scan": true
   },
   "khoya": {
-    "skip": true
+    "title": "Khoa",
+    "scan": true
   },
   "konnyaku": {
     "skip": true
   },
   "liquor": {
-    "title": "Distilled beverage"
+    "title": "Distilled beverage",
+    "scan": true
   },
   "liver": {
-    "title": "Liver (food)"
+    "title": "Liver (food)",
+    "scan": true
+  },
+  "lobster": {
+    "title": "Lobster as food",
+    "scan": true
   },
   "lumpia skin": {
     "skip": true
@@ -437,25 +537,64 @@
   "malt vinegar": {
     "skip": true
   },
+  "marshmallow": {
+    "title": "Marshmallow",
+    "scan": true
+  },
   "masa harina": {
-    "skip": true
+    "title": "Masa",
+    "scan": true
+  },
+  "napa cabbage": {
+    "title": "Napa cabbage",
+    "scan": true
   },
   "nigella seed": {
+    "title": "Nigella sativa",
+    "scan": true
+  },
+  "onion paste": {
     "skip": true
   },
   "onion seed": {
+    "title": "Nigella sativa",
+    "scan": true
+  },
+  "orange extract": {
     "skip": true
   },
   "orange flower water": {
     "skip": true
   },
+  "papaya": {
+    "title": "Papaya",
+    "scan": true
+  },
+  "parsnip": {
+    "title": "Parsnip",
+    "scan": true
+  },
   "passion fruit": {
+    "title": "Passiflora edulis",
+    "scan": true
+  },
+  "peach jam": {
     "skip": true
   },
+  "peppercorn": {
+    "file": "Black Peppercorns.jpg"
+  },
   "peri peri": {
-    "title": "Bird's eye chili"
+    "title": "Bird's eye chili",
+    "scan": true
+  },
+  "pheasant": {
+    "skip": true
   },
   "pickle juice": {
+    "skip": true
+  },
+  "pineapple syrup": {
     "skip": true
   },
   "pomegranate molasses": {
@@ -468,22 +607,38 @@
     "skip": true
   },
   "potato flake": {
-    "skip": true
+    "title": "Instant mashed potatoes",
+    "scan": true
   },
   "poultry": {
     "skip": true
   },
   "psyllium": {
-    "skip": true
+    "title": "Psyllium",
+    "scan": true
   },
   "pudding": {
-    "title": "Chocolate pudding"
+    "title": "Chocolate pudding",
+    "scan": true
   },
   "quark": {
-    "title": "Quark (dairy product)"
+    "title": "Quark (dairy product)",
+    "scan": true
+  },
+  "quinoa": {
+    "title": "Quinoa",
+    "scan": true
+  },
+  "rabbit": {
+    "skip": true
   },
   "ramp": {
-    "title": "Allium tricoccum"
+    "title": "Allium tricoccum",
+    "scan": true
+  },
+  "raspberry": {
+    "title": "Raspberry",
+    "scan": true
   },
   "red wine vinegar": {
     "skip": true
@@ -497,14 +652,25 @@
   "rice wine": {
     "skip": true
   },
+  "rosemary": {
+    "title": "Rosemary",
+    "scan": true
+  },
   "safflower oil": {
-    "skip": true
+    "title": "Safflower",
+    "scan": true
   },
   "salsify": {
-    "skip": true
+    "title": "Salsify",
+    "scan": true
   },
   "saskatoon berry": {
-    "skip": true
+    "title": "Amelanchier alnifolia",
+    "scan": true
+  },
+  "sausage": {
+    "title": "Sausage",
+    "scan": true
   },
   "sherry wine": {
     "skip": true
@@ -512,35 +678,69 @@
   "sloe gin": {
     "skip": true
   },
+  "smoked tofu": {
+    "title": "Tofu",
+    "scan": true
+  },
   "sorghum": {
-    "skip": true
+    "title": "Sorghum",
+    "scan": true
+  },
+  "spearmint": {
+    "title": "Spearmint",
+    "scan": true
   },
   "spicy sausage": {
-    "title": "Chorizo"
+    "title": "Chorizo",
+    "scan": true
   },
   "spring green": {
-    "title": "Spring greens"
+    "title": "Spring greens",
+    "scan": true
   },
   "squirrel": {
     "skip": true
   },
+  "star anise": {
+    "file": "Star anise.jpg"
+  },
+  "suckling pig": {
+    "title": "Suckling pig",
+    "scan": true
+  },
   "sugar": {
-    "title": "Sucrose"
+    "title": "Sucrose",
+    "scan": true
   },
   "sweet pea": {
-    "title": "Pea"
+    "title": "Pea",
+    "scan": true
   },
   "szechuan hot bean sauce": {
-    "title": "Doubanjiang"
+    "title": "Doubanjiang",
+    "scan": true
   },
   "tabasco sauce": {
     "skip": true
   },
+  "tamarind paste": {
+    "title": "Tamarind",
+    "scan": true
+  },
+  "taro root": {
+    "title": "Taro",
+    "scan": true
+  },
   "teff": {
-    "skip": true
+    "title": "Teff",
+    "scan": true
   },
   "turnip green": {
     "skip": true
+  },
+  "vanilla": {
+    "title": "Vanilla",
+    "scan": true
   },
   "veal": {
     "skip": true
@@ -552,30 +752,36 @@
     "skip": true
   },
   "vinaigrette": {
-    "skip": true
+    "title": "Vinaigrette",
+    "scan": true
   },
   "vinegar": {
     "skip": true
   },
   "wakame seaweed": {
-    "skip": true
+    "title": "Wakame",
+    "scan": true
   },
   "wasabi": {
-    "skip": true
+    "title": "Wasabi",
+    "scan": true
   },
   "white pepper": {
-    "skip": true
+    "title": "Black pepper",
+    "scan": true
   },
   "white vinegar": {
     "skip": true
   },
   "winter melon": {
-    "skip": true
+    "title": "Wax gourd",
+    "scan": true
   },
   "yacon syrup": {
     "skip": true
   },
   "yellow pear tomato": {
-    "skip": true
+    "title": "Pear tomato",
+    "scan": true
   }
 }
