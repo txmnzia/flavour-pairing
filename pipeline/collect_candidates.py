@@ -191,6 +191,7 @@ def build_montage(out_dir: Path, meta: dict) -> None:
 
 
 def main() -> int:
+    global MAX_CANDIDATES
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--only", action="append", default=[])
     ap.add_argument("--scores-le", type=int, default=2)
@@ -202,7 +203,6 @@ def main() -> int:
     ap.add_argument("--max", type=int, default=MAX_CANDIDATES, help="max candidates per article")
     args = ap.parse_args()
 
-    global MAX_CANDIDATES
     MAX_CANDIDATES = args.max
 
     fi.overrides_cache = json.loads(fi.OVERRIDES.read_text()) if fi.OVERRIDES.exists() else {}
