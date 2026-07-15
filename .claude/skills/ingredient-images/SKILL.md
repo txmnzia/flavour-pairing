@@ -9,6 +9,15 @@ Photo tiles for the recommendation cards. **Images are assets, not pairing
 data** — they never affect scoring, are safe to regenerate at any time, and do
 not fall under the pairings.json sign-off gate.
 
+> **Quality pass / re-ranking:** to audit tile quality and replace low-quality
+> images by ranking *all* images in each article (not just the lead) and gating
+> on a quality score, follow **`pipeline/IMAGE_RANKING_RUNBOOK.md`**. That is the
+> entry point for the issue-#48 image-quality work: it needs a session with
+> Wikimedia network egress, uses `pipeline/rank_images.py` to collect candidates,
+> and records picks in `image_overrides.json` (`{"file":…}` / `{"skip":true}`) or
+> via the `scan` mode described below. Audit scores live in
+> `pipeline/image_audit.csv`.
+
 ## The flow
 
 For every ingredient live in the deployed app (`pairings.json` names minus
