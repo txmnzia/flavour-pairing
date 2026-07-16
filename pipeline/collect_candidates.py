@@ -25,6 +25,7 @@ import argparse
 import csv
 import html
 import json
+import re
 import subprocess
 import sys
 import time
@@ -41,6 +42,17 @@ CAND_DIR = ROOT / "pipeline" / "image_candidates"
 MIN_WIDTH = 300
 MAX_CANDIDATES = 12  # cap for a readable 3-wide montage; heuristic orders best-first
 CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+COMMONS_MODE = False  # set by --commons: search all of Commons instead of the article
+# Homonym noise a bare Commons text-search drags in (bourbon-the-town, black-bean
+# aphids, portraits, maps, stamps, disease photos): demote so food images surface.
+COMMONS_JUNK = {
+    "aphid", "aphids", "aphis", "portrait", "portraits", "map", "town", "city",
+    "village", "county", "street", "church", "building", "station", "coat",
+    "arms", "flag", "coin", "coins", "stamp", "banknote", "cigarette", "poster",
+    "logo", "disease", "rot", "blight", "pest", "larva", "larvae", "moth",
+    "beetle", "caterpillar", "fungus", "mould", "mold", "person", "man", "woman",
+    "player", "band", "album", "church", "castle", "river", "mountain", "island",
+}
 DL_SLEEP = 0.4  # politeness delay between image downloads (upload.wikimedia.org 429s otherwise)
 
 
@@ -88,9 +100,52 @@ def target_names(args) -> list[str]:
     return names[: args.limit] if args.limit else names
 
 
+COMMONS_API = "https://commons.wikimedia.org/w/api.php"
+
+
+def commons_candidates(name: str) -> list[dict]:
+    """Search Wikimedia Commons directly (not just the ingredient's article) for
+    free-licensed raster photos of the ingredient. This is the coverage lever:
+    an article may embed no free image while Commons holds dozens."""
+    try:
+        r = fi.session.get(COMMONS_API, params={
+            "action": "query", "format": "json", "generator": "search",
+            "gsrsearch": f"filetype:bitmap {name}", "gsrnamespace": "6",
+            "gsrlimit": "40", "prop": "imageinfo",
+            "iiprop": "extmetadata|size|url|user", "iiurlwidth": str(fi.THUMB_WIDTH),
+        }, timeout=30)
+        r.raise_for_status()
+        time.sleep(fi.SLEEP)
+        pages = (r.json().get("query", {}) or {}).get("pages", {}) or {}
+    except (requests.RequestException, ValueError):
+        return []
+    cands = []
+    for p in pages.values():
+        f = p.get("title", "").removeprefix("File:")
+        ext = f.lower().rsplit(".", 1)[-1] if "." in f else ""
+        if ext not in ("jpg", "jpeg", "png", "webp") or fi.SCAN_JUNK_RE.search(f):
+            continue
+        ii = (p.get("imageinfo") or [{}])[0]
+        em = ii.get("extmetadata", {}) or {}
+        lic = (em.get("LicenseShortName", {}) or {}).get("value", "")
+        w = ii.get("width", 0) or 0
+        if not fi.license_ok(lic) or w < MIN_WIDTH or not ii.get("thumburl"):
+            continue
+        artist = re.sub(r"<[^>]+>", "", (em.get("Artist", {}) or {}).get("value", "")).strip()
+        cands.append({
+            "file": f, "license": lic, "artist": artist,
+            "description_url": ii.get("descriptionurl", ""),
+            "width": w, "thumb_url": ii.get("thumburl", ""),
+        })
+    return cands
+
+
 def collect(name: str) -> dict:
     ov = (fi.overrides_cache or {}).get(name, {})
     title = ov.get("title", name)
+    if COMMONS_MODE:
+        cands = _heuristic_order(name, name, commons_candidates(name))[:MAX_CANDIDATES]
+        return {"name": name, "title": f"Commons search: {name}", "candidates": cands}
     files = [f for f in fi.article_image_files(title)
              if not fi.SCAN_JUNK_RE.search(f)
              and f.lower().rsplit(".", 1)[-1] in ("jpg", "jpeg", "png", "webp")]
@@ -127,7 +182,9 @@ def _heuristic_order(name, title, cands):
     def score(c):
         tset = set(fi._tokens(c["file"]))
         return (3.0 * matches(tset) + 1.5 * len(fi.SCAN_BONUS & tset)
-                - 3.5 * len(fi.SCAN_PENALTY & tset) + min((c.get("width") or 0) / 1500.0, 2.0))
+                - 3.5 * len(fi.SCAN_PENALTY & tset)
+                - 4.0 * len(COMMONS_JUNK & tset)  # demote homonym noise from a Commons search
+                + min((c.get("width") or 0) / 1500.0, 2.0))
 
     return sorted(cands, key=score, reverse=True)
 
@@ -191,7 +248,7 @@ def build_montage(out_dir: Path, meta: dict) -> None:
 
 
 def main() -> int:
-    global MAX_CANDIDATES
+    global MAX_CANDIDATES, COMMONS_MODE
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--only", action="append", default=[])
     ap.add_argument("--scores-le", type=int, default=2)
@@ -202,9 +259,11 @@ def main() -> int:
     ap.add_argument("--names-file", help="JSON list (or {'targets':[...]}) of ingredient names to collect")
     ap.add_argument("--max", type=int, default=MAX_CANDIDATES, help="max candidates per article")
     ap.add_argument("--index-file", default="index.json", help="index filename (use distinct names for parallel shards)")
+    ap.add_argument("--commons", action="store_true", help="search all of Commons instead of the article's own images")
     args = ap.parse_args()
 
     MAX_CANDIDATES = args.max
+    COMMONS_MODE = args.commons
 
     fi.overrides_cache = json.loads(fi.OVERRIDES.read_text()) if fi.OVERRIDES.exists() else {}
     names = target_names(args)
