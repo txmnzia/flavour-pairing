@@ -67,19 +67,11 @@
    "white-mushroom",
    "yellow-pear-tomato"
   ],
-  "alfredo sauce": "possible human — review",
-  "baguette": "possible human — review",
-  "beet": "possible human — review",
-  "biscuit": "possible human — review",
-  "cabbage": "possible human — review",
-  "cognac": "possible human — review",
-  "enoki mushroom": "possible human — review",
-  "mussel": "possible human — review",
-  "oyster": "possible human — review",
-  "pasta": "possible human — review",
-  "soy oil": "possible human — review"
+  "shiso": "possible human — review",
+  "star fruit": "possible human — review",
+  "winter squash": "possible human — review"
  },
- "generated": "2026-07-16T05:04:36.823875+00:00",
+ "generated": "2026-07-16T06:57:56.194715+00:00",
  "misses": {
   "adobo sauce": "skipped (override)",
   "ajwain": "skipped (override)",
