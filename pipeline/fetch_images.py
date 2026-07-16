@@ -65,10 +65,29 @@ UA = "FlavourPairingImageBot/1.0 (https://github.com/txmnzia/flavour-pairing)"
 TILE_SIZE = 256
 THUMB_WIDTH = 512
 BATCH = 50
-SLEEP = 0.15  # politeness delay between HTTP requests
+SLEEP = 0.25  # politeness delay between HTTP requests
 
 session = requests.Session()
 session.headers["User-Agent"] = UA
+
+
+def download_bytes(url: str) -> bytes:
+    """GET image bytes, honouring 429 rate limiting with backoff.
+
+    upload.wikimedia.org throttles bulk fetches (a --force rebuild of ~800
+    tiles hammered it into 429s), so retry on 429 respecting Retry-After.
+    """
+    for attempt in range(6):
+        r = session.get(url, timeout=60)
+        if r.status_code == 429:
+            wait = int(r.headers.get("Retry-After", 0)) or 2 ** attempt
+            time.sleep(min(wait, 30))
+            continue
+        r.raise_for_status()
+        time.sleep(SLEEP)
+        return r.content
+    r.raise_for_status()
+    return r.content
 
 
 def slugify(name: str) -> str:
@@ -550,16 +569,14 @@ def main() -> int:
             report["misses"][name] = f"license not free: {m.get('license') or 'unknown'}"
             continue
         try:
-            r = session.get(info["thumb_url"], timeout=60)
-            r.raise_for_status()
-            time.sleep(SLEEP)
+            content = download_bytes(info["thumb_url"])
             # Haar cascades false-positive heavily on food textures (a 2026-07
             # run flagged 171/800 tiles including plain couscous), so a face
             # hit only flags the tile for manual review in images.html —
             # it never blocks the fetch.
-            if contains_human(r.content):
+            if contains_human(content):
                 report["flags"][name] = (report["flags"].get(name, "") + " possible human — review").strip()
-            result = process_image(r.content)
+            result = process_image(content)
         except Exception as e:  # noqa: BLE001 — record and continue
             report["misses"][name] = f"error: {e}"
             failed += 1
