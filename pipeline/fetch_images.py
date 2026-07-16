@@ -393,23 +393,27 @@ def process_image(raw: bytes, rembg_session=None) -> tuple[bytes, float] | None:
     more reliable and more attractive. `rembg_session` is accepted but unused.
     Returns (bytes, 1.0); None only if the image can't be decoded.
     """
-    from PIL import Image, ImageOps
+    from PIL import Image, ImageOps, ImageFilter
 
     try:
         im = Image.open(io.BytesIO(raw))
         im = ImageOps.exif_transpose(im).convert("RGB")
     except Exception:  # noqa: BLE001 — unreadable/corrupt image
         return None
-    w, h = im.size
-    side = min(w, h)
-    if side < 1:
+    if min(im.size) < 1:
         return None
-    left, top = (w - side) // 2, (h - side) // 2
-    im = im.crop((left, top, left + side, top + side)).resize(
-        (TILE_SIZE, TILE_SIZE), Image.LANCZOS)
+
+    # Fit the WHOLE photo into the square (never crop the subject out), centred
+    # over a blurred, zoomed copy of itself so there are no hard letterbox bars.
+    # This keeps off-centre subjects (e.g. a fruit in a corner) fully visible.
+    T = TILE_SIZE
+    bg = ImageOps.fit(im, (T, T), Image.LANCZOS).filter(ImageFilter.GaussianBlur(14))
+    fg = im.copy()
+    fg.thumbnail((T, T), Image.LANCZOS)
+    bg.paste(fg, ((T - fg.width) // 2, (T - fg.height) // 2))
 
     buf = io.BytesIO()
-    im.save(buf, "WEBP", quality=82, method=6)
+    bg.save(buf, "WEBP", quality=82, method=6)
     return buf.getvalue(), 1.0
 
 
