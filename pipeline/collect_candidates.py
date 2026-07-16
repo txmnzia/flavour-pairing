@@ -60,6 +60,13 @@ def _get_bytes(url: str) -> bytes:
 
 def target_names(args) -> list[str]:
     live = fi.live_ingredients()
+    live_set = set(live)
+    if args.names_file:
+        names = json.loads(Path(args.names_file).read_text())
+        if isinstance(names, dict):  # accept {"targets": [...]}
+            names = names.get("targets", [])
+        names = [n for n in names if n in live_set]
+        return names[: args.limit] if args.limit else names
     if args.only:
         want = set(args.only)
         return [n for n in live if n in want]
@@ -184,6 +191,7 @@ def build_montage(out_dir: Path, meta: dict) -> None:
 
 
 def main() -> int:
+    global MAX_CANDIDATES
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--only", action="append", default=[])
     ap.add_argument("--scores-le", type=int, default=2)
@@ -191,12 +199,17 @@ def main() -> int:
     ap.add_argument("--scored-only", action="store_true")
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--force", action="store_true", help="re-collect even if candidates.json exists")
+    ap.add_argument("--names-file", help="JSON list (or {'targets':[...]}) of ingredient names to collect")
+    ap.add_argument("--max", type=int, default=MAX_CANDIDATES, help="max candidates per article")
+    ap.add_argument("--index-file", default="index.json", help="index filename (use distinct names for parallel shards)")
     args = ap.parse_args()
+
+    MAX_CANDIDATES = args.max
 
     fi.overrides_cache = json.loads(fi.OVERRIDES.read_text()) if fi.OVERRIDES.exists() else {}
     names = target_names(args)
     CAND_DIR.mkdir(parents=True, exist_ok=True)
-    index_path = CAND_DIR / "index.json"
+    index_path = CAND_DIR / args.index_file
     index = json.loads(index_path.read_text()) if index_path.exists() else {}
     print(f"{len(names)} ingredient(s) to collect")
     for k, name in enumerate(names, 1):
