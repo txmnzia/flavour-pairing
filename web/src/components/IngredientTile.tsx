@@ -28,7 +28,7 @@ export default function IngredientTile({
           alt={name}
           loading="lazy"
           draggable={false}
-          className="w-full h-full object-contain p-2 select-none"
+          className="w-full h-full object-cover select-none"
           onError={() => setFailedUrl(url)}
         />
       ) : (

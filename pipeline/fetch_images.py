@@ -8,8 +8,8 @@ deletes/merges), this script:
      and takes its lead image (PageImages API).
   2. Checks the file's license via imageinfo/extmetadata and keeps only
      free licenses (CC0 / CC BY / CC BY-SA / public domain / GFDL / ...).
-  3. Downloads a thumbnail, removes the background with rembg, trims,
-     centers on a transparent square canvas and saves a 256x256 WebP to
+  3. Downloads a thumbnail, centre-crops it to a square (background KEPT —
+     no cut-out) and saves a 256x256 WebP to
      web/public/ingredient-images/<slug>.webp.
   4. Writes web/public/ingredient-images/manifest.json (slugs the client
      checks before rendering an <img>), pipeline/image_credits.json
@@ -63,13 +63,31 @@ ATTRIBUTIONS_HTML = ROOT / "web" / "public" / "attributions.html"
 API = "https://en.wikipedia.org/w/api.php"
 UA = "FlavourPairingImageBot/1.0 (https://github.com/txmnzia/flavour-pairing)"
 TILE_SIZE = 256
-SUBJECT_FILL = 0.80  # subject occupies at most this fraction of the tile
 THUMB_WIDTH = 512
 BATCH = 50
-SLEEP = 0.15  # politeness delay between HTTP requests
+SLEEP = 0.25  # politeness delay between HTTP requests
 
 session = requests.Session()
 session.headers["User-Agent"] = UA
+
+
+def download_bytes(url: str) -> bytes:
+    """GET image bytes, honouring 429 rate limiting with backoff.
+
+    upload.wikimedia.org throttles bulk fetches (a --force rebuild of ~800
+    tiles hammered it into 429s), so retry on 429 respecting Retry-After.
+    """
+    for attempt in range(6):
+        r = session.get(url, timeout=60)
+        if r.status_code == 429:
+            wait = int(r.headers.get("Retry-After", 0)) or 2 ** attempt
+            time.sleep(min(wait, 30))
+            continue
+        r.raise_for_status()
+        time.sleep(SLEEP)
+        return r.content
+    r.raise_for_status()
+    return r.content
 
 
 def slugify(name: str) -> str:
@@ -366,40 +384,33 @@ def contains_human(raw: bytes) -> bool | None:
         return None
 
 
-def process_image(raw: bytes, rembg_session) -> tuple[bytes, float] | None:
-    """Background-removed, trimmed, centered TILE_SIZE WebP. Returns (bytes, alpha_coverage)."""
-    from PIL import Image
-    from rembg import remove
+def process_image(raw: bytes, rembg_session=None) -> tuple[bytes, float] | None:
+    """Square, centre-cropped photo TILE_SIZE WebP — the background is KEPT.
 
-    cut = remove(raw, session=rembg_session)
-    im = Image.open(io.BytesIO(cut)).convert("RGBA")
-    alpha = im.getchannel("A")
-    bbox = alpha.getbbox()
-    if bbox is None:
+    Background removal (rembg) was dropped: cut-outs of low-contrast or
+    full-frame subjects (seeds, grains, powders, herbs) looked poor and often
+    failed the ghost-cutout gate. A plain square crop of the source photo is
+    more reliable and more attractive. `rembg_session` is accepted but unused.
+    Returns (bytes, 1.0); None only if the image can't be decoded.
+    """
+    from PIL import Image, ImageOps
+
+    try:
+        im = Image.open(io.BytesIO(raw))
+        im = ImageOps.exif_transpose(im).convert("RGB")
+    except Exception:  # noqa: BLE001 — unreadable/corrupt image
         return None
-    # Degenerate cutout: subject nearly vanished.
-    if (bbox[2] - bbox[0]) * (bbox[3] - bbox[1]) < 0.02 * im.width * im.height:
+    w, h = im.size
+    side = min(w, h)
+    if side < 1:
         return None
-    im = im.crop(bbox)
-
-    hist = im.getchannel("A").histogram()
-    coverage = sum(hist[32:]) / max(1, im.width * im.height)
-
-    side = max(1, int(max(im.size) / SUBJECT_FILL))
-    canvas = Image.new("RGBA", (side, side), (0, 0, 0, 0))
-    canvas.paste(im, ((side - im.width) // 2, (side - im.height) // 2))
-    canvas = canvas.resize((TILE_SIZE, TILE_SIZE), Image.LANCZOS)
-
-    # QC gate: a healthy cutout is mostly solid pixels; ghost cutouts
-    # (rembg gutting a low-contrast subject) end up nearly all transparent.
-    # Good tiles measure >=0.13 solid, duds ~0.00 — reject below 0.04.
-    final_hist = canvas.getchannel("A").histogram()
-    if sum(final_hist[200:]) / (TILE_SIZE * TILE_SIZE) < 0.04:
-        return None
+    left, top = (w - side) // 2, (h - side) // 2
+    im = im.crop((left, top, left + side, top + side)).resize(
+        (TILE_SIZE, TILE_SIZE), Image.LANCZOS)
 
     buf = io.BytesIO()
-    canvas.save(buf, "WEBP", quality=82, method=6)
-    return buf.getvalue(), round(coverage, 3)
+    im.save(buf, "WEBP", quality=82, method=6)
+    return buf.getvalue(), 1.0
 
 
 def build_attributions_html(credits: dict) -> str:
@@ -430,7 +441,7 @@ def build_attributions_html(credits: dict) -> str:
 <body>
 <h1>Image credits</h1>
 <p>Ingredient images are sourced from Wikipedia / Wikimedia Commons under free licenses,
-then cropped and background-removed. Generated {generated} by <code>pipeline/fetch_images.py</code>.</p>
+then cropped to a square tile. Generated {generated} by <code>pipeline/fetch_images.py</code>.</p>
 <ul>
 {chr(10).join(rows)}
 </ul>
@@ -548,9 +559,6 @@ def main() -> int:
             report["misses"][name] = "override file not found on Commons"
             del resolved[f"__file__{name}"]
 
-    from rembg import new_session
-    rembg_session = new_session("u2net")
-
     ok = failed = 0
     for name, title in sorted(title_by_name.items()):
         info = resolved.get(title)
@@ -561,25 +569,23 @@ def main() -> int:
             report["misses"][name] = f"license not free: {m.get('license') or 'unknown'}"
             continue
         try:
-            r = session.get(info["thumb_url"], timeout=60)
-            r.raise_for_status()
-            time.sleep(SLEEP)
+            content = download_bytes(info["thumb_url"])
             # Haar cascades false-positive heavily on food textures (a 2026-07
             # run flagged 171/800 tiles including plain couscous), so a face
             # hit only flags the tile for manual review in images.html —
             # it never blocks the fetch.
-            if contains_human(r.content):
+            if contains_human(content):
                 report["flags"][name] = (report["flags"].get(name, "") + " possible human — review").strip()
-            result = process_image(r.content, rembg_session)
+            result = process_image(content)
         except Exception as e:  # noqa: BLE001 — record and continue
             report["misses"][name] = f"error: {e}"
             failed += 1
             continue
         if result is None:
-            report["misses"][name] = "background removal produced no subject"
+            report["misses"][name] = "could not decode image"
             failed += 1
             continue
-        data, coverage = result
+        data, _ = result
         (OUT_DIR / f"{slugify(name)}.webp").write_bytes(data)
         credits[name] = {
             "file": info["file"],
@@ -588,8 +594,6 @@ def main() -> int:
             "artist": m.get("artist", ""),
             "description_url": m.get("description_url", ""),
         }
-        if coverage > 0.95:
-            report["flags"][name] = (report["flags"].get(name, "") + " full-frame cutout").strip()
         ok += 1
         if ok % 25 == 0:
             print(f"  {ok} images done…")
