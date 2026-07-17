@@ -393,28 +393,59 @@ def process_image(raw: bytes, rembg_session=None) -> tuple[bytes, float] | None:
     more reliable and more attractive. `rembg_session` is accepted but unused.
     Returns (bytes, 1.0); None only if the image can't be decoded.
     """
-    from PIL import Image, ImageOps, ImageFilter
+    from PIL import Image, ImageOps
 
     try:
         im = Image.open(io.BytesIO(raw))
         im = ImageOps.exif_transpose(im).convert("RGB")
     except Exception:  # noqa: BLE001 — unreadable/corrupt image
         return None
-    if min(im.size) < 1:
+    w, h = im.size
+    side = min(w, h)
+    if side < 1:
         return None
 
-    # Fit the WHOLE photo into the square (never crop the subject out), centred
-    # over a blurred, zoomed copy of itself so there are no hard letterbox bars.
-    # This keeps off-centre subjects (e.g. a fruit in a corner) fully visible.
-    T = TILE_SIZE
-    bg = ImageOps.fit(im, (T, T), Image.LANCZOS).filter(ImageFilter.GaussianBlur(14))
-    fg = im.copy()
-    fg.thumbnail((T, T), Image.LANCZOS)
-    bg.paste(fg, ((T - fg.width) // 2, (T - fg.height) // 2))
+    # Clean full-bleed square crop, centred on the SUBJECT (content-aware) rather
+    # than the geometric centre, so an off-centre subject isn't sliced off.
+    center = _subject_center(im)
+    cx, cy = center if center else (w / 2, h / 2)
+    left = max(0, min(int(round(cx - side / 2)), w - side))
+    top = max(0, min(int(round(cy - side / 2)), h - side))
+    im = im.crop((left, top, left + side, top + side)).resize(
+        (TILE_SIZE, TILE_SIZE), Image.LANCZOS)
 
     buf = io.BytesIO()
-    bg.save(buf, "WEBP", quality=82, method=6)
+    im.save(buf, "WEBP", quality=82, method=6)
     return buf.getvalue(), 1.0
+
+
+def _subject_center(im_rgb) -> tuple[float, float] | None:
+    """(cx, cy) of the main subject via edge-energy, for content-aware cropping.
+
+    A textured subject on a plainish background concentrates gradient energy;
+    the centroid of the high-energy region tracks it. Returns None (→ geometric
+    centre) on any failure or when energy is uniform (full-frame textures)."""
+    try:
+        import cv2
+        import numpy as np
+
+        g = cv2.cvtColor(np.asarray(im_rgb), cv2.COLOR_RGB2GRAY)
+        H, W = g.shape
+        scale = 512 / max(H, W) if max(H, W) > 512 else 1.0
+        if scale != 1.0:
+            g = cv2.resize(g, (max(1, int(W * scale)), max(1, int(H * scale))))
+        gx = cv2.Sobel(g, cv2.CV_32F, 1, 0, ksize=3)
+        gy = cv2.Sobel(g, cv2.CV_32F, 0, 1, ksize=3)
+        energy = cv2.magnitude(gx, gy)
+        k = max(3, (min(g.shape) // 16) | 1)
+        energy = cv2.GaussianBlur(energy, (k, k), 0)
+        mask = (energy >= np.percentile(energy, 70)).astype(np.uint8)
+        m = cv2.moments(mask, binaryImage=True)
+        if m["m00"] <= 0:
+            return None
+        return (m["m10"] / m["m00"]) / scale, (m["m01"] / m["m00"]) / scale
+    except Exception:  # noqa: BLE001 — cv2 missing/broken → geometric centre
+        return None
 
 
 def build_attributions_html(credits: dict) -> str:
