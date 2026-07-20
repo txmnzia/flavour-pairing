@@ -116,7 +116,7 @@
   "description_url": "https://commons.wikimedia.org/wiki/File:Almond_meal_by_hand.jpg",
   "file": "Almond_meal_by_hand.jpg",
   "license": "CC BY-SA 2.0",
-  "page_title": "Almond meal"
+  "page_title": "File:Almond_meal_by_hand.jpg"
  },
  "almond milk": {
   "artist": "Amazing Almonds",
@@ -1028,6 +1028,13 @@
   "license": "CC0",
   "page_title": "File:7716Cuisine_fruits_of_Bulacan_14.jpg"
  },
+ "caper": {
+  "artist": "CNEcija12345",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Capers_textures.jpg",
+  "file": "Capers_textures.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Capers_textures.jpg"
+ },
  "capicola": {
   "artist": "Thomon",
   "description_url": "https://commons.wikimedia.org/wiki/File:Coppa_di_Parma.jpg",
@@ -1113,11 +1120,11 @@
   "page_title": "Cashew"
  },
  "cassava": {
-  "artist": "Franz Eugen Köhler, Köhlers Medizinal-Pflanzen",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Manihot_esculenta_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-090.jpg",
-  "file": "Manihot_esculenta_-_Köhler–s_Medizinal-Pflanzen-090.jpg",
-  "license": "Public domain",
-  "page_title": "Cassava"
+  "artist": "Dappasolomon001",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Cassava_peeled_and_unpeeled.jpg",
+  "file": "Cassava_peeled_and_unpeeled.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Cassava_peeled_and_unpeeled.jpg"
  },
  "catfish": {
   "artist": "Duane Raver\n\n(transferred from en.wikimedia.org to commons.wikimedia.org by user:Auriong)",
@@ -1455,6 +1462,13 @@
   "license": "CC BY-SA 4.0",
   "page_title": "Chinese sausage"
  },
+ "chip": {
+  "artist": "Gaurav Dhwaj Khadka",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Aalu_Chips.jpg",
+  "file": "Aalu_Chips.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Aalu_Chips.jpg"
+ },
  "chipotle chile": {
   "artist": "User:Carstor",
   "description_url": "https://commons.wikimedia.org/wiki/File:Capsicum_annuum_chipotle_dried.jpg",
@@ -1757,11 +1771,11 @@
   "page_title": "File:Cancer_pagurus.jpg"
  },
  "crabapple": {
-  "artist": "Bruce Marlin",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Purple_prince_crabapple_tree.JPG",
-  "file": "Purple_prince_crabapple_tree.JPG",
-  "license": "CC BY 3.0",
-  "page_title": "Malus"
+  "artist": "Chris Light",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Japanese_CrabApple_(Malus_floribunda)_8763.jpg",
+  "file": "Japanese_CrabApple_(Malus_floribunda)_8763.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Japanese_CrabApple_(Malus_floribunda)_8763.jpg"
  },
  "cracked farro": {
   "artist": "",
@@ -1769,6 +1783,13 @@
   "file": "Castel_del_Piano-Minestra_di_farro.jpg",
   "license": "CC BY-SA 2.5",
   "page_title": "Farro"
+ },
+ "cracker": {
+  "artist": "SZolramui Hwa Griom",
+  "description_url": "https://commons.wikimedia.org/wiki/File:HK_food_%E6%A2%B3%E6%89%93%E9%A4%85%E4%B9%BE_Soda_biscuits_crackers_June_2024_R12S_01.jpg",
+  "file": "HK_food_梳打餅乾_Soda_biscuits_crackers_June_2024_R12S_01.jpg",
+  "license": "CC0",
+  "page_title": "File:HK_food_梳打餅乾_Soda_biscuits_crackers_June_2024_R12S_01.jpg"
  },
  "cranberry": {
   "artist": "Ɱ",
@@ -1960,11 +1981,11 @@
   "page_title": "Taraxacum"
  },
  "dandelion green": {
-  "artist": "Greg Hume",
-  "description_url": "https://commons.wikimedia.org/wiki/File:DandelionFlower.jpg",
-  "file": "DandelionFlower.jpg",
-  "license": "CC BY-SA 3.0",
-  "page_title": "Taraxacum"
+  "artist": "Darya Pino",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Dandelion_greens_at_market.jpg",
+  "file": "Dandelion_greens_at_market.jpg",
+  "license": "CC BY 2.0",
+  "page_title": "File:Dandelion_greens_at_market.jpg"
  },
  "dashi": {
   "artist": "Sakurai Midori",
@@ -2044,11 +2065,11 @@
   "page_title": "Kasha"
  },
  "dried lily bud": {
-  "artist": "Stan Shebs",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Lilium_candidum_1.jpg",
-  "file": "Lilium_candidum_1.jpg",
-  "license": "CC BY-SA 3.0",
-  "page_title": "Lilium"
+  "artist": "François Nguyen",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Dried_daylily_(2).jpg",
+  "file": "Dried_daylily_(2).jpg",
+  "license": "CC BY 2.0",
+  "page_title": "File:Dried_daylily_(2).jpg"
  },
  "dry onion": {
   "artist": "Colin",
@@ -2336,6 +2357,13 @@
   "file": "Sauce_de_poisson.jpg",
   "license": "CC BY-SA 4.0",
   "page_title": "Fish sauce"
+ },
+ "fish stock": {
+  "artist": "Haydn Blackey from Cardiff, Wales",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Sea_Broth_-_Alma,_Lisbon_(52740512274).jpg",
+  "file": "Sea_Broth_-_Alma,_Lisbon_(52740512274).jpg",
+  "license": "CC BY-SA 2.0",
+  "page_title": "File:Sea_Broth_-_Alma,_Lisbon_(52740512274).jpg"
  },
  "five spice powder": {
   "artist": "w:en:User:Leadehua",
@@ -2737,11 +2765,11 @@
   "page_title": "Chili pepper"
  },
  "green chili paste": {
-  "artist": "purdman1",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Accras_et_sauce_chili.jpg",
-  "file": "Accras_et_sauce_chili.jpg",
-  "license": "CC BY 2.0",
-  "page_title": "Chili sauce and paste"
+  "artist": "Mushki Brichta",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Zhug,_Skhug.jpg",
+  "file": "Zhug,_Skhug.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Zhug,_Skhug.jpg"
  },
  "green lentil": {
   "artist": "Jessica Spengler",
@@ -2806,12 +2834,19 @@
   "license": "CC0",
   "page_title": "Gremolata"
  },
+ "grit": {
+  "artist": "Amy Aletheia Cahill",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Bowl_of_Grits.png",
+  "file": "Bowl_of_Grits.png",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Bowl_of_Grits.png"
+ },
  "ground elk": {
-  "artist": "Membeth",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Jasper.Wapiti-Hirsch.P1033401.jpg",
-  "file": "Jasper.Wapiti-Hirsch.P1033401.jpg",
-  "license": "CC0",
-  "page_title": "Elk"
+  "artist": "Beeblebrox",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Elkburger.JPG",
+  "file": "Elkburger.JPG",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Elkburger.JPG"
  },
  "ground meat": {
   "artist": "László Szalai (Beyond silence)",
@@ -3094,11 +3129,11 @@
   "page_title": "Cucurbita maxima"
  },
  "huckleberry": {
-  "artist": "VersicolorA",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Bog_huckleberry.jpg",
-  "file": "Bog_huckleberry.jpg",
-  "license": "CC BY-SA 3.0",
-  "page_title": "Huckleberry"
+  "artist": "GlacierNPS",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Huckleberry_(Vaccinium_membranaceum)_(43741431161).jpg",
+  "file": "Huckleberry_(Vaccinium_membranaceum)_(43741431161).jpg",
+  "license": "Public domain",
+  "page_title": "File:Huckleberry_(Vaccinium_membranaceum)_(43741431161).jpg"
  },
  "hummus": {
   "artist": "Beyrouthhh at English Wikipedia",
@@ -3218,6 +3253,13 @@
   "file": "Khoya.JPG",
   "license": "Public domain",
   "page_title": "File:Khoya.JPG"
+ },
+ "kingfish": {
+  "artist": "NOAA's Fisheries Collection , SEFSC Pascagoula Laboratory; Collection of Brandi Noble, NOAA/NMFS/SEFSC",
+  "description_url": "https://commons.wikimedia.org/wiki/File:King_mackerel_(_Scomberomorus_cavalla_).jpg",
+  "file": "King_mackerel_(_Scomberomorus_cavalla_).jpg",
+  "license": "Public domain",
+  "page_title": "File:King_mackerel_(_Scomberomorus_cavalla_).jpg"
  },
  "kirsch": {
   "artist": "User:Mahlum",
@@ -4550,11 +4592,11 @@
   "page_title": "File:Glasses_of_pickled_cucumbers.jpg"
  },
  "pickle juice": {
-  "artist": "E4024",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Tur%C5%9Fu_suyu.jpg",
-  "file": "Turşu_suyu.jpg",
-  "license": "CC BY-SA 4.0",
-  "page_title": "Pickle juice"
+  "artist": "Nutrition, Food Safety &amp; Health",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Ready_to_add_the_brine_to_pickled_asparagus_in_canning_jar.jpg",
+  "file": "Ready_to_add_the_brine_to_pickled_asparagus_in_canning_jar.jpg",
+  "license": "CC0",
+  "page_title": "File:Ready_to_add_the_brine_to_pickled_asparagus_in_canning_jar.jpg"
  },
  "pickled onion": {
   "artist": "Roly Williams",
@@ -5179,6 +5221,13 @@
   "license": "Public domain",
   "page_title": "File:CSA-Rhubarb.jpg"
  },
+ "rib": {
+  "artist": "Kelapstick",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Nugget_rib_cook-off_001.JPG",
+  "file": "Nugget_rib_cook-off_001.JPG",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Nugget_rib_cook-off_001.JPG"
+ },
  "rice": {
   "artist": "IRRI Images",
   "description_url": "https://commons.wikimedia.org/wiki/File:Rice_grains_(IRRI).jpg",
@@ -5255,6 +5304,13 @@
   "file": "Sebastes_ruberrimus_1.jpg",
   "license": "Public domain",
   "page_title": "Yelloweye rockfish"
+ },
+ "roll": {
+  "artist": "jeffreyw",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Fresh_hot_dinner_rolls_(8214213532).jpg",
+  "file": "Fresh_hot_dinner_rolls_(8214213532).jpg",
+  "license": "CC BY 2.0",
+  "page_title": "File:Fresh_hot_dinner_rolls_(8214213532).jpg"
  },
  "romano bean": {
   "artist": "Andrewa",
@@ -5655,6 +5711,13 @@
   "license": "CC BY-SA 3.0",
   "page_title": "File:Green_shiso_perilla.jpg"
  },
+ "shoe peg corn": {
+  "artist": "M. Chambers (user Mattysc)",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Sweet_White_Corn.jpg",
+  "file": "Sweet_White_Corn.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Sweet_White_Corn.jpg"
+ },
  "shortbread": {
   "artist": "Elumineau",
   "description_url": "https://commons.wikimedia.org/wiki/File:Shortbread_House_round_biscuit_.jpg",
@@ -5682,6 +5745,13 @@
   "file": "Japanese_SilkyTofu_(Kinugoshi_Tofu).JPG",
   "license": "CC BY-SA 3.0",
   "page_title": "Tofu"
+ },
+ "skate": {
+  "artist": "Ralph Daily from Birmingham, United States",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Grilled_Skate_(6495868371).jpg",
+  "file": "Grilled_Skate_(6495868371).jpg",
+  "license": "CC BY 2.0",
+  "page_title": "File:Grilled_Skate_(6495868371).jpg"
  },
  "sloe gin": {
   "artist": "Smifff",
