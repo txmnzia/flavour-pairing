@@ -67,27 +67,16 @@
    "white-mushroom",
    "yellow-pear-tomato"
   ],
-  "cassava": "possible human — review",
-  "crabapple": "possible human — review",
-  "huckleberry": "possible human — review"
+  "buffalo": "possible human — review",
+  "sev": "possible human — review",
+  "squirrel": "possible human — review"
  },
- "generated": "2026-07-20T20:03:19.940272+00:00",
+ "generated": "2026-07-20T20:31:41.524297+00:00",
  "misses": {
-  "buffalo": "skipped (override)",
   "cactus piece": "skipped (override)",
-  "corn syrup": "skipped (override)",
-  "crema": "skipped (override)",
-  "duck fat": "skipped (override)",
-  "frangelico": "skipped (override)",
   "ginger garlic paste": "skipped (override)",
-  "hazelnut flavored liqueur": "skipped (override)",
-  "kewra essence": "skipped (override)",
   "onion paste": "skipped (override)",
   "orange extract": "skipped (override)",
-  "pastina": "skipped (override)",
-  "sev": "skipped (override)",
-  "smoked tofu": "skipped (override)",
-  "squirrel": "skipped (override)",
   "tarragon vinegar": "skipped (override)"
  }
 }
