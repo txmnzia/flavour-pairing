@@ -874,6 +874,13 @@
   "license": "CC BY-SA 3.0",
   "page_title": "File:Гречневая_каша.jpg"
  },
+ "buffalo": {
+  "artist": "Acroterion",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Bison_Theodore_Roosevelt_NP_ND1.jpg",
+  "file": "Bison_Theodore_Roosevelt_NP_ND1.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Bison_Theodore_Roosevelt_NP_ND1.jpg"
+ },
  "bulgur": {
   "artist": "Ajay Suresh from New York, NY, USA",
   "description_url": "https://commons.wikimedia.org/wiki/File:Bulgur_Wheat_(49683601493).jpg",
@@ -1728,6 +1735,13 @@
   "license": "CC BY-SA 4.0",
   "page_title": "Corn flakes"
  },
+ "corn syrup": {
+  "artist": "LadyDragonflyCC - &gt;;&lt; from Michigan, USA",
+  "description_url": "https://commons.wikimedia.org/wiki/File:US_grades_of_maple_syrup_(6963630107).jpg",
+  "file": "US_grades_of_maple_syrup_(6963630107).jpg",
+  "license": "CC BY 2.0",
+  "page_title": "File:US_grades_of_maple_syrup_(6963630107).jpg"
+ },
  "cornbread": {
   "artist": "Zankopedia",
   "description_url": "https://commons.wikimedia.org/wiki/File:Skillet_cornbread_(cropped).jpg",
@@ -1811,6 +1825,13 @@
   "file": "Philly_cream_cheese.jpg",
   "license": "Public domain",
   "page_title": "Cream cheese"
+ },
+ "crema": {
+  "artist": "jules",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Sour_Cream.jpg",
+  "file": "Sour_Cream.jpg",
+  "license": "CC BY 2.0",
+  "page_title": "File:Sour_Cream.jpg"
  },
  "creme anglaise": {
   "artist": "David Monniaux",
@@ -2093,11 +2114,11 @@
   "page_title": "Duck as food"
  },
  "duck fat": {
-  "artist": "cyclonebill from Copenhagen, Denmark",
-  "description_url": "https://commons.wikimedia.org/wiki/File:And_(24559569447).jpg",
-  "file": "And_(24559569447).jpg",
-  "license": "CC BY-SA 2.0",
-  "page_title": "Duck as food"
+  "artist": "Peachyeung316",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Lard_in_black_bowls.jpg",
+  "file": "Lard_in_black_bowls.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Lard_in_black_bowls.jpg"
  },
  "duck stock": {
   "artist": "Blue Lotus",
@@ -2413,6 +2434,13 @@
   "file": "Fontina_DOP.jpg",
   "license": "CC BY 3.0",
   "page_title": "Fontina"
+ },
+ "frangelico": {
+  "artist": "PoitínLover26",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Pooka_Hazelnut_Irish_Poit%C3%ADn_Liqueur.jpg",
+  "file": "Pooka_Hazelnut_Irish_Poitín_Liqueur.jpg",
+  "license": "CC0",
+  "page_title": "File:Pooka_Hazelnut_Irish_Poitín_Liqueur.jpg"
  },
  "frankfurter": {
   "artist": "Silar",
@@ -3003,11 +3031,11 @@
   "page_title": "Hazelnut butter"
  },
  "hazelnut flavored liqueur": {
-  "artist": "Shabbychef at English Wikipedia",
-  "description_url": "https://commons.wikimedia.org/wiki/File:ManyAmari.jpg",
-  "file": "ManyAmari.jpg",
-  "license": "CC BY-SA 3.0",
-  "page_title": "List of liqueur brands"
+  "artist": "PoitínLover26",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Pooka_Hazelnut_Irish_Poit%C3%ADn_Liqueur.jpg",
+  "file": "Pooka_Hazelnut_Irish_Poitín_Liqueur.jpg",
+  "license": "CC0",
+  "page_title": "File:Pooka_Hazelnut_Irish_Poitín_Liqueur.jpg"
  },
  "hearts of palm": {
   "artist": "mhoenig",
@@ -3246,6 +3274,13 @@
   "file": "Kecap.jpg",
   "license": "CC BY 2.5",
   "page_title": "Sweet soy sauce"
+ },
+ "kewra essence": {
+  "artist": "",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Bottle,_apothecary_(AM_629318-3).jpg",
+  "file": "Bottle,_apothecary_(AM_629318-3).jpg",
+  "license": "CC BY 4.0",
+  "page_title": "File:Bottle,_apothecary_(AM_629318-3).jpg"
  },
  "khoya": {
   "artist": "Miansari66",
@@ -4387,6 +4422,13 @@
   "file": "A_better_homemade_pasta.jpg",
   "license": "CC BY 2.0",
   "page_title": "File:A_better_homemade_pasta.jpg"
+ },
+ "pastina": {
+  "artist": "Popo le Chien",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Stelline_bulk.jpg",
+  "file": "Stelline_bulk.jpg",
+  "license": "CC0",
+  "page_title": "File:Stelline_bulk.jpg"
  },
  "pastis": {
   "artist": "",
@@ -5662,6 +5704,13 @@
   "license": "CC BY-SA 2.0 kr",
   "page_title": "File:Black_sesame.jpg"
  },
+ "sev": {
+  "artist": "Prashant Sahu",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Indian_Snack_in_a_bowl_(Namkeen).jpg",
+  "file": "Indian_Snack_in_a_bowl_(Namkeen).jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Indian_Snack_in_a_bowl_(Namkeen).jpg"
+ },
  "shad": {
   "artist": "Hans Hillewaert",
   "description_url": "https://commons.wikimedia.org/wiki/File:Alosa_fallax.jpg",
@@ -5789,11 +5838,11 @@
   "page_title": "Smoked salmon"
  },
  "smoked tofu": {
-  "artist": "DryPot",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Japanese_SilkyTofu_(Kinugoshi_Tofu).JPG",
-  "file": "Japanese_SilkyTofu_(Kinugoshi_Tofu).JPG",
-  "license": "CC BY-SA 3.0",
-  "page_title": "Tofu"
+  "artist": "Dllu",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Hiyayakko_with_bonito_flakes_and_welsh_onion.jpg",
+  "file": "Hiyayakko_with_bonito_flakes_and_welsh_onion.jpg",
+  "license": "CC BY-SA 4.0",
+  "page_title": "File:Hiyayakko_with_bonito_flakes_and_welsh_onion.jpg"
  },
  "smoked trout": {
   "artist": "Anne Burgess",
@@ -6069,11 +6118,11 @@
   "page_title": "File:Squid_ink.jpg"
  },
  "squirrel": {
-  "artist": "Chicoutimi (montage)\n\n\nKarakal\nAndiW\nNational Park Service\nen:User:Markus Krötzsch\nThe Lilac Breasted Roller\nNico Conradie from Centurion, South Africa\nHans Hillewaert\nSylvouille\nNational Park Service",
-  "description_url": "https://commons.wikimedia.org/wiki/File:Sciuridae.jpg",
-  "file": "Sciuridae.jpg",
-  "license": "CC BY 3.0",
-  "page_title": "Squirrel"
+  "artist": "grendel|khan",
+  "description_url": "https://commons.wikimedia.org/wiki/File:Squirrel_closeup_profile.gk.jpg",
+  "file": "Squirrel_closeup_profile.gk.jpg",
+  "license": "CC BY-SA 3.0",
+  "page_title": "File:Squirrel_closeup_profile.gk.jpg"
  },
  "sriracha sauce": {
   "artist": "Glane23",
