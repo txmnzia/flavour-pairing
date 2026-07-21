@@ -305,6 +305,17 @@ describe("recipe matching (#56)", () => {
     expect(two.length).toBeGreaterThan(0);
   });
 
+  it("never suggests a recipe that shares only one selected ingredient", () => {
+    // The corpus is dessert-heavy (sugar/egg/butter), so a single-ingredient
+    // overlap would flood the list — every suggestion must use ≥2 of the
+    // selection (issue #56 feedback).
+    for (const sel of [["tomato", "basil"], ["sugar", "tarragon"], ["egg", "mussel"]]) {
+      for (const m of match(sel)) {
+        expect(m.used.length).toBeGreaterThanOrEqual(2);
+      }
+    }
+  });
+
   it("reports which selected ingredients each recipe uses, and the gap", () => {
     for (const m of match(["tomato", "basil"])) {
       expect(m.used.length).toBeGreaterThan(0);
