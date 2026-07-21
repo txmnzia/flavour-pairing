@@ -428,6 +428,12 @@ const RW_COVER_RECIPE = 0.3; // how close the recipe is to fully cookable (parsi
 const RW_EXTRAS = 0.4;       // shopping-gap penalty, saturating (extras / (extras + E))
 const RW_EXTRAS_E = 6;
 const RECIPE_SCORE_CAP = 200; // full-score at most this many candidates (perf)
+// A recipe must share at least this many of the selected ingredients to be
+// worth suggesting — a single-ingredient overlap (e.g. every dessert that just
+// contains "sugar") is noise. The requirement grows with the selection up to a
+// cap, so it stays "at least 2, up to 4" rather than demanding the whole set.
+const RECIPE_MIN_MATCH = 2;
+const RECIPE_MAX_MATCH = 4;
 
 // Average pairing strength among the selected ingredients a recipe uses — the
 // "these ingredients pair well together in this dish" signal (issue #56).
@@ -453,7 +459,12 @@ export function getRecipeMatches(selectedIds: number[], lang: string, limit = 8)
   if (!recipes || !recipeIndex || selectedIds.length === 0) return [];
 
   const n = selectedIds.length;
-  const gate = Math.max(1, Math.round(n * 0.5));   // mirror the pairing engine's 50% coverage rule
+  // Require ≥2 matched ingredients (never a single-ingredient hit), rising with
+  // the selection toward a cap of 4, and never more than the selection itself.
+  const gate = Math.min(
+    n,
+    Math.max(RECIPE_MIN_MATCH, Math.min(RECIPE_MAX_MATCH, Math.ceil(n * 0.6)))
+  );
   const selectedSet = new Set(selectedIds);
 
   // Count how many of the selected ingredients each candidate recipe uses,
@@ -466,14 +477,16 @@ export function getRecipeMatches(selectedIds: number[], lang: string, limit = 8)
   }
   if (matchCount.size === 0) return [];
 
-  // Clear the gate where possible; otherwise fall back to the closest matches
-  // so the section never collapses to nothing.
+  // Clear the gate where possible; if nothing does, fall back to the closest
+  // matches — but never below the 2-ingredient floor. Better to show nothing
+  // than recipes that share a single ingredient.
   let pool = [...matchCount.entries()].filter(([, c]) => c >= gate);
   let approximate = false;
-  if (pool.length === 0) {
-    pool = [...matchCount.entries()];
+  if (pool.length === 0 && gate > RECIPE_MIN_MATCH) {
+    pool = [...matchCount.entries()].filter(([, c]) => c >= RECIPE_MIN_MATCH);
     approximate = true;
   }
+  if (pool.length === 0) return [];
 
   // Prefer the current UI language; borrow the other language only to top up.
   const primary = pool.filter(([r]) => recipes![r].lang === lang);
