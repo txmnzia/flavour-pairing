@@ -294,9 +294,29 @@ export function getRecommendations(
 // Category swimlanes (issue #52): the same scored candidates, grouped by
 // taxonomy category instead of blended. Within a lane ranking is pure score —
 // the diversity decay exists to stop one category monopolising the blended
-// grid, which grouping already guarantees structurally. Lanes are ordered by
-// their strongest candidate, so penalised categories (e.g. more meat when
-// meat is selected) sink to the bottom rather than disappearing.
+// grid, which grouping already guarantees structurally. Penalised categories
+// (e.g. more meat when meat is selected) sink to the bottom rather than
+// disappearing, because their candidates carry the SELF_PENALTY into the
+// aggregate below.
+//
+// Lane ordering (issue #55): rank lanes by how likely the user is to add
+// *something* from that category, not by a single lucky candidate. Ordering by
+// the strongest candidate alone let a category with one exceptional pairing but
+// an otherwise weak lane (e.g. pasta → egg: one strong edge, a near-zero
+// second) float above categories offering several solid options. Instead we
+// order by the mean of each lane's top few scores: a category earns a high
+// position by having a cluster of strong candidates, which is what "likely to
+// add from here" actually means. Falls back to the mean of whatever the lane
+// holds when it has fewer than LANE_RANK_TOPK candidates.
+const LANE_RANK_TOPK = 3;
+
+function laneStrength(pairings: Pairing[]): number {
+  const k = Math.min(LANE_RANK_TOPK, pairings.length);
+  let sum = 0;
+  for (let i = 0; i < k; i++) sum += pairings[i].score;
+  return sum / k;
+}
+
 export function getRecommendationsByCategory(
   selectedIds: number[],
   allIngredients: Ingredient[],
@@ -316,7 +336,7 @@ export function getRecommendationsByCategory(
   }
   return [...lanes.entries()]
     .map(([category, pairings]) => ({ category, pairings }))
-    .sort((a, b) => b.pairings[0].score - a.pairings[0].score);
+    .sort((a, b) => laneStrength(b.pairings) - laneStrength(a.pairings));
 }
 
 export function computeLooScores(selectedIds: number[]): Map<number, number> {

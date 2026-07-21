@@ -202,11 +202,22 @@ describe("category swimlanes (#52)", () => {
     }
   });
 
-  it("lanes are ordered by their strongest candidate", () => {
+  // Updated for #55: lanes were ordered by their single strongest candidate,
+  // which let a category with one lucky pairing but a weak lane (e.g. pasta →
+  // egg) outrank categories offering several solid options. Ordering now uses
+  // the mean of each lane's top-3 scores, so a category ranks high by having a
+  // cluster of strong candidates — "how likely the user is to add from here".
+  const laneStrength = (ps: Pairing[]) => {
+    const k = Math.min(3, ps.length);
+    return ps.slice(0, k).reduce((s, p) => s + p.score, 0) / k;
+  };
+  it("lanes are ordered by the strength of their top candidates (#55)", () => {
     for (const probe of laneProbes) {
       const lanes = getRecommendationsByCategory([byName(probe).id], ingredients, 12);
       for (let i = 1; i < lanes.length; i++) {
-        expect(lanes[i].pairings[0].score).toBeLessThanOrEqual(lanes[i - 1].pairings[0].score + 1e-9);
+        expect(laneStrength(lanes[i].pairings)).toBeLessThanOrEqual(
+          laneStrength(lanes[i - 1].pairings) + 1e-9
+        );
       }
     }
   });
