@@ -1,11 +1,12 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { loadDatabase, getAllIngredients, getRecommendationsByCategory, getDataMeta, getRecipesForIngredients, computeLooScores, warmCaches } from "./db";
+import { loadDatabase, getAllIngredients, getRecommendationsByCategory, getDataMeta, getRecipeMatches, loadRecipes, areRecipesReady, computeLooScores, warmCaches } from "./db";
+import type { RecipeMatch } from "./db";
 import type { Ingredient, CategoryLane, DbStatus } from "./types";
 import SearchInput from "./components/SearchInput";
 import RecommendationList from "./components/RecommendationList";
+import RecipeList from "./components/RecipeList";
 import FAQ from "./components/FAQ";
 import { translateFr } from "./utils/translateFr";
-import { sentenceCase } from "./utils/format";
 
 const LANE_N = 12;
 const BROWSE_N = 30;
@@ -20,7 +21,8 @@ export default function App() {
   // state instead of a misleading "no pairings" message.
   const [lanesKey, setLanesKey] = useState("");
   const [looScores, setLooScores] = useState<Map<number, number>>(new Map());
-  const [matchingRecipes, setMatchingRecipes] = useState<string[]>([]);
+  const [matchingRecipes, setMatchingRecipes] = useState<RecipeMatch[]>([]);
+  const [recipesReady, setRecipesReady] = useState(false);
   const [dataMeta, setDataMeta] = useState<{ source: string; recipes: number } | null>(null);
   const [lang, setLang] = useState<"en" | "fr">("en");
   const [query, setQuery] = useState("");
@@ -39,8 +41,13 @@ export default function App() {
         setDataMeta(getDataMeta());
         setStatus({ state: "ready" });
         // Warm the rarity-stats cache in the background so the first ingredient
-        // selection doesn't pay for it (issue: empty/stalled first selection).
-        const warm = () => warmCaches();
+        // selection doesn't pay for it (issue: empty/stalled first selection),
+        // and lazily fetch the recipe corpus (issue #56) off the paint path so
+        // its size never gates startup — recipe suggestions appear once ready.
+        const warm = () => {
+          warmCaches();
+          loadRecipes().then(() => { if (areRecipesReady()) setRecipesReady(true); });
+        };
         if (typeof requestIdleCallback === "function") requestIdleCallback(warm);
         else setTimeout(warm, 0);
       })
@@ -62,10 +69,12 @@ export default function App() {
     }
     const ids = selectedIngredients.map((i) => i.id);
     setLanes(getRecommendationsByCategory(ids, ingredients, LANE_N));
-    setMatchingRecipes(getRecipesForIngredients(ids));
+    // Recipe suggestions kick in once the selection is meaningful (≥2), matching
+    // the issue's "once I have selected enough ingredients"; refines on each add.
+    setMatchingRecipes(ids.length >= 2 ? getRecipeMatches(ids, lang) : []);
     setLooScores(computeLooScores(ids));
     setLanesKey(selectionKey);
-  }, [selectedIngredients, status, ingredients, selectionKey]);
+  }, [selectedIngredients, status, ingredients, selectionKey, lang, recipesReady]);
 
   // True in the brief window after a selection change but before the compute
   // effect (which runs after paint) has produced lanes for it.
@@ -255,28 +264,12 @@ export default function App() {
                   computing={computing}
                 />
 
-                {matchingRecipes.length > 0 && (
-                  <div className="mt-6">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="flex-1 h-px bg-white/10" />
-                      <span className="text-xs text-white/30 uppercase tracking-wider shrink-0">
-                        {lang === "fr" ? "Recettes" : "Recipes"}
-                      </span>
-                      <div className="flex-1 h-px bg-white/10" />
-                    </div>
-                    <ul className="space-y-2">
-                      {matchingRecipes.map((title) => (
-                        <li key={title} className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl px-4 py-3">
-                          <svg className="w-4 h-4 text-white/30 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                            <path strokeLinecap="round" strokeLinejoin="round"
-                              d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                          </svg>
-                          <span className="text-sm text-white/70">{sentenceCase(title)}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+                <RecipeList
+                  matches={matchingRecipes}
+                  lang={lang}
+                  translate={translate}
+                  loading={selectedIngredients.length >= 2 && !recipesReady}
+                />
               </>
             )}
           </section>

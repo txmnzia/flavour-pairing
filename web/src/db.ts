@@ -7,9 +7,32 @@ interface RawPairings {
   p: Record<string, [number, number][]>;  // "ingredientIdx" → [[pairedIdx, score*100], …]
 }
 
+// recipes.json v2 (issue #56). Integer-encoded to keep the payload small:
+// `ing` is the corpus ingredient vocabulary (canonical names, a subset of the
+// deployed pairings `i`); each recipe references local indices into it.
 interface RawRecipes {
   v: number;
-  r: [string, string[]][];               // [title, [ingredientName, …]][]
+  meta?: { source?: string; recipes?: number; en?: number; fr?: number };
+  ing: string[];                                 // canonical ingredient vocabulary
+  r: [string, number[], string, string][];       // [title, localIngIdx[], url, lang]
+}
+
+// A recipe after the vocabulary is resolved to DEPLOYED ingredient ids.
+interface RecipeRec {
+  title: string;
+  ings: number[];   // deployed ingredient ids (deduped, unknown refs dropped)
+  url: string;
+  lang: string;     // "en" | "fr"
+}
+
+// A ranked recipe suggestion for a selection (issue #56).
+export interface RecipeMatch {
+  title: string;
+  url: string;
+  lang: string;
+  used: string[];       // names of the SELECTED ingredients this recipe uses
+  missing: number;      // how many other ingredients the recipe needs
+  approximate: boolean; // true when shown as a "closest match" (below the gate)
 }
 
 // Taxonomy (issue #41): name → { c: category, b?: base/culinary parent }
@@ -18,17 +41,19 @@ let taxonomy: Record<string, TaxEntry> = {};
 
 let raw: RawPairings | null = null;
 
-// Recipe inverted index: ingredientId → list of recipe indices
-let recipeIndex: Map<number, number[]> | null = null;
-let recipeTitles: string[] | null = null;
+// Recipes (issue #56), loaded lazily after the app is interactive.
+let recipes: RecipeRec[] | null = null;
+let recipeIndex: Map<number, number[]> | null = null;  // deployedIngId → recipe indices
+let recipesReady = false;
 
 export async function loadDatabase(onProgress: (msg: string) => void): Promise<void> {
   onProgress("Fetching pairing data…");
 
   const base = import.meta.env.BASE_URL;
-  const [pairingsRes, recipesRes, taxonomyRes] = await Promise.allSettled([
+  // recipes.json is fetched separately by loadRecipes() so its size never gates
+  // first paint (issue #56).
+  const [pairingsRes, taxonomyRes] = await Promise.allSettled([
     fetch(base + "pairings.json"),
-    fetch(base + "recipes.json"),
     fetch(base + "taxonomy.json"),
   ]);
 
@@ -43,36 +68,69 @@ export async function loadDatabase(onProgress: (msg: string) => void): Promise<v
   raw = await pairingsRes.value.json() as RawPairings;
   rarityStats = null;   // rebuilt lazily from the new data
 
-  if (recipesRes.status === "fulfilled" && recipesRes.value.ok) {
-    const rawRecipes = await recipesRes.value.json() as RawRecipes;
-    buildRecipeIndex(rawRecipes);
-  }
-
   // Optional: without it the engine degrades to raw NPMI ranking
   if (taxonomyRes.status === "fulfilled" && taxonomyRes.value.ok) {
     taxonomy = await taxonomyRes.value.json() as Record<string, TaxEntry>;
   }
 }
 
+// Fetch and index the recipe corpus (issue #56). Called after the app is
+// interactive so the ~MBs of recipe data never block the first render; the
+// recipe suggestions simply appear once this resolves. Safe to call more than
+// once (no-op after the first success) and tolerant of a missing file.
+export async function loadRecipes(): Promise<void> {
+  if (recipesReady || !raw) return;
+  try {
+    const res = await fetch(import.meta.env.BASE_URL + "recipes.json");
+    if (!res.ok) return;
+    const rawRecipes = await res.json() as RawRecipes;
+    buildRecipeIndex(rawRecipes);
+    recipesReady = true;
+  } catch {
+    // No corpus (or a fetch/parse failure) → feature stays hidden.
+  }
+}
+
+export function areRecipesReady(): boolean {
+  return recipesReady;
+}
+
+export function getRecipeCount(): number {
+  return recipes?.length ?? 0;
+}
+
 function buildRecipeIndex(rawRecipes: RawRecipes): void {
-  if (!raw || !rawRecipes.r?.length) return;
+  if (!raw || !rawRecipes.ing?.length || !rawRecipes.r?.length) return;
 
+  // Resolve the corpus vocabulary to deployed ingredient ids once; a name that
+  // did not survive curation resolves to undefined and its refs are dropped.
   const nameToId = new Map(raw.i.map((name, id) => [name, id]));
-  recipeTitles = rawRecipes.r.map(([title]) => title);
-  recipeIndex = new Map();
+  const vocabToId = rawRecipes.ing.map((name) => nameToId.get(name));
 
-  rawRecipes.r.forEach(([_title, ingNames], rIdx) => {
-    for (const name of ingNames) {
-      const id = nameToId.get(name);
-      if (id === undefined) continue;
-      const existing = recipeIndex!.get(id);
-      if (existing) {
-        existing.push(rIdx);
-      } else {
-        recipeIndex!.set(id, [rIdx]);
-      }
+  const built: RecipeRec[] = [];
+  const index = new Map<number, number[]>();
+
+  for (const [title, localIdxs, url, lang] of rawRecipes.r) {
+    const ids: number[] = [];
+    const seen = new Set<number>();
+    for (const li of localIdxs) {
+      const id = vocabToId[li];
+      if (id === undefined || seen.has(id)) continue;
+      seen.add(id);
+      ids.push(id);
     }
-  });
+    if (ids.length === 0) continue;   // nothing joins → useless for matching
+    const rIdx = built.length;
+    built.push({ title, ings: ids, url, lang });
+    for (const id of ids) {
+      const existing = index.get(id);
+      if (existing) existing.push(rIdx);
+      else index.set(id, [rIdx]);
+    }
+  }
+
+  recipes = built;
+  recipeIndex = index;
 }
 
 function requireRaw(): RawPairings {
@@ -355,18 +413,128 @@ export function computeLooScores(selectedIds: number[]): Map<number, number> {
   return result;
 }
 
-export function getRecipesForIngredients(ids: number[], limit = 8): string[] {
-  if (!recipeTitles || !recipeIndex || ids.length === 0) return [];
+// Recipe ranking (issue #56). The old logic was a strict AND-intersection: a
+// recipe had to contain EVERY selected ingredient, so two ingredients that
+// never co-occur produced zero results and pairing strength was ignored.
+// Instead we score every recipe that shares a meaningful subset of the
+// selection and re-rank as ingredients are added, so the list refines without
+// ever hard-dead-ending. Weights live here as tunable knobs, like the pairing
+// ranking constants above.
+const RW_COVER_YOU = 1.0;    // fraction of the SELECTION the recipe satisfies (primary)
+const RW_MATCHED = 0.5;      // absolute overlap, diminishing (matched / (matched + K))
+const RW_MATCHED_K = 3;
+const RW_PAIRING = 0.6;      // do the matched ingredients pair well together (NPMI graph)
+const RW_COVER_RECIPE = 0.3; // how close the recipe is to fully cookable (parsimony)
+const RW_EXTRAS = 0.4;       // shopping-gap penalty, saturating (extras / (extras + E))
+const RW_EXTRAS_E = 6;
+const RECIPE_SCORE_CAP = 200; // full-score at most this many candidates (perf)
 
-  const firstList = recipeIndex.get(ids[0]);
-  if (!firstList) return [];
-  let candidates = new Set(firstList);
+// Average pairing strength among the selected ingredients a recipe uses — the
+// "these ingredients pair well together in this dish" signal (issue #56).
+// Symmetric max of the two directed NPMI scores; neutral when fewer than two
+// matched so a single-ingredient hit is neither rewarded nor punished here.
+function internalPairing(matchedIds: number[]): number {
+  if (matchedIds.length < 2) return 0.3;
+  let sum = 0;
+  let pairs = 0;
+  for (let a = 0; a < matchedIds.length; a++) {
+    const aPairs = getPairingsForIngredient(matchedIds[a]);
+    for (let b = a + 1; b < matchedIds.length; b++) {
+      const fromA = aPairs.get(matchedIds[b]) ?? 0;
+      const fromB = getPairingsForIngredient(matchedIds[b]).get(matchedIds[a]) ?? 0;
+      sum += Math.max(fromA, fromB);
+      pairs++;
+    }
+  }
+  return pairs === 0 ? 0 : sum / pairs;
+}
 
-  for (let i = 1; i < ids.length; i++) {
-    if (candidates.size === 0) return [];
-    const nextSet = new Set(recipeIndex.get(ids[i]) ?? []);
-    candidates = new Set([...candidates].filter((x) => nextSet.has(x)));
+export function getRecipeMatches(selectedIds: number[], lang: string, limit = 8): RecipeMatch[] {
+  if (!recipes || !recipeIndex || selectedIds.length === 0) return [];
+
+  const n = selectedIds.length;
+  const gate = Math.max(1, Math.round(n * 0.5));   // mirror the pairing engine's 50% coverage rule
+  const selectedSet = new Set(selectedIds);
+
+  // Count how many of the selected ingredients each candidate recipe uses,
+  // walking only the postings of the selected ingredients (no giant unions).
+  const matchCount = new Map<number, number>();
+  for (const sid of selectedIds) {
+    for (const rIdx of recipeIndex.get(sid) ?? []) {
+      matchCount.set(rIdx, (matchCount.get(rIdx) ?? 0) + 1);
+    }
+  }
+  if (matchCount.size === 0) return [];
+
+  // Clear the gate where possible; otherwise fall back to the closest matches
+  // so the section never collapses to nothing.
+  let pool = [...matchCount.entries()].filter(([, c]) => c >= gate);
+  let approximate = false;
+  if (pool.length === 0) {
+    pool = [...matchCount.entries()];
+    approximate = true;
   }
 
-  return [...candidates].slice(0, limit).map((idx) => recipeTitles![idx]);
+  // Prefer the current UI language; borrow the other language only to top up.
+  const primary = pool.filter(([r]) => recipes![r].lang === lang);
+  const secondary = pool.filter(([r]) => recipes![r].lang !== lang);
+  const ordered = (primary.length ? primary : pool);
+  const overflow = primary.length ? secondary : [];
+
+  // Cap the full-scoring set (internalPairing is the only O(m²) step) to the
+  // best-covering candidates.
+  const capped = [...ordered]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, RECIPE_SCORE_CAP);
+
+  const scored = capped.map(([rIdx, matched]) => {
+    const rec = recipes![rIdx];
+    const total = rec.ings.length;
+    const extras = Math.max(0, total - matched);
+    const matchedIds = rec.ings.filter((id) => selectedSet.has(id));
+    const coverageYou = matched / n;
+    const coverageRecipe = total > 0 ? matched / total : 0;
+    const score =
+      RW_COVER_YOU * coverageYou +
+      RW_MATCHED * (matched / (matched + RW_MATCHED_K)) +
+      RW_PAIRING * internalPairing(matchedIds) +
+      RW_COVER_RECIPE * coverageRecipe -
+      RW_EXTRAS * (extras / (extras + RW_EXTRAS_E));
+    return { rIdx, matched, extras, matchedIds, score };
+  });
+
+  scored.sort((a, b) => b.score - a.score || a.extras - b.extras);
+
+  const toMatch = (s: typeof scored[number]): RecipeMatch => {
+    const rec = recipes![s.rIdx];
+    return {
+      title: rec.title,
+      url: rec.url,
+      lang: rec.lang,
+      used: s.matchedIds.map((id) => raw!.i[id]),
+      missing: s.extras,
+      approximate,
+    };
+  };
+
+  const results = scored.slice(0, limit).map(toMatch);
+
+  // Top up with other-language closest matches only if we are short.
+  if (results.length < limit && overflow.length) {
+    const extra = overflow
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, limit - results.length)
+      .map(([rIdx, matched]) => {
+        const rec = recipes![rIdx];
+        return toMatch({
+          rIdx, matched,
+          extras: Math.max(0, rec.ings.length - matched),
+          matchedIds: rec.ings.filter((id) => selectedSet.has(id)),
+          score: 0,
+        });
+      });
+    results.push(...extra);
+  }
+
+  return results;
 }
