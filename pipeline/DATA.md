@@ -184,11 +184,21 @@ is poison") → `build_recipes.py` filters/dedupes/budgets and writes
 `recipes.json` + a manifest + a test fixture. Raw corpora stay gitignored
 (`pipeline/corpora/*/raw/`). Validate with `python3 pipeline/validate_recipes.py`.
 
-The committed corpus is currently a curated **starter set** (`pipeline/recipes/seed/`,
-built by `seed/build_seed.py`) of well-known dishes with Wikipedia source links,
-used until an external corpus (RecipeNLG for EN, a French dump for FR) can be
-ingested through the same pipeline — those hosts are blocked by the sandbox
-egress policy, so the full ingestion runs where the dumps are reachable.
+The committed corpus combines two sources (see
+`pipeline/corpora/marmiton_wikipedia/manifest.json`):
+- **EN** — a curated starter set (`pipeline/recipes/seed/`, built by
+  `seed/build_seed.py`) of well-known dishes with Wikipedia source links.
+- **FR** — ~860 Marmiton recipes from the committed table in
+  `github.com/lvaudor/tuto_texte_Marmiton`, ingested via
+  `adapters/marmiton.py`. Only derived fields ship (title + canonical
+  ingredient ids + the marmiton.org url); the raw table stays gitignored under
+  `pipeline/corpora/marmiton/raw/`. Rebuild: fetch the csv (curl command in the
+  adapter docstring), then
+  `build_recipes.py --input seed/seed_recipes.jsonl --input <marmiton.jsonl>`.
+
+RecipeNLG (the large EN corpus) is still pending — its host is blocked by the
+sandbox egress policy, so that ingestion runs where the dump is reachable, through
+the same `adapters/recipenlg.py` → `build_recipes.py` path.
 
 ---
 

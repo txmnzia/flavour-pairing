@@ -78,6 +78,22 @@ ALIASES = {
     "moule": "mussel",
     "vin blanc": "white wine",
     "vin rouge": "red wine",
+    # High-frequency French staples with a canonical culinary equivalent.
+    "farine": "wheat", "farine de blé": "wheat", "flour": "wheat",
+    "all-purpose flour": "wheat", "wheat flour": "wheat",
+    "gingembre": "ginger",
+    "jaune d'oeuf": "egg yolk", "jaune d'œuf": "egg yolk",
+    "jaunes d'oeufs": "egg yolk", "jaunes d'œufs": "egg yolk",
+    "blanc d'oeuf": "egg white", "blanc d'œuf": "egg white",
+    "blancs d'oeufs": "egg white", "blancs d'œufs": "egg white",
+    "poudre d'amande": "almond flour", "amande en poudre": "almond flour",
+    "amande": "almond", "cassonade": "brown sugar", "sucre roux": "brown sugar",
+    "noix": "walnut", "cerneau de noix": "walnut", "cerneaux de noix": "walnut",
+    "crème de marron": "chestnut", "crème de marrons": "chestnut",
+    "marron": "chestnut", "châtaigne": "chestnut",
+    "coco": "coconut", "noix de coco": "coconut",
+    "coco râpée": "coconut", "coco rapée": "coconut",
+    "abricot": "apricot", "sucre vanillé": "vanilla sugar",
 }
 
 # Leading qualifier words peeled in C3 (English + a few French).
@@ -98,17 +114,26 @@ def strip_accents(s):
                     if not unicodedata.combining(c))
 
 
-def singularise(s):
-    # Deliberately conservative English/French plural rules.
-    for suf, repl in (("ies", "y"), ("ves", "f"), ("oes", "o"), ("aux", "al"),
-                      ("es", ""), ("s", "")):
-        if s.endswith(suf) and len(s) - len(suf) >= 2:
-            return s[: -len(suf)] + repl
-    return s
+def norm(s):
+    return re.sub(r"\s+", " ", strip_accents(s.lower())).strip()
 
 
-def fold(s):
-    return singularise(strip_accents(s.lower()).strip())
+def stems(s):
+    """The string plus conservative singular candidates (EN + FR plurals).
+    Yields multiple forms rather than committing to one aggressive rewrite, so
+    lookups check each against the canonical table (fixes e.g. FR "moules" ->
+    "moule", not "moul")."""
+    yield s
+    if s.endswith("ies") and len(s) > 4:
+        yield s[:-3] + "y"
+    if s.endswith("aux") and len(s) > 4:
+        yield s[:-3] + "al"
+    if s.endswith("x") and len(s) > 3:
+        yield s[:-1]
+    if s.endswith("es") and len(s) > 4:
+        yield s[:-2]
+    if s.endswith("s") and len(s) > 3:
+        yield s[:-1]
 
 
 def deployed_names(pairings_path=PAIRINGS, curation_path=CURATION):
@@ -177,18 +202,27 @@ class Mapper:
             hop = variants.get(name) or ALIASES.get(name)
             return hop if hop in canon_set else None
 
-        # Build folded lookup tables over canonical names + resolvable variants.
-        self.by_fold = {}
+        # Build normalized lookup tables over canonical names + resolvable
+        # variants (accent-folded, not singularised -- singular candidates are
+        # generated at lookup time via stems()).
+        self.by_norm = {}
         for name in self.canonical:
-            self.by_fold.setdefault(fold(name), name)
+            self.by_norm.setdefault(norm(name), name)
         self.variant_to_canon = {}
         for v in variants:
             r = resolve(v)
             if r:
                 self.variant_to_canon[v.lower()] = r
-                self.by_fold.setdefault(fold(v), r)
+                self.by_norm.setdefault(norm(v), r)
 
         self.canon_set = canon_set
+
+    def _norm_lookup(self, text):
+        for cand in stems(norm(text)):
+            hit = self.by_norm.get(cand)
+            if hit:
+                return hit
+        return None
 
     def map_phrase(self, phrase):
         """Return (canonical_name, stage) or (None, 'unmapped')."""
@@ -202,10 +236,10 @@ class Mapper:
         if p in self.variant_to_canon:
             return self.variant_to_canon[p], "C1"
 
-        # C2 normalized (accent-fold + singularise)
-        f = fold(p)
-        if f in self.by_fold:
-            return self.by_fold[f], "C2"
+        # C2 normalized (accent-fold + singular candidates)
+        hit = self._norm_lookup(p)
+        if hit:
+            return hit, "C2"
 
         # C3 head-noun: peel leading qualifiers, then try shrinking tails
         words = [w for w in re.split(r"[\s,]+", p) if w]
@@ -217,14 +251,14 @@ class Mapper:
                     return cand, "C3"
                 if cand in self.variant_to_canon:
                     return self.variant_to_canon[cand], "C3"
-                cf = fold(cand)
-                if cf in self.by_fold:
-                    return self.by_fold[cf], "C3"
+                hit = self._norm_lookup(cand)
+                if hit:
+                    return hit, "C3"
 
         # C5 fuzzy: high cutoff, typos/spacing only
-        m = get_close_matches(f, list(self.by_fold.keys()), n=1, cutoff=FUZZY_CUTOFF)
+        m = get_close_matches(norm(p), list(self.by_norm.keys()), n=1, cutoff=FUZZY_CUTOFF)
         if m:
-            return self.by_fold[m[0]], "C5"
+            return self.by_norm[m[0]], "C5"
 
         return None, "unmapped"
 

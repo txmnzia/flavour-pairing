@@ -136,10 +136,9 @@ export default function App() {
         : `${ingCount} ingredients · FlavorGraph (Apache 2.0)`;
     }
     const recCount = dataMeta.recipes.toLocaleString();
-    const src = dataMeta.source === "recipenlg" ? "RecipeNLG" : "RecipeNLG + Marmiton";
     return lang === "fr"
-      ? `Basé sur ${ingCount} ingrédients issus de ${recCount} recettes · ${src}`
-      : `Based on ${ingCount} ingredients from ${recCount} recipes · ${src}`;
+      ? `Basé sur ${ingCount} ingrédients et ${recCount} recettes`
+      : `Based on ${ingCount} ingredients and ${recCount} recipes`;
   }, [isReady, ingredients, dataMeta, lang]);
 
   return (
