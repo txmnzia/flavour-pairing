@@ -56,6 +56,18 @@ export default defineConfig({
             },
           },
           {
+            // recipes.json (issue #56) is large and changes rarely, and is fetched
+            // off the paint path — serve from cache and revalidate in the
+            // background. NOT added to includeAssets (that would precache MBs into
+            // the SW install); runtime-cached on first use instead.
+            urlPattern: /recipes\.json$/,
+            handler: "StaleWhileRevalidate",
+            options: {
+              cacheName: "recipes-data",
+              expiration: { maxEntries: 1, maxAgeSeconds: 60 * 60 * 24 * 30 },
+            },
+          },
+          {
             urlPattern: /ingredient-images\/manifest\.json$/,
             handler: "StaleWhileRevalidate",
             options: {
