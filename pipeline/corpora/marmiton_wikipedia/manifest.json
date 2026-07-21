@@ -1,0 +1,8 @@
+{
+  "source": "marmiton+wikipedia",
+  "recipes": 908,
+  "en": 47,
+  "fr": 861,
+  "vocabulary": 191,
+  "license": "derived fields only (title + canonical ingredient ids + source url); see pipeline/DATA.md"
+}
