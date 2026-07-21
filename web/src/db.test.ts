@@ -14,9 +14,11 @@ import { fileURLToPath } from "node:url";
 import path from "node:path";
 import {
   loadDatabase,
+  loadRecipes,
   getAllIngredients,
   getRecommendations,
   getRecommendationsByCategory,
+  getRecipeMatches,
   computeLooScores,
 } from "./db";
 import type { Ingredient, Pairing } from "./types";
@@ -24,6 +26,7 @@ import type { Ingredient, Pairing } from "./types";
 const here = path.dirname(fileURLToPath(import.meta.url));
 const DEPLOYED = path.join(here, "..", "test", ".deployed.json");
 const TAXONOMY = path.join(here, "..", "public", "taxonomy.json");
+const RECIPES_FIXTURE = path.join(here, "..", "test", "fixtures", "recipes.sample.json");
 
 let ingredients: Ingredient[];
 let taxonomy: Record<string, { c: string; b?: string }>;
@@ -46,9 +49,9 @@ beforeAll(async () => {
   const files: Record<string, string> = {
     "pairings.json": DEPLOYED,
     "taxonomy.json": TAXONOMY,
+    "recipes.json": RECIPES_FIXTURE,   // recipe fixture for the #56 probes
   };
-  // Serve local files through the fetch()es loadDatabase makes;
-  // recipes.json intentionally 404s (not deployed).
+  // Serve local files through the fetch()es loadDatabase/loadRecipes make.
   globalThis.fetch = (async (url: string) => {
     const name = Object.keys(files).find((f) => String(url).endsWith(f));
     if (!name) return { ok: false, status: 404 } as Response;
@@ -57,6 +60,7 @@ beforeAll(async () => {
   }) as typeof fetch;
 
   await loadDatabase(() => {});
+  await loadRecipes();
   ingredients = getAllIngredients();
   taxonomy = JSON.parse(readFileSync(TAXONOMY, "utf-8"));
 });
@@ -274,5 +278,60 @@ describe("LOO outlier detection", () => {
       expect(v).toBeGreaterThanOrEqual(0);
       expect(v).toBeLessThanOrEqual(1);
     }
+  });
+});
+
+// Recipe suggestions (#56). Exercised against the committed fixture corpus
+// (web/test/fixtures/recipes.sample.json) loaded through the fetch shim above.
+describe("recipe matching (#56)", () => {
+  const match = (names: string[], lang = "en") =>
+    getRecipeMatches(names.map((n) => byName(n).id), lang, 8);
+
+  it("suggests recipes that share the selection (tomato + basil)", () => {
+    const titles = match(["tomato", "basil"]).map((m) => m.title);
+    expect(titles.length).toBeGreaterThan(0);
+    // at least one canonical tomato+basil dish surfaces
+    expect(titles.some((t) => /margherita|caprese|bruschetta|pomodoro|pesto/i.test(t)))
+      .toBe(true);
+  });
+
+  it("refines (not dead-ends) as ingredients are added", () => {
+    const two = match(["tomato", "basil"]).map((m) => m.title);
+    const three = match(["tomato", "basil", "mozzarella cheese"]).map((m) => m.title);
+    expect(three.length).toBeGreaterThan(0);
+    // a dish using all three should now rank into the list
+    expect(three.some((t) => /margherita|caprese/i.test(t))).toBe(true);
+    // adding an ingredient must not silently empty the list
+    expect(two.length).toBeGreaterThan(0);
+  });
+
+  it("reports which selected ingredients each recipe uses, and the gap", () => {
+    for (const m of match(["tomato", "basil"])) {
+      expect(m.used.length).toBeGreaterThan(0);
+      expect(m.used.every((u) => ["tomato", "basil"].includes(u))).toBe(true);
+      expect(m.missing).toBeGreaterThanOrEqual(0);
+      expect(typeof m.url).toBe("string");
+    }
+  });
+
+  it("prefers recipes in the current language", () => {
+    const fr = match(["tomato", "garlic"], "fr");
+    expect(fr.length).toBeGreaterThan(0);
+    expect(fr.some((m) => m.lang === "fr")).toBe(true);
+  });
+
+  it("never hard-dead-ends, and flags approximate results uniformly", () => {
+    // A scattered selection that no single fixture recipe covers to the gate
+    // still returns an array rather than throwing or hanging.
+    const res = match(["chocolate", "mussel", "tarragon", "cinnamon"]);
+    expect(Array.isArray(res)).toBe(true);
+    // the approximate flag is a property of the whole result set, never mixed
+    expect(new Set(res.map((m) => m.approximate)).size).toBeLessThanOrEqual(1);
+    // a genuinely co-occurring selection is exact, never the fallback
+    expect(match(["tomato", "basil"]).every((m) => m.approximate === false)).toBe(true);
+  });
+
+  it("empty selection yields no recipes", () => {
+    expect(getRecipeMatches([], "en", 8)).toEqual([]);
   });
 });

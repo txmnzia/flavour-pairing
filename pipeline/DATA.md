@@ -150,6 +150,46 @@ python pipeline/apply_curation_json.py
 python pipeline/apply_curation_json.py path/to/curation.json path/to/pairings.json
 ```
 
+### `web/public/recipes.json` — recipe corpus (committed, generated)
+
+Powers the "from ingredients to recipes" suggestions (issue #56). **Derived and
+regenerable — not a hand-owned database like `pairings.json`.** Integer-encoded
+to keep the payload small and lazy-loaded by the client after first paint (never
+gates startup).
+
+```json
+{ "v": 2,
+  "meta": { "source": "...", "recipes": N, "en": N, "fr": N },
+  "ing": ["onion", "lemon", ...],                       // canonical vocabulary
+  "r":  [["margherita pizza", [0, 5, 12], "https://…", "en"], ...] }
+                                                        // [title, localIngIdx[], url, lang]
+```
+
+- `ing` is the recipe vocabulary: canonical ingredient **names**, a subset of the
+  **deployed** `pairings.json` `i`. Names are the join key (invariant 2); each
+  recipe references compact local indices into `ing`.
+- Client matching (`web/src/db.ts` `getRecipeMatches`) ranks recipes by how much
+  of the selection they use, weighted by pairing strength, penalised by the
+  shopping gap — it never hard-filters, so adding an ingredient refines rather
+  than dead-ends.
+- **Licensing:** only derived fields ship (title + canonical ingredient ids +
+  source url + lang), never recipe method text. Each corpus's license lives in
+  `pipeline/corpora/<source>/manifest.json`.
+
+**Pipeline** (`pipeline/recipes/`, runbook doctrine shared with `ENRICHMENT.md`):
+adapters (`adapters/recipenlg.py`, `adapters/french.py`) turn a raw dump into
+normalized JSONL → `mapping.py` maps each ingredient phrase onto canonical names
+(deterministic cascade C1–C5 + optional model stage, "loss is safe, a wrong map
+is poison") → `build_recipes.py` filters/dedupes/budgets and writes
+`recipes.json` + a manifest + a test fixture. Raw corpora stay gitignored
+(`pipeline/corpora/*/raw/`). Validate with `python3 pipeline/validate_recipes.py`.
+
+The committed corpus is currently a curated **starter set** (`pipeline/recipes/seed/`,
+built by `seed/build_seed.py`) of well-known dishes with Wikipedia source links,
+used until an external corpus (RecipeNLG for EN, a French dump for FR) can be
+ingested through the same pipeline — those hosts are blocked by the sandbox
+egress policy, so the full ingestion runs where the dumps are reachable.
+
 ---
 
 ## Ingredient images (issue #48)

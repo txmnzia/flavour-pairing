@@ -1,0 +1,8 @@
+{
+  "source": "seed",
+  "recipes": 61,
+  "en": 47,
+  "fr": 14,
+  "vocabulary": 87,
+  "license": "derived fields only (title + canonical ingredient ids + source url); see pipeline/DATA.md"
+}
