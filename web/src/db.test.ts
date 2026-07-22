@@ -316,6 +316,22 @@ describe("recipe matching (#56)", () => {
     }
   });
 
+  it("surfaces a recipe covering most of the selection and rates the leftover's fit", () => {
+    // The hero use case (#56): tomato + chicken + basil → poulet basquaise uses
+    // tomato + chicken, and basil is offered as a customisation with a fit score.
+    const res = getRecipeMatches(
+      ["tomato", "chicken", "basil"].map((n) => byName(n).id), "fr", 8
+    );
+    const pb = res.find((m) => /basquaise/i.test(m.title));
+    expect(pb).toBeTruthy();
+    expect(pb!.used).toEqual(expect.arrayContaining(["tomato", "chicken"]));
+    const basil = pb!.suggested.find((s) => s.name === "basil");
+    expect(basil).toBeTruthy();
+    expect(basil!.fit).toBeGreaterThan(0);
+    // a suggested ingredient is never one the recipe already uses
+    for (const s of pb!.suggested) expect(pb!.used).not.toContain(s.name);
+  });
+
   it("reports which selected ingredients each recipe uses, and the gap", () => {
     for (const m of match(["tomato", "basil"])) {
       expect(m.used.length).toBeGreaterThan(0);

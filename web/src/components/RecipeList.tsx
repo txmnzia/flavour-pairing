@@ -8,10 +8,20 @@ interface Props {
   loading: boolean;
 }
 
+// Pairing-fit badge for a leftover ingredient (thresholds calibrated on the NPMI
+// data — see pairingFit in db.ts). Colour + short label so you can judge at a
+// glance how well a selected-but-unused ingredient would fit the dish.
+function fitBadge(fit: number, lang: "en" | "fr"): { cls: string; label: string } {
+  if (fit >= 0.25) return { cls: "bg-emerald-400", label: lang === "fr" ? "excellent" : "great" };
+  if (fit >= 0.1) return { cls: "bg-amber-400", label: lang === "fr" ? "bon" : "good" };
+  return { cls: "bg-white/30", label: lang === "fr" ? "faible" : "weak" };
+}
+
 // Recipe suggestions for the current selection (issue #56). Each card links out
-// to the source recipe, shows which of the selected ingredients it uses, and how
-// many more it needs. `loading` covers the window where the selection is large
-// enough but the (lazily fetched) corpus has not arrived yet.
+// to the source recipe, shows which selected ingredients it already uses, and —
+// for the ones it doesn't — how well they'd pair with the dish, so you can both
+// pick a recipe and judge customising it. `loading` covers the window where the
+// selection is large enough but the (lazily fetched) corpus has not arrived yet.
 export default function RecipeList({ matches, lang, translate, loading }: Props) {
   if (!loading && matches.length === 0) return null;
 
@@ -88,6 +98,27 @@ export default function RecipeList({ matches, lang, translate, loading }: Props)
                             : `+${m.missing} ingredient${m.missing > 1 ? "s" : ""}`}
                         </span>
                       )}
+                    </div>
+                  )}
+                  {m.suggested.length > 0 && (
+                    <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
+                      <span className="text-[11px] text-white/30 uppercase tracking-wide">
+                        {lang === "fr" ? "À ajouter" : "Add"}
+                      </span>
+                      {m.suggested.map(({ name, fit }) => {
+                        const b = fitBadge(fit, lang);
+                        return (
+                          <span
+                            key={name}
+                            className="inline-flex items-center gap-1.5 text-[11px] bg-white/5 border border-white/10 text-white/70 rounded-full px-2 py-0.5"
+                            title={lang === "fr" ? "Compatibilité avec la recette" : "How well it pairs with this recipe"}
+                          >
+                            {translate(name)}
+                            <span className={`w-1.5 h-1.5 rounded-full ${b.cls}`} aria-hidden />
+                            <span className="text-white/40">{b.label}</span>
+                          </span>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
