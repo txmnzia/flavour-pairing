@@ -31,7 +31,10 @@ export interface RecipeMatch {
   url: string;
   lang: string;
   used: string[];       // names of the SELECTED ingredients this recipe uses
-  missing: number;      // how many other ingredients the recipe needs
+  // SELECTED ingredients the recipe does NOT use, each with how well it would
+  // pair with the dish (0–1) — "you could add basil, it fits" customisation.
+  suggested: { name: string; fit: number }[];
+  missing: number;      // how many other (unselected) ingredients the recipe needs
   approximate: boolean; // true when shown as a "closest match" (below the gate)
 }
 
@@ -427,6 +430,7 @@ const RW_PAIRING = 0.6;      // do the matched ingredients pair well together (N
 const RW_COVER_RECIPE = 0.3; // how close the recipe is to fully cookable (parsimony)
 const RW_EXTRAS = 0.4;       // shopping-gap penalty, saturating (extras / (extras + E))
 const RW_EXTRAS_E = 6;
+const RW_SUGG_FIT = 0.5;     // reward recipes where your LEFTOVER picks pair well (mild)
 const RECIPE_SCORE_CAP = 200; // full-score at most this many candidates (perf)
 // A recipe must share at least this many of the selected ingredients to be
 // worth suggesting — a single-ingredient overlap (e.g. every dessert that just
@@ -453,6 +457,27 @@ function internalPairing(matchedIds: number[]): number {
     }
   }
   return pairs === 0 ? 0 : sum / pairs;
+}
+
+// How well one ingredient would pair with a whole dish (issue #56 — the "how
+// well would basil fit this recipe" signal for customising a suggestion). Mean
+// of its strongest few pairings with the recipe's ingredients, not the plain
+// mean: fitting the dish's hero ingredients is what matters, and averaging over
+// every ingredient (incl. neutral ones like onion) would dilute a real match.
+const FIT_TOPK = 3;
+function pairingFit(ingId: number, recipeIngs: number[]): number {
+  const pairs = getPairingsForIngredient(ingId);
+  const scores: number[] = [];
+  for (const r of recipeIngs) {
+    if (r === ingId) continue;
+    const a = pairs.get(r) ?? 0;
+    const b = getPairingsForIngredient(r).get(ingId) ?? 0;
+    scores.push(Math.max(a, b));
+  }
+  if (scores.length === 0) return 0;
+  scores.sort((x, y) => y - x);
+  const top = scores.slice(0, FIT_TOPK);
+  return top.reduce((s, x) => s + x, 0) / top.length;
 }
 
 export function getRecipeMatches(selectedIds: number[], lang: string, limit = 8): RecipeMatch[] {
@@ -500,31 +525,44 @@ export function getRecipeMatches(selectedIds: number[], lang: string, limit = 8)
     .sort((a, b) => b[1] - a[1])
     .slice(0, RECIPE_SCORE_CAP);
 
-  const scored = capped.map(([rIdx, matched]) => {
+  const scoreRecipe = (rIdx: number, matched: number) => {
     const rec = recipes![rIdx];
+    const recSet = new Set(rec.ings);
     const total = rec.ings.length;
-    const extras = Math.max(0, total - matched);
+    const extras = Math.max(0, total - matched);            // recipe's own shopping gap
     const matchedIds = rec.ings.filter((id) => selectedSet.has(id));
+    // Selected ingredients the recipe lacks — the customisation candidates,
+    // each rated by how well it pairs with the whole dish.
+    const suggested = selectedIds
+      .filter((id) => !recSet.has(id))
+      .map((id) => ({ name: raw!.i[id], fit: pairingFit(id, rec.ings) }))
+      .sort((a, b) => b.fit - a.fit);
+    const avgSuggFit = suggested.length
+      ? suggested.reduce((s, x) => s + x.fit, 0) / suggested.length
+      : 0;
     const coverageYou = matched / n;
     const coverageRecipe = total > 0 ? matched / total : 0;
     const score =
       RW_COVER_YOU * coverageYou +
       RW_MATCHED * (matched / (matched + RW_MATCHED_K)) +
       RW_PAIRING * internalPairing(matchedIds) +
-      RW_COVER_RECIPE * coverageRecipe -
+      RW_COVER_RECIPE * coverageRecipe +
+      RW_SUGG_FIT * avgSuggFit -
       RW_EXTRAS * (extras / (extras + RW_EXTRAS_E));
-    return { rIdx, matched, extras, matchedIds, score };
-  });
+    return { rIdx, matched, extras, matchedIds, suggested, score };
+  };
 
+  const scored = capped.map(([rIdx, matched]) => scoreRecipe(rIdx, matched));
   scored.sort((a, b) => b.score - a.score || a.extras - b.extras);
 
-  const toMatch = (s: typeof scored[number]): RecipeMatch => {
+  const toMatch = (s: ReturnType<typeof scoreRecipe>): RecipeMatch => {
     const rec = recipes![s.rIdx];
     return {
       title: rec.title,
       url: rec.url,
       lang: rec.lang,
       used: s.matchedIds.map((id) => raw!.i[id]),
+      suggested: s.suggested,
       missing: s.extras,
       approximate,
     };
@@ -537,15 +575,7 @@ export function getRecipeMatches(selectedIds: number[], lang: string, limit = 8)
     const extra = overflow
       .sort((a, b) => b[1] - a[1])
       .slice(0, limit - results.length)
-      .map(([rIdx, matched]) => {
-        const rec = recipes![rIdx];
-        return toMatch({
-          rIdx, matched,
-          extras: Math.max(0, rec.ings.length - matched),
-          matchedIds: rec.ings.filter((id) => selectedSet.has(id)),
-          score: 0,
-        });
-      });
+      .map(([rIdx, matched]) => toMatch(scoreRecipe(rIdx, matched)));
     results.push(...extra);
   }
 
