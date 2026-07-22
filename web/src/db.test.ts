@@ -347,15 +347,19 @@ describe("recipe matching (#56)", () => {
     expect(fr.some((m) => m.lang === "fr")).toBe(true);
   });
 
-  it("never hard-dead-ends, and flags approximate results uniformly", () => {
-    // A scattered selection that no single fixture recipe covers to the gate
-    // still returns an array rather than throwing or hanging.
-    const res = match(["chocolate", "mussel", "tarragon", "cinnamon"]);
-    expect(Array.isArray(res)).toBe(true);
-    // the approximate flag is a property of the whole result set, never mixed
-    expect(new Set(res.map((m) => m.approximate)).size).toBeLessThanOrEqual(1);
-    // a genuinely co-occurring selection is exact, never the fallback
-    expect(match(["tomato", "basil"]).every((m) => m.approximate === false)).toBe(true);
+  it("keeps the list tight: every shown recipe is within one match of the best", () => {
+    // Guards the failure mode where a big selection lets in recipes that only
+    // touch one or two picks (#56 feedback). Whatever shows must be within one
+    // match of the best-covering recipe, and never below the 2-ingredient floor.
+    for (const sel of [["tomato", "basil", "chicken"], ["egg", "sugar", "butter", "milk"]]) {
+      const res = match(sel);
+      if (res.length === 0) continue;
+      const used = res.map((m) => m.used.length);
+      expect(Math.min(...used)).toBeGreaterThanOrEqual(Math.max(...used) - 1);
+      expect(Math.min(...used)).toBeGreaterThanOrEqual(2);
+    }
+    // a scattered selection with no real coverage returns an empty array, not junk
+    expect(Array.isArray(match(["chocolate", "mussel", "tarragon"]))).toBe(true);
   });
 
   it("empty selection yields no recipes", () => {

@@ -35,7 +35,6 @@ export interface RecipeMatch {
   // pair with the dish (0–1) — "you could add basil, it fits" customisation.
   suggested: { name: string; fit: number }[];
   missing: number;      // how many other (unselected) ingredients the recipe needs
-  approximate: boolean; // true when shown as a "closest match" (below the gate)
 }
 
 // Taxonomy (issue #41): name → { c: category, b?: base/culinary parent }
@@ -432,12 +431,15 @@ const RW_EXTRAS = 0.4;       // shopping-gap penalty, saturating (extras / (extr
 const RW_EXTRAS_E = 6;
 const RW_SUGG_FIT = 0.5;     // reward recipes where your LEFTOVER picks pair well (mild)
 const RECIPE_SCORE_CAP = 200; // full-score at most this many candidates (perf)
-// A recipe must share at least this many of the selected ingredients to be
-// worth suggesting — a single-ingredient overlap (e.g. every dessert that just
-// contains "sugar") is noise. The requirement grows with the selection up to a
-// cap, so it stays "at least 2, up to 4" rather than demanding the whole set.
+// How much of the selection a recipe must cover to be worth showing. A fixed
+// floor (never a single-ingredient overlap, at least ~60% of the picks) keeps
+// out near-misses; a dynamic floor then raises the bar to within one match of
+// the BEST recipe available, so when something covers most of your selection the
+// long tail that only shares one or two ingredients drops out instead of padding
+// the list (issue #56 feedback).
 const RECIPE_MIN_MATCH = 2;
-const RECIPE_MAX_MATCH = 4;
+const RECIPE_COVER_FRACTION = 0.6;
+const RECIPE_COVER_TOLERANCE = 1;
 
 // Average pairing strength among the selected ingredients a recipe uses — the
 // "these ingredients pair well together in this dish" signal (issue #56).
@@ -484,12 +486,6 @@ export function getRecipeMatches(selectedIds: number[], lang: string, limit = 8)
   if (!recipes || !recipeIndex || selectedIds.length === 0) return [];
 
   const n = selectedIds.length;
-  // Require ≥2 matched ingredients (never a single-ingredient hit), rising with
-  // the selection toward a cap of 4, and never more than the selection itself.
-  const gate = Math.min(
-    n,
-    Math.max(RECIPE_MIN_MATCH, Math.min(RECIPE_MAX_MATCH, Math.ceil(n * 0.6)))
-  );
   const selectedSet = new Set(selectedIds);
 
   // Count how many of the selected ingredients each candidate recipe uses,
@@ -502,15 +498,17 @@ export function getRecipeMatches(selectedIds: number[], lang: string, limit = 8)
   }
   if (matchCount.size === 0) return [];
 
-  // Clear the gate where possible; if nothing does, fall back to the closest
-  // matches — but never below the 2-ingredient floor. Better to show nothing
-  // than recipes that share a single ingredient.
-  let pool = [...matchCount.entries()].filter(([, c]) => c >= gate);
-  let approximate = false;
-  if (pool.length === 0 && gate > RECIPE_MIN_MATCH) {
-    pool = [...matchCount.entries()].filter(([, c]) => c >= RECIPE_MIN_MATCH);
-    approximate = true;
-  }
+  // Fixed floor: ≥2 matches and ≥60% of the selection, never more than n.
+  const staticGate = Math.min(
+    n, Math.max(RECIPE_MIN_MATCH, Math.ceil(n * RECIPE_COVER_FRACTION))
+  );
+  // Dynamic floor: also stay within one match of the best recipe available, so a
+  // near-perfect match squeezes out the weak ones. If even the best clears only
+  // part of the static floor, nothing shows — better empty than irrelevant.
+  const maxMatched = Math.max(...matchCount.values());
+  const gate = Math.max(staticGate, maxMatched - RECIPE_COVER_TOLERANCE);
+
+  const pool = [...matchCount.entries()].filter(([, c]) => c >= gate);
   if (pool.length === 0) return [];
 
   // Prefer the current UI language; borrow the other language only to top up.
@@ -564,7 +562,6 @@ export function getRecipeMatches(selectedIds: number[], lang: string, limit = 8)
       used: s.matchedIds.map((id) => raw!.i[id]),
       suggested: s.suggested,
       missing: s.extras,
-      approximate,
     };
   };
 

@@ -25,8 +25,6 @@ function fitBadge(fit: number, lang: "en" | "fr"): { cls: string; label: string 
 export default function RecipeList({ matches, lang, translate, loading }: Props) {
   if (!loading && matches.length === 0) return null;
 
-  const approximate = matches.length > 0 && matches.every((m) => m.approximate);
-
   return (
     <div className="mt-6">
       <div className="flex items-center gap-3 mb-3">
@@ -36,14 +34,6 @@ export default function RecipeList({ matches, lang, translate, loading }: Props)
         </span>
         <div className="flex-1 h-px bg-white/10" />
       </div>
-
-      {approximate && (
-        <p className="text-xs text-white/40 mb-3">
-          {lang === "fr"
-            ? "Aucune recette ne réunit toute la sélection — voici les plus proches."
-            : "No recipe uses your whole selection — here are the closest matches."}
-        </p>
-      )}
 
       {loading && matches.length === 0 ? (
         <div className="flex items-center gap-2 text-sm text-white/40 px-1 py-2">
